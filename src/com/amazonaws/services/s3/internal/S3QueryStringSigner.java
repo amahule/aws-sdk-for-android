@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -14,17 +14,15 @@
  */
 package com.amazonaws.services.s3.internal;
 
-import java.security.SignatureException;
 import java.util.Date;
 
+import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AbstractAWSSigner;
 import com.amazonaws.auth.SigningAlgorithm;
 
 public class S3QueryStringSigner<T> extends AbstractAWSSigner {
-    /** AWS Credentials */
-    private final AWSCredentials credentials;
 
     /**
      * The HTTP verb (GET, PUT, HEAD, DELETE) the request to sign
@@ -53,8 +51,7 @@ public class S3QueryStringSigner<T> extends AbstractAWSSigner {
     private final Date expiration;
 
 
-    public S3QueryStringSigner(AWSCredentials credentials, String httpVerb, String resourcePath, Date expiration) {
-        this.credentials = credentials;
+    public S3QueryStringSigner(String httpVerb, String resourcePath, Date expiration) {
         this.httpVerb = httpVerb;
         this.resourcePath = resourcePath;
         this.expiration = expiration;
@@ -63,23 +60,19 @@ public class S3QueryStringSigner<T> extends AbstractAWSSigner {
             throw new IllegalArgumentException("Parameter resourcePath is empty");
     }
 
-    public void sign(Request<T> request) throws SignatureException {
+    public void sign(Request<?> request, AWSCredentials credentials) throws AmazonClientException {
         String expirationInSeconds = Long.toString(expiration.getTime() / 1000L);
 
         String canonicalString = RestUtils.makeS3CanonicalString(
                 httpVerb, resourcePath, request, expirationInSeconds);
 
-        String secretKey;
-        String accessKeyId;
-        synchronized (credentials) {
-            secretKey = credentials.getAWSSecretKey();
-            accessKeyId = credentials.getAWSAccessKeyId();
-        }
+        AWSCredentials sanitizedCredentials = sanitizeCredentials(credentials);
 
-        String signature = super.sign(canonicalString, secretKey, SigningAlgorithm.HmacSHA1);
+        String signature = super.sign(canonicalString, sanitizedCredentials.getAWSSecretKey(), SigningAlgorithm.HmacSHA1);
 
-        request.addParameter("AWSAccessKeyId", accessKeyId);
+        request.addParameter("AWSAccessKeyId", sanitizedCredentials.getAWSAccessKeyId());
         request.addParameter("Expires", expirationInSeconds);
         request.addParameter("Signature", signature);
     }
+
 }

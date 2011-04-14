@@ -55,16 +55,21 @@
 <h3>Package Contents</h3>
 <p>After unzipping the AWS SDK for Android package, you'll find the following contents:</p>
 <ul>
-  <li><strong>documentation</strong>- Contains the JavaDocs for all of the relevant portions of the  SDK.</li>
+  <li><strong>documentation</strong>- Contains the JavaDocs for all of the relevant portions of the SDK.</li>
   <li><strong>lib</strong>- Contains  a number of jars to help you better determine how to bundle your  Android application. The .jar files can help with debugging your application or helping reduce  the size of the production application.</li>
   <ul>
-    <li><strong>aws-android-sdk-VERSION-obfuscated.jar</strong>- Contains  all necessary files (including third-party dependencies) for AmazonS3,  SimpleDB, SQS and SNS. All class files are obfuscated and compilation  was done without the debug option. This is the smallest jar file  possible for the SDK.</li>
-    <li><strong>aws-android-sdk-VERSION-debug.jar</strong>- Contains all necessary files (including third-party dependencies). No obfuscation and all codes was compiled  with the debug option on.</li>
-    <li><strong>aws-android-sdk-VERSION-core.jar</strong>- Contains  all third-party dependencies and the base platform used to send and  process requests to AWS services. All services are built using this  classes. The classes were compiled with debug OFF and were obfuscated.</li>
-    <li><strong>aws-android-sdk-VERSION-s3.jar</strong>- Contains  the classes necessary to use Amazon S3. Must be used with the  aws-android-sdk-VERSION-core.jar file. All classes were obfuscated and  are compiled without debug.</li>
-    <li><strong>aws-android-sdk-VERSION-sdb.jar</strong>- Contains  the classes necessary to use Amazon SimpleDB. Must be used  with the aws-android-sdk-VERSION-core.jar file. All classes were  obfuscated and are compiled without debug.</li>
-    <li><strong>aws-android-sdk-VERSION-sqs.jar</strong>- Contains  the classes necessary to use the Amazon SQS. Must be used with the  aws-android-sdk-VERSION-core.jar file. All classes were obfuscated and  are compiled without debug.</li>
-    <li><strong>aws-android-sdk-VERSION-sns.jar</strong>- Contains  the classes necessary to use the Amazon SNS. Must be used with the  aws-android-sdk-VERSION-core.jar file. All classes were obfuscated and  are compiled without debug.</li>
+    <li><strong>aws-android-sdk-VERSION-obfuscated.jar      </strong>- Contains all necessary files (including third-party dependencies) for AmazonS3,  SimpleDB, SQS, SNS, EC2, Autoscaling, SES, CloudWatch and Elastic Load Balancing. All class files are obfuscated and compilation  was done without the debug option. This is the smallest jar file possible for the SDK.</li>
+    <li><strong>aws-android-sdk-VERSION-debug.jar           </strong>- Contains all necessary files (including third-party dependencies). No obfuscation and all codes was compiled  with the debug option on.</li>
+    <li><strong>aws-android-sdk-VERSION-core.jar            </strong>- Contains all third-party dependencies and the base platform used to send and  process requests to AWS services. All services are built using this  classes. The classes were compiled with debug OFF and were obfuscated.</li>
+    <li><strong>aws-android-sdk-VERSION-s3.jar              </strong>- Contains the classes necessary to use Amazon S3.                     Must be used with the aws-android-sdk-VERSION-core.jar file. All classes were obfuscated and were compiled without debug.</li>
+    <li><strong>aws-android-sdk-VERSION-sdb.jar             </strong>- Contains the classes necessary to use Amazon SimpleDB.               Must be used with the aws-android-sdk-VERSION-core.jar file. All classes were obfuscated and were compiled without debug.</li>
+    <li><strong>aws-android-sdk-VERSION-sqs.jar             </strong>- Contains the classes necessary to use Amazon SQS.                    Must be used with the aws-android-sdk-VERSION-core.jar file. All classes were obfuscated and were compiled without debug.</li>
+    <li><strong>aws-android-sdk-VERSION-sns.jar             </strong>- Contains the classes necessary to use Amazon SNS.                    Must be used with the aws-android-sdk-VERSION-core.jar file. All classes were obfuscated and were compiled without debug.</li>
+    <li><strong>aws-android-sdk-VERSION-autoscaling.jar     </strong>- Contains the classes necessary to use Amazon Autoscaling.            Must be used with the aws-android-sdk-VERSION-core.jar file. All classes were obfuscated and were compiled without debug.</li>
+    <li><strong>aws-android-sdk-VERSION-cloudwatch.jar      </strong>- Contains the classes necessary to use Amazon CloudWatch.             Must be used with the aws-android-sdk-VERSION-core.jar file. All classes were obfuscated and were compiled without debug.</li>
+    <li><strong>aws-android-sdk-VERSION-ec2.jar             </strong>- Contains the classes necessary to use Amazon EC2.                    Must be used with the aws-android-sdk-VERSION-core.jar file. All classes were obfuscated and were compiled without debug.</li>
+    <li><strong>aws-android-sdk-VERSION-elb.jar             </strong>- Contains the classes necessary to use Amazon Elastic Load Balancing. Must be used with the aws-android-sdk-VERSION-core.jar file. All classes were obfuscated and were compiled without debug.</li>
+    <li><strong>aws-android-sdk-VERSION-ses.jar             </strong>- Contains the classes necessary to use Amazon SES.                    Must be used with the aws-android-sdk-VERSION-core.jar file. All classes were obfuscated and were compiled without debug.</li>
   </ul>
   <li><strong>samples</strong>- Contains code built using the aws-android-sdk-VERSION-obfuscated.jar library.</li>
   <li><strong>src</strong>- Contains the original source files for the SDK.</li>
@@ -87,10 +92,12 @@
   <li>Edit the Project properties:
     <ol type="a">
       <li>Go to <strong>Project</strong> -&gt;  <strong>Properties</strong>.</li>
+      <li>Select Java Build Path</li>
       <li>Select the  <strong>Libraries</strong> tab.</li>
       <li>Click <strong>Add External JARs</strong>. The Browse dialog box opens.</li>
       <li>Browse to <br />
-        <code>samples/AWSAndroidDemo/lib/aws-android-sdk-1.0.12-obfuscated.jar</code>, then click <strong>Select</strong>.</li>
+        <code>samples/AWSAndroidDemo/lib/aws-android-sdk-X.X.X-debug.jar</code>, then click <strong>Select</strong>.</li>
+      <li>Click OK</li>
     </ol>
   </li>
   <li>Update your AWS Credentials:

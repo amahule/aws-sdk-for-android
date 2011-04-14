@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Portions copyright 2006-2009 James Murty. Please see LICENSE.txt
  * for applicable license terms and NOTICE.txt for applicable notices.
@@ -46,6 +46,7 @@ import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.BucketLoggingConfiguration;
 import com.amazonaws.services.s3.model.BucketNotificationConfiguration;
 import com.amazonaws.services.s3.model.BucketVersioningConfiguration;
+import com.amazonaws.services.s3.model.BucketWebsiteConfiguration;
 import com.amazonaws.services.s3.model.CanonicalGrantee;
 import com.amazonaws.services.s3.model.CompleteMultipartUploadResult;
 import com.amazonaws.services.s3.model.EmailAddressGrantee;
@@ -115,6 +116,7 @@ public class XmlResponsesSaxParser {
             if (log.isDebugEnabled()) {
                 log.debug("Parsing XML response document with handler: " + handler.getClass());
             }
+            
             BufferedReader breader = new BufferedReader(new InputStreamReader(inputStream,
                 Constants.DEFAULT_ENCODING));
             xr.setContentHandler(handler);
@@ -345,6 +347,14 @@ public class XmlResponsesSaxParser {
         BucketVersioningConfigurationHandler handler = new BucketVersioningConfigurationHandler();
         parseXmlInputStream(handler, inputStream);
         return handler;
+    }
+
+    public BucketWebsiteConfigurationHandler parseWebsiteConfigurationResponse(InputStream inputStream)
+    	throws AmazonClientException
+    {
+    	BucketWebsiteConfigurationHandler handler = new BucketWebsiteConfigurationHandler();
+    	parseXmlInputStream(handler, inputStream);
+    	return handler;
     }
 
     public BucketNotificationConfigurationHandler parseNotificationConfigurationResponse(InputStream inputStream)
@@ -741,7 +751,7 @@ public class XmlResponsesSaxParser {
         public void endDocument() {
         }
 
-        public void startElement(String uri, String name, String qName, Attributes attrs) {
+        public void startElement(String uri, String name, String qName, Attributes attrs) {            
             if (name.equals("Owner")) {
                 owner = new Owner();
             } else if (name.equals("AccessControlList")) {
@@ -749,11 +759,12 @@ public class XmlResponsesSaxParser {
                 accessControlList.setOwner(owner);
                 insideACL = true;
             } else if (name.equals("Grantee")) {
-                if ("AmazonCustomerByEmail".equals(attrs.getValue("xsi:type"))) {
+                String type = XmlResponsesSaxParser.findAttributeValue( "xsi:type", attrs );            
+                if ("AmazonCustomerByEmail".equals(type)) {
                     currentGrantee = new EmailAddressGrantee(null);
-                } else if ("CanonicalUser".equals(attrs.getValue("xsi:type"))) {
+                } else if ("CanonicalUser".equals(type)) {
                     currentGrantee = new CanonicalGrantee(null);
-                } else if ("Group".equals(attrs.getValue("xsi:type"))) {
+                } else if ("Group".equals(type)) {
                     /*
                      * Nothing to do for GroupGrantees here since we
                      * can't construct an empty enum value early.
@@ -764,6 +775,7 @@ public class XmlResponsesSaxParser {
 
         public void endElement(String uri, String name, String qName) {
             String elementText = this.currText.toString();
+            
             // Owner details.
             if (name.equals("ID") && !insideACL) {
                 owner.setId(elementText);
@@ -1201,6 +1213,55 @@ public class XmlResponsesSaxParser {
         }
     }
 
+    public class BucketWebsiteConfigurationHandler extends DefaultHandler {
+    	private BucketWebsiteConfiguration configuration = new BucketWebsiteConfiguration(null);
+    	private StringBuilder text;
+
+    	boolean inIndexDocumentElement = false;
+    	boolean inErrorDocumentElement = false;
+
+    	public BucketWebsiteConfiguration getConfiguration() { return configuration; }
+
+        @Override
+        public void startDocument() {
+            text = new StringBuilder();
+        }
+
+        @Override
+        public void startElement(String uri, String name, String qName, Attributes attrs) {
+            if (name.equals("WebsiteConfiguration")) {
+            } else if (name.equals("IndexDocument")) {
+            	inIndexDocumentElement = true;
+            } else if (name.equals("Suffix") && inIndexDocumentElement) {
+            } else if (name.equals("ErrorDocument")) {
+            	inErrorDocumentElement = true;
+            } else if (name.equals("Key") && inErrorDocumentElement) {
+            } else {
+                log.error("Ignoring unexpected tag <"+name+">");
+            }
+        }
+
+        @Override
+        public void endElement(String uri, String name, String qName) throws SAXException {
+            if (name.equals("WebsiteConfiguration")) {
+            } else if (name.equals("IndexDocument")) {
+            	inIndexDocumentElement = false;
+            } else if (name.equals("Suffix") && inIndexDocumentElement) {
+            	configuration.setIndexDocumentSuffix(text.toString());
+            } else if (name.equals("ErrorDocument")) {
+            	inErrorDocumentElement = false;
+            } else if (name.equals("Key") && inErrorDocumentElement) {
+            	configuration.setErrorDocument(text.toString());
+            }
+            text.setLength(0);
+        }
+
+        @Override
+        public void characters(char ch[], int start, int length) {
+            this.text.append(ch, start, length);
+        }
+    }
+
     public class BucketVersioningConfigurationHandler extends DefaultHandler {
         private BucketVersioningConfiguration configuration = new BucketVersioningConfiguration();
         private StringBuilder text;
@@ -1414,6 +1475,8 @@ public class XmlResponsesSaxParser {
      * <ListMultipartUploadsResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
      *     <Bucket>bucket</Bucket>
      *     <KeyMarker></KeyMarker>
+     *     <Delimiter>/</Delimiter>
+     *     <Prefix/>
      *     <UploadIdMarker></UploadIdMarker>
      *     <NextKeyMarker>my-movie.m2ts</NextKeyMarker>
      *     <NextUploadIdMarker>YW55IGlkZWEgd2h5IGVsdmluZydzIHVwbG9hZCBmYWlsZWQ</NextUploadIdMarker>
@@ -1449,6 +1512,12 @@ public class XmlResponsesSaxParser {
      *         <StorageClass>STANDARD</StorageClass>
      *         <Initiated>Wed, 27 Jan 2010 03:02:01 GMT</Initiated>
      *     </Upload>
+     *    <CommonPrefixes>
+     *        <Prefix>photos/</Prefix>
+     *    </CommonPrefixes>
+     *    <CommonPrefixes>
+     *        <Prefix>videos/</Prefix>
+     *    </CommonPrefixes>
      * </ListMultipartUploadsResult>
      */
     public class ListMultipartUploadsHandler extends DefaultHandler {
@@ -1459,6 +1528,8 @@ public class XmlResponsesSaxParser {
         private MultipartUpload currentMultipartUpload;
         private Owner currentOwner;
         private Owner currentInitiator;
+
+        boolean inCommonPrefixes = false;
 
         public MultipartUploadListing getListMultipartUploadsResult() {
             return result;
@@ -1475,6 +1546,7 @@ public class XmlResponsesSaxParser {
                 result = new MultipartUploadListing();
             } else if (name.equals("Bucket")) {
             } else if (name.equals("KeyMarker")) {
+            } else if (name.equals("Delimiter")) {
             } else if (name.equals("UploadIdMarker")) {
             } else if (name.equals("NextKeyMarker")) {
             } else if (name.equals("NextUploadIdMarker")) {
@@ -1492,6 +1564,8 @@ public class XmlResponsesSaxParser {
             } else if (name.equals("DisplayName")) {
             } else if (name.equals("StorageClass")) {
             } else if (name.equals("Initiated")) {
+            } else if (name.equals("CommonPrefixes")) {
+            	inCommonPrefixes = true;
             }
             text.setLength(0);
         }
@@ -1503,6 +1577,12 @@ public class XmlResponsesSaxParser {
                 result.setBucketName(text.toString());
             } else if (name.equals("KeyMarker")) {
                 result.setKeyMarker(checkForEmptyString(text.toString()));
+            } else if (name.equals("Delimiter")) {
+                result.setDelimiter(checkForEmptyString(text.toString()));
+            } else if (name.equals("Prefix") && inCommonPrefixes == false) {
+            	result.setPrefix(checkForEmptyString(text.toString()));
+            } else if (name.equals("Prefix") && inCommonPrefixes == true) {
+            	result.getCommonPrefixes().add(text.toString());
             } else if (name.equals("UploadIdMarker")) {
                 result.setUploadIdMarker(checkForEmptyString(text.toString()));
             } else if (name.equals("NextKeyMarker")) {
@@ -1543,6 +1623,8 @@ public class XmlResponsesSaxParser {
                             "Non-ISO8601 date for Initiated in initiate multipart upload result: "
                             + text.toString(), e);
                 }
+            } else if (name.equals("CommonPrefixes")) {
+            	inCommonPrefixes = false;
             }
         }
 
@@ -1757,4 +1839,16 @@ public class XmlResponsesSaxParser {
             this.text.append(ch, start, length);
         }
     }
+    
+    
+    private static String findAttributeValue( String qnameToFind, Attributes attrs ) {
+        for ( int i = 0; i < attrs.getLength(); i++ ) {
+            String qname = attrs.getQName( i );
+            if ( qname.trim().equalsIgnoreCase( qnameToFind.trim() ) ) {
+                return attrs.getValue( i );
+            }
+        }
+
+        return null;        
+    } 
 }

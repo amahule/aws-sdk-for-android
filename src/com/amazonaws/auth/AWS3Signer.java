@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -14,11 +14,13 @@
  */
 package com.amazonaws.auth;
 
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.security.MessageDigest;
-import java.security.SignatureException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
-import java.util.Locale;
+import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -27,8 +29,10 @@ import java.util.UUID;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.util.DateUtils;
+import com.amazonaws.util.HttpUtils;
 
 /**
  * Signer implementation that signs requests with the AWS3 signing protocol.
@@ -40,23 +44,12 @@ public class AWS3Signer extends AbstractAWSSigner {
     private static final String HTTP_SCHEME = "AWS3";
     private static final String HTTPS_SCHEME = "AWS3-HTTPS";
 
-    private final AWSCredentials credentials;
+    /** For internal testing only - allows the request's date to be overridden for testing. */
+    private String overriddenDate;
 
     protected static final DateUtils dateUtils = new DateUtils();
-
     private static final Log log = LogFactory.getLog(AWS3Signer.class);
 
-
-    /**
-     * Constructs a new AWS3Signer using the specified AWS account credentials
-     * to sign requests using the AWS3 signing protocol.
-     *
-     * @param credentials
-     *            The AWS account credentials to use when signing requests.
-     */
-    public AWS3Signer(AWSCredentials credentials) {
-        this.credentials = credentials;
-    }
 
     /**
      * Signs the specified request with the AWS3 signing protocol by using the
@@ -65,95 +58,151 @@ public class AWS3Signer extends AbstractAWSSigner {
      *
      * @param request
      *            The request to sign.
-     *
-     * @throws SignatureException
-     *             If any problems are encountered while signing the request.
      */
-    public void sign(Request<?> request) throws SignatureException {
+    public void sign(Request<?> request, AWSCredentials credentials) throws AmazonClientException {
         SigningAlgorithm algorithm = SigningAlgorithm.HmacSHA256;
         String nonce = UUID.randomUUID().toString();
         String date = dateUtils.formatRfc822Date(new Date());
         boolean isHttps = isHttpsRequest(request);
 
+        if (overriddenDate != null) date = overriddenDate;
+        request.addHeader("Date", date);
+        request.addHeader("X-Amz-Date", date);
+
+        // AWS3 HTTP requires that we sign the Host header
+        // so we have to have it in the request by the time we sign.
+        String hostHeader = request.getEndpoint().getHost();
+        if (HttpUtils.isUsingNonDefaultPort(request.getEndpoint())) {
+            hostHeader += ":" + request.getEndpoint().getPort();
+        }
+        request.addHeader("Host", hostHeader);
+
+
+        byte[] bytesToSign;
         String stringToSign;
         if (isHttps) {
+        	request.addHeader(NONCE_HEADER, nonce);
             stringToSign = date + nonce;
+            bytesToSign = stringToSign.getBytes();
         } else {
             stringToSign = "POST\n"
-                + getCanonicalizedEndpoint(request.getEndpoint()) + "\n"
                 + getCanonicalizedResourcePath(request.getEndpoint()) + "\n"
                 + getCanonicalizedQueryString(request.getParameters()) + "\n"
                 + getCanonicalizedHeadersForStringToSign(request) + "\n"
-                + ""; // we shouldn't ever have a payload in a request yet
-            stringToSign = hash(stringToSign);
+                + getRequestPayload(request);
+            bytesToSign = hash(stringToSign);
         }
         log.debug("Calculated StringToSign: " + stringToSign);
 
-        String accessKeyId = null;
-        String secretKey   = null;
-        synchronized (credentials) {
-            accessKeyId = credentials.getAWSAccessKeyId();
-            secretKey   = credentials.getAWSSecretKey();
-        }
-
-        String signature = sign(stringToSign, secretKey, algorithm);
+        AWSCredentials sanitizedCredentials = sanitizeCredentials(credentials);
+        String signature = sign(bytesToSign, sanitizedCredentials.getAWSSecretKey(), algorithm);
 
         StringBuilder builder = new StringBuilder();
         builder.append(isHttps ? HTTPS_SCHEME : HTTP_SCHEME).append(" ");
-        builder.append("AWSAccessKeyId=" + accessKeyId + ",");
+        builder.append("AWSAccessKeyId=" + sanitizedCredentials.getAWSAccessKeyId() + ",");
         builder.append("Algorithm=" + algorithm.toString() + ",");
-        builder.append("Signature=" + signature);
 
+        if (!isHttps) {
+        	builder.append(getSignedHeadersComponent(request) + ",");
+        }
+
+        builder.append("Signature=" + signature);
         request.addHeader(AUTHORIZATION_HEADER, builder.toString());
-        request.addHeader(NONCE_HEADER, nonce);
-        request.addHeader("Date", date);
     }
 
-    private String hash(String text) throws SignatureException {
+    private String getRequestPayload(Request<?> request) {
+        try {
+        	InputStream content = request.getContent();
+        	if (!content.markSupported()) {
+        		throw new AmazonClientException("Unable to read request payload to sign request.");
+        	}
+
+        	StringBuilder sb = new StringBuilder();
+        	content.mark(-1);
+        	int b;
+        	while ((b = content.read()) > -1) {
+        		sb.append((char)b);
+        	}
+        	content.reset();
+            return sb.toString();
+        } catch (Exception e) {
+        	throw new AmazonClientException("Unable to read request payload to sign request: " + e.getMessage(), e);
+        }
+    }
+
+    private String getSignedHeadersComponent(Request<?> request) {
+    	StringBuilder builder = new StringBuilder();
+    	builder.append("SignedHeaders=");
+    	boolean first = true;
+    	for (String header : getHeadersForStringToSign(request)) {
+    		if (!first) builder.append(";");
+    		builder.append(header);
+    		first = false;
+    	}
+    	return builder.toString();
+    }
+
+    private byte[] hash(String text) throws AmazonClientException {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             md.update(text.getBytes());
-            return toHex(md.digest());
+            return md.digest();
         } catch (Exception e) {
-            throw new SignatureException("Unable to compute hash while signing request: " + e.getMessage(), e);
+            throw new AmazonClientException("Unable to compute hash while signing request: " + e.getMessage(), e);
         }
     }
 
-    private String toHex(byte[] data) {
-        StringBuilder sb = new StringBuilder(data.length * 2);
-        for (int i = 0; i < data.length; i++) {
-            String hex = Integer.toHexString(data[i]);
-            if (hex.length() == 1) {
-                // Append leading zero.
-                sb.append("0");
-            } else if (hex.length() == 8) {
-                // Remove ff prefix from negative numbers.
-                hex = hex.substring(6);
+    protected List<String> getHeadersForStringToSign(Request<?> request) {
+        List<String> headersToSign = new ArrayList<String>();
+        for (Map.Entry<String, String> entry : request.getHeaders().entrySet()) {
+            String key = entry.getKey();
+            String lowerCaseKey = key.toLowerCase();
+            if (lowerCaseKey.startsWith("x-amz")
+            		|| lowerCaseKey.equals("content-encoding")
+            		|| lowerCaseKey.equals("host")) {
+            	headersToSign.add(key);
             }
-            sb.append(hex);
         }
-        return sb.toString().toLowerCase(Locale.getDefault());
+
+        Collections.sort(headersToSign);
+        return headersToSign;
+    }
+
+	/**
+	 * For internal testing only - allows the date to be overridden for internal
+	 * tests.
+	 *
+	 * @param date
+	 *            The RFC822 date string to use when signing requests.
+	 */
+    void overrideDate(String date) {
+		this.overriddenDate = date;
     }
 
     protected String getCanonicalizedHeadersForStringToSign(Request<?> request) {
+    	List<String> headersToSign = getHeadersForStringToSign(request);
+
+    	for (int i = 0; i < headersToSign.size(); i++) {
+    		headersToSign.set(i, headersToSign.get(i).toLowerCase());
+    	}
+
         SortedMap<String, String> sortedHeaderMap = new TreeMap<String, String>();
         for (Map.Entry<String, String> entry : request.getHeaders().entrySet()) {
-            String key = entry.getKey().toLowerCase();
-            if (key.startsWith("x-amz") || key.equals("date") || key.equals("content-length")) {
-                sortedHeaderMap.put(key, entry.getValue());
-            }
+        	if (headersToSign.contains(entry.getKey().toLowerCase())) {
+        		sortedHeaderMap.put(entry.getKey(), entry.getValue());
+        	}
         }
 
         StringBuilder builder = new StringBuilder();
         for (Map.Entry<String, String> entry : sortedHeaderMap.entrySet()) {
-            builder.append(entry.getKey()).append(":")
+            builder.append(entry.getKey().toLowerCase()).append(":")
                    .append(entry.getValue()).append("\n");
         }
 
         return builder.toString();
     }
 
-    private boolean isHttpsRequest(Request<?> request) throws SignatureException {
+    private boolean isHttpsRequest(Request<?> request) throws AmazonClientException {
         try {
             String protocol = request.getEndpoint().toURL().getProtocol().toLowerCase();
             if (protocol.equals("http")) {
@@ -161,12 +210,11 @@ public class AWS3Signer extends AbstractAWSSigner {
             } else if (protocol.equals("https")) {
                 return true;
             } else {
-                throw new SignatureException("Unknown request endpoint protocol " +
+                throw new AmazonClientException("Unknown request endpoint protocol " +
                 		"encountered while signing request: " + protocol);
             }
         } catch (MalformedURLException e) {
-            throw new SignatureException("Unable to parse request endpoint during signing", e);
+            throw new AmazonClientException("Unable to parse request endpoint during signing", e);
         }
     }
-
 }

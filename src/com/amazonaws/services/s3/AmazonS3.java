@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -32,6 +32,7 @@ import com.amazonaws.services.s3.model.BucketLoggingConfiguration;
 import com.amazonaws.services.s3.model.BucketNotificationConfiguration;
 import com.amazonaws.services.s3.model.BucketPolicy;
 import com.amazonaws.services.s3.model.BucketVersioningConfiguration;
+import com.amazonaws.services.s3.model.BucketWebsiteConfiguration;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.CompleteMultipartUploadRequest;
 import com.amazonaws.services.s3.model.CompleteMultipartUploadResult;
@@ -42,6 +43,7 @@ import com.amazonaws.services.s3.model.DeleteBucketRequest;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.DeleteVersionRequest;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
+import com.amazonaws.services.s3.model.GetBucketLocationRequest;
 import com.amazonaws.services.s3.model.GetObjectMetadataRequest;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.GroupGrantee;
@@ -828,6 +830,44 @@ public interface AmazonS3 {
      */
     public String getBucketLocation(String bucketName) throws AmazonClientException,
             AmazonServiceException;
+
+    /**
+     * <p>
+     * Gets the geographical region where Amazon S3 stores the specified
+     * bucket.
+     * </p>
+     * <p>
+     * To view the location constraint of a bucket, the user must be the bucket
+     * owner.
+     * </p>
+     * <p>
+     * Use {@link Region#fromValue(String)} to get the <code>Region</code>
+     * enumeration value, but be prepared to
+     * handle an <code>IllegalArgumentException</code>
+     * if the value passed is not a known <code>Region</code> value.
+     * </p>
+     * <p>
+     * Note that <code>Region</code> enumeration values are not returned
+     * directly from this method.
+     * </p>
+     *
+     * @param getBucketLocationRequest
+     *            The request object containing the name of the Amazon S3
+     *            bucket to look up. This must be a bucket the user owns.
+     *
+     * @return The location of the specified Amazon S3 bucket.
+     *
+     * @throws AmazonClientException
+     *             If any errors are encountered in the client while making the
+     *             request or handling the response.
+     * @throws AmazonServiceException
+     *             If any errors occurred in Amazon S3 while processing the
+     *             request.
+     *
+     * @see Region
+     */
+    public String getBucketLocation(GetBucketLocationRequest getBucketLocationRequest)
+    	throws AmazonClientException, AmazonServiceException;
 
     /**
      * <p>
@@ -1650,7 +1690,59 @@ public interface AmazonS3 {
             throws AmazonClientException, AmazonServiceException;
 
 
-	
+    /**
+     * <p>
+     * Gets the object metadata for the object stored
+     * in Amazon S3 under the specified bucket and key,
+     * and saves the object contents to the
+     * specified file.
+     * Returns <code>null</code> if the specified constraints weren't met.
+     * </p>
+     * <p>
+     * Instead of
+     * using {@link AmazonS3#getObject(GetObjectRequest)},
+     * use this method to ensure that the underlying
+     * HTTP stream resources are automatically closed as soon as possible.
+     * The Amazon S3 clients handles immediate storage of the object
+     * contents to the specified file.
+     * </p>
+     * <p>
+     * To get an object from Amazon S3, the caller must have {@link Permission#Read}
+     * access to the object.
+     * </p>
+     * <p>
+     * If the object fetched is publicly readable, it can also read it
+     * by pasting its URL into a browser.
+     * </p>
+     * <p>
+     * When specifying constraints in the request object, the client needs to be
+     * prepared to handle this method returning <code>null</code>
+     * if the provided constraints aren't met when Amazon S3 receives the request.
+     * </p>
+     *
+     * @param getObjectRequest
+     *            The request object containing all the options on how to
+     *            download the Amazon S3 object content.
+     * @param destinationFile
+     *            Indicates the file (which might already exist) where
+     *            to save the object content being downloading from Amazon S3.
+     *
+     * @return All S3 object metadata for the specified object.
+     *         Returns <code>null</code> if constraints were specified but not met.
+     *
+     * @throws AmazonClientException
+     *             If any errors are encountered in the client while making the
+     *             request, handling the response, or writing the incoming data
+     *             from S3 to the specified destination file.
+     * @throws AmazonServiceException
+     *             If any errors occurred in Amazon S3 while processing the
+     *             request.
+     *
+     * @see AmazonS3#getObject(String, String)
+     * @see AmazonS3#getObject(GetObjectRequest)
+     */
+    public ObjectMetadata getObject(GetObjectRequest getObjectRequest, File destinationFile)
+            throws AmazonClientException, AmazonServiceException;
 
     /**
      * <p>
@@ -1803,7 +1895,79 @@ public interface AmazonS3 {
     public PutObjectResult putObject(PutObjectRequest putObjectRequest)
             throws AmazonClientException, AmazonServiceException;
 
-	
+    /**
+     * <p>
+     * Uploads the specified file to Amazon S3 under the specified bucket and
+     * key name.
+     * </p>
+     * <p>
+     * Amazon S3 never stores partial objects;
+     * if during this call an exception wasn't thrown,
+     * the entire object was stored.
+     * </p>
+     * <p>
+     * The client automatically computes
+     * a checksum of the file.
+     * Amazon S3 uses checksums to validate the data in each file.
+     * </p>
+     * <p>
+     *  Using the file extension, Amazon S3 attempts to determine
+     *  the correct content type and content disposition to use
+     *  for the object.
+     * </p>
+     * <p>
+     * If versioning is enabled for the specified bucket,
+     * this operation will
+     * this operation will never overwrite an existing object
+     * with the same key, but will keep the existing object as an
+     * older version
+     * until that version is
+     * explicitly deleted (see
+     * {@link AmazonS3#deleteVersion(String, String, String)}.
+     * </p>
+     * <p>
+     * If versioning is not enabled, this operation will overwrite an existing object
+     * with the same key; Amazon S3 will store the last write request.
+     * Amazon S3 does not provide object locking.
+     * If Amazon S3 receives multiple write requests for the same object nearly
+     * simultaneously, all of the objects might be stored.  However, a single
+     * object will be stored with the final write request.
+     * </p>
+
+     * <p>
+     * When specifying a location constraint when creating a bucket, all objects
+     * added to the bucket are stored in the bucket's region. For example, if
+     * specifying a Europe (EU) region constraint for a bucket, all of that
+     * bucket's objects are stored in EU region.
+     * </p>
+     * <p>
+     * The specified bucket must already exist and the caller must have
+     * {@link Permission#Write} permission to the bucket to upload an object.
+     * </p>
+     *
+     * @param bucketName
+     *            The name of an existing bucket, to which you have
+     *            {@link Permission#Write} permission.
+     * @param key
+     *            The key under which to store the specified file.
+     * @param file
+     *            The file containing the data to be uploaded to Amazon S3.
+     *
+     * @return A {@link PutObjectResult} object containing the information
+     *         returned by Amazon S3 for the newly created object.
+     *
+     * @throws AmazonClientException
+     *             If any errors are encountered in the client while making the
+     *             request or handling the response.
+     * @throws AmazonServiceException
+     *             If any errors occurred in Amazon S3 while processing the
+     *             request.
+     *
+     * @see AmazonS3#putObject(PutObjectRequest)
+     * @see AmazonS3#putObject(String, String, InputStream, ObjectMetadata)
+     */
+    public PutObjectResult putObject(String bucketName, String key, File file)
+            throws AmazonClientException, AmazonServiceException;
 
     /**
      * <p>
@@ -2393,6 +2557,113 @@ public interface AmazonS3 {
     public void setBucketNotificationConfiguration(String bucketName, BucketNotificationConfiguration bucketNotificationConfiguration)
         throws AmazonClientException, AmazonServiceException;
 
+	/**
+	 * Returns the website configuration for the specified bucket. Bucket
+	 * website configuration allows you to host your static websites entirely
+	 * out of Amazon S3. To host your website in Amazon S3, create a bucket,
+	 * upload your files, and configure it as a website. Once your bucket has
+	 * been configured as a website, you can access all your content via the
+	 * Amazon S3 website endpoint. To ensure that the existing Amazon S3 REST
+	 * API will continue to behave the same, regardless of whether or not your
+	 * bucket has been configured to host a website, a new HTTP endpoint has
+	 * been introduced where you can access your content. The bucket content you
+	 * want to make available via the website must be publicly readable.
+	 * <p>
+	 * For more information on how to host a website on Amazon S3, see:
+	 * <a href="http://docs.amazonwebservices.com/AmazonS3/latest/dev/WebsiteHosting.html">http://docs.amazonwebservices.com/AmazonS3/latest/dev/WebsiteHosting.html</a>.
+	 * <p>
+	 * This operation requires the <code>S3:GetBucketWebsite</code> permission.
+	 * By default, only the bucket owner can read the bucket website
+	 * configuration. However, bucket owners can allow other users to read the
+	 * website configuration by writing a bucket policy granting them the
+	 * <code>S3:GetBucketWebsite</code> permission.
+	 *
+	 * @param bucketName
+	 *            The name of the bucket whose website configuration is being
+	 *            retrieved.
+	 *
+	 * @return The bucket website configuration for the specified bucket,
+	 *         otherwise null if there is no website configuration set for the
+	 *         specified bucket.
+	 *
+	 * @throws AmazonClientException
+	 *             If any errors are encountered on the client while making the
+	 *             request or handling the response.
+	 * @throws AmazonServiceException
+	 *             If any errors occurred in Amazon S3 while processing the
+	 *             request.
+	 */
+    public BucketWebsiteConfiguration getBucketWebsiteConfiguration(String bucketName)
+    	throws AmazonClientException, AmazonServiceException;
+
+	/**
+	 * Sets the website configuration for the specified bucket. Bucket
+	 * website configuration allows you to host your static websites entirely
+	 * out of Amazon S3. To host your website in Amazon S3, create a bucket,
+	 * upload your files, and configure it as a website. Once your bucket has
+	 * been configured as a website, you can access all your content via the
+	 * Amazon S3 website endpoint. To ensure that the existing Amazon S3 REST
+	 * API will continue to behave the same, regardless of whether or not your
+	 * bucket has been configured to host a website, a new HTTP endpoint has
+	 * been introduced where you can access your content. The bucket content you
+	 * want to make available via the website must be publicly readable.
+	 * <p>
+	 * For more information on how to host a website on Amazon S3, see:
+	 * <a href="http://docs.amazonwebservices.com/AmazonS3/latest/dev/WebsiteHosting.html">http://docs.amazonwebservices.com/AmazonS3/latest/dev/WebsiteHosting.html</a>.
+	 * <p>
+	 * This operation requires the <code>S3:PutBucketWebsite</code> permission.
+	 * By default, only the bucket owner can configure the website attached to a
+	 * bucket. However, bucket owners can allow other users to set the website
+	 * configuration by writing a bucket policy granting them the
+	 * <code>S3:PutBucketWebsite</code> permission.
+	 *
+	 * @param bucketName
+	 *            The name of the bucket whose website configuration is being
+	 *            set.
+	 * @param configuration
+	 *            The configuration describing how the specified bucket will
+	 *            serve web requests (i.e. default index page, error page).
+	 *
+	 * @throws AmazonClientException
+	 *             If any errors are encountered on the client while making the
+	 *             request or handling the response.
+	 * @throws AmazonServiceException
+	 *             If any errors occurred in Amazon S3 while processing the
+	 *             request.
+	 */
+    public void setBucketWebsiteConfiguration(String bucketName, BucketWebsiteConfiguration configuration)
+    	throws AmazonClientException, AmazonServiceException;
+
+	/**
+	 * This operation removes the website configuration for a bucket. Calling
+	 * this operation on a bucket with no website configuration does <b>not</b>
+	 * throw an exception. Calling this operation a bucket that does not exist
+	 * <b>will</b> throw an exception.
+	 * <p>
+	 * For more information on how to host a website on Amazon S3, see:
+	 * <a href="http://docs.amazonwebservices.com/AmazonS3/latest/dev/WebsiteHosting.html">http://docs.amazonwebservices.com/AmazonS3/latest/dev/WebsiteHosting.html</a>.
+	 * <p>
+	 * This operation requires the <code>S3:DeleteBucketWebsite</code>
+	 * permission. By default, only the bucket owner can delete the website
+	 * configuration attached to a bucket. However, bucket owners can grant
+	 * other users permission to delete the website configuration by writing a
+	 * bucket policy granting them the <code>S3:DeleteBucketWebsite</code>
+	 * permission.
+	 *
+	 * @param bucketName
+	 *            The name of the bucket whose website configuration is being
+	 *            deleted.
+	 *
+	 * @throws AmazonClientException
+	 *             If any errors are encountered on the client while making the
+	 *             request or handling the response.
+	 * @throws AmazonServiceException
+	 *             If any errors occurred in Amazon S3 while processing the
+	 *             request.
+	 */
+    public void deleteBucketWebsiteConfiguration(String bucketName)
+		throws AmazonClientException, AmazonServiceException;
+
     /**
      * <p>
      * Gets the policy for the specified bucket. Only the owner of the
@@ -2638,13 +2909,13 @@ public interface AmazonS3 {
      * {@link #uploadPart(UploadPartRequest)} requests. You also include this
      * upload ID in the final request to either complete, or abort the multipart
      * upload request.
-     * 
+     *
      * @param request
      *            The InitiateMultipartUploadRequest object that specifies all
      *            the parameters of this operation.
-     * 
+     *
      * @return An InitiateMultipartUploadResult from Amazon S3.
-     * 
+     *
      * @throws AmazonClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
@@ -2679,14 +2950,14 @@ public interface AmazonS3 {
      * concatenating all the parts you uploaded, in ascending order based on the
      * part numbers. The CompleteMultipartUpload request requires you to send
      * all the part numbers and the corresponding ETag values.
-     * 
+     *
      * @param request
      *            The UploadPartRequest object that specifies all the parameters
      *            of this operation.
-     * 
+     *
      * @return An UploadPartResult from Amazon S3 containing the part number and
      *         ETag of the new part.
-     * 
+     *
      * @throws AmazonClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
@@ -2710,13 +2981,13 @@ public interface AmazonS3 {
      * NextPartNumberMarker property. In subsequent ListParts request you can
      * include the PartNumberMarker property and set its value to the
      * NextPartNumberMarker property value from the previous response.
-     * 
+     *
      * @param request
      *            The ListPartsRequest object that specifies all the parameters
      *            of this operation.
-     * 
+     *
      * @return Returns a PartListing from Amazon S3.
-     * 
+     *
      * @throws AmazonClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
@@ -2735,11 +3006,11 @@ public interface AmazonS3 {
      * succeed. As a result, it may be necessary to abort a given multipart
      * upload multiple times in order to completely free all storage consumed by
      * all parts.
-     * 
+     *
      * @param request
      *            The AbortMultipartUploadRequest object that specifies all the
      *            parameters of this operation.
-     * 
+     *
      * @throws AmazonClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
@@ -2764,14 +3035,14 @@ public interface AmazonS3 {
      * <p>
      * Processing of a CompleteMultipartUpload request may take several minutes
      * to complete.
-     * 
+     *
      * @param request
      *            The CompleteMultipartUploadRequest object that specifies all
      *            the parameters of this operation.
-     * 
+     *
      * @return A CompleteMultipartUploadResult from S3 containing the ETag for
      *         the new object composed of the individual parts.
-     * 
+     *
      * @throws AmazonClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.
@@ -2795,13 +3066,13 @@ public interface AmazonS3 {
      * contain an IsTruncated property with the value set to true. To list the
      * additional multipart uploads use the KeyMarker and UploadIdMarker
      * properties on the request parameters.
-     * 
+     *
      * @param request
      *            The ListMultipartUploadsRequest object that specifies all the
      *            parameters of this operation.
-     * 
+     *
      * @return A MultipartUploadListing from Amazon S3.
-     * 
+     *
      * @throws AmazonClientException
      *             If any errors are encountered in the client while making the
      *             request or handling the response.

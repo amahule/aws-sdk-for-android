@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -139,7 +139,27 @@ public class PutObjectRequest extends AmazonWebServiceRequest {
     private ProgressListener progressListener;
 
     
-	
+    /**
+     * Constructs a new 
+     * {@link PutObjectRequest} object to upload a file to the
+     * specified bucket and key. After constructing the request, 
+     * users may optionally specify object metadata or a canned ACL as well.
+     *
+     * @param bucketName
+     *            The name of an existing bucket to which the new object will be
+     *            uploaded.
+     * @param key
+     *            The key under which to store the new object.
+     * @param file
+     *            The path of the file to upload to Amazon S3.
+     *            
+     * @see PutObjectRequest#PutObjectRequest(String, String, InputStream, ObjectMetadata)          
+     */
+    public PutObjectRequest(String bucketName, String key, File file) {
+        this.bucketName = bucketName;
+        this.key = key;
+        this.file = file;
+    }
 
     /**
      * Constructs a new 
@@ -396,11 +416,66 @@ public class PutObjectRequest extends AmazonWebServiceRequest {
         return this;
     }
 
-	
+    /**
+     * Gets the path and name of the file
+     * containing the data to be uploaded to Amazon S3.
+     * Either specify a file or an input stream containing the data to be
+     * uploaded to Amazon S3; both cannot be specified.
+     *
+     * @return The path and name of the file
+     *         containing the data to be uploaded to Amazon S3.
+     *         
+     * @see PutObjectRequest#setFile(File)
+     * @see PutObjectRequest#withFile(File)
+     * @see PutObjectRequest#setInputStream(InputStream)
+     * @see PutObjectRequest#withInputStream(InputStream)      
+     */
+    public File getFile() {
+        return file;
+    }
 
-	
+    /**
+     * Sets the path and name of the file
+     * containing the data to be uploaded to Amazon S3.
+     * Either specify a file or an input stream containing the data to be
+     * uploaded to Amazon S3; both cannot be specified.
+     *
+     * @param file
+     *            The path and name of the 
+     *            file containing the data to be uploaded to Amazon S3.
+     *            
+     * @see PutObjectRequest#getFile()
+     * @see PutObjectRequest#withFile(File)
+     * @see PutObjectRequest#getInputStream()
+     * @see PutObjectRequest#withInputStream(InputStream)              
+     */
+    public void setFile(File file) {
+        this.file = file;
+    }
 
-	
+    /**
+     * Sets the file containing the data to be uploaded to Amazon S3.
+     * Returns this {@link PutObjectRequest}, enabling additional method
+     * calls to be chained together.
+     * <p>
+     * Either specify a file or an input stream containing the data to
+     * be uploaded to Amazon S3; both cannot be specified.
+     *
+     * @param file
+     *            The file containing the data to be uploaded to Amazon S3.
+     *
+     * @return This {@link PutObjectRequest}, enabling additional method
+     *         calls to be chained together.
+     *         
+     * @see PutObjectRequest#getFile()
+     * @see PutObjectRequest#setFile(File)
+     * @see PutObjectRequest#getInputStream()
+     * @see PutObjectRequest#setInputStream(InputStream)             
+     */
+    public PutObjectRequest withFile(File file) {
+        setFile(file);
+        return this;
+    }
 
     /**
      * Gets the optional metadata instructing Amazon S3 how to handle the

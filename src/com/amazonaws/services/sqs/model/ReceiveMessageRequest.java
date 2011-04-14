@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,9 +18,9 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.sqs.AmazonSQS#receiveMessage(ReceiveMessageRequest) ReceiveMessage operation}.
  * <p>
- * Retrieves one or more messages from the specified queue, including
- * the message body and message ID of each message. Messages returned by
- * this action stay in the queue until you delete them. However, once a
+ * Retrieves one or more messages from the specified queue, including the
+ * message body and message ID of each message. Messages returned by this
+ * action stay in the queue until you delete them. However, once a
  * message is returned to a <code>ReceiveMessage</code> request, it is
  * not returned on subsequent <code>ReceiveMessage</code> requests for
  * the duration of the <code>VisibilityTimeout</code> . If you do not
@@ -33,18 +33,18 @@ import com.amazonaws.AmazonWebServiceRequest;
 public class ReceiveMessageRequest extends AmazonWebServiceRequest {
 
     /**
-     * 
+     * The URL of the SQS queue to take action on.
      */
     private String queueUrl;
 
     /**
-     * A list of attributes to get.
+     * A list of attributes to retrieve information for.
      */
     private java.util.List<String> attributeNames;
 
     /**
      * The maximum number of messages to return. Amazon SQS never returns
-     * more messages than this value but may return fewer. <p> All of the
+     * more messages than this value but may return fewer. <p>All of the
      * messages are not necessarily returned.
      */
     private Integer maxNumberOfMessages;
@@ -67,36 +67,36 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest {
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
      * 
-     * @param queueUrl
+     * @param queueUrl The URL of the SQS queue to take action on.
      */
     public ReceiveMessageRequest(String queueUrl) {
         this.queueUrl = queueUrl;
     }
     
     /**
-     * 
+     * The URL of the SQS queue to take action on.
      *
-     * @return 
+     * @return The URL of the SQS queue to take action on.
      */
     public String getQueueUrl() {
         return queueUrl;
     }
     
     /**
-     * 
+     * The URL of the SQS queue to take action on.
      *
-     * @param queueUrl 
+     * @param queueUrl The URL of the SQS queue to take action on.
      */
     public void setQueueUrl(String queueUrl) {
         this.queueUrl = queueUrl;
     }
     
     /**
-     * 
+     * The URL of the SQS queue to take action on.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param queueUrl 
+     * @param queueUrl The URL of the SQS queue to take action on.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -108,9 +108,9 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * A list of attributes to get.
+     * A list of attributes to retrieve information for.
      *
-     * @return A list of attributes to get.
+     * @return A list of attributes to retrieve information for.
      */
     public java.util.List<String> getAttributeNames() {
         if (attributeNames == null) {
@@ -120,9 +120,9 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * A list of attributes to get.
+     * A list of attributes to retrieve information for.
      *
-     * @param attributeNames A list of attributes to get.
+     * @param attributeNames A list of attributes to retrieve information for.
      */
     public void setAttributeNames(java.util.Collection<String> attributeNames) {
         java.util.List<String> attributeNamesCopy = new java.util.ArrayList<String>();
@@ -133,11 +133,11 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * A list of attributes to get.
+     * A list of attributes to retrieve information for.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param attributeNames A list of attributes to get.
+     * @param attributeNames A list of attributes to retrieve information for.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -150,11 +150,11 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * A list of attributes to get.
+     * A list of attributes to retrieve information for.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param attributeNames A list of attributes to get.
+     * @param attributeNames A list of attributes to retrieve information for.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -171,11 +171,11 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest {
     
     /**
      * The maximum number of messages to return. Amazon SQS never returns
-     * more messages than this value but may return fewer. <p> All of the
+     * more messages than this value but may return fewer. <p>All of the
      * messages are not necessarily returned.
      *
      * @return The maximum number of messages to return. Amazon SQS never returns
-     *         more messages than this value but may return fewer. <p> All of the
+     *         more messages than this value but may return fewer. <p>All of the
      *         messages are not necessarily returned.
      */
     public Integer getMaxNumberOfMessages() {
@@ -184,11 +184,11 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest {
     
     /**
      * The maximum number of messages to return. Amazon SQS never returns
-     * more messages than this value but may return fewer. <p> All of the
+     * more messages than this value but may return fewer. <p>All of the
      * messages are not necessarily returned.
      *
      * @param maxNumberOfMessages The maximum number of messages to return. Amazon SQS never returns
-     *         more messages than this value but may return fewer. <p> All of the
+     *         more messages than this value but may return fewer. <p>All of the
      *         messages are not necessarily returned.
      */
     public void setMaxNumberOfMessages(Integer maxNumberOfMessages) {
@@ -197,13 +197,13 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest {
     
     /**
      * The maximum number of messages to return. Amazon SQS never returns
-     * more messages than this value but may return fewer. <p> All of the
+     * more messages than this value but may return fewer. <p>All of the
      * messages are not necessarily returned.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param maxNumberOfMessages The maximum number of messages to return. Amazon SQS never returns
-     *         more messages than this value but may return fewer. <p> All of the
+     *         more messages than this value but may return fewer. <p>All of the
      *         messages are not necessarily returned.
      *
      * @return A reference to this updated object so that method calls can be chained 

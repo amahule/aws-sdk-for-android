@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -58,8 +58,8 @@ import com.amazonaws.AmazonWebServiceRequest;
  * <p>
  * Because Amazon SimpleDB makes multiple copies of client data and uses
  * an eventual consistency update model, an immediate GetAttributes or
- * Select operation (read) immediately after a DeleteAttributes operation
- * (write) might not return the updated data.
+ * Select operation (read) immediately after a PutAttributes or
+ * DeleteAttributes operation (write) might not return the updated data.
  * </p>
  * <p>
  * The following limitations are enforced for this operation:

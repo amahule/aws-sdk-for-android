@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -14,8 +14,8 @@
  */
 package com.amazonaws.auth;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
-import java.security.SignatureException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.SortedMap;
@@ -26,6 +26,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 
+import com.amazonaws.AmazonClientException;
 import com.amazonaws.util.HttpUtils;
 
 /**
@@ -35,26 +36,37 @@ import com.amazonaws.util.HttpUtils;
  * <p>
  * Not intended to be sub-classed by developers.
  */
-public abstract class AbstractAWSSigner {
+public abstract class AbstractAWSSigner implements Signer {
 
     /** The default encoding to use when URL encoding */
     private static final String DEFAULT_ENCODING = "UTF-8";
 
 
     /**
-     * Computes RFC 2104-compliant HMAC signature.
+     * Computes an RFC 2104-compliant HMAC signature.
      */
     protected String sign(String data, String key, SigningAlgorithm algorithm)
-            throws SignatureException {
-        try {
-            Mac mac = Mac.getInstance(algorithm.toString());
-            mac.init(new SecretKeySpec(key.getBytes(), algorithm.toString()));
-            byte[] signature = Base64.encodeBase64(mac.doFinal(data
-                    .getBytes(DEFAULT_ENCODING)));
-            return new String(signature);
-        } catch (Exception e) {
-            throw new SignatureException("Failed to generate signature: " + e.getMessage(), e);
-        }
+            throws AmazonClientException {
+    	try {
+			return sign(data.getBytes(DEFAULT_ENCODING), key, algorithm);
+		} catch (UnsupportedEncodingException e) {
+    		throw new AmazonClientException("Unable to calculate a request signature: " + e.getMessage(), e);
+		}
+    }
+
+    /**
+     * Computes an RFC 2104-compliant HMAC signature for an array of bytes.
+     */
+    protected String sign(byte[] data, String key, SigningAlgorithm algorithm)
+    		throws AmazonClientException {
+    	try {
+    		Mac mac = Mac.getInstance(algorithm.toString());
+    		mac.init(new SecretKeySpec(key.getBytes(), algorithm.toString()));
+    		byte[] signature = Base64.encodeBase64(mac.doFinal(data));
+    		return new String(signature);
+    	} catch (Exception e) {
+    		throw new AmazonClientException("Unable to calculate a request signature: " + e.getMessage(), e);
+    	}
     }
 
     protected String getCanonicalizedQueryString(Map<String, String> parameters) {
@@ -101,6 +113,26 @@ public abstract class AbstractAWSSigner {
         }
 
         return endpointForStringToSign;
+    }
+
+    /**
+     * Loads the individual access key ID and secret key from the specified credentials, ensuring that
+     * access to the credentials is synchronized on the credentials object itself, and trimming any extra
+     * whitespace from the credentials.
+     * @param credentials
+     * @return A new credentials object with the sanitized credentials.
+     */
+    protected AWSCredentials sanitizeCredentials(AWSCredentials credentials) {
+        String accessKeyId = null;
+        String secretKey   = null;
+        synchronized (credentials) {
+            accessKeyId = credentials.getAWSAccessKeyId();
+            secretKey   = credentials.getAWSSecretKey();
+        }
+        if (secretKey != null) secretKey = secretKey.trim();
+        if (accessKeyId != null) accessKeyId = accessKeyId.trim();
+
+        return new BasicAWSCredentials(accessKeyId, secretKey);
     }
 
 }

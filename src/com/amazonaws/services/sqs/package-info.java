@@ -2,7 +2,7 @@
 /**
  * Synchronous and asynchronous client classes for accessing AmazonSQS.
  *
- * <p>
+ * Amazon Simple Queue Service <p>
  * Amazon Simple Queue Service (Amazon SQS) offers a reliable, highly
  * scalable, hosted queue for storing messages as they travel between
  * computers. By using Amazon SQS, developers can simply move data
@@ -21,8 +21,8 @@
  * with the same technologies, or running at the same time.
  * </p>
  * <p>
- * Visit <a href="http://aws.amazon.com/sqs/">
- * http://aws.amazon.com/sqs/ </a> for more information.
+ * Visit <a href="http://aws.amazon.com/sqs/"> http://aws.amazon.com/sqs/
+ * </a> for more information.
  * </p>
  */
  package com.amazonaws.services.sqs;

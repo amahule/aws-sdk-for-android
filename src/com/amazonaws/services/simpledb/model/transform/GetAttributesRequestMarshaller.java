@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -46,6 +46,7 @@ public class GetAttributesRequestMarshaller implements Marshaller<Request<GetAtt
         if (getAttributesRequest != null) {
             java.util.List<String> attributeNamesList = getAttributesRequest.getAttributeNames();
             int attributeNamesListIndex = 1;
+
             for (String attributeNamesListValue : attributeNamesList) {
                 if (attributeNamesListValue != null) {
                     request.addParameter("AttributeName." + attributeNamesListIndex, StringUtils.fromString(attributeNamesListValue));
