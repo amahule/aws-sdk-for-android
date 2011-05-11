@@ -15,18 +15,26 @@
 package com.amazonaws.services.cloudwatch.model;
 
 /**
- * Describe Alarm History Result
+ * <p>
+ * The output for the DescribeAlarmHistory action.
+ * </p>
  */
 public class DescribeAlarmHistoryResult {
 
+    /**
+     * A list of alarm histories in JSON format.
+     */
     private java.util.List<AlarmHistoryItem> alarmHistoryItems;
 
+    /**
+     * A string that marks the start of the next batch of returned results.
+     */
     private String nextToken;
 
     /**
-     * Returns the value of the AlarmHistoryItems property for this object.
+     * A list of alarm histories in JSON format.
      *
-     * @return The value of the AlarmHistoryItems property for this object.
+     * @return A list of alarm histories in JSON format.
      */
     public java.util.List<AlarmHistoryItem> getAlarmHistoryItems() {
         if (alarmHistoryItems == null) {
@@ -36,9 +44,9 @@ public class DescribeAlarmHistoryResult {
     }
     
     /**
-     * Sets the value of the AlarmHistoryItems property for this object.
+     * A list of alarm histories in JSON format.
      *
-     * @param alarmHistoryItems The new value for the AlarmHistoryItems property for this object.
+     * @param alarmHistoryItems A list of alarm histories in JSON format.
      */
     public void setAlarmHistoryItems(java.util.Collection<AlarmHistoryItem> alarmHistoryItems) {
         java.util.List<AlarmHistoryItem> alarmHistoryItemsCopy = new java.util.ArrayList<AlarmHistoryItem>();
@@ -49,11 +57,11 @@ public class DescribeAlarmHistoryResult {
     }
     
     /**
-     * Sets the value of the AlarmHistoryItems property for this object.
+     * A list of alarm histories in JSON format.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param alarmHistoryItems The new value for the AlarmHistoryItems property for this object.
+     * @param alarmHistoryItems A list of alarm histories in JSON format.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -66,11 +74,11 @@ public class DescribeAlarmHistoryResult {
     }
     
     /**
-     * Sets the value of the AlarmHistoryItems property for this object.
+     * A list of alarm histories in JSON format.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param alarmHistoryItems The new value for the AlarmHistoryItems property for this object.
+     * @param alarmHistoryItems A list of alarm histories in JSON format.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -86,29 +94,29 @@ public class DescribeAlarmHistoryResult {
     }
     
     /**
-     * Returns the value of the NextToken property for this object.
+     * A string that marks the start of the next batch of returned results.
      *
-     * @return The value of the NextToken property for this object.
+     * @return A string that marks the start of the next batch of returned results.
      */
     public String getNextToken() {
         return nextToken;
     }
     
     /**
-     * Sets the value of the NextToken property for this object.
+     * A string that marks the start of the next batch of returned results.
      *
-     * @param nextToken The new value for the NextToken property for this object.
+     * @param nextToken A string that marks the start of the next batch of returned results.
      */
     public void setNextToken(String nextToken) {
         this.nextToken = nextToken;
     }
     
     /**
-     * Sets the value of the NextToken property for this object.
+     * A string that marks the start of the next batch of returned results.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param nextToken The new value for the NextToken property for this object.
+     * @param nextToken A string that marks the start of the next batch of returned results.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

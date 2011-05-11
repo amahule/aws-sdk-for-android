@@ -15,16 +15,21 @@
 package com.amazonaws.services.cloudwatch.model;
 
 /**
- * Describe Alarms For Metric Result
+ * <p>
+ * The output for the DescribeAlarmsForMetric action.
+ * </p>
  */
 public class DescribeAlarmsForMetricResult {
 
+    /**
+     * A list of information for each alarm with the specified metric.
+     */
     private java.util.List<MetricAlarm> metricAlarms;
 
     /**
-     * Returns the value of the MetricAlarms property for this object.
+     * A list of information for each alarm with the specified metric.
      *
-     * @return The value of the MetricAlarms property for this object.
+     * @return A list of information for each alarm with the specified metric.
      */
     public java.util.List<MetricAlarm> getMetricAlarms() {
         if (metricAlarms == null) {
@@ -34,9 +39,9 @@ public class DescribeAlarmsForMetricResult {
     }
     
     /**
-     * Sets the value of the MetricAlarms property for this object.
+     * A list of information for each alarm with the specified metric.
      *
-     * @param metricAlarms The new value for the MetricAlarms property for this object.
+     * @param metricAlarms A list of information for each alarm with the specified metric.
      */
     public void setMetricAlarms(java.util.Collection<MetricAlarm> metricAlarms) {
         java.util.List<MetricAlarm> metricAlarmsCopy = new java.util.ArrayList<MetricAlarm>();
@@ -47,11 +52,11 @@ public class DescribeAlarmsForMetricResult {
     }
     
     /**
-     * Sets the value of the MetricAlarms property for this object.
+     * A list of information for each alarm with the specified metric.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param metricAlarms The new value for the MetricAlarms property for this object.
+     * @param metricAlarms A list of information for each alarm with the specified metric.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -64,11 +69,11 @@ public class DescribeAlarmsForMetricResult {
     }
     
     /**
-     * Sets the value of the MetricAlarms property for this object.
+     * A list of information for each alarm with the specified metric.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param metricAlarms The new value for the MetricAlarms property for this object.
+     * @param metricAlarms A list of information for each alarm with the specified metric.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

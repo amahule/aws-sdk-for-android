@@ -86,10 +86,12 @@ import com.amazonaws.services.s3.model.CopyObjectRequest;
 import com.amazonaws.services.s3.model.CopyObjectResult;
 import com.amazonaws.services.s3.model.CreateBucketRequest;
 import com.amazonaws.services.s3.model.DeleteBucketRequest;
+import com.amazonaws.services.s3.model.DeleteBucketWebsiteConfigurationRequest;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.DeleteVersionRequest;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.amazonaws.services.s3.model.GetBucketLocationRequest;
+import com.amazonaws.services.s3.model.GetBucketWebsiteConfigurationRequest;
 import com.amazonaws.services.s3.model.GetObjectMetadataRequest;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.GroupGrantee;
@@ -116,6 +118,7 @@ import com.amazonaws.services.s3.model.ResponseHeaderOverrides;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.SetBucketLoggingConfigurationRequest;
 import com.amazonaws.services.s3.model.SetBucketVersioningConfigurationRequest;
+import com.amazonaws.services.s3.model.SetBucketWebsiteConfigurationRequest;
 import com.amazonaws.services.s3.model.StorageClass;
 import com.amazonaws.services.s3.model.UploadPartRequest;
 import com.amazonaws.services.s3.model.UploadPartResult;
@@ -1283,16 +1286,26 @@ public class AmazonS3Client extends AmazonWebServiceClient implements AmazonS3 {
      */
     public BucketWebsiteConfiguration getBucketWebsiteConfiguration(String bucketName)
     		throws AmazonClientException, AmazonServiceException {
-        assertParameterNotNull(bucketName,
-        	"The bucket name parameter must be specified when requesting a bucket's website configuration");
+    	return getBucketWebsiteConfiguration(new GetBucketWebsiteConfigurationRequest(bucketName));
+    }
 
-        Request<Void> request = createRequest(bucketName, null, null, HttpMethodName.GET);
+	/* (non-Javadoc)
+	 * @see com.amazonaws.services.s3.AmazonS3#getBucketWebsiteConfiguration(com.amazonaws.services.s3.model.GetBucketWebsiteConfigurationRequest)
+	 */
+	public BucketWebsiteConfiguration getBucketWebsiteConfiguration(GetBucketWebsiteConfigurationRequest getBucketWebsiteConfigurationRequest)
+			throws AmazonClientException, AmazonServiceException {
+		String bucketName = getBucketWebsiteConfigurationRequest.getBucketName();
+
+        assertParameterNotNull(bucketName,
+    		"The bucket name parameter must be specified when requesting a bucket's website configuration");
+
+        Request<Void> request = createRequest(bucketName, null, getBucketWebsiteConfigurationRequest, HttpMethodName.GET);
         request.addParameter("website", null);
         request.addHeader("Content-Type", "application/xml");
         signRequest(request, bucketName, null);
 
         S3XmlResponseHandler<BucketWebsiteConfiguration> responseHandler =
-            new S3XmlResponseHandler<BucketWebsiteConfiguration>(new Unmarshallers.BucketWebsiteConfigurationUnmarshaller());
+        	new S3XmlResponseHandler<BucketWebsiteConfiguration>(new Unmarshallers.BucketWebsiteConfigurationUnmarshaller());
 
         try {
         	ExecutionContext executionContext = new ExecutionContext(requestHandlers);
@@ -1301,21 +1314,32 @@ public class AmazonS3Client extends AmazonWebServiceClient implements AmazonS3 {
         	if (ase.getStatusCode() == 404) return null;
         	throw ase;
         }
-    }
+	}
 
     /* (non-Javadoc)
      * @see com.amazonaws.services.s3.AmazonS3#setBucketWebsiteConfiguration(java.lang.String, com.amazonaws.services.s3.model.BucketWebsiteConfiguration)
      */
     public void setBucketWebsiteConfiguration(String bucketName, BucketWebsiteConfiguration configuration)
     		throws AmazonClientException, AmazonServiceException {
+    	setBucketWebsiteConfiguration(new SetBucketWebsiteConfigurationRequest(bucketName, configuration));
+    }
+
+	/* (non-Javadoc)
+	 * @see com.amazonaws.services.s3.AmazonS3#setBucketWebsiteConfiguration(com.amazonaws.services.s3.model.SetBucketWebsiteConfigurationRequest)
+	 */
+	public void setBucketWebsiteConfiguration(SetBucketWebsiteConfigurationRequest setBucketWebsiteConfigurationRequest)
+		throws AmazonClientException, AmazonServiceException {
+		String bucketName = setBucketWebsiteConfigurationRequest.getBucketName();
+		BucketWebsiteConfiguration configuration = setBucketWebsiteConfigurationRequest.getConfiguration();
+
         assertParameterNotNull(bucketName,
         	"The bucket name parameter must be specified when setting a bucket's website configuration");
         assertParameterNotNull(configuration,
-    		"The bucket website configuration parameter must be specified when setting a bucket's website configuration");
+        	"The bucket website configuration parameter must be specified when setting a bucket's website configuration");
         assertParameterNotNull(configuration.getIndexDocumentSuffix(),
         	"The bucket website configuration parameter must specify the index document suffix when setting a bucket's website configuration");
 
-        Request<Void> request = createRequest(bucketName, null, null, HttpMethodName.PUT);
+        Request<Void> request = createRequest(bucketName, null, setBucketWebsiteConfigurationRequest, HttpMethodName.PUT);
         request.addParameter("website", null);
         request.addHeader("Content-Type", "application/xml");
         signRequest(request, bucketName, null);
@@ -1325,24 +1349,34 @@ public class AmazonS3Client extends AmazonWebServiceClient implements AmazonS3 {
 
         ExecutionContext executionContext = new ExecutionContext(requestHandlers);
         client.execute(request, voidResponseHandler, errorResponseHandler, executionContext);
-    }
+	}
 
     /* (non-Javadoc)
      * @see com.amazonaws.services.s3.AmazonS3#deleteBucketWebsiteConfiguration(java.lang.String)
      */
     public void deleteBucketWebsiteConfiguration(String bucketName)
     		throws AmazonClientException, AmazonServiceException {
+    	deleteBucketWebsiteConfiguration(new DeleteBucketWebsiteConfigurationRequest(bucketName));
+    }
+
+	/* (non-Javadoc)
+	 * @see com.amazonaws.services.s3.AmazonS3#deleteBucketWebsiteConfiguration(com.amazonaws.services.s3.model.DeleteBucketWebsiteConfigurationRequest)
+	 */
+	public void deleteBucketWebsiteConfiguration(DeleteBucketWebsiteConfigurationRequest deleteBucketWebsiteConfigurationRequest)
+		throws AmazonClientException, AmazonServiceException {
+		String bucketName = deleteBucketWebsiteConfigurationRequest.getBucketName();
+
         assertParameterNotNull(bucketName,
         	"The bucket name parameter must be specified when deleting a bucket's website configuration");
 
-        Request<Void> request = createRequest(bucketName, null, null, HttpMethodName.DELETE);
+        Request<Void> request = createRequest(bucketName, null, deleteBucketWebsiteConfigurationRequest, HttpMethodName.DELETE);
         request.addParameter("website", null);
         request.addHeader("Content-Type", "application/xml");
         signRequest(request, bucketName, null);
 
         ExecutionContext executionContext = new ExecutionContext(requestHandlers);
         client.execute(request, voidResponseHandler, errorResponseHandler, executionContext);
-    }
+	}
 
     /* (non-Javadoc)
      * @see com.amazonaws.services.s3.AmazonS3#setBucketNotificationConfiguration(java.lang.String,com.amazonaws.services.s3.model.BucketNotificationConfiguration)
@@ -1789,6 +1823,23 @@ public class AmazonS3Client extends AmazonWebServiceClient implements AmazonS3 {
             throw new IllegalArgumentException("A File or InputStream must be specified when uploading part");
         }
 
+        MD5DigestCalculatingInputStream md5DigestStream = null;
+        if (uploadPartRequest.getMd5Digest() == null) {
+            /*
+             * If the user hasn't set the content MD5, then we don't want to
+             * buffer the whole stream in memory just to calculate it. Instead,
+             * we can calculate it on the fly and validate it with the returned
+             * ETag from the object upload.
+             */
+            try {
+                md5DigestStream = new MD5DigestCalculatingInputStream(inputStream);
+                inputStream = md5DigestStream;
+            } catch (NoSuchAlgorithmException e) {
+                log.warn("No MD5 digest algorithm available.  Unable to calculate " +
+                         "checksum and verify data integrity.", e);
+            }
+        }
+
         ProgressListener progressListener = uploadPartRequest.getProgressListener();
         if (progressListener != null) {
             inputStream = new ProgressReportingInputStream(inputStream, progressListener);
@@ -1800,6 +1851,20 @@ public class AmazonS3Client extends AmazonWebServiceClient implements AmazonS3 {
             ExecutionContext executionContext = new ExecutionContext(requestHandlers);
             S3MetadataResponseHandler responseHandler = new S3MetadataResponseHandler();
             ObjectMetadata metadata = client.execute(request, responseHandler, errorResponseHandler, executionContext);
+
+            if (metadata != null && md5DigestStream != null) {
+            	String contentMd5 = ServiceUtils.toBase64(md5DigestStream.getMd5Digest());
+                byte[] clientSideHash = ServiceUtils.fromBase64(contentMd5);
+                byte[] serverSideHash = ServiceUtils.fromHex(metadata.getETag());
+
+                if (!Arrays.equals(clientSideHash, serverSideHash)) {
+                    fireProgressEvent(progressListener, ProgressEvent.FAILED_EVENT_CODE);
+                    throw new AmazonClientException("Unable to verify integrity of data upload.  " +
+                            "Client calculated content hash didn't match hash calculated by Amazon S3.  " +
+                            "You may need to delete the data stored in Amazon S3.");
+                }
+            }
+
             fireProgressEvent(progressListener, ProgressEvent.PART_COMPLETED_EVENT_CODE);
 
             UploadPartResult result = new UploadPartResult();

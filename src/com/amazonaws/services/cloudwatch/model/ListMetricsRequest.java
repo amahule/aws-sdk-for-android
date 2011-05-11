@@ -17,48 +17,85 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * Container for the parameters to the {@link com.amazonaws.services.cloudwatch.AmazonCloudWatch#listMetrics(ListMetricsRequest) ListMetrics operation}.
- * 
+ * <p>
+ * Returns a list of valid metrics stored for the AWS account owner.
+ * Returned metrics can be used with <code>GetMetricStatistics</code> to
+ * obtain statistical data for a given metric.
+ * </p>
+ * <p>
+ * <b>NOTE:</b> Up to 500 results are returned for any one call. To
+ * retrieve further results, use returned NextToken values with
+ * subsequent ListMetrics operations.
+ * </p>
+ * <p>
+ * <b>NOTE:</b> If you create a metric with the PutMetricData action,
+ * allow up to fifteen minutes for the metric to appear in calls to the
+ * ListMetrics action.
+ * </p>
  *
  * @see com.amazonaws.services.cloudwatch.AmazonCloudWatch#listMetrics(ListMetricsRequest)
  */
 public class ListMetricsRequest extends AmazonWebServiceRequest {
 
+    /**
+     * The namespace to filter against.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>1 - 255<br/>
+     * <b>Pattern: </b>[^:].*<br/>
+     */
     private String namespace;
 
+    /**
+     * The name of the metric to filter against.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>1 - 255<br/>
+     */
     private String metricName;
 
+    /**
+     * A list of dimensions to filter against.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 10<br/>
+     */
     private java.util.List<DimensionFilter> dimensions;
 
+    /**
+     * The token returned by a previous call to indicate that there is more
+     * data available.
+     */
     private String nextToken;
 
     /**
-     * Returns the value of the Namespace property for this object.
+     * The namespace to filter against.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      * <b>Pattern: </b>[^:].*<br/>
      *
-     * @return The value of the Namespace property for this object.
+     * @return The namespace to filter against.
      */
     public String getNamespace() {
         return namespace;
     }
     
     /**
-     * Sets the value of the Namespace property for this object.
+     * The namespace to filter against.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      * <b>Pattern: </b>[^:].*<br/>
      *
-     * @param namespace The new value for the Namespace property for this object.
+     * @param namespace The namespace to filter against.
      */
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
     
     /**
-     * Sets the value of the Namespace property for this object.
+     * The namespace to filter against.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -66,7 +103,7 @@ public class ListMetricsRequest extends AmazonWebServiceRequest {
      * <b>Length: </b>1 - 255<br/>
      * <b>Pattern: </b>[^:].*<br/>
      *
-     * @param namespace The new value for the Namespace property for this object.
+     * @param namespace The namespace to filter against.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -78,38 +115,38 @@ public class ListMetricsRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the MetricName property for this object.
+     * The name of the metric to filter against.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @return The value of the MetricName property for this object.
+     * @return The name of the metric to filter against.
      */
     public String getMetricName() {
         return metricName;
     }
     
     /**
-     * Sets the value of the MetricName property for this object.
+     * The name of the metric to filter against.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @param metricName The new value for the MetricName property for this object.
+     * @param metricName The name of the metric to filter against.
      */
     public void setMetricName(String metricName) {
         this.metricName = metricName;
     }
     
     /**
-     * Sets the value of the MetricName property for this object.
+     * The name of the metric to filter against.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @param metricName The new value for the MetricName property for this object.
+     * @param metricName The name of the metric to filter against.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -121,12 +158,12 @@ public class ListMetricsRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the Dimensions property for this object.
+     * A list of dimensions to filter against.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10<br/>
      *
-     * @return The value of the Dimensions property for this object.
+     * @return A list of dimensions to filter against.
      */
     public java.util.List<DimensionFilter> getDimensions() {
         if (dimensions == null) {
@@ -136,12 +173,12 @@ public class ListMetricsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the Dimensions property for this object.
+     * A list of dimensions to filter against.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10<br/>
      *
-     * @param dimensions The new value for the Dimensions property for this object.
+     * @param dimensions A list of dimensions to filter against.
      */
     public void setDimensions(java.util.Collection<DimensionFilter> dimensions) {
         java.util.List<DimensionFilter> dimensionsCopy = new java.util.ArrayList<DimensionFilter>();
@@ -152,14 +189,14 @@ public class ListMetricsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the Dimensions property for this object.
+     * A list of dimensions to filter against.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10<br/>
      *
-     * @param dimensions The new value for the Dimensions property for this object.
+     * @param dimensions A list of dimensions to filter against.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -172,14 +209,14 @@ public class ListMetricsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the Dimensions property for this object.
+     * A list of dimensions to filter against.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10<br/>
      *
-     * @param dimensions The new value for the Dimensions property for this object.
+     * @param dimensions A list of dimensions to filter against.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -195,29 +232,35 @@ public class ListMetricsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Returns the value of the NextToken property for this object.
+     * The token returned by a previous call to indicate that there is more
+     * data available.
      *
-     * @return The value of the NextToken property for this object.
+     * @return The token returned by a previous call to indicate that there is more
+     *         data available.
      */
     public String getNextToken() {
         return nextToken;
     }
     
     /**
-     * Sets the value of the NextToken property for this object.
+     * The token returned by a previous call to indicate that there is more
+     * data available.
      *
-     * @param nextToken The new value for the NextToken property for this object.
+     * @param nextToken The token returned by a previous call to indicate that there is more
+     *         data available.
      */
     public void setNextToken(String nextToken) {
         this.nextToken = nextToken;
     }
     
     /**
-     * Sets the value of the NextToken property for this object.
+     * The token returned by a previous call to indicate that there is more
+     * data available.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param nextToken The new value for the NextToken property for this object.
+     * @param nextToken The token returned by a previous call to indicate that there is more
+     *         data available.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

@@ -17,31 +17,71 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * Container for the parameters to the {@link com.amazonaws.services.cloudwatch.AmazonCloudWatch#describeAlarms(DescribeAlarmsRequest) DescribeAlarms operation}.
- * 
+ * <p>
+ * Retrieves alarms with the specified names. If no name is specified,
+ * all alarms for the user are returned. Alarms can be retrieved by using
+ * only a prefix for the alarm name, the alarm state, or a prefix for any
+ * action.
+ * </p>
  *
  * @see com.amazonaws.services.cloudwatch.AmazonCloudWatch#describeAlarms(DescribeAlarmsRequest)
  */
 public class DescribeAlarmsRequest extends AmazonWebServiceRequest {
 
+    /**
+     * A list of alarm names to retrieve information for.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 100<br/>
+     */
     private java.util.List<String> alarmNames;
 
+    /**
+     * The alarm name prefix. <code>AlarmNames</code> cannot be specified if
+     * this parameter is specified.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>1 - 255<br/>
+     */
     private String alarmNamePrefix;
 
+    /**
+     * The state value to be used in matching alarms.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>OK, ALARM, INSUFFICIENT_DATA
+     */
     private String stateValue;
 
+    /**
+     * The action name prefix.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>1 - 1024<br/>
+     */
     private String actionPrefix;
 
+    /**
+     * The maximum number of alarm descriptions to retrieve.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>1 - 100<br/>
+     */
     private Integer maxRecords;
 
+    /**
+     * The token returned by a previous call to indicate that there is more
+     * data available.
+     */
     private String nextToken;
 
     /**
-     * Returns the value of the AlarmNames property for this object.
+     * A list of alarm names to retrieve information for.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 100<br/>
      *
-     * @return The value of the AlarmNames property for this object.
+     * @return A list of alarm names to retrieve information for.
      */
     public java.util.List<String> getAlarmNames() {
         if (alarmNames == null) {
@@ -51,12 +91,12 @@ public class DescribeAlarmsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the AlarmNames property for this object.
+     * A list of alarm names to retrieve information for.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 100<br/>
      *
-     * @param alarmNames The new value for the AlarmNames property for this object.
+     * @param alarmNames A list of alarm names to retrieve information for.
      */
     public void setAlarmNames(java.util.Collection<String> alarmNames) {
         java.util.List<String> alarmNamesCopy = new java.util.ArrayList<String>();
@@ -67,14 +107,14 @@ public class DescribeAlarmsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the AlarmNames property for this object.
+     * A list of alarm names to retrieve information for.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 100<br/>
      *
-     * @param alarmNames The new value for the AlarmNames property for this object.
+     * @param alarmNames A list of alarm names to retrieve information for.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -87,14 +127,14 @@ public class DescribeAlarmsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the AlarmNames property for this object.
+     * A list of alarm names to retrieve information for.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 100<br/>
      *
-     * @param alarmNames The new value for the AlarmNames property for this object.
+     * @param alarmNames A list of alarm names to retrieve information for.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -110,38 +150,44 @@ public class DescribeAlarmsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Returns the value of the AlarmNamePrefix property for this object.
+     * The alarm name prefix. <code>AlarmNames</code> cannot be specified if
+     * this parameter is specified.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @return The value of the AlarmNamePrefix property for this object.
+     * @return The alarm name prefix. <code>AlarmNames</code> cannot be specified if
+     *         this parameter is specified.
      */
     public String getAlarmNamePrefix() {
         return alarmNamePrefix;
     }
     
     /**
-     * Sets the value of the AlarmNamePrefix property for this object.
+     * The alarm name prefix. <code>AlarmNames</code> cannot be specified if
+     * this parameter is specified.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @param alarmNamePrefix The new value for the AlarmNamePrefix property for this object.
+     * @param alarmNamePrefix The alarm name prefix. <code>AlarmNames</code> cannot be specified if
+     *         this parameter is specified.
      */
     public void setAlarmNamePrefix(String alarmNamePrefix) {
         this.alarmNamePrefix = alarmNamePrefix;
     }
     
     /**
-     * Sets the value of the AlarmNamePrefix property for this object.
+     * The alarm name prefix. <code>AlarmNames</code> cannot be specified if
+     * this parameter is specified.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @param alarmNamePrefix The new value for the AlarmNamePrefix property for this object.
+     * @param alarmNamePrefix The alarm name prefix. <code>AlarmNames</code> cannot be specified if
+     *         this parameter is specified.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -153,12 +199,12 @@ public class DescribeAlarmsRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the StateValue property for this object.
+     * The state value to be used in matching alarms.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>OK, ALARM, INSUFFICIENT_DATA
      *
-     * @return The value of the StateValue property for this object.
+     * @return The state value to be used in matching alarms.
      *
      * @see StateValue
      */
@@ -167,12 +213,12 @@ public class DescribeAlarmsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the StateValue property for this object.
+     * The state value to be used in matching alarms.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>OK, ALARM, INSUFFICIENT_DATA
      *
-     * @param stateValue The new value for the StateValue property for this object.
+     * @param stateValue The state value to be used in matching alarms.
      *
      * @see StateValue
      */
@@ -181,14 +227,14 @@ public class DescribeAlarmsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the StateValue property for this object.
+     * The state value to be used in matching alarms.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>OK, ALARM, INSUFFICIENT_DATA
      *
-     * @param stateValue The new value for the StateValue property for this object.
+     * @param stateValue The state value to be used in matching alarms.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -202,38 +248,38 @@ public class DescribeAlarmsRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the ActionPrefix property for this object.
+     * The action name prefix.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
      *
-     * @return The value of the ActionPrefix property for this object.
+     * @return The action name prefix.
      */
     public String getActionPrefix() {
         return actionPrefix;
     }
     
     /**
-     * Sets the value of the ActionPrefix property for this object.
+     * The action name prefix.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
      *
-     * @param actionPrefix The new value for the ActionPrefix property for this object.
+     * @param actionPrefix The action name prefix.
      */
     public void setActionPrefix(String actionPrefix) {
         this.actionPrefix = actionPrefix;
     }
     
     /**
-     * Sets the value of the ActionPrefix property for this object.
+     * The action name prefix.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
      *
-     * @param actionPrefix The new value for the ActionPrefix property for this object.
+     * @param actionPrefix The action name prefix.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -245,38 +291,38 @@ public class DescribeAlarmsRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the MaxRecords property for this object.
+     * The maximum number of alarm descriptions to retrieve.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>1 - 100<br/>
      *
-     * @return The value of the MaxRecords property for this object.
+     * @return The maximum number of alarm descriptions to retrieve.
      */
     public Integer getMaxRecords() {
         return maxRecords;
     }
     
     /**
-     * Sets the value of the MaxRecords property for this object.
+     * The maximum number of alarm descriptions to retrieve.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>1 - 100<br/>
      *
-     * @param maxRecords The new value for the MaxRecords property for this object.
+     * @param maxRecords The maximum number of alarm descriptions to retrieve.
      */
     public void setMaxRecords(Integer maxRecords) {
         this.maxRecords = maxRecords;
     }
     
     /**
-     * Sets the value of the MaxRecords property for this object.
+     * The maximum number of alarm descriptions to retrieve.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>1 - 100<br/>
      *
-     * @param maxRecords The new value for the MaxRecords property for this object.
+     * @param maxRecords The maximum number of alarm descriptions to retrieve.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -288,29 +334,35 @@ public class DescribeAlarmsRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the NextToken property for this object.
+     * The token returned by a previous call to indicate that there is more
+     * data available.
      *
-     * @return The value of the NextToken property for this object.
+     * @return The token returned by a previous call to indicate that there is more
+     *         data available.
      */
     public String getNextToken() {
         return nextToken;
     }
     
     /**
-     * Sets the value of the NextToken property for this object.
+     * The token returned by a previous call to indicate that there is more
+     * data available.
      *
-     * @param nextToken The new value for the NextToken property for this object.
+     * @param nextToken The token returned by a previous call to indicate that there is more
+     *         data available.
      */
     public void setNextToken(String nextToken) {
         this.nextToken = nextToken;
     }
     
     /**
-     * Sets the value of the NextToken property for this object.
+     * The token returned by a previous call to indicate that there is more
+     * data available.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param nextToken The new value for the NextToken property for this object.
+     * @param nextToken The token returned by a previous call to indicate that there is more
+     *         data available.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

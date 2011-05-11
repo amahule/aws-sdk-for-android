@@ -82,6 +82,7 @@ public abstract class AmazonWebServiceRequest {
      *
      * @return private, internal request parameter information.
      */
+
     public Map<String, String> copyPrivateRequestParameters() {
         HashMap<String,String> map = new HashMap<String, String>();
         if (delegationToken != null) map.put("SecurityToken", delegationToken);

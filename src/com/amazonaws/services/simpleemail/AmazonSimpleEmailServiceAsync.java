@@ -34,16 +34,12 @@ import com.amazonaws.services.simpleemail.model.*;
  * consult the <a
  * href="http://docs.amazonwebservices.com/ses/latest/DeveloperGuide">
  * Amazon SES Developer Guide </a> .
- * </p>
- * <p>
- * <b>NOTE:</b>The endpoint for AWS Email Service is located at:
- * https://email.us-east-1.amazonaws.com
  * </p> 
  */       
 public interface AmazonSimpleEmailServiceAsync extends AmazonSimpleEmailService {
     /**
      * <p>
-     * Returns the user's current sending limits.
+     * Returns the user's current activity limits.
      * </p>
      *
      * @param getSendQuotaRequest Container for the necessary parameters to
@@ -200,8 +196,9 @@ public interface AmazonSimpleEmailServiceAsync extends AmazonSimpleEmailService 
      * <p>
      * Sends an email message, with header and content specified by the
      * client. The <code>SendRawEmail</code> action is useful for sending
-     * multipart MIME emails. The raw text of the message must comply with
-     * Internet email standards; otherwise, the message cannot be sent.
+     * multipart MIME emails, with attachments or inline content. The raw
+     * text of the message must comply with Internet email standards;
+     * otherwise, the message cannot be sent.
      * </p>
      * <p>
      * <b>IMPORTANT:</b>If you have not yet requested production access to

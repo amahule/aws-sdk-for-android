@@ -15,7 +15,9 @@
 package com.amazonaws.services.sqs.model;
 
 /**
+ * <p>
  * 
+ * </p>
  */
 public class GetQueueAttributesResult {
 

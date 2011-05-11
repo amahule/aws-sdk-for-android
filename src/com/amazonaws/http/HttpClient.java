@@ -81,6 +81,8 @@ public class HttpClient {
     private org.apache.commons.httpclient.HttpClient httpClient;
 
     private static final String DEFAULT_ENCODING = "UTF-8";
+	private static final String BYTES_PROCESSED_COUNTER = "bytes-processed";
+	private static final String RESPONSE_PROCESSING_SUBMEASUREMENT = "response-processing";
 
     /** Maximum exponential back-off time before retrying a request */
     private static final int MAX_BACKOFF_IN_MILLISECONDS = 20 * 1000;
@@ -93,6 +95,9 @@ public class HttpClient {
 
     private Random random = new Random();
 
+	/** Internal system property to enable advanced timing info collection. */
+	public static final String PROFILING_SYSTEM_PROPERTY = "com.amazonaws.sdk.enableRuntimeProfiling";
+	
 
     static {
         // Customers have reported XML parsing issues with the following
@@ -138,8 +143,21 @@ public class HttpClient {
         return responseMetadataCache.get(request);
     }
 
-
-
+    /**
+     * Executes the request and returns the result.
+     * 
+     * @param request
+     *            The AmazonWebServices request to send to the remote server
+     * @param responseHandler
+     *            A response handler to accept a successful response from the
+     *            remote server
+     * @param errorResponseHandler
+     *            A response handler to accept an unsuccessful response from the
+     *            remote server
+     * @param executionContext
+     *            Additional information about the context of this web service
+     *            call
+     */
     public <T> T execute(Request<?> request,
             HttpResponseHandler<AmazonWebServiceResponse<T>> responseHandler,
             HttpResponseHandler<AmazonServiceException> errorResponseHandler,
@@ -151,14 +169,16 @@ public class HttpClient {
     	 *       we have to run that code *before* signing the request, since it could change
     	 *       request parameters.
     	 */
-
     	if (executionContext == null) throw new AmazonClientException("Internal SDK Error: No execution context parameter specified.");
-    	List<RequestHandler> requestHandlers = executionContext.requestHandlers;
+    	List<RequestHandler> requestHandlers = executionContext.getRequestHandlers();
     	if (requestHandlers == null) requestHandlers = new ArrayList<RequestHandler>();
 
     	try {
-    		T t = execute(request, responseHandler, errorResponseHandler);
-    		TimingInfo timingInfo = new TimingInfo(startTime, System.currentTimeMillis());
+    		TimingInfo timingInfo = new TimingInfo(startTime);
+    		executionContext.setTimingInfo(timingInfo);
+    		T t = executeHelper(request, responseHandler, errorResponseHandler, executionContext);
+    		timingInfo.setEndTime(System.currentTimeMillis());
+    		
 			for (RequestHandler handler : requestHandlers) {
 				try {
 					handler.afterResponse(request, t, timingInfo);
@@ -178,7 +198,7 @@ public class HttpClient {
             HttpResponseHandler<AmazonWebServiceResponse<T>> responseHandler,
             HttpResponseHandler<AmazonServiceException> errorResponseHandler)
             throws AmazonClientException, AmazonServiceException {
-    	return execute(convertToRequest(httpRequest), responseHandler, errorResponseHandler);
+    	return executeHelper(convertToRequest(httpRequest), responseHandler, errorResponseHandler, new ExecutionContext());
     }
 
     @Deprecated
@@ -200,18 +220,24 @@ public class HttpClient {
         return request;
     }
 
-    public <T extends Object> T execute(Request<?> request,
-            HttpResponseHandler<AmazonWebServiceResponse<T>> responseHandler,
-            HttpResponseHandler<AmazonServiceException> errorResponseHandler)
-            throws AmazonClientException, AmazonServiceException {
-
-        URI endpoint = request.getEndpoint();
-        HttpMethodBase method = createHttpMethodFromRequest(request);
-
+	/**
+     * Internal method to execute the HTTP method given.
+     * 
+     * @see HttpClient#execute(Request, HttpResponseHandler, HttpResponseHandler)
+     * @see HttpClient#execute(Request, HttpResponseHandler, HttpResponseHandler, ExecutionContext)
+     */
+    private <T extends Object> T executeHelper(Request<?> request,
+                                               HttpResponseHandler<AmazonWebServiceResponse<T>> responseHandler,
+                                               HttpResponseHandler<AmazonServiceException> errorResponseHandler,
+                                               ExecutionContext executionContext) throws AmazonClientException,
+            AmazonServiceException {
+    	
+		HttpMethodBase method = createHttpMethodFromRequest(request, executionContext);
+        
         /* Set content type and encoding */
         if (method.getRequestHeader("Content-Type") == null) {
             log.debug("Setting content-type to application/x-www-form-urlencoded; " +
-            		"charset=" + DEFAULT_ENCODING.toLowerCase());
+                    "charset=" + DEFAULT_ENCODING.toLowerCase());
             method.addRequestHeader("Content-Type",
                     "application/x-www-form-urlencoded; " +
                     "charset=" + DEFAULT_ENCODING.toLowerCase());
@@ -236,6 +262,7 @@ public class HttpClient {
          * and started honoring our explicit host with endpoint), we follow this
          * same behavior here and in the QueryString signer.
          */
+        URI endpoint = request.getEndpoint();
         String hostHeader = endpoint.getHost();
         if (HttpUtils.isUsingNonDefaultPort(endpoint)) {
             hostHeader += ":" + endpoint.getPort();
@@ -265,7 +292,7 @@ public class HttpClient {
                      * treat the service call as successful.
                      */
                     leaveHttpConnectionOpen = responseHandler.needsConnectionLeftOpen();
-                    return handleResponse(request, responseHandler, method);
+                    return handleResponse(request, responseHandler, method, executionContext);
                 } else if (isTemporaryRedirect(method, status)) {
                     /*
                      * S3 sends 307 Temporary Redirects if you try to delete an
@@ -305,6 +332,20 @@ public class HttpClient {
                 }
             }
         }
+
+    }
+    
+    /**
+     * Executes the request and returns the result.
+     * 
+     * @see HttpClient#execute(Request, HttpResponseHandler,
+     *      HttpResponseHandler, ExecutionContext)
+     */
+    public <T extends Object> T execute(Request<?> request,
+            HttpResponseHandler<AmazonWebServiceResponse<T>> responseHandler,
+            HttpResponseHandler<AmazonServiceException> errorResponseHandler)
+            throws AmazonClientException, AmazonServiceException {
+        return executeHelper(request, responseHandler, errorResponseHandler, new ExecutionContext());
     }
 
     /**
@@ -391,14 +432,15 @@ public class HttpClient {
     /**
      * Creates an HttpClient method object based on the specified request and
      * populates any parameters, headers, etc. from the original request.
-     *
+     * 
      * @param request
      *            The request to convert to an HttpClient method object.
-     *
+     * @param context
+     *            The execution context of the http method to be executed
      * @return The converted HttpClient method object with any parameters,
      *         headers, etc. from the original request set.
      */
-    private HttpMethodBase createHttpMethodFromRequest(Request<?> request) {
+    private HttpMethodBase createHttpMethodFromRequest(Request<?> request, ExecutionContext context) {
         URI endpoint = request.getEndpoint();
         String uri = endpoint.toString();
         if (request.getResourcePath() != null && request.getResourcePath().length() > 0) {
@@ -410,7 +452,8 @@ public class HttpClient {
 
         NameValuePair[] nameValuePairs = null;
         if (request.getParameters().size() > 0) {
-            nameValuePairs = new NameValuePair[request.getParameters().size()];
+            int numParams = request.getParameters().size();
+            nameValuePairs = new NameValuePair[numParams];
             int i = 0;
             for (Entry<String, String> entry : request.getParameters().entrySet()) {
                 nameValuePairs[i++] = new NameValuePair(entry.getKey(), entry.getValue());
@@ -473,36 +516,53 @@ public class HttpClient {
         for (Entry<String, String> entry : request.getHeaders().entrySet()) {
             method.addRequestHeader(entry.getKey(), entry.getValue());
         }
-
+        // Override the user agent string specified in the client params if the context requires it
+        if ( context != null && context.getContextUserAgent() != null ) {
+            method.addRequestHeader("User-Agent", createUserAgentString(context.getContextUserAgent()));
+        }
+            
         return method;
     }
 
     /**
-     * Handles a successful response from a service call by unmarshalling the
-     * results using the specified response handler.
-     *
-     * @param <T>
-     *            The type of object expected in the response.
-     *
-     * @param request
-     *            The original request that generated the response being
-     *            handled.
-     * @param responseHandler
-     *            The response unmarshaller used to interpret the contents of
-     *            the response.
-     * @param method
-     *            The HTTP method that was invoked, and contains the contents of
-     *            the response.
-     *
-     * @return The contents of the response, unmarshalled using the specified
-     *         response handler.
-     *
-     * @throws IOException
-     *             If any problems were encountered reading the response
-     *             contents from the HTTP method object.
+     * Appends the given user-agent string to the client's existing one and returns it.
      */
+    private String createUserAgentString(String contextUserAgent) {
+        if ( config.getUserAgent().contains(contextUserAgent) ) {
+            return config.getUserAgent();
+        } else {
+            return config.getUserAgent() + " " + contextUserAgent;
+        }
+    }
+
+	/**
+	 * Handles a successful response from a service call by unmarshalling the
+	 * results using the specified response handler.
+	 * 
+	 * @param <T>
+	 *            The type of object expected in the response.
+	 * 
+	 * @param request
+	 *            The original request that generated the response being
+	 *            handled.
+	 * @param responseHandler
+	 *            The response unmarshaller used to interpret the contents of
+	 *            the response.
+	 * @param method
+	 *            The HTTP method that was invoked, and contains the contents of
+	 *            the response.
+	 * @param executionContext
+	 *            Extra state information about the request currently being
+	 *            executed.
+	 * @return The contents of the response, unmarshalled using the specified
+	 *         response handler.
+	 * 
+	 * @throws IOException
+	 *             If any problems were encountered reading the response
+	 *             contents from the HTTP method object.
+	 */
     private <T> T handleResponse(Request request,
-            HttpResponseHandler<AmazonWebServiceResponse<T>> responseHandler, HttpMethodBase method)
+            HttpResponseHandler<AmazonWebServiceResponse<T>> responseHandler, HttpMethodBase method, ExecutionContext executionContext)
             throws IOException {
 
         HttpResponse httpResponse = createResponse(method, request);
@@ -511,20 +571,33 @@ public class HttpClient {
         }
 
         try {
-            CountingInputStream countingInputStream = null;
-            if (unmarshallerPerformanceLog.isTraceEnabled()) {
-                countingInputStream = new CountingInputStream(httpResponse.getContent());
-                httpResponse.setContent(countingInputStream);
-            }
+        	CountingInputStream countingInputStream = null;
+        	if (System.getProperty(PROFILING_SYSTEM_PROPERTY) != null) {
+        		countingInputStream = new CountingInputStream(httpResponse.getContent());
+        		httpResponse.setContent(countingInputStream);
+        	}
 
             long startTime = System.currentTimeMillis();
             AmazonWebServiceResponse<? extends T> awsResponse = responseHandler.handle(httpResponse);
             long endTime = System.currentTimeMillis();
 
+        	if (System.getProperty(PROFILING_SYSTEM_PROPERTY) != null) {
+	            if (executionContext.getTimingInfo() != null) {
+	            	TimingInfo timingInfo = executionContext.getTimingInfo();
+	            	TimingInfo responseProcessingTiming = new TimingInfo(startTime, endTime);
+					timingInfo.addSubMeasurement(RESPONSE_PROCESSING_SUBMEASUREMENT, responseProcessingTiming);
+	
+	                if (countingInputStream != null) {
+	               	 	responseProcessingTiming.addCounter(BYTES_PROCESSED_COUNTER, countingInputStream.getByteCount());
+	                }
+	            }
+        	}
+
             if (unmarshallerPerformanceLog.isTraceEnabled()) {
                 unmarshallerPerformanceLog.trace(
                         countingInputStream.getByteCount() + ", " + (endTime - startTime));
             }
+
 
             if (awsResponse == null)
                 throw new RuntimeException("Unable to unmarshall response metadata");
@@ -680,6 +753,7 @@ public class HttpClient {
         connectionManagerParams.setStaleCheckingEnabled(true);
         connectionManagerParams.setTcpNoDelay(true);
         connectionManagerParams.setMaxTotalConnections(config.getMaxConnections());
+        connectionManagerParams.setDefaultMaxConnectionsPerHost(config.getMaxConnections());
         connectionManagerParams.setMaxConnectionsPerHost(hostConfiguration, config.getMaxConnections());
 
         int socketSendBufferSizeHint = config.getSocketBufferSizeHints()[0];

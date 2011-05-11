@@ -20,8 +20,9 @@ import com.amazonaws.AmazonWebServiceRequest;
  * <p>
  * Sends an email message, with header and content specified by the
  * client. The <code>SendRawEmail</code> action is useful for sending
- * multipart MIME emails. The raw text of the message must comply with
- * Internet email standards; otherwise, the message cannot be sent.
+ * multipart MIME emails, with attachments or inline content. The raw
+ * text of the message must comply with Internet email standards;
+ * otherwise, the message cannot be sent.
  * </p>
  * <p>
  * <b>IMPORTANT:</b>If you have not yet requested production access to

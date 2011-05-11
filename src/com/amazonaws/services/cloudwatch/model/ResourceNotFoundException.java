@@ -17,7 +17,9 @@ package com.amazonaws.services.cloudwatch.model;
 import com.amazonaws.AmazonServiceException;
 
 /**
- * AmazonCloudWatch exception
+ * <p>
+ * The named resource does not exist.
+ * </p>
  */        
 public class ResourceNotFoundException extends AmazonServiceException {
     private static final long serialVersionUID = 1L;

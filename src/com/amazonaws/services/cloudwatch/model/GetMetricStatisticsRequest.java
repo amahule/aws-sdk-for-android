@@ -17,56 +17,144 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * Container for the parameters to the {@link com.amazonaws.services.cloudwatch.AmazonCloudWatch#getMetricStatistics(GetMetricStatisticsRequest) GetMetricStatistics operation}.
+ * <p>
+ * Gets statistics for the specified metric.
+ * </p>
+ * <p>
+ * <b>NOTE:</b> The maximum number of data points returned from a single
+ * GetMetricStatistics request is 1,440. If a request is made that
+ * generates more than 1,440 data points, Amazon CloudWatch returns an
+ * error. In such a case, alter the request by narrowing the specified
+ * time range or increasing the specified period. Alternatively, make
+ * multiple requests across adjacent time ranges.
+ * </p>
+ * <p>
+ * Amazon CloudWatch aggregates data points based on the length of the
+ * <code>period</code> that you specify. For example, if you request
+ * statistics with a one-minute granularity, Amazon CloudWatch aggregates
+ * data points with time stamps that fall within the same one-minute
+ * period. In such a case, the data points queried can greatly outnumber
+ * the data points returned.
+ * </p>
+ * <p>
+ * <b>NOTE:</b> The maximum number of data points that can be queried is
+ * 50,850; whereas the maximum number of data points returned is 1,440.
+ * </p>
+ * <p>
+ * The following examples show various statistics allowed by the data
+ * point query maximum of 50,850 when you call
+ * <code>GetMetricStatistics</code> on Amazon EC2 instances with detailed
+ * (one-minute) monitoring enabled:
+ * </p>
  * 
+ * <ul>
+ * <li>Statistics for up to 400 instances for a span of one hour</li>
+ * <li>Statistics for up to 35 instances over a span of 24 hours</li>
+ * <li>Statistics for up to 2 instances over a span of 2 weeks</li>
+ * 
+ * </ul>
  *
  * @see com.amazonaws.services.cloudwatch.AmazonCloudWatch#getMetricStatistics(GetMetricStatisticsRequest)
  */
 public class GetMetricStatisticsRequest extends AmazonWebServiceRequest {
 
+    /**
+     * The namespace of the metric.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>1 - 255<br/>
+     * <b>Pattern: </b>[^:].*<br/>
+     */
     private String namespace;
 
+    /**
+     * The name of the metric.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>1 - 255<br/>
+     */
     private String metricName;
 
+    /**
+     * A list of dimensions describing qualities of the metric.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 10<br/>
+     */
     private java.util.List<Dimension> dimensions;
 
+    /**
+     * The time stamp to use for determining the first datapoint to return.
+     * The value specified is inclusive; results include datapoints with the
+     * time stamp specified. <note> The specified start time is rounded down
+     * to the nearest value. Datapoints are returned for start times up to
+     * two weeks in the past. Specified start times that are more than two
+     * weeks in the past will not return datapoints for metrics that are
+     * older than two weeks. </note>
+     */
     private java.util.Date startTime;
 
+    /**
+     * The time stamp to use for determining the last datapoint to return.
+     * The value specified is exclusive; results will include datapoints up
+     * to the time stamp specified.
+     */
     private java.util.Date endTime;
 
+    /**
+     * The granularity, in seconds, of the returned datapoints.
+     * <code>Period</code> must be at least 60 seconds and must be a multiple
+     * of 60. The default value is 60.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>60 - <br/>
+     */
     private Integer period;
 
+    /**
+     * The metric statistics to return.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>1 - 5<br/>
+     */
     private java.util.List<String> statistics;
 
+    /**
+     * The unit for the metric.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>Seconds, Microseconds, Milliseconds, Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, Bits, Kilobits, Megabits, Gigabits, Terabits, Percent, Count, Bytes/Second, Kilobytes/Second, Megabytes/Second, Gigabytes/Second, Terabytes/Second, Bits/Second, Kilobits/Second, Megabits/Second, Gigabits/Second, Terabits/Second, Count/Second, None
+     */
     private String unit;
 
     /**
-     * Returns the value of the Namespace property for this object.
+     * The namespace of the metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      * <b>Pattern: </b>[^:].*<br/>
      *
-     * @return The value of the Namespace property for this object.
+     * @return The namespace of the metric.
      */
     public String getNamespace() {
         return namespace;
     }
     
     /**
-     * Sets the value of the Namespace property for this object.
+     * The namespace of the metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      * <b>Pattern: </b>[^:].*<br/>
      *
-     * @param namespace The new value for the Namespace property for this object.
+     * @param namespace The namespace of the metric.
      */
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
     
     /**
-     * Sets the value of the Namespace property for this object.
+     * The namespace of the metric.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -74,7 +162,7 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest {
      * <b>Length: </b>1 - 255<br/>
      * <b>Pattern: </b>[^:].*<br/>
      *
-     * @param namespace The new value for the Namespace property for this object.
+     * @param namespace The namespace of the metric.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -86,38 +174,38 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the MetricName property for this object.
+     * The name of the metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @return The value of the MetricName property for this object.
+     * @return The name of the metric.
      */
     public String getMetricName() {
         return metricName;
     }
     
     /**
-     * Sets the value of the MetricName property for this object.
+     * The name of the metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @param metricName The new value for the MetricName property for this object.
+     * @param metricName The name of the metric.
      */
     public void setMetricName(String metricName) {
         this.metricName = metricName;
     }
     
     /**
-     * Sets the value of the MetricName property for this object.
+     * The name of the metric.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @param metricName The new value for the MetricName property for this object.
+     * @param metricName The name of the metric.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -129,12 +217,12 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the Dimensions property for this object.
+     * A list of dimensions describing qualities of the metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10<br/>
      *
-     * @return The value of the Dimensions property for this object.
+     * @return A list of dimensions describing qualities of the metric.
      */
     public java.util.List<Dimension> getDimensions() {
         if (dimensions == null) {
@@ -144,12 +232,12 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the Dimensions property for this object.
+     * A list of dimensions describing qualities of the metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10<br/>
      *
-     * @param dimensions The new value for the Dimensions property for this object.
+     * @param dimensions A list of dimensions describing qualities of the metric.
      */
     public void setDimensions(java.util.Collection<Dimension> dimensions) {
         java.util.List<Dimension> dimensionsCopy = new java.util.ArrayList<Dimension>();
@@ -160,14 +248,14 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the Dimensions property for this object.
+     * A list of dimensions describing qualities of the metric.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10<br/>
      *
-     * @param dimensions The new value for the Dimensions property for this object.
+     * @param dimensions A list of dimensions describing qualities of the metric.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -180,14 +268,14 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the Dimensions property for this object.
+     * A list of dimensions describing qualities of the metric.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10<br/>
      *
-     * @param dimensions The new value for the Dimensions property for this object.
+     * @param dimensions A list of dimensions describing qualities of the metric.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -203,29 +291,65 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Returns the value of the StartTime property for this object.
+     * The time stamp to use for determining the first datapoint to return.
+     * The value specified is inclusive; results include datapoints with the
+     * time stamp specified. <note> The specified start time is rounded down
+     * to the nearest value. Datapoints are returned for start times up to
+     * two weeks in the past. Specified start times that are more than two
+     * weeks in the past will not return datapoints for metrics that are
+     * older than two weeks. </note>
      *
-     * @return The value of the StartTime property for this object.
+     * @return The time stamp to use for determining the first datapoint to return.
+     *         The value specified is inclusive; results include datapoints with the
+     *         time stamp specified. <note> The specified start time is rounded down
+     *         to the nearest value. Datapoints are returned for start times up to
+     *         two weeks in the past. Specified start times that are more than two
+     *         weeks in the past will not return datapoints for metrics that are
+     *         older than two weeks. </note>
      */
     public java.util.Date getStartTime() {
         return startTime;
     }
     
     /**
-     * Sets the value of the StartTime property for this object.
+     * The time stamp to use for determining the first datapoint to return.
+     * The value specified is inclusive; results include datapoints with the
+     * time stamp specified. <note> The specified start time is rounded down
+     * to the nearest value. Datapoints are returned for start times up to
+     * two weeks in the past. Specified start times that are more than two
+     * weeks in the past will not return datapoints for metrics that are
+     * older than two weeks. </note>
      *
-     * @param startTime The new value for the StartTime property for this object.
+     * @param startTime The time stamp to use for determining the first datapoint to return.
+     *         The value specified is inclusive; results include datapoints with the
+     *         time stamp specified. <note> The specified start time is rounded down
+     *         to the nearest value. Datapoints are returned for start times up to
+     *         two weeks in the past. Specified start times that are more than two
+     *         weeks in the past will not return datapoints for metrics that are
+     *         older than two weeks. </note>
      */
     public void setStartTime(java.util.Date startTime) {
         this.startTime = startTime;
     }
     
     /**
-     * Sets the value of the StartTime property for this object.
+     * The time stamp to use for determining the first datapoint to return.
+     * The value specified is inclusive; results include datapoints with the
+     * time stamp specified. <note> The specified start time is rounded down
+     * to the nearest value. Datapoints are returned for start times up to
+     * two weeks in the past. Specified start times that are more than two
+     * weeks in the past will not return datapoints for metrics that are
+     * older than two weeks. </note>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param startTime The new value for the StartTime property for this object.
+     * @param startTime The time stamp to use for determining the first datapoint to return.
+     *         The value specified is inclusive; results include datapoints with the
+     *         time stamp specified. <note> The specified start time is rounded down
+     *         to the nearest value. Datapoints are returned for start times up to
+     *         two weeks in the past. Specified start times that are more than two
+     *         weeks in the past will not return datapoints for metrics that are
+     *         older than two weeks. </note>
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -237,29 +361,41 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the EndTime property for this object.
+     * The time stamp to use for determining the last datapoint to return.
+     * The value specified is exclusive; results will include datapoints up
+     * to the time stamp specified.
      *
-     * @return The value of the EndTime property for this object.
+     * @return The time stamp to use for determining the last datapoint to return.
+     *         The value specified is exclusive; results will include datapoints up
+     *         to the time stamp specified.
      */
     public java.util.Date getEndTime() {
         return endTime;
     }
     
     /**
-     * Sets the value of the EndTime property for this object.
+     * The time stamp to use for determining the last datapoint to return.
+     * The value specified is exclusive; results will include datapoints up
+     * to the time stamp specified.
      *
-     * @param endTime The new value for the EndTime property for this object.
+     * @param endTime The time stamp to use for determining the last datapoint to return.
+     *         The value specified is exclusive; results will include datapoints up
+     *         to the time stamp specified.
      */
     public void setEndTime(java.util.Date endTime) {
         this.endTime = endTime;
     }
     
     /**
-     * Sets the value of the EndTime property for this object.
+     * The time stamp to use for determining the last datapoint to return.
+     * The value specified is exclusive; results will include datapoints up
+     * to the time stamp specified.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param endTime The new value for the EndTime property for this object.
+     * @param endTime The time stamp to use for determining the last datapoint to return.
+     *         The value specified is exclusive; results will include datapoints up
+     *         to the time stamp specified.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -271,38 +407,50 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the Period property for this object.
+     * The granularity, in seconds, of the returned datapoints.
+     * <code>Period</code> must be at least 60 seconds and must be a multiple
+     * of 60. The default value is 60.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>60 - <br/>
      *
-     * @return The value of the Period property for this object.
+     * @return The granularity, in seconds, of the returned datapoints.
+     *         <code>Period</code> must be at least 60 seconds and must be a multiple
+     *         of 60. The default value is 60.
      */
     public Integer getPeriod() {
         return period;
     }
     
     /**
-     * Sets the value of the Period property for this object.
+     * The granularity, in seconds, of the returned datapoints.
+     * <code>Period</code> must be at least 60 seconds and must be a multiple
+     * of 60. The default value is 60.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>60 - <br/>
      *
-     * @param period The new value for the Period property for this object.
+     * @param period The granularity, in seconds, of the returned datapoints.
+     *         <code>Period</code> must be at least 60 seconds and must be a multiple
+     *         of 60. The default value is 60.
      */
     public void setPeriod(Integer period) {
         this.period = period;
     }
     
     /**
-     * Sets the value of the Period property for this object.
+     * The granularity, in seconds, of the returned datapoints.
+     * <code>Period</code> must be at least 60 seconds and must be a multiple
+     * of 60. The default value is 60.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>60 - <br/>
      *
-     * @param period The new value for the Period property for this object.
+     * @param period The granularity, in seconds, of the returned datapoints.
+     *         <code>Period</code> must be at least 60 seconds and must be a multiple
+     *         of 60. The default value is 60.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -314,12 +462,12 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the Statistics property for this object.
+     * The metric statistics to return.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 5<br/>
      *
-     * @return The value of the Statistics property for this object.
+     * @return The metric statistics to return.
      */
     public java.util.List<String> getStatistics() {
         if (statistics == null) {
@@ -329,12 +477,12 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the Statistics property for this object.
+     * The metric statistics to return.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 5<br/>
      *
-     * @param statistics The new value for the Statistics property for this object.
+     * @param statistics The metric statistics to return.
      */
     public void setStatistics(java.util.Collection<String> statistics) {
         java.util.List<String> statisticsCopy = new java.util.ArrayList<String>();
@@ -345,14 +493,14 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the Statistics property for this object.
+     * The metric statistics to return.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 5<br/>
      *
-     * @param statistics The new value for the Statistics property for this object.
+     * @param statistics The metric statistics to return.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -365,14 +513,14 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the Statistics property for this object.
+     * The metric statistics to return.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 5<br/>
      *
-     * @param statistics The new value for the Statistics property for this object.
+     * @param statistics The metric statistics to return.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -388,12 +536,12 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Returns the value of the Unit property for this object.
+     * The unit for the metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>Seconds, Microseconds, Milliseconds, Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, Bits, Kilobits, Megabits, Gigabits, Terabits, Percent, Count, Bytes/Second, Kilobytes/Second, Megabytes/Second, Gigabytes/Second, Terabytes/Second, Bits/Second, Kilobits/Second, Megabits/Second, Gigabits/Second, Terabits/Second, Count/Second, None
      *
-     * @return The value of the Unit property for this object.
+     * @return The unit for the metric.
      *
      * @see StandardUnit
      */
@@ -402,12 +550,12 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the Unit property for this object.
+     * The unit for the metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>Seconds, Microseconds, Milliseconds, Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, Bits, Kilobits, Megabits, Gigabits, Terabits, Percent, Count, Bytes/Second, Kilobytes/Second, Megabytes/Second, Gigabytes/Second, Terabytes/Second, Bits/Second, Kilobits/Second, Megabits/Second, Gigabits/Second, Terabits/Second, Count/Second, None
      *
-     * @param unit The new value for the Unit property for this object.
+     * @param unit The unit for the metric.
      *
      * @see StandardUnit
      */
@@ -416,14 +564,14 @@ public class GetMetricStatisticsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the Unit property for this object.
+     * The unit for the metric.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>Seconds, Microseconds, Milliseconds, Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, Bits, Kilobits, Megabits, Gigabits, Terabits, Percent, Count, Bytes/Second, Kilobytes/Second, Megabytes/Second, Gigabytes/Second, Terabytes/Second, Bits/Second, Kilobits/Second, Megabits/Second, Gigabits/Second, Terabits/Second, Count/Second, None
      *
-     * @param unit The new value for the Unit property for this object.
+     * @param unit The unit for the metric.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

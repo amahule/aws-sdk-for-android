@@ -17,21 +17,31 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * Container for the parameters to the {@link com.amazonaws.services.cloudwatch.AmazonCloudWatch#disableAlarmActions(DisableAlarmActionsRequest) DisableAlarmActions operation}.
- * 
+ * <p>
+ * Disables actions for the specified alarms. When an alarm's actions
+ * are disabled the alarm's state may change, but none of the alarm's
+ * actions will execute.
+ * </p>
  *
  * @see com.amazonaws.services.cloudwatch.AmazonCloudWatch#disableAlarmActions(DisableAlarmActionsRequest)
  */
 public class DisableAlarmActionsRequest extends AmazonWebServiceRequest {
 
+    /**
+     * The names of the alarms to disable actions for.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 100<br/>
+     */
     private java.util.List<String> alarmNames;
 
     /**
-     * Returns the value of the AlarmNames property for this object.
+     * The names of the alarms to disable actions for.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 100<br/>
      *
-     * @return The value of the AlarmNames property for this object.
+     * @return The names of the alarms to disable actions for.
      */
     public java.util.List<String> getAlarmNames() {
         if (alarmNames == null) {
@@ -41,12 +51,12 @@ public class DisableAlarmActionsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the AlarmNames property for this object.
+     * The names of the alarms to disable actions for.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 100<br/>
      *
-     * @param alarmNames The new value for the AlarmNames property for this object.
+     * @param alarmNames The names of the alarms to disable actions for.
      */
     public void setAlarmNames(java.util.Collection<String> alarmNames) {
         java.util.List<String> alarmNamesCopy = new java.util.ArrayList<String>();
@@ -57,14 +67,14 @@ public class DisableAlarmActionsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the AlarmNames property for this object.
+     * The names of the alarms to disable actions for.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 100<br/>
      *
-     * @param alarmNames The new value for the AlarmNames property for this object.
+     * @param alarmNames The names of the alarms to disable actions for.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -77,14 +87,14 @@ public class DisableAlarmActionsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the AlarmNames property for this object.
+     * The names of the alarms to disable actions for.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 100<br/>
      *
-     * @param alarmNames The new value for the AlarmNames property for this object.
+     * @param alarmNames The names of the alarms to disable actions for.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

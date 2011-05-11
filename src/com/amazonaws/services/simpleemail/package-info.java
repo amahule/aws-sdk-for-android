@@ -14,10 +14,6 @@
  * href="http://docs.amazonwebservices.com/ses/latest/DeveloperGuide">
  * Amazon SES Developer Guide </a> .
  * </p>
- * <p>
- * <b>NOTE:</b>The endpoint for AWS Email Service is located at:
- * https://email.us-east-1.amazonaws.com
- * </p>
  */
  package com.amazonaws.services.simpleemail;
         

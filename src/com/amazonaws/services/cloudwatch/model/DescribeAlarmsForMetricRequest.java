@@ -17,57 +17,97 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * Container for the parameters to the {@link com.amazonaws.services.cloudwatch.AmazonCloudWatch#describeAlarmsForMetric(DescribeAlarmsForMetricRequest) DescribeAlarmsForMetric operation}.
- * 
+ * <p>
+ * Retrieves all alarms for a single metric. Specify a statistic,
+ * period, or unit to filter the set of alarms further.
+ * </p>
  *
  * @see com.amazonaws.services.cloudwatch.AmazonCloudWatch#describeAlarmsForMetric(DescribeAlarmsForMetricRequest)
  */
 public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest {
 
+    /**
+     * The name of the metric.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>1 - 255<br/>
+     */
     private String metricName;
 
+    /**
+     * The namespace of the metric.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>1 - 255<br/>
+     * <b>Pattern: </b>[^:].*<br/>
+     */
     private String namespace;
 
+    /**
+     * The statistic for the metric.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>SampleCount, Average, Sum, Minimum, Maximum
+     */
     private String statistic;
 
+    /**
+     * The list of dimensions associated with the metric.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 10<br/>
+     */
     private java.util.List<Dimension> dimensions;
 
+    /**
+     * The period in seconds over which the statistic is applied.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>60 - <br/>
+     */
     private Integer period;
 
+    /**
+     * The unit for the metric.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>Seconds, Microseconds, Milliseconds, Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, Bits, Kilobits, Megabits, Gigabits, Terabits, Percent, Count, Bytes/Second, Kilobytes/Second, Megabytes/Second, Gigabytes/Second, Terabytes/Second, Bits/Second, Kilobits/Second, Megabits/Second, Gigabits/Second, Terabits/Second, Count/Second, None
+     */
     private String unit;
 
     /**
-     * Returns the value of the MetricName property for this object.
+     * The name of the metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @return The value of the MetricName property for this object.
+     * @return The name of the metric.
      */
     public String getMetricName() {
         return metricName;
     }
     
     /**
-     * Sets the value of the MetricName property for this object.
+     * The name of the metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @param metricName The new value for the MetricName property for this object.
+     * @param metricName The name of the metric.
      */
     public void setMetricName(String metricName) {
         this.metricName = metricName;
     }
     
     /**
-     * Sets the value of the MetricName property for this object.
+     * The name of the metric.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @param metricName The new value for the MetricName property for this object.
+     * @param metricName The name of the metric.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -79,33 +119,33 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the Namespace property for this object.
+     * The namespace of the metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      * <b>Pattern: </b>[^:].*<br/>
      *
-     * @return The value of the Namespace property for this object.
+     * @return The namespace of the metric.
      */
     public String getNamespace() {
         return namespace;
     }
     
     /**
-     * Sets the value of the Namespace property for this object.
+     * The namespace of the metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      * <b>Pattern: </b>[^:].*<br/>
      *
-     * @param namespace The new value for the Namespace property for this object.
+     * @param namespace The namespace of the metric.
      */
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
     
     /**
-     * Sets the value of the Namespace property for this object.
+     * The namespace of the metric.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -113,7 +153,7 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest {
      * <b>Length: </b>1 - 255<br/>
      * <b>Pattern: </b>[^:].*<br/>
      *
-     * @param namespace The new value for the Namespace property for this object.
+     * @param namespace The namespace of the metric.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -125,12 +165,12 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the Statistic property for this object.
+     * The statistic for the metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>SampleCount, Average, Sum, Minimum, Maximum
      *
-     * @return The value of the Statistic property for this object.
+     * @return The statistic for the metric.
      *
      * @see Statistic
      */
@@ -139,12 +179,12 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the Statistic property for this object.
+     * The statistic for the metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>SampleCount, Average, Sum, Minimum, Maximum
      *
-     * @param statistic The new value for the Statistic property for this object.
+     * @param statistic The statistic for the metric.
      *
      * @see Statistic
      */
@@ -153,14 +193,14 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the Statistic property for this object.
+     * The statistic for the metric.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>SampleCount, Average, Sum, Minimum, Maximum
      *
-     * @param statistic The new value for the Statistic property for this object.
+     * @param statistic The statistic for the metric.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -174,12 +214,12 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the Dimensions property for this object.
+     * The list of dimensions associated with the metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10<br/>
      *
-     * @return The value of the Dimensions property for this object.
+     * @return The list of dimensions associated with the metric.
      */
     public java.util.List<Dimension> getDimensions() {
         if (dimensions == null) {
@@ -189,12 +229,12 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the Dimensions property for this object.
+     * The list of dimensions associated with the metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10<br/>
      *
-     * @param dimensions The new value for the Dimensions property for this object.
+     * @param dimensions The list of dimensions associated with the metric.
      */
     public void setDimensions(java.util.Collection<Dimension> dimensions) {
         java.util.List<Dimension> dimensionsCopy = new java.util.ArrayList<Dimension>();
@@ -205,14 +245,14 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the Dimensions property for this object.
+     * The list of dimensions associated with the metric.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10<br/>
      *
-     * @param dimensions The new value for the Dimensions property for this object.
+     * @param dimensions The list of dimensions associated with the metric.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -225,14 +265,14 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the Dimensions property for this object.
+     * The list of dimensions associated with the metric.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10<br/>
      *
-     * @param dimensions The new value for the Dimensions property for this object.
+     * @param dimensions The list of dimensions associated with the metric.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -248,38 +288,38 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Returns the value of the Period property for this object.
+     * The period in seconds over which the statistic is applied.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>60 - <br/>
      *
-     * @return The value of the Period property for this object.
+     * @return The period in seconds over which the statistic is applied.
      */
     public Integer getPeriod() {
         return period;
     }
     
     /**
-     * Sets the value of the Period property for this object.
+     * The period in seconds over which the statistic is applied.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>60 - <br/>
      *
-     * @param period The new value for the Period property for this object.
+     * @param period The period in seconds over which the statistic is applied.
      */
     public void setPeriod(Integer period) {
         this.period = period;
     }
     
     /**
-     * Sets the value of the Period property for this object.
+     * The period in seconds over which the statistic is applied.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>60 - <br/>
      *
-     * @param period The new value for the Period property for this object.
+     * @param period The period in seconds over which the statistic is applied.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -291,12 +331,12 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the Unit property for this object.
+     * The unit for the metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>Seconds, Microseconds, Milliseconds, Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, Bits, Kilobits, Megabits, Gigabits, Terabits, Percent, Count, Bytes/Second, Kilobytes/Second, Megabytes/Second, Gigabytes/Second, Terabytes/Second, Bits/Second, Kilobits/Second, Megabits/Second, Gigabits/Second, Terabits/Second, Count/Second, None
      *
-     * @return The value of the Unit property for this object.
+     * @return The unit for the metric.
      *
      * @see StandardUnit
      */
@@ -305,12 +345,12 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the Unit property for this object.
+     * The unit for the metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>Seconds, Microseconds, Milliseconds, Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, Bits, Kilobits, Megabits, Gigabits, Terabits, Percent, Count, Bytes/Second, Kilobytes/Second, Megabytes/Second, Gigabytes/Second, Terabytes/Second, Bits/Second, Kilobits/Second, Megabits/Second, Gigabits/Second, Terabits/Second, Count/Second, None
      *
-     * @param unit The new value for the Unit property for this object.
+     * @param unit The unit for the metric.
      *
      * @see StandardUnit
      */
@@ -319,14 +359,14 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the Unit property for this object.
+     * The unit for the metric.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>Seconds, Microseconds, Milliseconds, Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, Bits, Kilobits, Megabits, Gigabits, Terabits, Percent, Count, Bytes/Second, Kilobytes/Second, Megabytes/Second, Gigabytes/Second, Terabytes/Second, Bits/Second, Kilobits/Second, Megabits/Second, Gigabits/Second, Terabits/Second, Count/Second, None
      *
-     * @param unit The new value for the Unit property for this object.
+     * @param unit The unit for the metric.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

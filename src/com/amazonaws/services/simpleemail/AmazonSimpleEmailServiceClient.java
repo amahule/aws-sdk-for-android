@@ -55,10 +55,6 @@ import com.amazonaws.services.simpleemail.model.transform.*;
  * href="http://docs.amazonwebservices.com/ses/latest/DeveloperGuide">
  * Amazon SES Developer Guide </a> .
  * </p>
- * <p>
- * <b>NOTE:</b>The endpoint for AWS Email Service is located at:
- * https://email.us-east-1.amazonaws.com
- * </p>
  */
 public class AmazonSimpleEmailServiceClient extends AmazonWebServiceClient implements AmazonSimpleEmailService {
 
@@ -73,8 +69,6 @@ public class AmazonSimpleEmailServiceClient extends AmazonWebServiceClient imple
      */
     protected final List<Unmarshaller<AmazonServiceException, Node>> exceptionUnmarshallers;
 
-    /** Optional request handlers for additional request processing. */
-    private final List<RequestHandler> requestHandlers;
     
     /** AWS signer for authenticating requests. */
     private AWS3Signer signer;
@@ -123,26 +117,14 @@ public class AmazonSimpleEmailServiceClient extends AmazonWebServiceClient imple
         signer = new AWS3Signer();
 
         HandlerChainFactory chainFactory = new HandlerChainFactory();
-		requestHandlers = Collections.synchronizedList(chainFactory.newRequestHandlerChain(
+		requestHandlers.addAll(chainFactory.newRequestHandlerChain(
                 "/com/amazonaws/services/simpleemail/request.handlers"));
-    }
-
-	/**
-	 * Appends a request handler to the list of registered handlers that are run
-	 * as part of a request's lifecycle.
-	 *
-	 * @param requestHandler
-	 *            The new handler to add to the current list of request
-	 *            handlers.
-	 */
-    public void addRequestHandler(RequestHandler requestHandler) {
-    	requestHandlers.add(requestHandler);
     }
 
     
     /**
      * <p>
-     * Returns the user's current sending limits.
+     * Returns the user's current activity limits.
      * </p>
      *
      * @param getSendQuotaRequest Container for the necessary parameters to
@@ -314,8 +296,9 @@ public class AmazonSimpleEmailServiceClient extends AmazonWebServiceClient imple
      * <p>
      * Sends an email message, with header and content specified by the
      * client. The <code>SendRawEmail</code> action is useful for sending
-     * multipart MIME emails. The raw text of the message must comply with
-     * Internet email standards; otherwise, the message cannot be sent.
+     * multipart MIME emails, with attachments or inline content. The raw
+     * text of the message must comply with Internet email standards;
+     * otherwise, the message cannot be sent.
      * </p>
      * <p>
      * <b>IMPORTANT:</b>If you have not yet requested production access to
@@ -348,7 +331,7 @@ public class AmazonSimpleEmailServiceClient extends AmazonWebServiceClient imple
     
     /**
      * <p>
-     * Returns the user's current sending limits.
+     * Returns the user's current activity limits.
      * </p>
      * 
      * @return The response from the GetSendQuota service method, as returned
@@ -460,7 +443,7 @@ public class AmazonSimpleEmailServiceClient extends AmazonWebServiceClient imple
         StaxResponseHandler<X> responseHandler = new StaxResponseHandler<X>(unmarshaller);
         DefaultErrorResponseHandler errorResponseHandler = new DefaultErrorResponseHandler(exceptionUnmarshallers);
 
-        ExecutionContext executionContext = new ExecutionContext(requestHandlers);
+        ExecutionContext executionContext = createExecutionContext();
         return (X)client.execute(request, responseHandler, errorResponseHandler, executionContext);
     }
 }

@@ -17,11 +17,23 @@ package com.amazonaws.http;
 import java.util.List;
 
 import com.amazonaws.handlers.RequestHandler;
+import com.amazonaws.util.TimingInfo;
 
 public class ExecutionContext {
-	public List<RequestHandler> requestHandlers;
+	private List<RequestHandler> requestHandlers;
+	private String contextUserAgent;
+	private TimingInfo timingInfo;
 
-	public ExecutionContext() {}
+	
+    public String getContextUserAgent() {
+        return contextUserAgent;
+    }
+    
+    public void setContextUserAgent(String contextUserAgent) {
+        this.contextUserAgent = contextUserAgent;
+    }
+
+    public ExecutionContext() {}
 
 	public ExecutionContext(List<RequestHandler> requestHandlers) {
 		this.requestHandlers = requestHandlers;
@@ -36,4 +48,13 @@ public class ExecutionContext {
 	public List<RequestHandler> getRequestHandlers() {
 		return requestHandlers;
 	}
+	
+	public TimingInfo getTimingInfo() {
+		return timingInfo;
+	}
+
+	public void setTimingInfo(TimingInfo timingInfo) {
+		this.timingInfo = timingInfo;
+	}
+
 }

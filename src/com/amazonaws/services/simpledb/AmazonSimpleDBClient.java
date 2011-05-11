@@ -79,8 +79,6 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
      */
     protected final List<Unmarshaller<AmazonServiceException, Node>> exceptionUnmarshallers;
 
-    /** Optional request handlers for additional request processing. */
-    private final List<RequestHandler> requestHandlers;
     
     /** AWS signer for authenticating requests. */
     private QueryStringSigner signer;
@@ -145,20 +143,8 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
         signer = new QueryStringSigner();
 
         HandlerChainFactory chainFactory = new HandlerChainFactory();
-		requestHandlers = Collections.synchronizedList(chainFactory.newRequestHandlerChain(
+		requestHandlers.addAll(chainFactory.newRequestHandlerChain(
                 "/com/amazonaws/services/simpledb/request.handlers"));
-    }
-
-	/**
-	 * Appends a request handler to the list of registered handlers that are run
-	 * as part of a request's lifecycle.
-	 *
-	 * @param requestHandler
-	 *            The new handler to add to the current list of request
-	 *            handlers.
-	 */
-    public void addRequestHandler(RequestHandler requestHandler) {
-    	requestHandlers.add(requestHandler);
     }
 
     
@@ -253,8 +239,8 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
      * <p>
      * Because Amazon SimpleDB makes multiple copies of client data and uses
      * an eventual consistency update model, an immediate GetAttributes or
-     * Select operation (read) immediately after a PutAttributes or
-     * DeleteAttributes operation (write) might not return the updated data.
+     * Select operation (read) immediately after a DeleteAttributes operation
+     * (write) might not return the updated data.
      * </p>
      * <p>
      * The following limitations are enforced for this operation:
@@ -749,7 +735,7 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
         StaxResponseHandler<X> responseHandler = new com.amazonaws.services.simpledb.internal.SimpleDBStaxResponseHandler<X>(unmarshaller);
         DefaultErrorResponseHandler errorResponseHandler = new DefaultErrorResponseHandler(exceptionUnmarshallers);
 
-        ExecutionContext executionContext = new ExecutionContext(requestHandlers);
+        ExecutionContext executionContext = createExecutionContext();
         return (X)client.execute(request, responseHandler, errorResponseHandler, executionContext);
     }
 }

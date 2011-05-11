@@ -28,7 +28,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 public class DeleteQueueRequest extends AmazonWebServiceRequest {
 
     /**
-     * The URL of the SQS queue to take action on.
+     * 
      */
     private String queueUrl;
 
@@ -43,36 +43,36 @@ public class DeleteQueueRequest extends AmazonWebServiceRequest {
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
      * 
-     * @param queueUrl The URL of the SQS queue to take action on.
+     * @param queueUrl
      */
     public DeleteQueueRequest(String queueUrl) {
         this.queueUrl = queueUrl;
     }
     
     /**
-     * The URL of the SQS queue to take action on.
+     * 
      *
-     * @return The URL of the SQS queue to take action on.
+     * @return 
      */
     public String getQueueUrl() {
         return queueUrl;
     }
     
     /**
-     * The URL of the SQS queue to take action on.
+     * 
      *
-     * @param queueUrl The URL of the SQS queue to take action on.
+     * @param queueUrl 
      */
     public void setQueueUrl(String queueUrl) {
         this.queueUrl = queueUrl;
     }
     
     /**
-     * The URL of the SQS queue to take action on.
+     * 
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param queueUrl The URL of the SQS queue to take action on.
+     * @param queueUrl 
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

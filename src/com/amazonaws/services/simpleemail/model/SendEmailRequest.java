@@ -38,7 +38,8 @@ public class SendEmailRequest extends AmazonWebServiceRequest {
     private String source;
 
     /**
-     * The destination for this email, composed of To:, CC:, and BCC: fields.
+     * The destination for this email, composed of To:, From:, and CC:
+     * fields.
      */
     private Destination destination;
 
@@ -75,7 +76,7 @@ public class SendEmailRequest extends AmazonWebServiceRequest {
      * 
      * @param source The sender's email address.
      * @param destination The destination for this email, composed of To:,
-     * CC:, and BCC: fields.
+     * From:, and CC: fields.
      * @param message The message to be sent.
      */
     public SendEmailRequest(String source, Destination destination, Message message) {
@@ -119,29 +120,35 @@ public class SendEmailRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * The destination for this email, composed of To:, CC:, and BCC: fields.
+     * The destination for this email, composed of To:, From:, and CC:
+     * fields.
      *
-     * @return The destination for this email, composed of To:, CC:, and BCC: fields.
+     * @return The destination for this email, composed of To:, From:, and CC:
+     *         fields.
      */
     public Destination getDestination() {
         return destination;
     }
     
     /**
-     * The destination for this email, composed of To:, CC:, and BCC: fields.
+     * The destination for this email, composed of To:, From:, and CC:
+     * fields.
      *
-     * @param destination The destination for this email, composed of To:, CC:, and BCC: fields.
+     * @param destination The destination for this email, composed of To:, From:, and CC:
+     *         fields.
      */
     public void setDestination(Destination destination) {
         this.destination = destination;
     }
     
     /**
-     * The destination for this email, composed of To:, CC:, and BCC: fields.
+     * The destination for this email, composed of To:, From:, and CC:
+     * fields.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param destination The destination for this email, composed of To:, CC:, and BCC: fields.
+     * @param destination The destination for this email, composed of To:, From:, and CC:
+     *         fields.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

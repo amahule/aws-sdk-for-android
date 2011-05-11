@@ -18,7 +18,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.simpleemail.AmazonSimpleEmailService#getSendQuota(GetSendQuotaRequest) GetSendQuota operation}.
  * <p>
- * Returns the user's current sending limits.
+ * Returns the user's current activity limits.
  * </p>
  *
  * @see com.amazonaws.services.simpleemail.AmazonSimpleEmailService#getSendQuota(GetSendQuotaRequest)

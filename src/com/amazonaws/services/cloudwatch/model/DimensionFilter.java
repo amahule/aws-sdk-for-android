@@ -15,47 +15,64 @@
 package com.amazonaws.services.cloudwatch.model;
 
 /**
- * Dimension Filter
+ * <p>
+ * The <code>DimensionFilter</code> data type is used to filter
+ * ListMetrics results.
+ * </p>
  */
 public class DimensionFilter {
 
+    /**
+     * The dimension name to be matched.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>1 - 255<br/>
+     */
     private String name;
 
+    /**
+     * The value of the dimension to be matched. <note> Specifying a
+     * <code>Name</code> without specifying a <code>Value</code> returns all
+     * values associated with that <code>Name</code>. </note>
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>1 - 255<br/>
+     */
     private String value;
 
     /**
-     * Returns the value of the Name property for this object.
+     * The dimension name to be matched.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @return The value of the Name property for this object.
+     * @return The dimension name to be matched.
      */
     public String getName() {
         return name;
     }
     
     /**
-     * Sets the value of the Name property for this object.
+     * The dimension name to be matched.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @param name The new value for the Name property for this object.
+     * @param name The dimension name to be matched.
      */
     public void setName(String name) {
         this.name = name;
     }
     
     /**
-     * Sets the value of the Name property for this object.
+     * The dimension name to be matched.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @param name The new value for the Name property for this object.
+     * @param name The dimension name to be matched.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -67,38 +84,50 @@ public class DimensionFilter {
     
     
     /**
-     * Returns the value of the Value property for this object.
+     * The value of the dimension to be matched. <note> Specifying a
+     * <code>Name</code> without specifying a <code>Value</code> returns all
+     * values associated with that <code>Name</code>. </note>
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @return The value of the Value property for this object.
+     * @return The value of the dimension to be matched. <note> Specifying a
+     *         <code>Name</code> without specifying a <code>Value</code> returns all
+     *         values associated with that <code>Name</code>. </note>
      */
     public String getValue() {
         return value;
     }
     
     /**
-     * Sets the value of the Value property for this object.
+     * The value of the dimension to be matched. <note> Specifying a
+     * <code>Name</code> without specifying a <code>Value</code> returns all
+     * values associated with that <code>Name</code>. </note>
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @param value The new value for the Value property for this object.
+     * @param value The value of the dimension to be matched. <note> Specifying a
+     *         <code>Name</code> without specifying a <code>Value</code> returns all
+     *         values associated with that <code>Name</code>. </note>
      */
     public void setValue(String value) {
         this.value = value;
     }
     
     /**
-     * Sets the value of the Value property for this object.
+     * The value of the dimension to be matched. <note> Specifying a
+     * <code>Name</code> without specifying a <code>Value</code> returns all
+     * values associated with that <code>Name</code>. </note>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @param value The new value for the Value property for this object.
+     * @param value The value of the dimension to be matched. <note> Specifying a
+     *         <code>Name</code> without specifying a <code>Value</code> returns all
+     *         values associated with that <code>Name</code>. </note>
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

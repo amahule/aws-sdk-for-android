@@ -15,48 +15,76 @@
 package com.amazonaws.services.cloudwatch.model;
 
 /**
- * Datapoint
+ * <p>
+ * The <code>Datapoint</code> data type encapsulates the statistical
+ * data that Amazon CloudWatch computes from metric data.
+ * </p>
  */
 public class Datapoint {
 
+    /**
+     * The time stamp used for the datapoint.
+     */
     private java.util.Date timestamp;
 
+    /**
+     * The number of metric values that contributed to the aggregate value of
+     * this datapoint.
+     */
     private Double sampleCount;
 
+    /**
+     * The average of metric values that correspond to the datapoint.
+     */
     private Double average;
 
+    /**
+     * The sum of metric values used for the datapoint.
+     */
     private Double sum;
 
+    /**
+     * The minimum metric value used for the datapoint.
+     */
     private Double minimum;
 
+    /**
+     * The maximum of the metric value used for the datapoint.
+     */
     private Double maximum;
 
+    /**
+     * The standard unit used for the datapoint.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>Seconds, Microseconds, Milliseconds, Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, Bits, Kilobits, Megabits, Gigabits, Terabits, Percent, Count, Bytes/Second, Kilobytes/Second, Megabytes/Second, Gigabytes/Second, Terabytes/Second, Bits/Second, Kilobits/Second, Megabits/Second, Gigabits/Second, Terabits/Second, Count/Second, None
+     */
     private String unit;
 
     /**
-     * Returns the value of the Timestamp property for this object.
+     * The time stamp used for the datapoint.
      *
-     * @return The value of the Timestamp property for this object.
+     * @return The time stamp used for the datapoint.
      */
     public java.util.Date getTimestamp() {
         return timestamp;
     }
     
     /**
-     * Sets the value of the Timestamp property for this object.
+     * The time stamp used for the datapoint.
      *
-     * @param timestamp The new value for the Timestamp property for this object.
+     * @param timestamp The time stamp used for the datapoint.
      */
     public void setTimestamp(java.util.Date timestamp) {
         this.timestamp = timestamp;
     }
     
     /**
-     * Sets the value of the Timestamp property for this object.
+     * The time stamp used for the datapoint.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param timestamp The new value for the Timestamp property for this object.
+     * @param timestamp The time stamp used for the datapoint.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -68,29 +96,35 @@ public class Datapoint {
     
     
     /**
-     * Returns the value of the SampleCount property for this object.
+     * The number of metric values that contributed to the aggregate value of
+     * this datapoint.
      *
-     * @return The value of the SampleCount property for this object.
+     * @return The number of metric values that contributed to the aggregate value of
+     *         this datapoint.
      */
     public Double getSampleCount() {
         return sampleCount;
     }
     
     /**
-     * Sets the value of the SampleCount property for this object.
+     * The number of metric values that contributed to the aggregate value of
+     * this datapoint.
      *
-     * @param sampleCount The new value for the SampleCount property for this object.
+     * @param sampleCount The number of metric values that contributed to the aggregate value of
+     *         this datapoint.
      */
     public void setSampleCount(Double sampleCount) {
         this.sampleCount = sampleCount;
     }
     
     /**
-     * Sets the value of the SampleCount property for this object.
+     * The number of metric values that contributed to the aggregate value of
+     * this datapoint.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param sampleCount The new value for the SampleCount property for this object.
+     * @param sampleCount The number of metric values that contributed to the aggregate value of
+     *         this datapoint.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -102,29 +136,29 @@ public class Datapoint {
     
     
     /**
-     * Returns the value of the Average property for this object.
+     * The average of metric values that correspond to the datapoint.
      *
-     * @return The value of the Average property for this object.
+     * @return The average of metric values that correspond to the datapoint.
      */
     public Double getAverage() {
         return average;
     }
     
     /**
-     * Sets the value of the Average property for this object.
+     * The average of metric values that correspond to the datapoint.
      *
-     * @param average The new value for the Average property for this object.
+     * @param average The average of metric values that correspond to the datapoint.
      */
     public void setAverage(Double average) {
         this.average = average;
     }
     
     /**
-     * Sets the value of the Average property for this object.
+     * The average of metric values that correspond to the datapoint.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param average The new value for the Average property for this object.
+     * @param average The average of metric values that correspond to the datapoint.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -136,29 +170,29 @@ public class Datapoint {
     
     
     /**
-     * Returns the value of the Sum property for this object.
+     * The sum of metric values used for the datapoint.
      *
-     * @return The value of the Sum property for this object.
+     * @return The sum of metric values used for the datapoint.
      */
     public Double getSum() {
         return sum;
     }
     
     /**
-     * Sets the value of the Sum property for this object.
+     * The sum of metric values used for the datapoint.
      *
-     * @param sum The new value for the Sum property for this object.
+     * @param sum The sum of metric values used for the datapoint.
      */
     public void setSum(Double sum) {
         this.sum = sum;
     }
     
     /**
-     * Sets the value of the Sum property for this object.
+     * The sum of metric values used for the datapoint.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param sum The new value for the Sum property for this object.
+     * @param sum The sum of metric values used for the datapoint.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -170,29 +204,29 @@ public class Datapoint {
     
     
     /**
-     * Returns the value of the Minimum property for this object.
+     * The minimum metric value used for the datapoint.
      *
-     * @return The value of the Minimum property for this object.
+     * @return The minimum metric value used for the datapoint.
      */
     public Double getMinimum() {
         return minimum;
     }
     
     /**
-     * Sets the value of the Minimum property for this object.
+     * The minimum metric value used for the datapoint.
      *
-     * @param minimum The new value for the Minimum property for this object.
+     * @param minimum The minimum metric value used for the datapoint.
      */
     public void setMinimum(Double minimum) {
         this.minimum = minimum;
     }
     
     /**
-     * Sets the value of the Minimum property for this object.
+     * The minimum metric value used for the datapoint.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param minimum The new value for the Minimum property for this object.
+     * @param minimum The minimum metric value used for the datapoint.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -204,29 +238,29 @@ public class Datapoint {
     
     
     /**
-     * Returns the value of the Maximum property for this object.
+     * The maximum of the metric value used for the datapoint.
      *
-     * @return The value of the Maximum property for this object.
+     * @return The maximum of the metric value used for the datapoint.
      */
     public Double getMaximum() {
         return maximum;
     }
     
     /**
-     * Sets the value of the Maximum property for this object.
+     * The maximum of the metric value used for the datapoint.
      *
-     * @param maximum The new value for the Maximum property for this object.
+     * @param maximum The maximum of the metric value used for the datapoint.
      */
     public void setMaximum(Double maximum) {
         this.maximum = maximum;
     }
     
     /**
-     * Sets the value of the Maximum property for this object.
+     * The maximum of the metric value used for the datapoint.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param maximum The new value for the Maximum property for this object.
+     * @param maximum The maximum of the metric value used for the datapoint.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -238,12 +272,12 @@ public class Datapoint {
     
     
     /**
-     * Returns the value of the Unit property for this object.
+     * The standard unit used for the datapoint.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>Seconds, Microseconds, Milliseconds, Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, Bits, Kilobits, Megabits, Gigabits, Terabits, Percent, Count, Bytes/Second, Kilobytes/Second, Megabytes/Second, Gigabytes/Second, Terabytes/Second, Bits/Second, Kilobits/Second, Megabits/Second, Gigabits/Second, Terabits/Second, Count/Second, None
      *
-     * @return The value of the Unit property for this object.
+     * @return The standard unit used for the datapoint.
      *
      * @see StandardUnit
      */
@@ -252,12 +286,12 @@ public class Datapoint {
     }
     
     /**
-     * Sets the value of the Unit property for this object.
+     * The standard unit used for the datapoint.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>Seconds, Microseconds, Milliseconds, Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, Bits, Kilobits, Megabits, Gigabits, Terabits, Percent, Count, Bytes/Second, Kilobytes/Second, Megabytes/Second, Gigabytes/Second, Terabytes/Second, Bits/Second, Kilobits/Second, Megabits/Second, Gigabits/Second, Terabits/Second, Count/Second, None
      *
-     * @param unit The new value for the Unit property for this object.
+     * @param unit The standard unit used for the datapoint.
      *
      * @see StandardUnit
      */
@@ -266,14 +300,14 @@ public class Datapoint {
     }
     
     /**
-     * Sets the value of the Unit property for this object.
+     * The standard unit used for the datapoint.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>Seconds, Microseconds, Milliseconds, Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, Bits, Kilobits, Megabits, Gigabits, Terabits, Percent, Count, Bytes/Second, Kilobytes/Second, Megabytes/Second, Gigabytes/Second, Terabytes/Second, Bits/Second, Kilobits/Second, Megabits/Second, Gigabits/Second, Terabits/Second, Count/Second, None
      *
-     * @param unit The new value for the Unit property for this object.
+     * @param unit The standard unit used for the datapoint.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

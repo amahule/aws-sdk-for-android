@@ -17,21 +17,30 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * Container for the parameters to the {@link com.amazonaws.services.cloudwatch.AmazonCloudWatch#deleteAlarms(DeleteAlarmsRequest) DeleteAlarms operation}.
- * 
+ * <p>
+ * Deletes all specified alarms. In the event of an error, no alarms are
+ * deleted.
+ * </p>
  *
  * @see com.amazonaws.services.cloudwatch.AmazonCloudWatch#deleteAlarms(DeleteAlarmsRequest)
  */
 public class DeleteAlarmsRequest extends AmazonWebServiceRequest {
 
+    /**
+     * A list of alarms to be deleted.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 100<br/>
+     */
     private java.util.List<String> alarmNames;
 
     /**
-     * Returns the value of the AlarmNames property for this object.
+     * A list of alarms to be deleted.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 100<br/>
      *
-     * @return The value of the AlarmNames property for this object.
+     * @return A list of alarms to be deleted.
      */
     public java.util.List<String> getAlarmNames() {
         if (alarmNames == null) {
@@ -41,12 +50,12 @@ public class DeleteAlarmsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the AlarmNames property for this object.
+     * A list of alarms to be deleted.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 100<br/>
      *
-     * @param alarmNames The new value for the AlarmNames property for this object.
+     * @param alarmNames A list of alarms to be deleted.
      */
     public void setAlarmNames(java.util.Collection<String> alarmNames) {
         java.util.List<String> alarmNamesCopy = new java.util.ArrayList<String>();
@@ -57,14 +66,14 @@ public class DeleteAlarmsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the AlarmNames property for this object.
+     * A list of alarms to be deleted.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 100<br/>
      *
-     * @param alarmNames The new value for the AlarmNames property for this object.
+     * @param alarmNames A list of alarms to be deleted.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -77,14 +86,14 @@ public class DeleteAlarmsRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the AlarmNames property for this object.
+     * A list of alarms to be deleted.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 100<br/>
      *
-     * @param alarmNames The new value for the AlarmNames property for this object.
+     * @param alarmNames A list of alarms to be deleted.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

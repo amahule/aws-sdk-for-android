@@ -17,75 +17,197 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * Container for the parameters to the {@link com.amazonaws.services.cloudwatch.AmazonCloudWatch#putMetricAlarm(PutMetricAlarmRequest) PutMetricAlarm operation}.
- * 
+ * <p>
+ * Creates or updates an alarm and associates it with the specified
+ * Amazon CloudWatch metric. Optionally, this operation can associate one
+ * or more Amazon Simple Notification Service resources with the alarm.
+ * </p>
+ * <p>
+ * When this operation creates an alarm, the alarm state is immediately
+ * set to <code>INSUFFICIENT_DATA</code> . The alarm is evaluated and
+ * its <code>StateValue</code> is set appropriately. Any actions
+ * associated with the <code>StateValue</code> is then executed.
+ * </p>
+ * <p>
+ * <b>NOTE:</b> When updating an existing alarm, its StateValue is left
+ * unchanged.
+ * </p>
  *
  * @see com.amazonaws.services.cloudwatch.AmazonCloudWatch#putMetricAlarm(PutMetricAlarmRequest)
  */
 public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
 
+    /**
+     * The descriptive name for the alarm. This name must be unique within
+     * the user's AWS account
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>1 - 255<br/>
+     */
     private String alarmName;
 
+    /**
+     * The description for the alarm.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 255<br/>
+     */
     private String alarmDescription;
 
+    /**
+     * Indicates whether or not actions should be executed during any changes
+     * to the alarm's state.
+     */
     private Boolean actionsEnabled;
 
+    /**
+     * The list of actions to execute when this alarm transitions into an
+     * <code>OK</code> state from any other state. Each action is specified
+     * as an Amazon Resource Number (ARN). Currently the only action
+     * supported is publishing to an Amazon SNS topic or an Amazon Auto
+     * Scaling policy.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 5<br/>
+     */
     private java.util.List<String> oKActions;
 
+    /**
+     * The list of actions to execute when this alarm transitions into an
+     * <code>ALARM</code> state from any other state. Each action is
+     * specified as an Amazon Resource Number (ARN). Currently the only
+     * action supported is publishing to an Amazon SNS topic or an Amazon
+     * Auto Scaling policy.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 5<br/>
+     */
     private java.util.List<String> alarmActions;
 
+    /**
+     * The list of actions to execute when this alarm transitions into an
+     * <code>INSUFFICIENT_DATA</code> state from any other state. Each action
+     * is specified as an Amazon Resource Number (ARN). Currently the only
+     * action supported is publishing to an Amazon SNS topic or an Amazon
+     * Auto Scaling policy.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 5<br/>
+     */
     private java.util.List<String> insufficientDataActions;
 
+    /**
+     * The name for the alarm's associated metric.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>1 - 255<br/>
+     */
     private String metricName;
 
+    /**
+     * The namespace for the alarm's associated metric.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>1 - 255<br/>
+     * <b>Pattern: </b>[^:].*<br/>
+     */
     private String namespace;
 
+    /**
+     * The statistic to apply to the alarm's associated metric.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>SampleCount, Average, Sum, Minimum, Maximum
+     */
     private String statistic;
 
+    /**
+     * The dimensions for the alarm's associated metric.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 10<br/>
+     */
     private java.util.List<Dimension> dimensions;
 
+    /**
+     * The period in seconds over which the specified statistic is applied.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>60 - <br/>
+     */
     private Integer period;
 
+    /**
+     * The unit for the alarm's associated metric.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>Seconds, Microseconds, Milliseconds, Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, Bits, Kilobits, Megabits, Gigabits, Terabits, Percent, Count, Bytes/Second, Kilobytes/Second, Megabytes/Second, Gigabytes/Second, Terabytes/Second, Bits/Second, Kilobits/Second, Megabits/Second, Gigabits/Second, Terabits/Second, Count/Second, None
+     */
     private String unit;
 
+    /**
+     * The number of periods over which data is compared to the specified
+     * threshold.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>1 - <br/>
+     */
     private Integer evaluationPeriods;
 
+    /**
+     * The value against which the specified statistic is compared.
+     */
     private Double threshold;
 
+    /**
+     * The arithmetic operation to use when comparing the specified
+     * <code>Statistic</code> and <code>Threshold</code>. The specified
+     * <code>Statistic</code> value is used as the first operand.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>GreaterThanOrEqualToThreshold, GreaterThanThreshold, LessThanThreshold, LessThanOrEqualToThreshold
+     */
     private String comparisonOperator;
 
     /**
-     * Returns the value of the AlarmName property for this object.
+     * The descriptive name for the alarm. This name must be unique within
+     * the user's AWS account
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @return The value of the AlarmName property for this object.
+     * @return The descriptive name for the alarm. This name must be unique within
+     *         the user's AWS account
      */
     public String getAlarmName() {
         return alarmName;
     }
     
     /**
-     * Sets the value of the AlarmName property for this object.
+     * The descriptive name for the alarm. This name must be unique within
+     * the user's AWS account
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @param alarmName The new value for the AlarmName property for this object.
+     * @param alarmName The descriptive name for the alarm. This name must be unique within
+     *         the user's AWS account
      */
     public void setAlarmName(String alarmName) {
         this.alarmName = alarmName;
     }
     
     /**
-     * Sets the value of the AlarmName property for this object.
+     * The descriptive name for the alarm. This name must be unique within
+     * the user's AWS account
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @param alarmName The new value for the AlarmName property for this object.
+     * @param alarmName The descriptive name for the alarm. This name must be unique within
+     *         the user's AWS account
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -97,38 +219,38 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the AlarmDescription property for this object.
+     * The description for the alarm.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 255<br/>
      *
-     * @return The value of the AlarmDescription property for this object.
+     * @return The description for the alarm.
      */
     public String getAlarmDescription() {
         return alarmDescription;
     }
     
     /**
-     * Sets the value of the AlarmDescription property for this object.
+     * The description for the alarm.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 255<br/>
      *
-     * @param alarmDescription The new value for the AlarmDescription property for this object.
+     * @param alarmDescription The description for the alarm.
      */
     public void setAlarmDescription(String alarmDescription) {
         this.alarmDescription = alarmDescription;
     }
     
     /**
-     * Sets the value of the AlarmDescription property for this object.
+     * The description for the alarm.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 255<br/>
      *
-     * @param alarmDescription The new value for the AlarmDescription property for this object.
+     * @param alarmDescription The description for the alarm.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -140,29 +262,35 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the ActionsEnabled property for this object.
+     * Indicates whether or not actions should be executed during any changes
+     * to the alarm's state.
      *
-     * @return The value of the ActionsEnabled property for this object.
+     * @return Indicates whether or not actions should be executed during any changes
+     *         to the alarm's state.
      */
     public Boolean isActionsEnabled() {
         return actionsEnabled;
     }
     
     /**
-     * Sets the value of the ActionsEnabled property for this object.
+     * Indicates whether or not actions should be executed during any changes
+     * to the alarm's state.
      *
-     * @param actionsEnabled The new value for the ActionsEnabled property for this object.
+     * @param actionsEnabled Indicates whether or not actions should be executed during any changes
+     *         to the alarm's state.
      */
     public void setActionsEnabled(Boolean actionsEnabled) {
         this.actionsEnabled = actionsEnabled;
     }
     
     /**
-     * Sets the value of the ActionsEnabled property for this object.
+     * Indicates whether or not actions should be executed during any changes
+     * to the alarm's state.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param actionsEnabled The new value for the ActionsEnabled property for this object.
+     * @param actionsEnabled Indicates whether or not actions should be executed during any changes
+     *         to the alarm's state.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -174,21 +302,31 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the ActionsEnabled property for this object.
+     * Indicates whether or not actions should be executed during any changes
+     * to the alarm's state.
      *
-     * @return The value of the ActionsEnabled property for this object.
+     * @return Indicates whether or not actions should be executed during any changes
+     *         to the alarm's state.
      */
     public Boolean getActionsEnabled() {
         return actionsEnabled;
     }
     
     /**
-     * Returns the value of the OKActions property for this object.
+     * The list of actions to execute when this alarm transitions into an
+     * <code>OK</code> state from any other state. Each action is specified
+     * as an Amazon Resource Number (ARN). Currently the only action
+     * supported is publishing to an Amazon SNS topic or an Amazon Auto
+     * Scaling policy.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 5<br/>
      *
-     * @return The value of the OKActions property for this object.
+     * @return The list of actions to execute when this alarm transitions into an
+     *         <code>OK</code> state from any other state. Each action is specified
+     *         as an Amazon Resource Number (ARN). Currently the only action
+     *         supported is publishing to an Amazon SNS topic or an Amazon Auto
+     *         Scaling policy.
      */
     public java.util.List<String> getOKActions() {
         if (oKActions == null) {
@@ -198,12 +336,20 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the OKActions property for this object.
+     * The list of actions to execute when this alarm transitions into an
+     * <code>OK</code> state from any other state. Each action is specified
+     * as an Amazon Resource Number (ARN). Currently the only action
+     * supported is publishing to an Amazon SNS topic or an Amazon Auto
+     * Scaling policy.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 5<br/>
      *
-     * @param oKActions The new value for the OKActions property for this object.
+     * @param oKActions The list of actions to execute when this alarm transitions into an
+     *         <code>OK</code> state from any other state. Each action is specified
+     *         as an Amazon Resource Number (ARN). Currently the only action
+     *         supported is publishing to an Amazon SNS topic or an Amazon Auto
+     *         Scaling policy.
      */
     public void setOKActions(java.util.Collection<String> oKActions) {
         java.util.List<String> oKActionsCopy = new java.util.ArrayList<String>();
@@ -214,14 +360,22 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the OKActions property for this object.
+     * The list of actions to execute when this alarm transitions into an
+     * <code>OK</code> state from any other state. Each action is specified
+     * as an Amazon Resource Number (ARN). Currently the only action
+     * supported is publishing to an Amazon SNS topic or an Amazon Auto
+     * Scaling policy.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 5<br/>
      *
-     * @param oKActions The new value for the OKActions property for this object.
+     * @param oKActions The list of actions to execute when this alarm transitions into an
+     *         <code>OK</code> state from any other state. Each action is specified
+     *         as an Amazon Resource Number (ARN). Currently the only action
+     *         supported is publishing to an Amazon SNS topic or an Amazon Auto
+     *         Scaling policy.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -234,14 +388,22 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the OKActions property for this object.
+     * The list of actions to execute when this alarm transitions into an
+     * <code>OK</code> state from any other state. Each action is specified
+     * as an Amazon Resource Number (ARN). Currently the only action
+     * supported is publishing to an Amazon SNS topic or an Amazon Auto
+     * Scaling policy.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 5<br/>
      *
-     * @param oKActions The new value for the OKActions property for this object.
+     * @param oKActions The list of actions to execute when this alarm transitions into an
+     *         <code>OK</code> state from any other state. Each action is specified
+     *         as an Amazon Resource Number (ARN). Currently the only action
+     *         supported is publishing to an Amazon SNS topic or an Amazon Auto
+     *         Scaling policy.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -257,12 +419,20 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Returns the value of the AlarmActions property for this object.
+     * The list of actions to execute when this alarm transitions into an
+     * <code>ALARM</code> state from any other state. Each action is
+     * specified as an Amazon Resource Number (ARN). Currently the only
+     * action supported is publishing to an Amazon SNS topic or an Amazon
+     * Auto Scaling policy.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 5<br/>
      *
-     * @return The value of the AlarmActions property for this object.
+     * @return The list of actions to execute when this alarm transitions into an
+     *         <code>ALARM</code> state from any other state. Each action is
+     *         specified as an Amazon Resource Number (ARN). Currently the only
+     *         action supported is publishing to an Amazon SNS topic or an Amazon
+     *         Auto Scaling policy.
      */
     public java.util.List<String> getAlarmActions() {
         if (alarmActions == null) {
@@ -272,12 +442,20 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the AlarmActions property for this object.
+     * The list of actions to execute when this alarm transitions into an
+     * <code>ALARM</code> state from any other state. Each action is
+     * specified as an Amazon Resource Number (ARN). Currently the only
+     * action supported is publishing to an Amazon SNS topic or an Amazon
+     * Auto Scaling policy.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 5<br/>
      *
-     * @param alarmActions The new value for the AlarmActions property for this object.
+     * @param alarmActions The list of actions to execute when this alarm transitions into an
+     *         <code>ALARM</code> state from any other state. Each action is
+     *         specified as an Amazon Resource Number (ARN). Currently the only
+     *         action supported is publishing to an Amazon SNS topic or an Amazon
+     *         Auto Scaling policy.
      */
     public void setAlarmActions(java.util.Collection<String> alarmActions) {
         java.util.List<String> alarmActionsCopy = new java.util.ArrayList<String>();
@@ -288,14 +466,22 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the AlarmActions property for this object.
+     * The list of actions to execute when this alarm transitions into an
+     * <code>ALARM</code> state from any other state. Each action is
+     * specified as an Amazon Resource Number (ARN). Currently the only
+     * action supported is publishing to an Amazon SNS topic or an Amazon
+     * Auto Scaling policy.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 5<br/>
      *
-     * @param alarmActions The new value for the AlarmActions property for this object.
+     * @param alarmActions The list of actions to execute when this alarm transitions into an
+     *         <code>ALARM</code> state from any other state. Each action is
+     *         specified as an Amazon Resource Number (ARN). Currently the only
+     *         action supported is publishing to an Amazon SNS topic or an Amazon
+     *         Auto Scaling policy.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -308,14 +494,22 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the AlarmActions property for this object.
+     * The list of actions to execute when this alarm transitions into an
+     * <code>ALARM</code> state from any other state. Each action is
+     * specified as an Amazon Resource Number (ARN). Currently the only
+     * action supported is publishing to an Amazon SNS topic or an Amazon
+     * Auto Scaling policy.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 5<br/>
      *
-     * @param alarmActions The new value for the AlarmActions property for this object.
+     * @param alarmActions The list of actions to execute when this alarm transitions into an
+     *         <code>ALARM</code> state from any other state. Each action is
+     *         specified as an Amazon Resource Number (ARN). Currently the only
+     *         action supported is publishing to an Amazon SNS topic or an Amazon
+     *         Auto Scaling policy.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -331,13 +525,20 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Returns the value of the InsufficientDataActions property for this
-     * object.
+     * The list of actions to execute when this alarm transitions into an
+     * <code>INSUFFICIENT_DATA</code> state from any other state. Each action
+     * is specified as an Amazon Resource Number (ARN). Currently the only
+     * action supported is publishing to an Amazon SNS topic or an Amazon
+     * Auto Scaling policy.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 5<br/>
      *
-     * @return The value of the InsufficientDataActions property for this object.
+     * @return The list of actions to execute when this alarm transitions into an
+     *         <code>INSUFFICIENT_DATA</code> state from any other state. Each action
+     *         is specified as an Amazon Resource Number (ARN). Currently the only
+     *         action supported is publishing to an Amazon SNS topic or an Amazon
+     *         Auto Scaling policy.
      */
     public java.util.List<String> getInsufficientDataActions() {
         if (insufficientDataActions == null) {
@@ -347,14 +548,20 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the InsufficientDataActions property for this
-     * object.
+     * The list of actions to execute when this alarm transitions into an
+     * <code>INSUFFICIENT_DATA</code> state from any other state. Each action
+     * is specified as an Amazon Resource Number (ARN). Currently the only
+     * action supported is publishing to an Amazon SNS topic or an Amazon
+     * Auto Scaling policy.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 5<br/>
      *
-     * @param insufficientDataActions The new value for the InsufficientDataActions property for this
-     *         object.
+     * @param insufficientDataActions The list of actions to execute when this alarm transitions into an
+     *         <code>INSUFFICIENT_DATA</code> state from any other state. Each action
+     *         is specified as an Amazon Resource Number (ARN). Currently the only
+     *         action supported is publishing to an Amazon SNS topic or an Amazon
+     *         Auto Scaling policy.
      */
     public void setInsufficientDataActions(java.util.Collection<String> insufficientDataActions) {
         java.util.List<String> insufficientDataActionsCopy = new java.util.ArrayList<String>();
@@ -365,16 +572,22 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the InsufficientDataActions property for this
-     * object.
+     * The list of actions to execute when this alarm transitions into an
+     * <code>INSUFFICIENT_DATA</code> state from any other state. Each action
+     * is specified as an Amazon Resource Number (ARN). Currently the only
+     * action supported is publishing to an Amazon SNS topic or an Amazon
+     * Auto Scaling policy.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 5<br/>
      *
-     * @param insufficientDataActions The new value for the InsufficientDataActions property for this
-     *         object.
+     * @param insufficientDataActions The list of actions to execute when this alarm transitions into an
+     *         <code>INSUFFICIENT_DATA</code> state from any other state. Each action
+     *         is specified as an Amazon Resource Number (ARN). Currently the only
+     *         action supported is publishing to an Amazon SNS topic or an Amazon
+     *         Auto Scaling policy.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -387,16 +600,22 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the InsufficientDataActions property for this
-     * object.
+     * The list of actions to execute when this alarm transitions into an
+     * <code>INSUFFICIENT_DATA</code> state from any other state. Each action
+     * is specified as an Amazon Resource Number (ARN). Currently the only
+     * action supported is publishing to an Amazon SNS topic or an Amazon
+     * Auto Scaling policy.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 5<br/>
      *
-     * @param insufficientDataActions The new value for the InsufficientDataActions property for this
-     *         object.
+     * @param insufficientDataActions The list of actions to execute when this alarm transitions into an
+     *         <code>INSUFFICIENT_DATA</code> state from any other state. Each action
+     *         is specified as an Amazon Resource Number (ARN). Currently the only
+     *         action supported is publishing to an Amazon SNS topic or an Amazon
+     *         Auto Scaling policy.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -412,38 +631,38 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Returns the value of the MetricName property for this object.
+     * The name for the alarm's associated metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @return The value of the MetricName property for this object.
+     * @return The name for the alarm's associated metric.
      */
     public String getMetricName() {
         return metricName;
     }
     
     /**
-     * Sets the value of the MetricName property for this object.
+     * The name for the alarm's associated metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @param metricName The new value for the MetricName property for this object.
+     * @param metricName The name for the alarm's associated metric.
      */
     public void setMetricName(String metricName) {
         this.metricName = metricName;
     }
     
     /**
-     * Sets the value of the MetricName property for this object.
+     * The name for the alarm's associated metric.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @param metricName The new value for the MetricName property for this object.
+     * @param metricName The name for the alarm's associated metric.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -455,33 +674,33 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the Namespace property for this object.
+     * The namespace for the alarm's associated metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      * <b>Pattern: </b>[^:].*<br/>
      *
-     * @return The value of the Namespace property for this object.
+     * @return The namespace for the alarm's associated metric.
      */
     public String getNamespace() {
         return namespace;
     }
     
     /**
-     * Sets the value of the Namespace property for this object.
+     * The namespace for the alarm's associated metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      * <b>Pattern: </b>[^:].*<br/>
      *
-     * @param namespace The new value for the Namespace property for this object.
+     * @param namespace The namespace for the alarm's associated metric.
      */
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
     
     /**
-     * Sets the value of the Namespace property for this object.
+     * The namespace for the alarm's associated metric.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -489,7 +708,7 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
      * <b>Length: </b>1 - 255<br/>
      * <b>Pattern: </b>[^:].*<br/>
      *
-     * @param namespace The new value for the Namespace property for this object.
+     * @param namespace The namespace for the alarm's associated metric.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -501,12 +720,12 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the Statistic property for this object.
+     * The statistic to apply to the alarm's associated metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>SampleCount, Average, Sum, Minimum, Maximum
      *
-     * @return The value of the Statistic property for this object.
+     * @return The statistic to apply to the alarm's associated metric.
      *
      * @see Statistic
      */
@@ -515,12 +734,12 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the Statistic property for this object.
+     * The statistic to apply to the alarm's associated metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>SampleCount, Average, Sum, Minimum, Maximum
      *
-     * @param statistic The new value for the Statistic property for this object.
+     * @param statistic The statistic to apply to the alarm's associated metric.
      *
      * @see Statistic
      */
@@ -529,14 +748,14 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the Statistic property for this object.
+     * The statistic to apply to the alarm's associated metric.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>SampleCount, Average, Sum, Minimum, Maximum
      *
-     * @param statistic The new value for the Statistic property for this object.
+     * @param statistic The statistic to apply to the alarm's associated metric.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -550,12 +769,12 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the Dimensions property for this object.
+     * The dimensions for the alarm's associated metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10<br/>
      *
-     * @return The value of the Dimensions property for this object.
+     * @return The dimensions for the alarm's associated metric.
      */
     public java.util.List<Dimension> getDimensions() {
         if (dimensions == null) {
@@ -565,12 +784,12 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the Dimensions property for this object.
+     * The dimensions for the alarm's associated metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10<br/>
      *
-     * @param dimensions The new value for the Dimensions property for this object.
+     * @param dimensions The dimensions for the alarm's associated metric.
      */
     public void setDimensions(java.util.Collection<Dimension> dimensions) {
         java.util.List<Dimension> dimensionsCopy = new java.util.ArrayList<Dimension>();
@@ -581,14 +800,14 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the Dimensions property for this object.
+     * The dimensions for the alarm's associated metric.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10<br/>
      *
-     * @param dimensions The new value for the Dimensions property for this object.
+     * @param dimensions The dimensions for the alarm's associated metric.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -601,14 +820,14 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the Dimensions property for this object.
+     * The dimensions for the alarm's associated metric.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10<br/>
      *
-     * @param dimensions The new value for the Dimensions property for this object.
+     * @param dimensions The dimensions for the alarm's associated metric.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -624,38 +843,38 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Returns the value of the Period property for this object.
+     * The period in seconds over which the specified statistic is applied.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>60 - <br/>
      *
-     * @return The value of the Period property for this object.
+     * @return The period in seconds over which the specified statistic is applied.
      */
     public Integer getPeriod() {
         return period;
     }
     
     /**
-     * Sets the value of the Period property for this object.
+     * The period in seconds over which the specified statistic is applied.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>60 - <br/>
      *
-     * @param period The new value for the Period property for this object.
+     * @param period The period in seconds over which the specified statistic is applied.
      */
     public void setPeriod(Integer period) {
         this.period = period;
     }
     
     /**
-     * Sets the value of the Period property for this object.
+     * The period in seconds over which the specified statistic is applied.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>60 - <br/>
      *
-     * @param period The new value for the Period property for this object.
+     * @param period The period in seconds over which the specified statistic is applied.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -667,12 +886,12 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the Unit property for this object.
+     * The unit for the alarm's associated metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>Seconds, Microseconds, Milliseconds, Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, Bits, Kilobits, Megabits, Gigabits, Terabits, Percent, Count, Bytes/Second, Kilobytes/Second, Megabytes/Second, Gigabytes/Second, Terabytes/Second, Bits/Second, Kilobits/Second, Megabits/Second, Gigabits/Second, Terabits/Second, Count/Second, None
      *
-     * @return The value of the Unit property for this object.
+     * @return The unit for the alarm's associated metric.
      *
      * @see StandardUnit
      */
@@ -681,12 +900,12 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the Unit property for this object.
+     * The unit for the alarm's associated metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>Seconds, Microseconds, Milliseconds, Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, Bits, Kilobits, Megabits, Gigabits, Terabits, Percent, Count, Bytes/Second, Kilobytes/Second, Megabytes/Second, Gigabytes/Second, Terabytes/Second, Bits/Second, Kilobits/Second, Megabits/Second, Gigabits/Second, Terabits/Second, Count/Second, None
      *
-     * @param unit The new value for the Unit property for this object.
+     * @param unit The unit for the alarm's associated metric.
      *
      * @see StandardUnit
      */
@@ -695,14 +914,14 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the Unit property for this object.
+     * The unit for the alarm's associated metric.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>Seconds, Microseconds, Milliseconds, Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, Bits, Kilobits, Megabits, Gigabits, Terabits, Percent, Count, Bytes/Second, Kilobytes/Second, Megabytes/Second, Gigabytes/Second, Terabytes/Second, Bits/Second, Kilobits/Second, Megabits/Second, Gigabits/Second, Terabits/Second, Count/Second, None
      *
-     * @param unit The new value for the Unit property for this object.
+     * @param unit The unit for the alarm's associated metric.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -716,38 +935,44 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the EvaluationPeriods property for this object.
+     * The number of periods over which data is compared to the specified
+     * threshold.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>1 - <br/>
      *
-     * @return The value of the EvaluationPeriods property for this object.
+     * @return The number of periods over which data is compared to the specified
+     *         threshold.
      */
     public Integer getEvaluationPeriods() {
         return evaluationPeriods;
     }
     
     /**
-     * Sets the value of the EvaluationPeriods property for this object.
+     * The number of periods over which data is compared to the specified
+     * threshold.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>1 - <br/>
      *
-     * @param evaluationPeriods The new value for the EvaluationPeriods property for this object.
+     * @param evaluationPeriods The number of periods over which data is compared to the specified
+     *         threshold.
      */
     public void setEvaluationPeriods(Integer evaluationPeriods) {
         this.evaluationPeriods = evaluationPeriods;
     }
     
     /**
-     * Sets the value of the EvaluationPeriods property for this object.
+     * The number of periods over which data is compared to the specified
+     * threshold.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>1 - <br/>
      *
-     * @param evaluationPeriods The new value for the EvaluationPeriods property for this object.
+     * @param evaluationPeriods The number of periods over which data is compared to the specified
+     *         threshold.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -759,29 +984,29 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the Threshold property for this object.
+     * The value against which the specified statistic is compared.
      *
-     * @return The value of the Threshold property for this object.
+     * @return The value against which the specified statistic is compared.
      */
     public Double getThreshold() {
         return threshold;
     }
     
     /**
-     * Sets the value of the Threshold property for this object.
+     * The value against which the specified statistic is compared.
      *
-     * @param threshold The new value for the Threshold property for this object.
+     * @param threshold The value against which the specified statistic is compared.
      */
     public void setThreshold(Double threshold) {
         this.threshold = threshold;
     }
     
     /**
-     * Sets the value of the Threshold property for this object.
+     * The value against which the specified statistic is compared.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param threshold The new value for the Threshold property for this object.
+     * @param threshold The value against which the specified statistic is compared.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -793,12 +1018,16 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the ComparisonOperator property for this object.
+     * The arithmetic operation to use when comparing the specified
+     * <code>Statistic</code> and <code>Threshold</code>. The specified
+     * <code>Statistic</code> value is used as the first operand.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>GreaterThanOrEqualToThreshold, GreaterThanThreshold, LessThanThreshold, LessThanOrEqualToThreshold
      *
-     * @return The value of the ComparisonOperator property for this object.
+     * @return The arithmetic operation to use when comparing the specified
+     *         <code>Statistic</code> and <code>Threshold</code>. The specified
+     *         <code>Statistic</code> value is used as the first operand.
      *
      * @see ComparisonOperator
      */
@@ -807,12 +1036,16 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the ComparisonOperator property for this object.
+     * The arithmetic operation to use when comparing the specified
+     * <code>Statistic</code> and <code>Threshold</code>. The specified
+     * <code>Statistic</code> value is used as the first operand.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>GreaterThanOrEqualToThreshold, GreaterThanThreshold, LessThanThreshold, LessThanOrEqualToThreshold
      *
-     * @param comparisonOperator The new value for the ComparisonOperator property for this object.
+     * @param comparisonOperator The arithmetic operation to use when comparing the specified
+     *         <code>Statistic</code> and <code>Threshold</code>. The specified
+     *         <code>Statistic</code> value is used as the first operand.
      *
      * @see ComparisonOperator
      */
@@ -821,14 +1054,18 @@ public class PutMetricAlarmRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * Sets the value of the ComparisonOperator property for this object.
+     * The arithmetic operation to use when comparing the specified
+     * <code>Statistic</code> and <code>Threshold</code>. The specified
+     * <code>Statistic</code> value is used as the first operand.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>GreaterThanOrEqualToThreshold, GreaterThanThreshold, LessThanThreshold, LessThanOrEqualToThreshold
      *
-     * @param comparisonOperator The new value for the ComparisonOperator property for this object.
+     * @param comparisonOperator The arithmetic operation to use when comparing the specified
+     *         <code>Statistic</code> and <code>Threshold</code>. The specified
+     *         <code>Statistic</code> value is used as the first operand.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

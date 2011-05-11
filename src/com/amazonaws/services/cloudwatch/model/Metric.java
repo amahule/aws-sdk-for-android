@@ -15,44 +15,67 @@
 package com.amazonaws.services.cloudwatch.model;
 
 /**
- * Metric
+ * <p>
+ * The <code>Metric</code> data type contains information about a
+ * specific metric. If you call ListMetrics, Amazon CloudWatch returns
+ * information contained by this data type.
+ * </p>
  */
 public class Metric {
 
+    /**
+     * The namespace of the metric.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>1 - 255<br/>
+     * <b>Pattern: </b>[^:].*<br/>
+     */
     private String namespace;
 
+    /**
+     * The name of the metric.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>1 - 255<br/>
+     */
     private String metricName;
 
+    /**
+     * A list of dimensions associated with the metric.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>0 - 10<br/>
+     */
     private java.util.List<Dimension> dimensions;
 
     /**
-     * Returns the value of the Namespace property for this object.
+     * The namespace of the metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      * <b>Pattern: </b>[^:].*<br/>
      *
-     * @return The value of the Namespace property for this object.
+     * @return The namespace of the metric.
      */
     public String getNamespace() {
         return namespace;
     }
     
     /**
-     * Sets the value of the Namespace property for this object.
+     * The namespace of the metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      * <b>Pattern: </b>[^:].*<br/>
      *
-     * @param namespace The new value for the Namespace property for this object.
+     * @param namespace The namespace of the metric.
      */
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
     
     /**
-     * Sets the value of the Namespace property for this object.
+     * The namespace of the metric.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -60,7 +83,7 @@ public class Metric {
      * <b>Length: </b>1 - 255<br/>
      * <b>Pattern: </b>[^:].*<br/>
      *
-     * @param namespace The new value for the Namespace property for this object.
+     * @param namespace The namespace of the metric.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -72,38 +95,38 @@ public class Metric {
     
     
     /**
-     * Returns the value of the MetricName property for this object.
+     * The name of the metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @return The value of the MetricName property for this object.
+     * @return The name of the metric.
      */
     public String getMetricName() {
         return metricName;
     }
     
     /**
-     * Sets the value of the MetricName property for this object.
+     * The name of the metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @param metricName The new value for the MetricName property for this object.
+     * @param metricName The name of the metric.
      */
     public void setMetricName(String metricName) {
         this.metricName = metricName;
     }
     
     /**
-     * Sets the value of the MetricName property for this object.
+     * The name of the metric.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @param metricName The new value for the MetricName property for this object.
+     * @param metricName The name of the metric.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -115,12 +138,12 @@ public class Metric {
     
     
     /**
-     * Returns the value of the Dimensions property for this object.
+     * A list of dimensions associated with the metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10<br/>
      *
-     * @return The value of the Dimensions property for this object.
+     * @return A list of dimensions associated with the metric.
      */
     public java.util.List<Dimension> getDimensions() {
         if (dimensions == null) {
@@ -130,12 +153,12 @@ public class Metric {
     }
     
     /**
-     * Sets the value of the Dimensions property for this object.
+     * A list of dimensions associated with the metric.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10<br/>
      *
-     * @param dimensions The new value for the Dimensions property for this object.
+     * @param dimensions A list of dimensions associated with the metric.
      */
     public void setDimensions(java.util.Collection<Dimension> dimensions) {
         java.util.List<Dimension> dimensionsCopy = new java.util.ArrayList<Dimension>();
@@ -146,14 +169,14 @@ public class Metric {
     }
     
     /**
-     * Sets the value of the Dimensions property for this object.
+     * A list of dimensions associated with the metric.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10<br/>
      *
-     * @param dimensions The new value for the Dimensions property for this object.
+     * @param dimensions A list of dimensions associated with the metric.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -166,14 +189,14 @@ public class Metric {
     }
     
     /**
-     * Sets the value of the Dimensions property for this object.
+     * A list of dimensions associated with the metric.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10<br/>
      *
-     * @param dimensions The new value for the Dimensions property for this object.
+     * @param dimensions A list of dimensions associated with the metric.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

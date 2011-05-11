@@ -15,18 +15,26 @@
 package com.amazonaws.services.cloudwatch.model;
 
 /**
- * Describe Alarms Result
+ * <p>
+ * The output for the DescribeAlarms action.
+ * </p>
  */
 public class DescribeAlarmsResult {
 
+    /**
+     * A list of information for the specified alarms.
+     */
     private java.util.List<MetricAlarm> metricAlarms;
 
+    /**
+     * A string that marks the start of the next batch of returned results.
+     */
     private String nextToken;
 
     /**
-     * Returns the value of the MetricAlarms property for this object.
+     * A list of information for the specified alarms.
      *
-     * @return The value of the MetricAlarms property for this object.
+     * @return A list of information for the specified alarms.
      */
     public java.util.List<MetricAlarm> getMetricAlarms() {
         if (metricAlarms == null) {
@@ -36,9 +44,9 @@ public class DescribeAlarmsResult {
     }
     
     /**
-     * Sets the value of the MetricAlarms property for this object.
+     * A list of information for the specified alarms.
      *
-     * @param metricAlarms The new value for the MetricAlarms property for this object.
+     * @param metricAlarms A list of information for the specified alarms.
      */
     public void setMetricAlarms(java.util.Collection<MetricAlarm> metricAlarms) {
         java.util.List<MetricAlarm> metricAlarmsCopy = new java.util.ArrayList<MetricAlarm>();
@@ -49,11 +57,11 @@ public class DescribeAlarmsResult {
     }
     
     /**
-     * Sets the value of the MetricAlarms property for this object.
+     * A list of information for the specified alarms.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param metricAlarms The new value for the MetricAlarms property for this object.
+     * @param metricAlarms A list of information for the specified alarms.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -66,11 +74,11 @@ public class DescribeAlarmsResult {
     }
     
     /**
-     * Sets the value of the MetricAlarms property for this object.
+     * A list of information for the specified alarms.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param metricAlarms The new value for the MetricAlarms property for this object.
+     * @param metricAlarms A list of information for the specified alarms.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -86,29 +94,29 @@ public class DescribeAlarmsResult {
     }
     
     /**
-     * Returns the value of the NextToken property for this object.
+     * A string that marks the start of the next batch of returned results.
      *
-     * @return The value of the NextToken property for this object.
+     * @return A string that marks the start of the next batch of returned results.
      */
     public String getNextToken() {
         return nextToken;
     }
     
     /**
-     * Sets the value of the NextToken property for this object.
+     * A string that marks the start of the next batch of returned results.
      *
-     * @param nextToken The new value for the NextToken property for this object.
+     * @param nextToken A string that marks the start of the next batch of returned results.
      */
     public void setNextToken(String nextToken) {
         this.nextToken = nextToken;
     }
     
     /**
-     * Sets the value of the NextToken property for this object.
+     * A string that marks the start of the next batch of returned results.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param nextToken The new value for the NextToken property for this object.
+     * @param nextToken A string that marks the start of the next batch of returned results.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

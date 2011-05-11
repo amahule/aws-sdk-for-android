@@ -19,8 +19,8 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Container for the parameters to the {@link com.amazonaws.services.sqs.AmazonSQS#getQueueAttributes(GetQueueAttributesRequest) GetQueueAttributes operation}.
  * <p>
  * Gets one or all attributes of a queue. Queues currently have two
- * attributes you can get: <code>ApproximateNumberOfMessages</code> and
- * <code>VisibilityTimeout</code> .
+ * attributes you can get: ApproximateNumberOfMessages and
+ * VisibilityTimeout.
  * </p>
  *
  * @see com.amazonaws.services.sqs.AmazonSQS#getQueueAttributes(GetQueueAttributesRequest)
@@ -28,12 +28,12 @@ import com.amazonaws.AmazonWebServiceRequest;
 public class GetQueueAttributesRequest extends AmazonWebServiceRequest {
 
     /**
-     * The URL of the SQS queue to take action on.
+     * 
      */
     private String queueUrl;
 
     /**
-     * A list of attributes to retrieve information for.
+     * A list of attributes to get.
      */
     private java.util.List<String> attributeNames;
 
@@ -48,36 +48,36 @@ public class GetQueueAttributesRequest extends AmazonWebServiceRequest {
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
      * 
-     * @param queueUrl The URL of the SQS queue to take action on.
+     * @param queueUrl
      */
     public GetQueueAttributesRequest(String queueUrl) {
         this.queueUrl = queueUrl;
     }
     
     /**
-     * The URL of the SQS queue to take action on.
+     * 
      *
-     * @return The URL of the SQS queue to take action on.
+     * @return 
      */
     public String getQueueUrl() {
         return queueUrl;
     }
     
     /**
-     * The URL of the SQS queue to take action on.
+     * 
      *
-     * @param queueUrl The URL of the SQS queue to take action on.
+     * @param queueUrl 
      */
     public void setQueueUrl(String queueUrl) {
         this.queueUrl = queueUrl;
     }
     
     /**
-     * The URL of the SQS queue to take action on.
+     * 
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param queueUrl The URL of the SQS queue to take action on.
+     * @param queueUrl 
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -89,9 +89,9 @@ public class GetQueueAttributesRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * A list of attributes to retrieve information for.
+     * A list of attributes to get.
      *
-     * @return A list of attributes to retrieve information for.
+     * @return A list of attributes to get.
      */
     public java.util.List<String> getAttributeNames() {
         if (attributeNames == null) {
@@ -101,9 +101,9 @@ public class GetQueueAttributesRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * A list of attributes to retrieve information for.
+     * A list of attributes to get.
      *
-     * @param attributeNames A list of attributes to retrieve information for.
+     * @param attributeNames A list of attributes to get.
      */
     public void setAttributeNames(java.util.Collection<String> attributeNames) {
         java.util.List<String> attributeNamesCopy = new java.util.ArrayList<String>();
@@ -114,11 +114,11 @@ public class GetQueueAttributesRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * A list of attributes to retrieve information for.
+     * A list of attributes to get.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param attributeNames A list of attributes to retrieve information for.
+     * @param attributeNames A list of attributes to get.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -131,11 +131,11 @@ public class GetQueueAttributesRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * A list of attributes to retrieve information for.
+     * A list of attributes to get.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param attributeNames A list of attributes to retrieve information for.
+     * @param attributeNames A list of attributes to get.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

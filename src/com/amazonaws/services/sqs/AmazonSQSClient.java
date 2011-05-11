@@ -62,8 +62,8 @@ import com.amazonaws.services.sqs.model.transform.*;
  * with the same technologies, or running at the same time.
  * </p>
  * <p>
- * Visit <a href="http://aws.amazon.com/sqs/"> http://aws.amazon.com/sqs/
- * </a> for more information.
+ * Visit <a href="http://aws.amazon.com/sqs/">
+ * http://aws.amazon.com/sqs/ </a> for more information.
  * </p>
  */
 public class AmazonSQSClient extends AmazonWebServiceClient implements AmazonSQS {
@@ -79,8 +79,6 @@ public class AmazonSQSClient extends AmazonWebServiceClient implements AmazonSQS
      */
     protected final List<Unmarshaller<AmazonServiceException, Node>> exceptionUnmarshallers;
 
-    /** Optional request handlers for additional request processing. */
-    private final List<RequestHandler> requestHandlers;
     
     /** AWS signer for authenticating requests. */
     private QueryStringSigner signer;
@@ -133,26 +131,14 @@ public class AmazonSQSClient extends AmazonWebServiceClient implements AmazonSQS
         signer = new QueryStringSigner();
 
         HandlerChainFactory chainFactory = new HandlerChainFactory();
-		requestHandlers = Collections.synchronizedList(chainFactory.newRequestHandlerChain(
+		requestHandlers.addAll(chainFactory.newRequestHandlerChain(
                 "/com/amazonaws/services/sqs/request.handlers"));
-    }
-
-	/**
-	 * Appends a request handler to the list of registered handlers that are run
-	 * as part of a request's lifecycle.
-	 *
-	 * @param requestHandler
-	 *            The new handler to add to the current list of request
-	 *            handlers.
-	 */
-    public void addRequestHandler(RequestHandler requestHandler) {
-    	requestHandlers.add(requestHandler);
     }
 
     
     /**
      * <p>
-     * Returns a list of your queues.
+     * The ListQueues action returns a list of your queues.
      * </p>
      *
      * @param listQueuesRequest Container for the necessary parameters to
@@ -179,7 +165,7 @@ public class AmazonSQSClient extends AmazonWebServiceClient implements AmazonSQS
     /**
      * <p>
      * Sets an attribute of a queue. Currently, you can set only the
-     * <code>VisibilityTimeout</code> attribute for a queue.
+     * VisibilityTimeout attribute for a queue.
      * </p>
      *
      * @param setQueueAttributesRequest Container for the necessary
@@ -204,32 +190,31 @@ public class AmazonSQSClient extends AmazonWebServiceClient implements AmazonSQS
     
     /**
      * <p>
-     * The <code>ChangeMessageVisibility</code> action changes the visibility
-     * timeout of a specified message in a queue to a new value. The maximum
-     * allowed timeout value you can set the value to is 12 hours. This means
-     * you can't extend the timeout of a message in an existing queue to more
+     * The ChangeMessageVisibility action changes the visibility timeout of
+     * a specified message in a queue to a new value. The maximum allowed
+     * timeout value you can set the value to is 12 hours. This means you
+     * can't extend the timeout of a message in an existing queue to more
      * than a total visibility timeout of 12 hours. (For more information
-     * visibility timeout, see <a
-     * ices.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/AboutVT.html">
-     * Visibility Timeout </a> in the Amazon SQS Developer Guide.)
+     * visibility timeout, see Visibility Timeout in the Amazon SQS Developer
+     * Guide.)
      * </p>
      * <p>
      * For example, let's say you have a message and its default message
      * visibility timeout is 30 minutes. You could call
-     * <code>ChangeMessageVisiblity</code> with a value of two hours and the
-     * effective timeout would be two hours and 30 minutes. When that time
-     * comes near you could again extend the time out by calling
-     * ChangeMessageVisiblity, but this time the maximum allowed timeout
-     * would be 9 hours and 30 minutes.
+     * ChangeMessageVisiblity with a value of two hours and the effective
+     * timeout would be two hours and 30 minutes. When that time comes near
+     * you could again extend the time out by calling ChangeMessageVisiblity,
+     * but this time the maximum allowed timeout would be 9 hours and 30
+     * minutes.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b>If you attempt to set the VisibilityTimeout to an
+     * <b>IMPORTANT:</b> If you attempt to set the VisibilityTimeout to an
      * amount more than the maximum time left, Amazon SQS returns an error.
      * It will not automatically recalculate and increase the timeout to the
      * maximum time remaining.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b>Unlike with a queue, when you change the visibility
+     * <b>IMPORTANT:</b> Unlike with a queue, when you change the visibility
      * timeout for a specific message, that timeout value is applied
      * immediately but is not saved in memory for that message. If you don't
      * delete a message after it is received, the visibility timeout for the
@@ -258,16 +243,16 @@ public class AmazonSQSClient extends AmazonWebServiceClient implements AmazonSQS
     
     /**
      * <p>
-     * The <code>CreateQueue</code> action creates a new queue, or returns
-     * the URL of an existing one. When you request <code>CreateQueue</code>
-     * , you provide a name for the queue. To successfully create a new
-     * queue, you must provide a name that is unique within the scope of your
-     * own queues. If you provide the name of an existing queue, a new queue
-     * isn't created and an error isn't returned. Instead, the request
-     * succeeds and the queue URL for the existing queue is returned.
+     * The CreateQueue action creates a new queue, or returns the URL of an
+     * existing one. When you request CreateQueue, you provide a name for the
+     * queue. To successfully create a new queue, you must provide a name
+     * that is unique within the scope of your own queues. If you provide the
+     * name of an existing queue, a new queue isn't created and an error
+     * isn't returned. Instead, the request succeeds and the queue URL for
+     * the existing queue is returned.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b>If you provide a value for DefaultVisibilityTimeout
+     * <b>IMPORTANT:</b> If you provide a value for DefaultVisibilityTimeout
      * that is different from the value for the existing queue, you receive
      * an error.
      * </p>
@@ -297,9 +282,9 @@ public class AmazonSQSClient extends AmazonWebServiceClient implements AmazonSQS
     
     /**
      * <p>
-     * The <code>RemovePermission</code> action revokes any permissions in
-     * the queue policy that matches the specified <code>Label</code>
-     * parameter. Only the owner of the queue can remove permissions.
+     * The RemovePermission action revokes any permissions in the queue
+     * policy that matches the specified <i>Label</i> parameter. Only the
+     * owner of the queue can remove permissions.
      * </p>
      *
      * @param removePermissionRequest Container for the necessary parameters
@@ -323,8 +308,8 @@ public class AmazonSQSClient extends AmazonWebServiceClient implements AmazonSQS
     /**
      * <p>
      * Gets one or all attributes of a queue. Queues currently have two
-     * attributes you can get: <code>ApproximateNumberOfMessages</code> and
-     * <code>VisibilityTimeout</code> .
+     * attributes you can get: ApproximateNumberOfMessages and
+     * VisibilityTimeout.
      * </p>
      *
      * @param getQueueAttributesRequest Container for the necessary
@@ -353,24 +338,13 @@ public class AmazonSQSClient extends AmazonWebServiceClient implements AmazonSQS
     /**
      * <p>
      * The AddPermission action adds a permission to a queue for a specific
-     * <a
-     * .com/AWSSimpleQueueService/latest/APIReference/Glossary.html#d0e3892">
-     * principal </a> . This allows for sharing access to the queue.
+     * principal. This allows for sharing access to the queue.
      * </p>
      * <p>
      * When you create a queue, you have full control access rights for the
      * queue. Only you (as owner of the queue) can grant or deny permissions
-     * to the queue. For more information about these permissions, see <a
-     * om/AWSSimpleQueueService/latest/SQSDeveloperGuide/?acp-overview.html">
-     * Shared Queues </a> in the Amazon SQS Developer Guide.
-     * </p>
-     * <p>
-     * <code>AddPermission</code> writes an SQS-generated policy. If you
-     * want to write your own policy, use SetQueueAttributes to upload your
-     * policy. For more information about writing your own policy, see <a
-     * mpleQueueService/latest/SQSDeveloperGuide/?AccessPolicyLanguage.html">
-     * Appendix: The Access Policy Language </a> in the Amazon SQS Developer
-     * Guide.
+     * to the queue. For more information about these permissions, see Shared
+     * Queues in the Amazon SQS Developer Guide.
      * </p>
      *
      * @param addPermissionRequest Container for the necessary parameters to
@@ -418,10 +392,10 @@ public class AmazonSQSClient extends AmazonWebServiceClient implements AmazonSQS
     
     /**
      * <p>
-     * The <code>DeleteMessage</code> action unconditionally removes the
-     * specified message from the specified queue. Even if the message is
-     * locked by another reader due to the visibility timeout setting, it is
-     * still deleted from the queue.
+     * The DeleteMessage action unconditionally removes the specified
+     * message from the specified queue. Even if the message is locked by
+     * another reader due to the visibility timeout setting, it is still
+     * deleted from the queue.
      * </p>
      *
      * @param deleteMessageRequest Container for the necessary parameters to
@@ -445,8 +419,7 @@ public class AmazonSQSClient extends AmazonWebServiceClient implements AmazonSQS
     
     /**
      * <p>
-     * The <code>SendMessage</code> action delivers a message to the
-     * specified queue.
+     * The SendMessage action delivers a message to the specified queue.
      * </p>
      *
      * @param sendMessageRequest Container for the necessary parameters to
@@ -473,14 +446,14 @@ public class AmazonSQSClient extends AmazonWebServiceClient implements AmazonSQS
     
     /**
      * <p>
-     * Retrieves one or more messages from the specified queue, including the
-     * message body and message ID of each message. Messages returned by this
-     * action stay in the queue until you delete them. However, once a
-     * message is returned to a <code>ReceiveMessage</code> request, it is
-     * not returned on subsequent <code>ReceiveMessage</code> requests for
-     * the duration of the <code>VisibilityTimeout</code> . If you do not
-     * specify a <code>VisibilityTimeout</code> in the request, the overall
-     * visibility timeout for the queue is used for the returned messages.
+     * Retrieves one or more messages from the specified queue, including
+     * the message body and message ID of each message. Messages returned by
+     * this action stay in the queue until you delete them. However, once a
+     * message is returned to a ReceiveMessage request, it is not returned on
+     * subsequent ReceiveMessage requests for the duration of the
+     * VisibilityTimeout. If you do not specify a VisibilityTimeout in the
+     * request, the overall visibility timeout for the queue is used for the
+     * returned messages.
      * </p>
      *
      * @param receiveMessageRequest Container for the necessary parameters to
@@ -506,7 +479,7 @@ public class AmazonSQSClient extends AmazonWebServiceClient implements AmazonSQS
     
     /**
      * <p>
-     * Returns a list of your queues.
+     * The ListQueues action returns a list of your queues.
      * </p>
      * 
      * @return The response from the ListQueues service method, as returned
@@ -570,7 +543,7 @@ public class AmazonSQSClient extends AmazonWebServiceClient implements AmazonSQS
         StaxResponseHandler<X> responseHandler = new StaxResponseHandler<X>(unmarshaller);
         DefaultErrorResponseHandler errorResponseHandler = new DefaultErrorResponseHandler(exceptionUnmarshallers);
 
-        ExecutionContext executionContext = new ExecutionContext(requestHandlers);
+        ExecutionContext executionContext = createExecutionContext();
         return (X)client.execute(request, responseHandler, errorResponseHandler, executionContext);
     }
 }

@@ -15,19 +15,24 @@
 package com.amazonaws.services.sqs.model;
 
 /**
+ * <p>
  * 
+ * </p>
  */
 public class ListQueuesResult {
 
     /**
-     * A list of queue URLs, up to 1000 entries.
+     * A list of queue URLs for queues. The response can contain up to 1000
+     * QueueUrl elements.
      */
     private java.util.List<String> queueUrls;
 
     /**
-     * A list of queue URLs, up to 1000 entries.
+     * A list of queue URLs for queues. The response can contain up to 1000
+     * QueueUrl elements.
      *
-     * @return A list of queue URLs, up to 1000 entries.
+     * @return A list of queue URLs for queues. The response can contain up to 1000
+     *         QueueUrl elements.
      */
     public java.util.List<String> getQueueUrls() {
         if (queueUrls == null) {
@@ -37,9 +42,11 @@ public class ListQueuesResult {
     }
     
     /**
-     * A list of queue URLs, up to 1000 entries.
+     * A list of queue URLs for queues. The response can contain up to 1000
+     * QueueUrl elements.
      *
-     * @param queueUrls A list of queue URLs, up to 1000 entries.
+     * @param queueUrls A list of queue URLs for queues. The response can contain up to 1000
+     *         QueueUrl elements.
      */
     public void setQueueUrls(java.util.Collection<String> queueUrls) {
         java.util.List<String> queueUrlsCopy = new java.util.ArrayList<String>();
@@ -50,11 +57,13 @@ public class ListQueuesResult {
     }
     
     /**
-     * A list of queue URLs, up to 1000 entries.
+     * A list of queue URLs for queues. The response can contain up to 1000
+     * QueueUrl elements.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param queueUrls A list of queue URLs, up to 1000 entries.
+     * @param queueUrls A list of queue URLs for queues. The response can contain up to 1000
+     *         QueueUrl elements.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -67,11 +76,13 @@ public class ListQueuesResult {
     }
     
     /**
-     * A list of queue URLs, up to 1000 entries.
+     * A list of queue URLs for queues. The response can contain up to 1000
+     * QueueUrl elements.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param queueUrls A list of queue URLs, up to 1000 entries.
+     * @param queueUrls A list of queue URLs for queues. The response can contain up to 1000
+     *         QueueUrl elements.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

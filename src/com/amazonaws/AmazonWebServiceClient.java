@@ -16,8 +16,13 @@ package com.amazonaws;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map.Entry;
 
+import com.amazonaws.handlers.RequestHandler;
+import com.amazonaws.http.ExecutionContext;
 import com.amazonaws.http.HttpClient;
 import com.amazonaws.http.HttpMethodName;
 import com.amazonaws.http.HttpRequest;
@@ -43,6 +48,9 @@ public abstract class AmazonWebServiceClient {
      */
     protected final HttpClient client;
 
+    /** Optional request handlers for additional request processing. */
+    protected final List<RequestHandler> requestHandlers;
+
     /**
      * Constructs a new AmazonWebServiceClient object using the specified
      * configuration.
@@ -53,6 +61,7 @@ public abstract class AmazonWebServiceClient {
     public AmazonWebServiceClient(ClientConfiguration clientConfiguration) {
         this.clientConfiguration = clientConfiguration;
         client = new HttpClient(clientConfiguration);
+        requestHandlers = Collections.synchronizedList(new LinkedList<RequestHandler>());
     }
 
     /**
@@ -136,6 +145,23 @@ public abstract class AmazonWebServiceClient {
         httpRequest.setOriginalRequest(request.getOriginalRequest());
 
         return httpRequest;
+    }
+
+    /**
+     * Appends a request handler to the list of registered handlers that are run
+     * as part of a request's lifecycle.
+     *
+     * @param requestHandler
+     *            The new handler to add to the current list of request
+     *            handlers.
+     */
+    public void addRequestHandler(RequestHandler requestHandler) {
+    	requestHandlers.add(requestHandler);
+    }
+
+    protected ExecutionContext createExecutionContext() {
+        ExecutionContext executionContext = new ExecutionContext(requestHandlers);
+        return executionContext;
     }
 
 }

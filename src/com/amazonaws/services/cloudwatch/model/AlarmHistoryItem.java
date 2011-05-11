@@ -15,53 +15,85 @@
 package com.amazonaws.services.cloudwatch.model;
 
 /**
- * Alarm History Item
+ * <p>
+ * The <code>AlarmHistoryItem</code> data type contains descriptive
+ * information about the history of a specific alarm. If you call
+ * DescribeAlarmHistory, Amazon CloudWatch returns this data type as part
+ * of the DescribeAlarmHistoryResult data type.
+ * </p>
  */
 public class AlarmHistoryItem {
 
+    /**
+     * The descriptive name for the alarm.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>1 - 255<br/>
+     */
     private String alarmName;
 
+    /**
+     * The time stamp for the alarm history item.
+     */
     private java.util.Date timestamp;
 
+    /**
+     * The type of alarm history item.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>ConfigurationUpdate, StateUpdate, Action
+     */
     private String historyItemType;
 
+    /**
+     * A human-readable summary of the alarm history.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>1 - 255<br/>
+     */
     private String historySummary;
 
+    /**
+     * Machine-readable data about the alarm in JSON format.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>1 - 4095<br/>
+     */
     private String historyData;
 
     /**
-     * Returns the value of the AlarmName property for this object.
+     * The descriptive name for the alarm.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @return The value of the AlarmName property for this object.
+     * @return The descriptive name for the alarm.
      */
     public String getAlarmName() {
         return alarmName;
     }
     
     /**
-     * Sets the value of the AlarmName property for this object.
+     * The descriptive name for the alarm.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @param alarmName The new value for the AlarmName property for this object.
+     * @param alarmName The descriptive name for the alarm.
      */
     public void setAlarmName(String alarmName) {
         this.alarmName = alarmName;
     }
     
     /**
-     * Sets the value of the AlarmName property for this object.
+     * The descriptive name for the alarm.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @param alarmName The new value for the AlarmName property for this object.
+     * @param alarmName The descriptive name for the alarm.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -73,29 +105,29 @@ public class AlarmHistoryItem {
     
     
     /**
-     * Returns the value of the Timestamp property for this object.
+     * The time stamp for the alarm history item.
      *
-     * @return The value of the Timestamp property for this object.
+     * @return The time stamp for the alarm history item.
      */
     public java.util.Date getTimestamp() {
         return timestamp;
     }
     
     /**
-     * Sets the value of the Timestamp property for this object.
+     * The time stamp for the alarm history item.
      *
-     * @param timestamp The new value for the Timestamp property for this object.
+     * @param timestamp The time stamp for the alarm history item.
      */
     public void setTimestamp(java.util.Date timestamp) {
         this.timestamp = timestamp;
     }
     
     /**
-     * Sets the value of the Timestamp property for this object.
+     * The time stamp for the alarm history item.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param timestamp The new value for the Timestamp property for this object.
+     * @param timestamp The time stamp for the alarm history item.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -107,12 +139,12 @@ public class AlarmHistoryItem {
     
     
     /**
-     * Returns the value of the HistoryItemType property for this object.
+     * The type of alarm history item.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>ConfigurationUpdate, StateUpdate, Action
      *
-     * @return The value of the HistoryItemType property for this object.
+     * @return The type of alarm history item.
      *
      * @see HistoryItemType
      */
@@ -121,12 +153,12 @@ public class AlarmHistoryItem {
     }
     
     /**
-     * Sets the value of the HistoryItemType property for this object.
+     * The type of alarm history item.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>ConfigurationUpdate, StateUpdate, Action
      *
-     * @param historyItemType The new value for the HistoryItemType property for this object.
+     * @param historyItemType The type of alarm history item.
      *
      * @see HistoryItemType
      */
@@ -135,14 +167,14 @@ public class AlarmHistoryItem {
     }
     
     /**
-     * Sets the value of the HistoryItemType property for this object.
+     * The type of alarm history item.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>ConfigurationUpdate, StateUpdate, Action
      *
-     * @param historyItemType The new value for the HistoryItemType property for this object.
+     * @param historyItemType The type of alarm history item.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -156,38 +188,38 @@ public class AlarmHistoryItem {
     
     
     /**
-     * Returns the value of the HistorySummary property for this object.
+     * A human-readable summary of the alarm history.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @return The value of the HistorySummary property for this object.
+     * @return A human-readable summary of the alarm history.
      */
     public String getHistorySummary() {
         return historySummary;
     }
     
     /**
-     * Sets the value of the HistorySummary property for this object.
+     * A human-readable summary of the alarm history.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @param historySummary The new value for the HistorySummary property for this object.
+     * @param historySummary A human-readable summary of the alarm history.
      */
     public void setHistorySummary(String historySummary) {
         this.historySummary = historySummary;
     }
     
     /**
-     * Sets the value of the HistorySummary property for this object.
+     * A human-readable summary of the alarm history.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      *
-     * @param historySummary The new value for the HistorySummary property for this object.
+     * @param historySummary A human-readable summary of the alarm history.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -199,38 +231,38 @@ public class AlarmHistoryItem {
     
     
     /**
-     * Returns the value of the HistoryData property for this object.
+     * Machine-readable data about the alarm in JSON format.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 4095<br/>
      *
-     * @return The value of the HistoryData property for this object.
+     * @return Machine-readable data about the alarm in JSON format.
      */
     public String getHistoryData() {
         return historyData;
     }
     
     /**
-     * Sets the value of the HistoryData property for this object.
+     * Machine-readable data about the alarm in JSON format.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 4095<br/>
      *
-     * @param historyData The new value for the HistoryData property for this object.
+     * @param historyData Machine-readable data about the alarm in JSON format.
      */
     public void setHistoryData(String historyData) {
         this.historyData = historyData;
     }
     
     /**
-     * Sets the value of the HistoryData property for this object.
+     * Machine-readable data about the alarm in JSON format.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 4095<br/>
      *
-     * @param historyData The new value for the HistoryData property for this object.
+     * @param historyData Machine-readable data about the alarm in JSON format.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
