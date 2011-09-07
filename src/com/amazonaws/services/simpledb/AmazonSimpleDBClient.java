@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import com.amazonaws.*;
-import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWS3Signer;
+import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.QueryStringSigner;
 import com.amazonaws.handlers.HandlerChainFactory;
 import com.amazonaws.handlers.RequestHandler;
@@ -239,8 +239,8 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
      * <p>
      * Because Amazon SimpleDB makes multiple copies of client data and uses
      * an eventual consistency update model, an immediate GetAttributes or
-     * Select operation (read) immediately after a DeleteAttributes operation
-     * (write) might not return the updated data.
+     * Select operation (read) immediately after a PutAttributes or
+     * DeleteAttributes operation (write) might not return the updated data.
      * </p>
      * <p>
      * The following limitations are enforced for this operation:

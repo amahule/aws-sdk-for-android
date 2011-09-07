@@ -15,21 +15,12 @@
 package com.amazonaws.services.elasticloadbalancing.model;
 
 /**
- * <p>
- * The AppCookieStickinessPolicy data type.
- * </p>
+ * App Cookie Stickiness Policy
  */
 public class AppCookieStickinessPolicy {
 
-    /**
-     * The mnemonic name for the policy being created. The name must be
-     * unique within the set of policies for this LoadBalancer.
-     */
     private String policyName;
 
-    /**
-     * The name of the application cookie used for stickiness.
-     */
     private String cookieName;
 
     /**
@@ -43,10 +34,8 @@ public class AppCookieStickinessPolicy {
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
      * 
-     * @param policyName The mnemonic name for the policy being created. The
-     * name must be unique within the set of policies for this LoadBalancer.
-     * @param cookieName The name of the application cookie used for
-     * stickiness.
+     * @param policyName
+     * @param cookieName
      */
     public AppCookieStickinessPolicy(String policyName, String cookieName) {
         this.policyName = policyName;
@@ -54,35 +43,29 @@ public class AppCookieStickinessPolicy {
     }
     
     /**
-     * The mnemonic name for the policy being created. The name must be
-     * unique within the set of policies for this LoadBalancer.
+     * Returns the value of the PolicyName property for this object.
      *
-     * @return The mnemonic name for the policy being created. The name must be
-     *         unique within the set of policies for this LoadBalancer.
+     * @return The value of the PolicyName property for this object.
      */
     public String getPolicyName() {
         return policyName;
     }
     
     /**
-     * The mnemonic name for the policy being created. The name must be
-     * unique within the set of policies for this LoadBalancer.
+     * Sets the value of the PolicyName property for this object.
      *
-     * @param policyName The mnemonic name for the policy being created. The name must be
-     *         unique within the set of policies for this LoadBalancer.
+     * @param policyName The new value for the PolicyName property for this object.
      */
     public void setPolicyName(String policyName) {
         this.policyName = policyName;
     }
     
     /**
-     * The mnemonic name for the policy being created. The name must be
-     * unique within the set of policies for this LoadBalancer.
+     * Sets the value of the PolicyName property for this object.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param policyName The mnemonic name for the policy being created. The name must be
-     *         unique within the set of policies for this LoadBalancer.
+     * @param policyName The new value for the PolicyName property for this object.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -94,29 +77,29 @@ public class AppCookieStickinessPolicy {
     
     
     /**
-     * The name of the application cookie used for stickiness.
+     * Returns the value of the CookieName property for this object.
      *
-     * @return The name of the application cookie used for stickiness.
+     * @return The value of the CookieName property for this object.
      */
     public String getCookieName() {
         return cookieName;
     }
     
     /**
-     * The name of the application cookie used for stickiness.
+     * Sets the value of the CookieName property for this object.
      *
-     * @param cookieName The name of the application cookie used for stickiness.
+     * @param cookieName The new value for the CookieName property for this object.
      */
     public void setCookieName(String cookieName) {
         this.cookieName = cookieName;
     }
     
     /**
-     * The name of the application cookie used for stickiness.
+     * Sets the value of the CookieName property for this object.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param cookieName The name of the application cookie used for stickiness.
+     * @param cookieName The new value for the CookieName property for this object.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

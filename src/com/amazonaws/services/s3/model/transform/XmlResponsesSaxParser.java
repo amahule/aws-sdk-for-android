@@ -1100,6 +1100,7 @@ public class XmlResponsesSaxParser {
                 insideCommonPrefixes = true;
             } else if (name.equals("Name")) {
             } else if (name.equals("Prefix")) {
+            } else if (name.equals("Delimiter")) {
             } else if (name.equals("KeyMarker")) {
             } else if (name.equals("VersionIdMarker")) {
             } else if (name.equals("MaxKeys")) {
@@ -1125,7 +1126,7 @@ public class XmlResponsesSaxParser {
             } else if (name.equals("ID")) {
             } else if (name.equals("DisplayName")) {
             } else {
-                log.error("Ignoring unexpected tag <"+name+">");
+                log.warn("Ignoring unexpected tag <"+name+">");
             }
             text.setLength(0);
         }
@@ -1204,7 +1205,7 @@ public class XmlResponsesSaxParser {
                 assert(owner != null);
                 owner.setDisplayName(text.toString());
             } else {
-                log.error("Ignoring unexpected tag <"+name+">");
+                log.warn("Ignoring unexpected tag <"+name+">");
             }
             text.setLength(0);
         }
@@ -1239,7 +1240,7 @@ public class XmlResponsesSaxParser {
             	inErrorDocumentElement = true;
             } else if (name.equals("Key") && inErrorDocumentElement) {
             } else {
-                log.error("Ignoring unexpected tag <"+name+">");
+                log.warn("Ignoring unexpected tag <"+name+">");
             }
         }
 
@@ -1283,7 +1284,7 @@ public class XmlResponsesSaxParser {
             } else if (name.equals("MfaDelete")) {
                 text.setLength(0);
             } else {
-                log.error("Ignoring unexpected tag <"+name+">");
+                log.warn("Ignoring unexpected tag <"+name+">");
             }
         }
 
@@ -1813,7 +1814,7 @@ public class XmlResponsesSaxParser {
             } else if (name.equals("Event")) {
                 text.setLength(0);
             } else {
-                log.error("Ignoring unexpected tag <"+name+">");
+                log.warn("Ignoring unexpected tag <"+name+">");
             }
         }
 

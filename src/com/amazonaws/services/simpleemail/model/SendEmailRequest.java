@@ -27,6 +27,22 @@ import com.amazonaws.AmazonWebServiceRequest;
  * verified email addresses. For more information, go to the Amazon SES
  * Developer Guide.
  * </p>
+ * <p>
+ * Amazon SES has a limit on the total number of recipients per message:
+ * The combined number of To:, CC: and BCC: email addresses cannot exceed
+ * 50. If you need to send an email message to a larger audience, you can
+ * divide your recipient list into groups of 50 or fewer, and then call
+ * Amazon SES repeatedly to send the message to each group.
+ * </p>
+ * <p>
+ * For every message that you send, the total number of recipients (To:,
+ * CC: and BCC:) is counted against your <i>sending quota</i> - the
+ * maximum number of emails you can send in a 24-hour period. For
+ * information about your sending quota, go to the "Managing Your Sending
+ * Activity" section of the <a
+ * href="http://docs.amazonwebservices.com/ses/latest/DeveloperGuide">
+ * Amazon SES Developer Guide </a> .
+ * </p>
  *
  * @see com.amazonaws.services.simpleemail.AmazonSimpleEmailService#sendEmail(SendEmailRequest)
  */
@@ -38,8 +54,7 @@ public class SendEmailRequest extends AmazonWebServiceRequest {
     private String source;
 
     /**
-     * The destination for this email, composed of To:, From:, and CC:
-     * fields.
+     * The destination for this email, composed of To:, CC:, and BCC: fields.
      */
     private Destination destination;
 
@@ -76,7 +91,7 @@ public class SendEmailRequest extends AmazonWebServiceRequest {
      * 
      * @param source The sender's email address.
      * @param destination The destination for this email, composed of To:,
-     * From:, and CC: fields.
+     * CC:, and BCC: fields.
      * @param message The message to be sent.
      */
     public SendEmailRequest(String source, Destination destination, Message message) {
@@ -120,35 +135,29 @@ public class SendEmailRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * The destination for this email, composed of To:, From:, and CC:
-     * fields.
+     * The destination for this email, composed of To:, CC:, and BCC: fields.
      *
-     * @return The destination for this email, composed of To:, From:, and CC:
-     *         fields.
+     * @return The destination for this email, composed of To:, CC:, and BCC: fields.
      */
     public Destination getDestination() {
         return destination;
     }
     
     /**
-     * The destination for this email, composed of To:, From:, and CC:
-     * fields.
+     * The destination for this email, composed of To:, CC:, and BCC: fields.
      *
-     * @param destination The destination for this email, composed of To:, From:, and CC:
-     *         fields.
+     * @param destination The destination for this email, composed of To:, CC:, and BCC: fields.
      */
     public void setDestination(Destination destination) {
         this.destination = destination;
     }
     
     /**
-     * The destination for this email, composed of To:, From:, and CC:
-     * fields.
+     * The destination for this email, composed of To:, CC:, and BCC: fields.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param destination The destination for this email, composed of To:, From:, and CC:
-     *         fields.
+     * @param destination The destination for this email, composed of To:, CC:, and BCC: fields.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

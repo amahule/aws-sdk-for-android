@@ -32,6 +32,10 @@ import com.amazonaws.services.simpleemail.model.*;
  * href="http://docs.amazonwebservices.com/ses/latest/DeveloperGuide">
  * Amazon SES Developer Guide </a> .
  * </p>
+ * <p>
+ * <b>NOTE:</b>The endpoint for AWS Email Service is located at:
+ * https://email.us-east-1.amazonaws.com
+ * </p>
  */
 public interface AmazonSimpleEmailService {
 
@@ -62,7 +66,7 @@ public interface AmazonSimpleEmailService {
     
     /**
      * <p>
-     * Returns the user's current activity limits.
+     * Returns the user's current sending limits.
      * </p>
      *
      * @param getSendQuotaRequest Container for the necessary parameters to
@@ -148,6 +152,22 @@ public interface AmazonSimpleEmailService {
      * verified email addresses. For more information, go to the Amazon SES
      * Developer Guide.
      * </p>
+     * <p>
+     * Amazon SES has a limit on the total number of recipients per message:
+     * The combined number of To:, CC: and BCC: email addresses cannot exceed
+     * 50. If you need to send an email message to a larger audience, you can
+     * divide your recipient list into groups of 50 or fewer, and then call
+     * Amazon SES repeatedly to send the message to each group.
+     * </p>
+     * <p>
+     * For every message that you send, the total number of recipients (To:,
+     * CC: and BCC:) is counted against your <i>sending quota</i> - the
+     * maximum number of emails you can send in a 24-hour period. For
+     * information about your sending quota, go to the "Managing Your Sending
+     * Activity" section of the <a
+     * href="http://docs.amazonwebservices.com/ses/latest/DeveloperGuide">
+     * Amazon SES Developer Guide </a> .
+     * </p>
      *
      * @param sendEmailRequest Container for the necessary parameters to
      *           execute the SendEmail service method on AmazonSimpleEmailService.
@@ -216,15 +236,30 @@ public interface AmazonSimpleEmailService {
      * <p>
      * Sends an email message, with header and content specified by the
      * client. The <code>SendRawEmail</code> action is useful for sending
-     * multipart MIME emails, with attachments or inline content. The raw
-     * text of the message must comply with Internet email standards;
-     * otherwise, the message cannot be sent.
+     * multipart MIME emails. The raw text of the message must comply with
+     * Internet email standards; otherwise, the message cannot be sent.
      * </p>
      * <p>
      * <b>IMPORTANT:</b>If you have not yet requested production access to
      * Amazon SES, then you will only be able to send email to and from
      * verified email addresses. For more information, go to the Amazon SES
      * Developer Guide.
+     * </p>
+     * <p>
+     * Amazon SES has a limit on the total number of recipients per message:
+     * The combined number of To:, CC: and BCC: email addresses cannot exceed
+     * 50. If you need to send an email message to a larger audience, you can
+     * divide your recipient list into groups of 50 or fewer, and then call
+     * Amazon SES repeatedly to send the message to each group.
+     * </p>
+     * <p>
+     * For every message that you send, the total number of recipients (To:,
+     * CC: and BCC:) is counted against your <i>sending quota</i> - the
+     * maximum number of emails you can send in a 24-hour period. For
+     * information about your sending quota, go to the "Managing Your Sending
+     * Activity" section of the <a
+     * href="http://docs.amazonwebservices.com/ses/latest/DeveloperGuide">
+     * Amazon SES Developer Guide </a> .
      * </p>
      *
      * @param sendRawEmailRequest Container for the necessary parameters to
@@ -248,7 +283,7 @@ public interface AmazonSimpleEmailService {
 
     /**
      * <p>
-     * Returns the user's current activity limits.
+     * Returns the user's current sending limits.
      * </p>
      * 
      * @return The response from the GetSendQuota service method, as returned

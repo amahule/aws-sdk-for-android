@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import com.amazonaws.*;
-import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWS3Signer;
+import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.QueryStringSigner;
 import com.amazonaws.handlers.HandlerChainFactory;
 import com.amazonaws.handlers.RequestHandler;

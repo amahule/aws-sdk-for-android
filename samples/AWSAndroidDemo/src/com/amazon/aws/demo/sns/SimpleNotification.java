@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.amazon.aws.demo.AWSDemo;
+import com.amazon.aws.demo.AWSAndroidDemo;
 import com.amazonaws.services.sns.*;
 import com.amazonaws.services.sns.model.CreateTopicRequest;
 import com.amazonaws.services.sns.model.CreateTopicResult;
@@ -38,10 +38,7 @@ public class SimpleNotification {
 
 	
 	public static AmazonSNSClient getInstance(){
-		if(sns == null){
-			sns = new AmazonSNSClient( AWSDemo.credentials );
-		}
-		return sns;
+        return AWSAndroidDemo.clientManager.sns();
 	}
 	
 	public static List<String> getTopicNames(){

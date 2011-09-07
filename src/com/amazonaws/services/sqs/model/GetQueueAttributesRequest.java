@@ -19,8 +19,9 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Container for the parameters to the {@link com.amazonaws.services.sqs.AmazonSQS#getQueueAttributes(GetQueueAttributesRequest) GetQueueAttributes operation}.
  * <p>
  * Gets one or all attributes of a queue. Queues currently have two
- * attributes you can get: ApproximateNumberOfMessages and
- * VisibilityTimeout.
+ * attributes you can get: <code>ApproximateNumberOfMessages</code> and
+ * <code>VisibilityTimeout</code> .
+ * 
  * </p>
  *
  * @see com.amazonaws.services.sqs.AmazonSQS#getQueueAttributes(GetQueueAttributesRequest)

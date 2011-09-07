@@ -55,6 +55,14 @@ public class AddressStaxUnmarshaller implements Unmarshaller<Address, StaxUnmars
                     address.setPublicIp(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
+                if (context.testExpression("allocationId", targetDepth)) {
+                    address.setAllocationId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+                if (context.testExpression("domain", targetDepth)) {
+                    address.setDomain(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
             } else if (xmlEvent.isEndElement()) {
                 if (context.getCurrentDepth() < originalDepth) {
                     return address;

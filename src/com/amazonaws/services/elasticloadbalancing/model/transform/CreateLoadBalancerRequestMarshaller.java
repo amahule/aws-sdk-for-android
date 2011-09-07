@@ -32,7 +32,7 @@ public class CreateLoadBalancerRequestMarshaller implements Marshaller<Request<C
     public Request<CreateLoadBalancerRequest> marshall(CreateLoadBalancerRequest createLoadBalancerRequest) {
         Request<CreateLoadBalancerRequest> request = new DefaultRequest<CreateLoadBalancerRequest>(createLoadBalancerRequest, "AmazonElasticLoadBalancing");
         request.addParameter("Action", "CreateLoadBalancer");
-        request.addParameter("Version", "2010-07-01");
+        request.addParameter("Version", "2011-08-15");
         if (createLoadBalancerRequest != null) {
             if (createLoadBalancerRequest.getLoadBalancerName() != null) {
                 request.addParameter("LoadBalancerName", StringUtils.fromString(createLoadBalancerRequest.getLoadBalancerName()));
@@ -51,6 +51,11 @@ public class CreateLoadBalancerRequestMarshaller implements Marshaller<Request<C
                 if (listenersListValue != null) {
                     if (listenersListValue.getLoadBalancerPort() != null) {
                         request.addParameter("Listeners.member." + listenersListIndex + ".LoadBalancerPort", StringUtils.fromInteger(listenersListValue.getLoadBalancerPort()));
+                    }
+                }
+                if (listenersListValue != null) {
+                    if (listenersListValue.getInstanceProtocol() != null) {
+                        request.addParameter("Listeners.member." + listenersListIndex + ".InstanceProtocol", StringUtils.fromString(listenersListValue.getInstanceProtocol()));
                     }
                 }
                 if (listenersListValue != null) {

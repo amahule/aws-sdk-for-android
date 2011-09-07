@@ -18,13 +18,13 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.sqs.AmazonSQS#createQueue(CreateQueueRequest) CreateQueue operation}.
  * <p>
- * The CreateQueue action creates a new queue, or returns the URL of an
- * existing one. When you request CreateQueue, you provide a name for the
- * queue. To successfully create a new queue, you must provide a name
- * that is unique within the scope of your own queues. If you provide the
- * name of an existing queue, a new queue isn't created and an error
- * isn't returned. Instead, the request succeeds and the queue URL for
- * the existing queue is returned.
+ * The <code>CreateQueue</code> action creates a new queue, or returns
+ * the URL of an existing one. When you request <code>CreateQueue</code>
+ * , you provide a name for the queue. To successfully create a new
+ * queue, you must provide a name that is unique within the scope of your
+ * own queues. If you provide the name of an existing queue, a new queue
+ * isn't created and an error isn't returned. Instead, the request
+ * succeeds and the queue URL for the existing queue is returned.
  * </p>
  * <p>
  * <b>IMPORTANT:</b> If you provide a value for DefaultVisibilityTimeout
@@ -61,20 +61,6 @@ public class CreateQueueRequest extends AmazonWebServiceRequest {
      */
     public CreateQueueRequest(String queueName) {
         this.queueName = queueName;
-    }
-    
-    /**
-     * Constructs a new CreateQueueRequest object.
-     * Callers should use the setter or fluent setter (with...) methods to
-     * initialize any additional object members.
-     * 
-     * @param queueName The name to use for the created queue.
-     * @param defaultVisibilityTimeout The visibility timeout (in seconds) to
-     * use for the created queue.
-     */
-    public CreateQueueRequest(String queueName, Integer defaultVisibilityTimeout) {
-        this.queueName = queueName;
-        this.defaultVisibilityTimeout = defaultVisibilityTimeout;
     }
     
     /**

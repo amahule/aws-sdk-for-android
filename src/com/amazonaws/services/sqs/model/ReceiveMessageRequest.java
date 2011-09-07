@@ -21,11 +21,11 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Retrieves one or more messages from the specified queue, including
  * the message body and message ID of each message. Messages returned by
  * this action stay in the queue until you delete them. However, once a
- * message is returned to a ReceiveMessage request, it is not returned on
- * subsequent ReceiveMessage requests for the duration of the
- * VisibilityTimeout. If you do not specify a VisibilityTimeout in the
- * request, the overall visibility timeout for the queue is used for the
- * returned messages.
+ * message is returned to a <code>ReceiveMessage</code> request, it is
+ * not returned on subsequent <code>ReceiveMessage</code> requests for
+ * the duration of the <code>VisibilityTimeout</code> . If you do not
+ * specify a <code>VisibilityTimeout</code> in the request, the overall
+ * visibility timeout for the queue is used for the returned messages.
  * </p>
  *
  * @see com.amazonaws.services.sqs.AmazonSQS#receiveMessage(ReceiveMessageRequest)
@@ -51,8 +51,8 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest {
 
     /**
      * The duration (in seconds) that the received messages are hidden from
-     * subsequent retrieve requests after being retrieved by a ReceiveMessage
-     * request.
+     * subsequent retrieve requests after being retrieved by a
+     * <code>ReceiveMessage</code> request.
      */
     private Integer visibilityTimeout;
 
@@ -217,12 +217,12 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest {
     
     /**
      * The duration (in seconds) that the received messages are hidden from
-     * subsequent retrieve requests after being retrieved by a ReceiveMessage
-     * request.
+     * subsequent retrieve requests after being retrieved by a
+     * <code>ReceiveMessage</code> request.
      *
      * @return The duration (in seconds) that the received messages are hidden from
-     *         subsequent retrieve requests after being retrieved by a ReceiveMessage
-     *         request.
+     *         subsequent retrieve requests after being retrieved by a
+     *         <code>ReceiveMessage</code> request.
      */
     public Integer getVisibilityTimeout() {
         return visibilityTimeout;
@@ -230,12 +230,12 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest {
     
     /**
      * The duration (in seconds) that the received messages are hidden from
-     * subsequent retrieve requests after being retrieved by a ReceiveMessage
-     * request.
+     * subsequent retrieve requests after being retrieved by a
+     * <code>ReceiveMessage</code> request.
      *
      * @param visibilityTimeout The duration (in seconds) that the received messages are hidden from
-     *         subsequent retrieve requests after being retrieved by a ReceiveMessage
-     *         request.
+     *         subsequent retrieve requests after being retrieved by a
+     *         <code>ReceiveMessage</code> request.
      */
     public void setVisibilityTimeout(Integer visibilityTimeout) {
         this.visibilityTimeout = visibilityTimeout;
@@ -243,14 +243,14 @@ public class ReceiveMessageRequest extends AmazonWebServiceRequest {
     
     /**
      * The duration (in seconds) that the received messages are hidden from
-     * subsequent retrieve requests after being retrieved by a ReceiveMessage
-     * request.
+     * subsequent retrieve requests after being retrieved by a
+     * <code>ReceiveMessage</code> request.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param visibilityTimeout The duration (in seconds) that the received messages are hidden from
-     *         subsequent retrieve requests after being retrieved by a ReceiveMessage
-     *         request.
+     *         subsequent retrieve requests after being retrieved by a
+     *         <code>ReceiveMessage</code> request.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

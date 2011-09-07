@@ -18,8 +18,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.sqs.AmazonSQS#addPermission(AddPermissionRequest) AddPermission operation}.
  * <p>
- * The AddPermission action adds a permission to a queue for a specific
- * principal. This allows for sharing access to the queue.
+ * The <code>AddPermission</code> action adds a permission to a queue
+ * for a specific principal. This allows for sharing access to the queue.
  * </p>
  * <p>
  * When you create a queue, you have full control access rights for the

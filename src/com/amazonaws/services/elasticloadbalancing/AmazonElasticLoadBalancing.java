@@ -58,20 +58,18 @@ public interface AmazonElasticLoadBalancing {
     
     /**
      * <p>
-     * Creates one or more listeners on a LoadBalancer for the specified
-     * port. If a listener with the given port does not already exist, it
-     * will be created; otherwise, the properties of the new listener must
-     * match the properties of the existing listener.
+     * Enables the client to define an application healthcheck for the
+     * instances.
      * </p>
      *
-     * @param createLoadBalancerListenersRequest Container for the necessary
-     *           parameters to execute the CreateLoadBalancerListeners service method
-     *           on AmazonElasticLoadBalancing.
+     * @param configureHealthCheckRequest Container for the necessary
+     *           parameters to execute the ConfigureHealthCheck service method on
+     *           AmazonElasticLoadBalancing.
+     * 
+     * @return The response from the ConfigureHealthCheck service method, as
+     *         returned by AmazonElasticLoadBalancing.
      * 
      * @throws LoadBalancerNotFoundException
-     * @throws InvalidConfigurationRequestException
-     * @throws DuplicateListenerException
-     * @throws CertificateNotFoundException
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -81,7 +79,134 @@ public interface AmazonElasticLoadBalancing {
      *             If an error response is returned by AmazonElasticLoadBalancing indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public void createLoadBalancerListeners(CreateLoadBalancerListenersRequest createLoadBalancerListenersRequest) 
+    public ConfigureHealthCheckResult configureHealthCheck(ConfigureHealthCheckRequest configureHealthCheckRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     *
+     * @param setLoadBalancerPoliciesForBackendServerRequest Container for
+     *           the necessary parameters to execute the
+     *           SetLoadBalancerPoliciesForBackendServer service method on
+     *           AmazonElasticLoadBalancing.
+     * 
+     * @return The response from the SetLoadBalancerPoliciesForBackendServer
+     *         service method, as returned by AmazonElasticLoadBalancing.
+     * 
+     * @throws PolicyNotFoundException
+     * @throws LoadBalancerNotFoundException
+     * @throws InvalidConfigurationRequestException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElasticLoadBalancing indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public SetLoadBalancerPoliciesForBackendServerResult setLoadBalancerPoliciesForBackendServer(SetLoadBalancerPoliciesForBackendServerRequest setLoadBalancerPoliciesForBackendServerRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * Sets the certificate that terminates the specified listener's SSL
+     * connections. The specified certificate replaces any prior certificate
+     * that was used on the same LoadBalancer and port.
+     * </p>
+     *
+     * @param setLoadBalancerListenerSSLCertificateRequest Container for the
+     *           necessary parameters to execute the
+     *           SetLoadBalancerListenerSSLCertificate service method on
+     *           AmazonElasticLoadBalancing.
+     * 
+     * @throws CertificateNotFoundException
+     * @throws ListenerNotFoundException
+     * @throws LoadBalancerNotFoundException
+     * @throws InvalidConfigurationRequestException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElasticLoadBalancing indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public void setLoadBalancerListenerSSLCertificate(SetLoadBalancerListenerSSLCertificateRequest setLoadBalancerListenerSSLCertificateRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * Adds new instances to the LoadBalancer.
+     * </p>
+     * <p>
+     * Once the instance is registered, it starts receiving traffic and
+     * requests from the LoadBalancer. Any instance that is not in any of the
+     * Availability Zones registered for the LoadBalancer will be moved to
+     * the <i>OutOfService</i> state. It will move to the <i>InService</i>
+     * state when the Availability Zone is added to the LoadBalancer.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> In order for this call to be successful, the client must
+     * have created the LoadBalancer. The client must provide the same
+     * account credentials as those that were used to create the
+     * LoadBalancer.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> Completion of this API does not guarantee that operation
+     * has completed. Rather, it means that the request has been registered
+     * and the changes will happen shortly.
+     * </p>
+     *
+     * @param registerInstancesWithLoadBalancerRequest Container for the
+     *           necessary parameters to execute the RegisterInstancesWithLoadBalancer
+     *           service method on AmazonElasticLoadBalancing.
+     * 
+     * @return The response from the RegisterInstancesWithLoadBalancer
+     *         service method, as returned by AmazonElasticLoadBalancing.
+     * 
+     * @throws InvalidInstanceException
+     * @throws LoadBalancerNotFoundException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElasticLoadBalancing indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public RegisterInstancesWithLoadBalancerResult registerInstancesWithLoadBalancer(RegisterInstancesWithLoadBalancerRequest registerInstancesWithLoadBalancerRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * Associates, updates, or disables a policy with a listener on the load
+     * balancer. Currently only zero (0) or one (1) policy can be associated
+     * with a listener.
+     * </p>
+     *
+     * @param setLoadBalancerPoliciesOfListenerRequest Container for the
+     *           necessary parameters to execute the SetLoadBalancerPoliciesOfListener
+     *           service method on AmazonElasticLoadBalancing.
+     * 
+     * @return The response from the SetLoadBalancerPoliciesOfListener
+     *         service method, as returned by AmazonElasticLoadBalancing.
+     * 
+     * @throws PolicyNotFoundException
+     * @throws ListenerNotFoundException
+     * @throws LoadBalancerNotFoundException
+     * @throws InvalidConfigurationRequestException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElasticLoadBalancing indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public SetLoadBalancerPoliciesOfListenerResult setLoadBalancerPoliciesOfListener(SetLoadBalancerPoliciesOfListenerRequest setLoadBalancerPoliciesOfListenerRequest) 
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -108,69 +233,9 @@ public interface AmazonElasticLoadBalancing {
 
     /**
      * <p>
-     * Enables the client to define an application healthcheck for the
-     * instances.
-     * </p>
-     *
-     * @param configureHealthCheckRequest Container for the necessary
-     *           parameters to execute the ConfigureHealthCheck service method on
-     *           AmazonElasticLoadBalancing.
-     * 
-     * @return The response from the ConfigureHealthCheck service method, as
-     *         returned by AmazonElasticLoadBalancing.
-     * 
-     * @throws LoadBalancerNotFoundException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElasticLoadBalancing indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public ConfigureHealthCheckResult configureHealthCheck(ConfigureHealthCheckRequest configureHealthCheckRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Returns detailed configuration information for the specified
-     * LoadBalancers. If no LoadBalancers are specified, the operation
-     * returns configuration information for all LoadBalancers created by the
-     * caller.
-     * </p>
-     * <p>
-     * <b>NOTE:</b> The client must have created the specified input
-     * LoadBalancers in order to retrieve this information; the client must
-     * provide the same account credentials as those that were used to create
-     * the LoadBalancer.
-     * </p>
-     *
-     * @param describeLoadBalancersRequest Container for the necessary
-     *           parameters to execute the DescribeLoadBalancers service method on
-     *           AmazonElasticLoadBalancing.
-     * 
-     * @return The response from the DescribeLoadBalancers service method, as
-     *         returned by AmazonElasticLoadBalancing.
-     * 
-     * @throws LoadBalancerNotFoundException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElasticLoadBalancing indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public DescribeLoadBalancersResult describeLoadBalancers(DescribeLoadBalancersRequest describeLoadBalancersRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
      * Generates a stickiness policy with sticky session lifetimes
      * controlled by the lifetime of the browser (user-agent) or a specified
-     * expiration period. This policy can only be associated only with HTTP
+     * expiration period. This policy can be associated only with HTTP/HTTPS
      * listeners.
      * </p>
      * <p>
@@ -196,8 +261,98 @@ public interface AmazonElasticLoadBalancing {
      * @return The response from the CreateLBCookieStickinessPolicy service
      *         method, as returned by AmazonElasticLoadBalancing.
      * 
-     * @throws DuplicatePolicyNameException
+     * @throws LoadBalancerNotFoundException
      * @throws TooManyPoliciesException
+     * @throws InvalidConfigurationRequestException
+     * @throws DuplicatePolicyNameException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElasticLoadBalancing indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public CreateLBCookieStickinessPolicyResult createLBCookieStickinessPolicy(CreateLBCookieStickinessPolicyRequest createLBCookieStickinessPolicyRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     *
+     * @param describeLoadBalancerPoliciesRequest Container for the necessary
+     *           parameters to execute the DescribeLoadBalancerPolicies service method
+     *           on AmazonElasticLoadBalancing.
+     * 
+     * @return The response from the DescribeLoadBalancerPolicies service
+     *         method, as returned by AmazonElasticLoadBalancing.
+     * 
+     * @throws PolicyNotFoundException
+     * @throws LoadBalancerNotFoundException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElasticLoadBalancing indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public DescribeLoadBalancerPoliciesResult describeLoadBalancerPolicies(DescribeLoadBalancerPoliciesRequest describeLoadBalancerPoliciesRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     *
+     * @param describeLoadBalancerPolicyTypesRequest Container for the
+     *           necessary parameters to execute the DescribeLoadBalancerPolicyTypes
+     *           service method on AmazonElasticLoadBalancing.
+     * 
+     * @return The response from the DescribeLoadBalancerPolicyTypes service
+     *         method, as returned by AmazonElasticLoadBalancing.
+     * 
+     * @throws PolicyTypeNotFoundException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElasticLoadBalancing indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public DescribeLoadBalancerPolicyTypesResult describeLoadBalancerPolicyTypes(DescribeLoadBalancerPolicyTypesRequest describeLoadBalancerPolicyTypesRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * Removes the specified EC2 Availability Zones from the set of
+     * configured Availability Zones for the LoadBalancer.
+     * </p>
+     * <p>
+     * There must be at least one Availability Zone registered with a
+     * LoadBalancer at all times. A client cannot remove all the Availability
+     * Zones from a LoadBalancer. Once an Availability Zone is removed, all
+     * the instances registered with the LoadBalancer that are in the removed
+     * Availability Zone go into the OutOfService state. Upon Availability
+     * Zone removal, the LoadBalancer attempts to equally balance the traffic
+     * among its remaining usable Availability Zones. Trying to remove an
+     * Availability Zone that was not associated with the LoadBalancer does
+     * nothing.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> In order for this call to be successful, the client must
+     * have created the LoadBalancer. The client must provide the same
+     * account credentials as those that were used to create the
+     * LoadBalancer.
+     * </p>
+     *
+     * @param disableAvailabilityZonesForLoadBalancerRequest Container for
+     *           the necessary parameters to execute the
+     *           DisableAvailabilityZonesForLoadBalancer service method on
+     *           AmazonElasticLoadBalancing.
+     * 
+     * @return The response from the DisableAvailabilityZonesForLoadBalancer
+     *         service method, as returned by AmazonElasticLoadBalancing.
+     * 
      * @throws LoadBalancerNotFoundException
      * @throws InvalidConfigurationRequestException
      *
@@ -209,7 +364,56 @@ public interface AmazonElasticLoadBalancing {
      *             If an error response is returned by AmazonElasticLoadBalancing indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public CreateLBCookieStickinessPolicyResult createLBCookieStickinessPolicy(CreateLBCookieStickinessPolicyRequest createLBCookieStickinessPolicyRequest) 
+    public DisableAvailabilityZonesForLoadBalancerResult disableAvailabilityZonesForLoadBalancer(DisableAvailabilityZonesForLoadBalancerRequest disableAvailabilityZonesForLoadBalancerRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * Creates a new LoadBalancer.
+     * </p>
+     * <p>
+     * Once the call has completed successfully, a new LoadBalancer is
+     * created; however, it will not be usable until at least one instance
+     * has been registered. When the LoadBalancer creation is completed, the
+     * client can check whether or not it is usable by using the
+     * DescribeInstanceHealth API. The LoadBalancer is usable as soon as any
+     * registered instance is <i>InService</i> .
+     * 
+     * </p>
+     * <p>
+     * <b>NOTE:</b> Currently, the client's quota of LoadBalancers is limited
+     * to five per Region.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> Load balancer DNS names vary depending on the Region
+     * they're created in. For load balancers created in the United States,
+     * the DNS name ends with: us-east-1.elb.amazonaws.com (for the US
+     * Standard Region) us-west-1.elb.amazonaws.com (for the Northern
+     * California Region) For load balancers created in the EU (Ireland)
+     * Region, the DNS name ends with: eu-west-1.elb.amazonaws.com
+     * </p>
+     *
+     * @param createLoadBalancerRequest Container for the necessary
+     *           parameters to execute the CreateLoadBalancer service method on
+     *           AmazonElasticLoadBalancing.
+     * 
+     * @return The response from the CreateLoadBalancer service method, as
+     *         returned by AmazonElasticLoadBalancing.
+     * 
+     * @throws TooManyLoadBalancersException
+     * @throws DuplicateLoadBalancerNameException
+     * @throws CertificateNotFoundException
+     * @throws InvalidConfigurationRequestException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElasticLoadBalancing indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public CreateLoadBalancerResult createLoadBalancer(CreateLoadBalancerRequest createLoadBalancerRequest) 
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -250,27 +454,19 @@ public interface AmazonElasticLoadBalancing {
             throws AmazonServiceException, AmazonClientException;
 
     /**
-     * <p>
-     * Returns the current state of the instances of the specified
-     * LoadBalancer. If no instances are specified, the state of all the
-     * instances for the LoadBalancer is returned.
-     * </p>
-     * <p>
-     * <b>NOTE:</b> The client must have created the specified input
-     * LoadBalancer in order to retrieve this information; the client must
-     * provide the same account credentials as those that were used to create
-     * the LoadBalancer.
-     * </p>
      *
-     * @param describeInstanceHealthRequest Container for the necessary
-     *           parameters to execute the DescribeInstanceHealth service method on
+     * @param createLoadBalancerPolicyRequest Container for the necessary
+     *           parameters to execute the CreateLoadBalancerPolicy service method on
      *           AmazonElasticLoadBalancing.
      * 
-     * @return The response from the DescribeInstanceHealth service method,
+     * @return The response from the CreateLoadBalancerPolicy service method,
      *         as returned by AmazonElasticLoadBalancing.
      * 
      * @throws LoadBalancerNotFoundException
-     * @throws InvalidInstanceException
+     * @throws TooManyPoliciesException
+     * @throws InvalidConfigurationRequestException
+     * @throws DuplicatePolicyNameException
+     * @throws PolicyTypeNotFoundException
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -280,148 +476,29 @@ public interface AmazonElasticLoadBalancing {
      *             If an error response is returned by AmazonElasticLoadBalancing indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public DescribeInstanceHealthResult describeInstanceHealth(DescribeInstanceHealthRequest describeInstanceHealthRequest) 
+    public CreateLoadBalancerPolicyResult createLoadBalancerPolicy(CreateLoadBalancerPolicyRequest createLoadBalancerPolicyRequest) 
             throws AmazonServiceException, AmazonClientException;
 
     /**
      * <p>
-     * Sets the certificate that terminates the specified listener's SSL
-     * connections. The specified certificate replaces any prior certificate
-     * that was used on the same LoadBalancer and port.
+     * Deregisters instances from the LoadBalancer. Once the instance is
+     * deregistered, it will stop receiving traffic from the LoadBalancer.
+     * </p>
+     * <p>
+     * In order to successfully call this API, the same account credentials
+     * as those used to create the LoadBalancer must be provided.
      * </p>
      *
-     * @param setLoadBalancerListenerSSLCertificateRequest Container for the
+     * @param deregisterInstancesFromLoadBalancerRequest Container for the
      *           necessary parameters to execute the
-     *           SetLoadBalancerListenerSSLCertificate service method on
+     *           DeregisterInstancesFromLoadBalancer service method on
      *           AmazonElasticLoadBalancing.
      * 
-     * @throws LoadBalancerNotFoundException
-     * @throws InvalidConfigurationRequestException
-     * @throws ListenerNotFoundException
-     * @throws CertificateNotFoundException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElasticLoadBalancing indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public void setLoadBalancerListenerSSLCertificate(SetLoadBalancerListenerSSLCertificateRequest setLoadBalancerListenerSSLCertificateRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Associates, updates, or disables a policy with a listener on the load
-     * balancer. Currently only zero (0) or one (1) policy can be associated
-     * with a listener.
-     * </p>
-     *
-     * @param setLoadBalancerPoliciesOfListenerRequest Container for the
-     *           necessary parameters to execute the SetLoadBalancerPoliciesOfListener
-     *           service method on AmazonElasticLoadBalancing.
-     * 
-     * @return The response from the SetLoadBalancerPoliciesOfListener
+     * @return The response from the DeregisterInstancesFromLoadBalancer
      *         service method, as returned by AmazonElasticLoadBalancing.
      * 
-     * @throws PolicyNotFoundException
-     * @throws LoadBalancerNotFoundException
-     * @throws InvalidConfigurationRequestException
-     * @throws ListenerNotFoundException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElasticLoadBalancing indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public SetLoadBalancerPoliciesOfListenerResult setLoadBalancerPoliciesOfListener(SetLoadBalancerPoliciesOfListenerRequest setLoadBalancerPoliciesOfListenerRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Creates a new LoadBalancer.
-     * </p>
-     * <p>
-     * Once the call has completed successfully, a new LoadBalancer is
-     * created; however, it will not be usable until at least one instance
-     * has been registered. When the LoadBalancer creation is completed, the
-     * client can check whether or not it is usable by using the
-     * DescribeInstanceHealth API. The LoadBalancer is usable as soon as any
-     * registered instance is <i>InService</i> .
-     * 
-     * </p>
-     * <p>
-     * <b>NOTE:</b> Currently, the client's quota of LoadBalancers is limited
-     * to five per Region.
-     * </p>
-     * <p>
-     * <b>NOTE:</b> Load balancer DNS names vary depending on the Region
-     * they're created in. For load balancers created in the United States,
-     * the DNS name ends with: us-east-1.elb.amazonaws.com (for the US
-     * Standard Region) us-west-1.elb.amazonaws.com (for the Northern
-     * California Region) For load balancers created in the EU (Ireland)
-     * Region, the DNS name ends with: eu-west-1.elb.amazonaws.com
-     * </p>
-     *
-     * @param createLoadBalancerRequest Container for the necessary
-     *           parameters to execute the CreateLoadBalancer service method on
-     *           AmazonElasticLoadBalancing.
-     * 
-     * @return The response from the CreateLoadBalancer service method, as
-     *         returned by AmazonElasticLoadBalancing.
-     * 
-     * @throws DuplicateLoadBalancerNameException
-     * @throws TooManyLoadBalancersException
-     * @throws InvalidConfigurationRequestException
-     * @throws CertificateNotFoundException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElasticLoadBalancing indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public CreateLoadBalancerResult createLoadBalancer(CreateLoadBalancerRequest createLoadBalancerRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Adds new instances to the LoadBalancer.
-     * </p>
-     * <p>
-     * Once the instance is registered, it starts receiving traffic and
-     * requests from the LoadBalancer. Any instance that is not in any of the
-     * Availability Zones registered for the LoadBalancer will be moved to
-     * the <i>OutOfService</i> state. It will move to the <i>InService</i>
-     * state when the Availability Zone is added to the LoadBalancer.
-     * </p>
-     * <p>
-     * <b>NOTE:</b> In order for this call to be successful, the client must
-     * have created the LoadBalancer. The client must provide the same
-     * account credentials as those that were used to create the
-     * LoadBalancer.
-     * </p>
-     * <p>
-     * <b>NOTE:</b> Completion of this API does not guarantee that operation
-     * has completed. Rather, it means that the request has been registered
-     * and the changes will happen shortly.
-     * </p>
-     *
-     * @param registerInstancesWithLoadBalancerRequest Container for the
-     *           necessary parameters to execute the RegisterInstancesWithLoadBalancer
-     *           service method on AmazonElasticLoadBalancing.
-     * 
-     * @return The response from the RegisterInstancesWithLoadBalancer
-     *         service method, as returned by AmazonElasticLoadBalancing.
-     * 
-     * @throws LoadBalancerNotFoundException
      * @throws InvalidInstanceException
+     * @throws LoadBalancerNotFoundException
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -431,14 +508,14 @@ public interface AmazonElasticLoadBalancing {
      *             If an error response is returned by AmazonElasticLoadBalancing indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public RegisterInstancesWithLoadBalancerResult registerInstancesWithLoadBalancer(RegisterInstancesWithLoadBalancerRequest registerInstancesWithLoadBalancerRequest) 
+    public DeregisterInstancesFromLoadBalancerResult deregisterInstancesFromLoadBalancer(DeregisterInstancesFromLoadBalancerRequest deregisterInstancesFromLoadBalancerRequest) 
             throws AmazonServiceException, AmazonClientException;
 
     /**
      * <p>
      * Generates a stickiness policy with sticky session lifetimes that
-     * follow that of an application-generated cookie. This policy can only
-     * be associated with HTTP listeners.
+     * follow that of an application-generated cookie. This policy can be
+     * associated only with HTTP/HTTPS listeners.
      * </p>
      * <p>
      * This policy is similar to the policy created by
@@ -452,6 +529,12 @@ public interface AmazonElasticLoadBalancing {
      * If the application cookie is explicitly removed or expires, the
      * session stops being sticky until a new application cookie is issued.
      * </p>
+     * <p>
+     * <b>NOTE:</b> An application client must receive and send two cookies:
+     * the application-generated cookie and the special Elastic Load
+     * Balancing cookie named AWSELB. This is the default behavior for many
+     * common web browsers.
+     * </p>
      *
      * @param createAppCookieStickinessPolicyRequest Container for the
      *           necessary parameters to execute the CreateAppCookieStickinessPolicy
@@ -460,10 +543,10 @@ public interface AmazonElasticLoadBalancing {
      * @return The response from the CreateAppCookieStickinessPolicy service
      *         method, as returned by AmazonElasticLoadBalancing.
      * 
-     * @throws DuplicatePolicyNameException
-     * @throws TooManyPoliciesException
      * @throws LoadBalancerNotFoundException
+     * @throws TooManyPoliciesException
      * @throws InvalidConfigurationRequestException
+     * @throws DuplicatePolicyNameException
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -516,51 +599,6 @@ public interface AmazonElasticLoadBalancing {
 
     /**
      * <p>
-     * Removes the specified EC2 Availability Zones from the set of
-     * configured Availability Zones for the LoadBalancer.
-     * </p>
-     * <p>
-     * There must be at least one Availability Zone registered with a
-     * LoadBalancer at all times. A client cannot remove all the Availability
-     * Zones from a LoadBalancer. Once an Availability Zone is removed, all
-     * the instances registered with the LoadBalancer that are in the removed
-     * Availability Zone go into the OutOfService state. Upon Availability
-     * Zone removal, the LoadBalancer attempts to equally balance the traffic
-     * among its remaining usable Availability Zones. Trying to remove an
-     * Availability Zone that was not associated with the LoadBalancer does
-     * nothing.
-     * </p>
-     * <p>
-     * <b>NOTE:</b> In order for this call to be successful, the client must
-     * have created the LoadBalancer. The client must provide the same
-     * account credentials as those that were used to create the
-     * LoadBalancer.
-     * </p>
-     *
-     * @param disableAvailabilityZonesForLoadBalancerRequest Container for
-     *           the necessary parameters to execute the
-     *           DisableAvailabilityZonesForLoadBalancer service method on
-     *           AmazonElasticLoadBalancing.
-     * 
-     * @return The response from the DisableAvailabilityZonesForLoadBalancer
-     *         service method, as returned by AmazonElasticLoadBalancing.
-     * 
-     * @throws LoadBalancerNotFoundException
-     * @throws InvalidConfigurationRequestException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonElasticLoadBalancing indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public DisableAvailabilityZonesForLoadBalancerResult disableAvailabilityZonesForLoadBalancer(DisableAvailabilityZonesForLoadBalancerRequest disableAvailabilityZonesForLoadBalancerRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
      * Deletes a policy from the LoadBalancer. The specified policy must not
      * be enabled for any listeners.
      * </p>
@@ -588,24 +626,26 @@ public interface AmazonElasticLoadBalancing {
 
     /**
      * <p>
-     * Deregisters instances from the LoadBalancer. Once the instance is
-     * deregistered, it will stop receiving traffic from the LoadBalancer.
+     * Returns the current state of the instances of the specified
+     * LoadBalancer. If no instances are specified, the state of all the
+     * instances for the LoadBalancer is returned.
      * </p>
      * <p>
-     * In order to successfully call this API, the same account credentials
-     * as those used to create the LoadBalancer must be provided.
+     * <b>NOTE:</b> The client must have created the specified input
+     * LoadBalancer in order to retrieve this information; the client must
+     * provide the same account credentials as those that were used to create
+     * the LoadBalancer.
      * </p>
      *
-     * @param deregisterInstancesFromLoadBalancerRequest Container for the
-     *           necessary parameters to execute the
-     *           DeregisterInstancesFromLoadBalancer service method on
+     * @param describeInstanceHealthRequest Container for the necessary
+     *           parameters to execute the DescribeInstanceHealth service method on
      *           AmazonElasticLoadBalancing.
      * 
-     * @return The response from the DeregisterInstancesFromLoadBalancer
-     *         service method, as returned by AmazonElasticLoadBalancing.
+     * @return The response from the DescribeInstanceHealth service method,
+     *         as returned by AmazonElasticLoadBalancing.
      * 
-     * @throws LoadBalancerNotFoundException
      * @throws InvalidInstanceException
+     * @throws LoadBalancerNotFoundException
      *
      * @throws AmazonClientException
      *             If any internal errors are encountered inside the client while
@@ -615,9 +655,106 @@ public interface AmazonElasticLoadBalancing {
      *             If an error response is returned by AmazonElasticLoadBalancing indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public DeregisterInstancesFromLoadBalancerResult deregisterInstancesFromLoadBalancer(DeregisterInstancesFromLoadBalancerRequest deregisterInstancesFromLoadBalancerRequest) 
+    public DescribeInstanceHealthResult describeInstanceHealth(DescribeInstanceHealthRequest describeInstanceHealthRequest) 
             throws AmazonServiceException, AmazonClientException;
 
+    /**
+     * <p>
+     * Returns detailed configuration information for the specified
+     * LoadBalancers. If no LoadBalancers are specified, the operation
+     * returns configuration information for all LoadBalancers created by the
+     * caller.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> The client must have created the specified input
+     * LoadBalancers in order to retrieve this information; the client must
+     * provide the same account credentials as those that were used to create
+     * the LoadBalancer.
+     * </p>
+     *
+     * @param describeLoadBalancersRequest Container for the necessary
+     *           parameters to execute the DescribeLoadBalancers service method on
+     *           AmazonElasticLoadBalancing.
+     * 
+     * @return The response from the DescribeLoadBalancers service method, as
+     *         returned by AmazonElasticLoadBalancing.
+     * 
+     * @throws LoadBalancerNotFoundException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElasticLoadBalancing indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public DescribeLoadBalancersResult describeLoadBalancers(DescribeLoadBalancersRequest describeLoadBalancersRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * Creates one or more listeners on a LoadBalancer for the specified
+     * port. If a listener with the given port does not already exist, it
+     * will be created; otherwise, the properties of the new listener must
+     * match the properties of the existing listener.
+     * </p>
+     *
+     * @param createLoadBalancerListenersRequest Container for the necessary
+     *           parameters to execute the CreateLoadBalancerListeners service method
+     *           on AmazonElasticLoadBalancing.
+     * 
+     * @throws DuplicateListenerException
+     * @throws CertificateNotFoundException
+     * @throws LoadBalancerNotFoundException
+     * @throws InvalidConfigurationRequestException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElasticLoadBalancing indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public void createLoadBalancerListeners(CreateLoadBalancerListenersRequest createLoadBalancerListenersRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * 
+     * @return The response from the DescribeLoadBalancerPolicies service
+     *         method, as returned by AmazonElasticLoadBalancing.
+     * 
+     * @throws PolicyNotFoundException
+     * @throws LoadBalancerNotFoundException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElasticLoadBalancing indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public DescribeLoadBalancerPoliciesResult describeLoadBalancerPolicies() throws AmazonServiceException, AmazonClientException;
+    
+    /**
+     * 
+     * @return The response from the DescribeLoadBalancerPolicyTypes service
+     *         method, as returned by AmazonElasticLoadBalancing.
+     * 
+     * @throws PolicyTypeNotFoundException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonElasticLoadBalancing indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public DescribeLoadBalancerPolicyTypesResult describeLoadBalancerPolicyTypes() throws AmazonServiceException, AmazonClientException;
+    
     /**
      * <p>
      * Returns detailed configuration information for the specified

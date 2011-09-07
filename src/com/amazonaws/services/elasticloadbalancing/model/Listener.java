@@ -29,11 +29,12 @@ public class Listener {
     private String protocol;
 
     /**
-     * Specifies the LoadBalancer transport protocol to use for routing - TCP
-     * or HTTP. This property cannot be modified for the life of the
-     * LoadBalancer.
+     * Specifies the external LoadBalancer port number. This property cannot
+     * be modified for the life of the LoadBalancer.
      */
     private Integer loadBalancerPort;
+
+    private String instanceProtocol;
 
     /**
      * Specifies the TCP port on which the instance server is listening. This
@@ -67,9 +68,9 @@ public class Listener {
      * @param protocol Specifies the LoadBalancer transport protocol to use
      * for routing - TCP or HTTP. This property cannot be modified for the
      * life of the LoadBalancer.
-     * @param loadBalancerPort Specifies the LoadBalancer transport protocol
-     * to use for routing - TCP or HTTP. This property cannot be modified for
-     * the life of the LoadBalancer.
+     * @param loadBalancerPort Specifies the external LoadBalancer port
+     * number. This property cannot be modified for the life of the
+     * LoadBalancer.
      * @param instancePort Specifies the TCP port on which the instance
      * server is listening. This property cannot be modified for the life of
      * the LoadBalancer.
@@ -127,47 +128,75 @@ public class Listener {
     
     
     /**
-     * Specifies the LoadBalancer transport protocol to use for routing - TCP
-     * or HTTP. This property cannot be modified for the life of the
-     * LoadBalancer.
+     * Specifies the external LoadBalancer port number. This property cannot
+     * be modified for the life of the LoadBalancer.
      *
-     * @return Specifies the LoadBalancer transport protocol to use for routing - TCP
-     *         or HTTP. This property cannot be modified for the life of the
-     *         LoadBalancer.
+     * @return Specifies the external LoadBalancer port number. This property cannot
+     *         be modified for the life of the LoadBalancer.
      */
     public Integer getLoadBalancerPort() {
         return loadBalancerPort;
     }
     
     /**
-     * Specifies the LoadBalancer transport protocol to use for routing - TCP
-     * or HTTP. This property cannot be modified for the life of the
-     * LoadBalancer.
+     * Specifies the external LoadBalancer port number. This property cannot
+     * be modified for the life of the LoadBalancer.
      *
-     * @param loadBalancerPort Specifies the LoadBalancer transport protocol to use for routing - TCP
-     *         or HTTP. This property cannot be modified for the life of the
-     *         LoadBalancer.
+     * @param loadBalancerPort Specifies the external LoadBalancer port number. This property cannot
+     *         be modified for the life of the LoadBalancer.
      */
     public void setLoadBalancerPort(Integer loadBalancerPort) {
         this.loadBalancerPort = loadBalancerPort;
     }
     
     /**
-     * Specifies the LoadBalancer transport protocol to use for routing - TCP
-     * or HTTP. This property cannot be modified for the life of the
-     * LoadBalancer.
+     * Specifies the external LoadBalancer port number. This property cannot
+     * be modified for the life of the LoadBalancer.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param loadBalancerPort Specifies the LoadBalancer transport protocol to use for routing - TCP
-     *         or HTTP. This property cannot be modified for the life of the
-     *         LoadBalancer.
+     * @param loadBalancerPort Specifies the external LoadBalancer port number. This property cannot
+     *         be modified for the life of the LoadBalancer.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
      */
     public Listener withLoadBalancerPort(Integer loadBalancerPort) {
         this.loadBalancerPort = loadBalancerPort;
+        return this;
+    }
+    
+    
+    /**
+     * Returns the value of the InstanceProtocol property for this object.
+     *
+     * @return The value of the InstanceProtocol property for this object.
+     */
+    public String getInstanceProtocol() {
+        return instanceProtocol;
+    }
+    
+    /**
+     * Sets the value of the InstanceProtocol property for this object.
+     *
+     * @param instanceProtocol The new value for the InstanceProtocol property for this object.
+     */
+    public void setInstanceProtocol(String instanceProtocol) {
+        this.instanceProtocol = instanceProtocol;
+    }
+    
+    /**
+     * Sets the value of the InstanceProtocol property for this object.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param instanceProtocol The new value for the InstanceProtocol property for this object.
+     *
+     * @return A reference to this updated object so that method calls can be chained 
+     *         together. 
+     */
+    public Listener withInstanceProtocol(String instanceProtocol) {
+        this.instanceProtocol = instanceProtocol;
         return this;
     }
     
@@ -293,6 +322,7 @@ public class Listener {
         sb.append("{");
         sb.append("Protocol: " + protocol + ", ");
         sb.append("LoadBalancerPort: " + loadBalancerPort + ", ");
+        sb.append("InstanceProtocol: " + instanceProtocol + ", ");
         sb.append("InstancePort: " + instancePort + ", ");
         sb.append("SSLCertificateId: " + sSLCertificateId + ", ");
         sb.append("}");

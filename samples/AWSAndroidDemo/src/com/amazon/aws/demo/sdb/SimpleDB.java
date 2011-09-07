@@ -16,12 +16,11 @@ package com.amazon.aws.demo.sdb;
 
 import android.util.Log;
 
-import com.amazon.aws.demo.AWSDemo;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.amazon.aws.demo.AWSAndroidDemo;
 import com.amazonaws.services.simpledb.AmazonSimpleDB;
 import com.amazonaws.services.simpledb.AmazonSimpleDBClient;
 import com.amazonaws.services.simpledb.model.Attribute;
@@ -39,18 +38,13 @@ import com.amazonaws.services.simpledb.model.SelectRequest;
 
 public class SimpleDB {
 
-	private static AmazonSimpleDB sdb = null;
+	private static AmazonSimpleDBClient sdb = null;
 	private static String nextToken = null;
 	private static int prevNumDomains = 0;
 	public static final String DOMAIN_NAME = "_domain_name";
 		
-	public static AmazonSimpleDB getInstance() {
-        if ( sdb == null ) {
-		    sdb = new AmazonSimpleDBClient( AWSDemo.credentials );
-            sdb.setEndpoint( "https://sdb.amazonaws.com:443" );  		
-        }
-
-        return sdb;
+	public static AmazonSimpleDBClient getInstance() {
+        return AWSAndroidDemo.clientManager.sdb();
 	}
 	
 	public static List<String> getDomainNames() {

@@ -27,23 +27,18 @@
  * </p>
  * <p>
  * <a
- * ef="http://autoscaling.amazonaws.com/doc/2010-08-01/AutoScaling.wsdl">
- * http://autoscaling.amazonaws.com/doc/2010-08-01/AutoScaling.wsdl </a>
+ * ef="http://autoscaling.amazonaws.com/doc/2011-01-01/AutoScaling.wsdl">
+ * http://autoscaling.amazonaws.com/doc/2011-01-01/AutoScaling.wsdl </a>
  * </p>
  * <p>
  * <b>Endpoints</b>
  * </p>
  * <p>
- * Auto Scaling supports the following region-specific endpoints:
+ * For information about this product's regions and endpoints, go to <a
+ * //docs.amazonwebservices.com/general/latest/gr/index.html?rande.html">
+ * Regions and Endpoints </a> in the Amazon Web Services General
+ * Reference.
  * </p>
- * 
- * <ul>
- * <li>autoscaling.us-east-1.amazonaws.com</li>
- * <li>autoscaling.us-west-1.amazonaws.com</li>
- * <li>autoscaling.eu-west-1.amazonaws.com</li>
- * <li>autoscaling.ap-southeast-1.amazonaws.com</li>
- * 
- * </ul>
  */
  package com.amazonaws.services.autoscaling;
         

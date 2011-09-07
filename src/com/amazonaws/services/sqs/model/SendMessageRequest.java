@@ -18,7 +18,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.sqs.AmazonSQS#sendMessage(SendMessageRequest) SendMessage operation}.
  * <p>
- * The SendMessage action delivers a message to the specified queue.
+ * The <code>SendMessage</code> action delivers a message to the
+ * specified queue.
  * </p>
  *
  * @see com.amazonaws.services.sqs.AmazonSQS#sendMessage(SendMessageRequest)

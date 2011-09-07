@@ -143,7 +143,7 @@ public class AmazonSQSAsyncClient extends AmazonSQSClient
             
     /**
      * <p>
-     * The ListQueues action returns a list of your queues.
+     * The <code>ListQueues</code> action returns a list of your queues.
      * </p>
      *
      * @param listQueuesRequest Container for the necessary parameters to
@@ -172,7 +172,7 @@ public class AmazonSQSAsyncClient extends AmazonSQSClient
     /**
      * <p>
      * Sets an attribute of a queue. Currently, you can set only the
-     * VisibilityTimeout attribute for a queue.
+     * <code>VisibilityTimeout</code> attribute for a queue.
      * </p>
      *
      * @param setQueueAttributesRequest Container for the necessary
@@ -201,22 +201,22 @@ public class AmazonSQSAsyncClient extends AmazonSQSClient
     
     /**
      * <p>
-     * The ChangeMessageVisibility action changes the visibility timeout of
-     * a specified message in a queue to a new value. The maximum allowed
-     * timeout value you can set the value to is 12 hours. This means you
-     * can't extend the timeout of a message in an existing queue to more
-     * than a total visibility timeout of 12 hours. (For more information
-     * visibility timeout, see Visibility Timeout in the Amazon SQS Developer
-     * Guide.)
+     * The <code>ChangeMessageVisibility</code> action changes the
+     * visibility timeout of a specified message in a queue to a new value.
+     * The maximum allowed timeout value you can set the value to is 12
+     * hours. This means you can't extend the timeout of a message in an
+     * existing queue to more than a total visibility timeout of 12 hours.
+     * (For more information visibility timeout, see Visibility Timeout in
+     * the Amazon SQS Developer Guide.)
      * </p>
      * <p>
      * For example, let's say you have a message and its default message
      * visibility timeout is 30 minutes. You could call
-     * ChangeMessageVisiblity with a value of two hours and the effective
-     * timeout would be two hours and 30 minutes. When that time comes near
-     * you could again extend the time out by calling ChangeMessageVisiblity,
-     * but this time the maximum allowed timeout would be 9 hours and 30
-     * minutes.
+     * <code>ChangeMessageVisiblity</code> with a value of two hours and the
+     * effective timeout would be two hours and 30 minutes. When that time
+     * comes near you could again extend the time out by calling
+     * ChangeMessageVisiblity, but this time the maximum allowed timeout
+     * would be 9 hours and 30 minutes.
      * </p>
      * <p>
      * <b>IMPORTANT:</b> If you attempt to set the VisibilityTimeout to an
@@ -260,13 +260,13 @@ public class AmazonSQSAsyncClient extends AmazonSQSClient
     
     /**
      * <p>
-     * The CreateQueue action creates a new queue, or returns the URL of an
-     * existing one. When you request CreateQueue, you provide a name for the
-     * queue. To successfully create a new queue, you must provide a name
-     * that is unique within the scope of your own queues. If you provide the
-     * name of an existing queue, a new queue isn't created and an error
-     * isn't returned. Instead, the request succeeds and the queue URL for
-     * the existing queue is returned.
+     * The <code>CreateQueue</code> action creates a new queue, or returns
+     * the URL of an existing one. When you request <code>CreateQueue</code>
+     * , you provide a name for the queue. To successfully create a new
+     * queue, you must provide a name that is unique within the scope of your
+     * own queues. If you provide the name of an existing queue, a new queue
+     * isn't created and an error isn't returned. Instead, the request
+     * succeeds and the queue URL for the existing queue is returned.
      * </p>
      * <p>
      * <b>IMPORTANT:</b> If you provide a value for DefaultVisibilityTimeout
@@ -299,9 +299,9 @@ public class AmazonSQSAsyncClient extends AmazonSQSClient
     
     /**
      * <p>
-     * The RemovePermission action revokes any permissions in the queue
-     * policy that matches the specified <i>Label</i> parameter. Only the
-     * owner of the queue can remove permissions.
+     * The <code>RemovePermission</code> action revokes any permissions in
+     * the queue policy that matches the specified <code>Label</code>
+     * parameter. Only the owner of the queue can remove permissions.
      * </p>
      *
      * @param removePermissionRequest Container for the necessary parameters
@@ -331,8 +331,9 @@ public class AmazonSQSAsyncClient extends AmazonSQSClient
     /**
      * <p>
      * Gets one or all attributes of a queue. Queues currently have two
-     * attributes you can get: ApproximateNumberOfMessages and
-     * VisibilityTimeout.
+     * attributes you can get: <code>ApproximateNumberOfMessages</code> and
+     * <code>VisibilityTimeout</code> .
+     * 
      * </p>
      *
      * @param getQueueAttributesRequest Container for the necessary
@@ -360,8 +361,8 @@ public class AmazonSQSAsyncClient extends AmazonSQSClient
     
     /**
      * <p>
-     * The AddPermission action adds a permission to a queue for a specific
-     * principal. This allows for sharing access to the queue.
+     * The <code>AddPermission</code> action adds a permission to a queue
+     * for a specific principal. This allows for sharing access to the queue.
      * </p>
      * <p>
      * When you create a queue, you have full control access rights for the
@@ -427,10 +428,10 @@ public class AmazonSQSAsyncClient extends AmazonSQSClient
     
     /**
      * <p>
-     * The DeleteMessage action unconditionally removes the specified
-     * message from the specified queue. Even if the message is locked by
-     * another reader due to the visibility timeout setting, it is still
-     * deleted from the queue.
+     * The <code>DeleteMessage</code> action unconditionally removes the
+     * specified message from the specified queue. Even if the message is
+     * locked by another reader due to the visibility timeout setting, it is
+     * still deleted from the queue.
      * </p>
      *
      * @param deleteMessageRequest Container for the necessary parameters to
@@ -459,7 +460,8 @@ public class AmazonSQSAsyncClient extends AmazonSQSClient
     
     /**
      * <p>
-     * The SendMessage action delivers a message to the specified queue.
+     * The <code>SendMessage</code> action delivers a message to the
+     * specified queue.
      * </p>
      *
      * @param sendMessageRequest Container for the necessary parameters to
@@ -490,11 +492,11 @@ public class AmazonSQSAsyncClient extends AmazonSQSClient
      * Retrieves one or more messages from the specified queue, including
      * the message body and message ID of each message. Messages returned by
      * this action stay in the queue until you delete them. However, once a
-     * message is returned to a ReceiveMessage request, it is not returned on
-     * subsequent ReceiveMessage requests for the duration of the
-     * VisibilityTimeout. If you do not specify a VisibilityTimeout in the
-     * request, the overall visibility timeout for the queue is used for the
-     * returned messages.
+     * message is returned to a <code>ReceiveMessage</code> request, it is
+     * not returned on subsequent <code>ReceiveMessage</code> requests for
+     * the duration of the <code>VisibilityTimeout</code> . If you do not
+     * specify a <code>VisibilityTimeout</code> in the request, the overall
+     * visibility timeout for the queue is used for the returned messages.
      * </p>
      *
      * @param receiveMessageRequest Container for the necessary parameters to

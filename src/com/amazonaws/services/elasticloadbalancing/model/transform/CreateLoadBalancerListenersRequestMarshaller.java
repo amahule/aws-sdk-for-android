@@ -32,7 +32,7 @@ public class CreateLoadBalancerListenersRequestMarshaller implements Marshaller<
     public Request<CreateLoadBalancerListenersRequest> marshall(CreateLoadBalancerListenersRequest createLoadBalancerListenersRequest) {
         Request<CreateLoadBalancerListenersRequest> request = new DefaultRequest<CreateLoadBalancerListenersRequest>(createLoadBalancerListenersRequest, "AmazonElasticLoadBalancing");
         request.addParameter("Action", "CreateLoadBalancerListeners");
-        request.addParameter("Version", "2010-07-01");
+        request.addParameter("Version", "2011-08-15");
         if (createLoadBalancerListenersRequest != null) {
             if (createLoadBalancerListenersRequest.getLoadBalancerName() != null) {
                 request.addParameter("LoadBalancerName", StringUtils.fromString(createLoadBalancerListenersRequest.getLoadBalancerName()));
@@ -51,6 +51,11 @@ public class CreateLoadBalancerListenersRequestMarshaller implements Marshaller<
                 if (listenersListValue != null) {
                     if (listenersListValue.getLoadBalancerPort() != null) {
                         request.addParameter("Listeners.member." + listenersListIndex + ".LoadBalancerPort", StringUtils.fromInteger(listenersListValue.getLoadBalancerPort()));
+                    }
+                }
+                if (listenersListValue != null) {
+                    if (listenersListValue.getInstanceProtocol() != null) {
+                        request.addParameter("Listeners.member." + listenersListIndex + ".InstanceProtocol", StringUtils.fromString(listenersListValue.getInstanceProtocol()));
                     }
                 }
                 if (listenersListValue != null) {

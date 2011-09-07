@@ -32,7 +32,7 @@ public class DescribeAutoScalingGroupsRequestMarshaller implements Marshaller<Re
     public Request<DescribeAutoScalingGroupsRequest> marshall(DescribeAutoScalingGroupsRequest describeAutoScalingGroupsRequest) {
         Request<DescribeAutoScalingGroupsRequest> request = new DefaultRequest<DescribeAutoScalingGroupsRequest>(describeAutoScalingGroupsRequest, "AmazonAutoScaling");
         request.addParameter("Action", "DescribeAutoScalingGroups");
-        request.addParameter("Version", "2010-08-01");
+        request.addParameter("Version", "2011-01-01");
         if (describeAutoScalingGroupsRequest != null) {
             java.util.List<String> autoScalingGroupNamesList = describeAutoScalingGroupsRequest.getAutoScalingGroupNames();
             int autoScalingGroupNamesListIndex = 1;

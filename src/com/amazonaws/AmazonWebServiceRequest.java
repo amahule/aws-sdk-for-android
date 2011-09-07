@@ -24,6 +24,12 @@ import com.amazonaws.auth.AWSCredentials;
  */
 public abstract class AmazonWebServiceRequest {
 
+    /**
+     * Arbitrary options storage for individual {@link AmazonWebServiceRequest}s. This
+     * field is not intended to be used by clients.
+     */
+    private final RequestClientOptions requestClientOptions = new RequestClientOptions();
+    
     /** The optional STS security token associated with this request */
     private String delegationToken;
 
@@ -33,7 +39,7 @@ public abstract class AmazonWebServiceRequest {
      */
 	private AWSCredentials credentials;
 
-
+    
     /**
      * Returns the optional STS security token associated with the request.
      *
@@ -90,4 +96,12 @@ public abstract class AmazonWebServiceRequest {
         return map;
     }
 
+
+    /**
+     * Gets the options stored with this request object. Intended for internal
+     * use only.
+     */
+    public RequestClientOptions getRequestClientOptions() {
+        return requestClientOptions;
+    }
 }

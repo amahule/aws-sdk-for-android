@@ -32,7 +32,7 @@ public class DescribeScalingProcessTypesRequestMarshaller implements Marshaller<
     public Request<DescribeScalingProcessTypesRequest> marshall(DescribeScalingProcessTypesRequest describeScalingProcessTypesRequest) {
         Request<DescribeScalingProcessTypesRequest> request = new DefaultRequest<DescribeScalingProcessTypesRequest>(describeScalingProcessTypesRequest, "AmazonAutoScaling");
         request.addParameter("Action", "DescribeScalingProcessTypes");
-        request.addParameter("Version", "2010-08-01");
+        request.addParameter("Version", "2011-01-01");
 
 
         return request;

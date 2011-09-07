@@ -55,12 +55,24 @@ public class LoadBalancerDescriptionStaxUnmarshaller implements Unmarshaller<Loa
                     loadBalancerDescription.setDNSName(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
+                if (context.testExpression("CanonicalHostedZoneName", targetDepth)) {
+                    loadBalancerDescription.setCanonicalHostedZoneName(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+                if (context.testExpression("CanonicalHostedZoneNameID", targetDepth)) {
+                    loadBalancerDescription.setCanonicalHostedZoneNameID(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
                 if (context.testExpression("ListenerDescriptions/member", targetDepth)) {
                     loadBalancerDescription.getListenerDescriptions().add(ListenerDescriptionStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
                 if (context.testExpression("Policies", targetDepth)) {
                     loadBalancerDescription.setPolicies(PoliciesStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+                if (context.testExpression("BackendServerDescriptions/member", targetDepth)) {
+                    loadBalancerDescription.getBackendServerDescriptions().add(BackendServerDescriptionStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
                 if (context.testExpression("AvailabilityZones/member", targetDepth)) {
@@ -73,6 +85,10 @@ public class LoadBalancerDescriptionStaxUnmarshaller implements Unmarshaller<Loa
                 }
                 if (context.testExpression("HealthCheck", targetDepth)) {
                     loadBalancerDescription.setHealthCheck(HealthCheckStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+                if (context.testExpression("SourceSecurityGroup", targetDepth)) {
+                    loadBalancerDescription.setSourceSecurityGroup(SourceSecurityGroupStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
                 if (context.testExpression("CreatedTime", targetDepth)) {

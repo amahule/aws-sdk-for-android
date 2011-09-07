@@ -46,7 +46,7 @@ import com.amazonaws.services.simpledb.model.*;
 public interface AmazonSimpleDB {
 
     /**
-     * Overrides the default endpoint for this client ("https://sdb.amazonaws.com").
+     * Overrides the default endpoint for this client ("http://sdb.amazonaws.com").
      * Callers can use this method to control which AWS region they want to work with.
      * <p>
      * Callers can pass in just the endpoint (ex: "ec2.amazonaws.com") or a full
@@ -158,8 +158,8 @@ public interface AmazonSimpleDB {
      * <p>
      * Because Amazon SimpleDB makes multiple copies of client data and uses
      * an eventual consistency update model, an immediate GetAttributes or
-     * Select operation (read) immediately after a DeleteAttributes operation
-     * (write) might not return the updated data.
+     * Select operation (read) immediately after a PutAttributes or
+     * DeleteAttributes operation (write) might not return the updated data.
      * </p>
      * <p>
      * The following limitations are enforced for this operation:

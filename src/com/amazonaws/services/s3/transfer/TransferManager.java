@@ -17,13 +17,11 @@ package com.amazonaws.services.s3.transfer;
 import java.io.File;
 import java.io.InputStream;
 import java.util.Date;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.AmazonWebServiceRequest;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
@@ -34,15 +32,14 @@ import com.amazonaws.services.s3.model.MultipartUpload;
 import com.amazonaws.services.s3.model.MultipartUploadListing;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.transfer.internal.MultipartUploadCallable;
 import com.amazonaws.services.s3.transfer.internal.ProgressListenerChain;
-import com.amazonaws.services.s3.transfer.internal.PutObjectCallable;
 import com.amazonaws.services.s3.transfer.internal.TransferManagerUtils;
 import com.amazonaws.services.s3.transfer.internal.TransferProgressImpl;
 import com.amazonaws.services.s3.transfer.internal.TransferProgressUpdatingListener;
-import com.amazonaws.services.s3.transfer.internal.TransferStateUpdatingCallable;
+import com.amazonaws.services.s3.transfer.internal.UploadCallable;
 import com.amazonaws.services.s3.transfer.internal.UploadImpl;
-import com.amazonaws.services.s3.transfer.model.UploadResult;
+import com.amazonaws.services.s3.transfer.internal.UploadMonitor;
+import com.amazonaws.util.VersionInfoUtils;
 
 /**
  * High level utility for managing transfers to Amazon S3.
@@ -61,7 +58,7 @@ import com.amazonaws.services.s3.transfer.model.UploadResult;
  * <code>TransferManager</code> whenever possible. <code>TransferManager</code>,
  * like all the client classes in the AWS SDK for Java, is thread safe.
  * <p>
- * Using <code>TransferManager</code> to upload data to Amazon S3 is easy:
+ * Using <code>TransferManager</code> to upload options to Amazon S3 is easy:
  *
  * <pre>
  * AWSCredentials myCredentials = new BasicAWSCredentials(...);
@@ -91,10 +88,6 @@ public class TransferManager {
 
     /** The thread pool in which transfers are uploaded or downloaded. */
     private ThreadPoolExecutor threadPool;
-
-    /** The thread pool in which progress listeners are notified of events. */
-    private ExecutorService notificationThreadPool;
-
 
     /**
      * Constructs a new <code>TransferManager</code> and Amazon S3 client using
@@ -156,7 +149,6 @@ public class TransferManager {
         this.s3 = s3;
         this.threadPool = threadPool;
         this.configuration = new TransferManagerConfiguration();
-        this.notificationThreadPool = Executors.newFixedThreadPool(1);
     }
 
 
@@ -196,17 +188,17 @@ public class TransferManager {
 
     /**
      * <p>
-     * Schedules a new transfer to upload data to Amazon S3. This method is
+     * Schedules a new transfer to upload options to Amazon S3. This method is
      * non-blocking and returns immediately (i.e. before the upload has
      * finished).
      * </p>
      * <p>
-     * When uploading data from a stream, callers <b>must</b> supply the size of
-     * data in the stream through the content length field in the
+     * When uploading options from a stream, callers <b>must</b> supply the size of
+     * options in the stream through the content length field in the
      * <code>ObjectMetadata</code> parameter.
      * If no content length is specified for the input
      * stream, then TransferManager will attempt to buffer all the stream
-     * contents in memory and upload the data as a traditional, single part
+     * contents in memory and upload the options as a traditional, single part
      * upload. Because the entire stream contents must be buffered in memory,
      * this can be very expensive, and should be avoided whenever possible.
      * </p>
@@ -227,10 +219,10 @@ public class TransferManager {
      *            The key in the specified bucket by which to store the new
      *            object.
      * @param input
-     *            The input stream containing the data to upload to Amazon S3.
+     *            The input stream containing the options to upload to Amazon S3.
      * @param objectMetadata
      *            Additional information about the object being uploaded,
-     *            including the size of the data, content type, additional
+     *            including the size of the options, content type, additional
      *            custom user metadata, etc.
      *
      * @return A new <code>Upload<code> object to use to check
@@ -250,7 +242,7 @@ public class TransferManager {
     }
 
     /**
-     * Schedules a new transfer to upload data to Amazon S3. This method is
+     * Schedules a new transfer to upload options to Amazon S3. This method is
      * non-blocking and returns immediately (i.e. before the upload has
      * finished).
      * <p>
@@ -287,7 +279,7 @@ public class TransferManager {
 
     /**
      * <p>
-     * Schedules a new transfer to upload data to Amazon S3. This method is
+     * Schedules a new transfer to upload options to Amazon S3. This method is
      * non-blocking and returns immediately (i.e. before the upload has
      * finished).
      * </p>
@@ -318,6 +310,8 @@ public class TransferManager {
      */
     public Upload upload(final PutObjectRequest putObjectRequest)
         throws AmazonServiceException, AmazonClientException {
+        
+        appendUserAgent(putObjectRequest, USER_AGENT);
 
         if (putObjectRequest.getMetadata() == null)
             putObjectRequest.setMetadata(new ObjectMetadata());
@@ -339,23 +333,17 @@ public class TransferManager {
         TransferProgressImpl transferProgress = new TransferProgressImpl();
         transferProgress.setTotalBytesToTransfer(TransferManagerUtils.getContentLength(putObjectRequest));
 
-        ProgressListenerChain listenerChain = new ProgressListenerChain(
-                notificationThreadPool,
-                new TransferProgressUpdatingListener(transferProgress),
-                putObjectRequest.getProgressListener());
+        ProgressListenerChain listenerChain = new ProgressListenerChain(new TransferProgressUpdatingListener(
+                transferProgress), putObjectRequest.getProgressListener());
         putObjectRequest.setProgressListener(listenerChain);
 
         UploadImpl upload = new UploadImpl(description, transferProgress, listenerChain);
 
-        Callable<UploadResult> callable = null;
-        if (TransferManagerUtils.shouldUseMultipartUpload(putObjectRequest, configuration)) {
-            callable = new MultipartUploadCallable(this, threadPool, putObjectRequest, listenerChain);
-        } else {
-            callable = new PutObjectCallable(s3, putObjectRequest);
-        }
-
-        callable = new TransferStateUpdatingCallable(callable, upload);
-        upload.setFuture(threadPool.submit(callable));
+        UploadCallable uploadCallable = new UploadCallable(this, threadPool, putObjectRequest,
+                listenerChain);
+        UploadMonitor watcher = new UploadMonitor(this, upload, threadPool, uploadCallable, putObjectRequest,
+                listenerChain);
+        upload.setMonitor(watcher);
 
         return upload;
     }
@@ -379,19 +367,20 @@ public class TransferManager {
      */
     public void abortMultipartUploads(String bucketName, Date date)
             throws AmazonServiceException, AmazonClientException {
-        MultipartUploadListing uploadListing = s3.listMultipartUploads(new ListMultipartUploadsRequest(bucketName));
+        MultipartUploadListing uploadListing = s3.listMultipartUploads(appendUserAgent(
+                new ListMultipartUploadsRequest(bucketName), USER_AGENT));
         do {
             for (MultipartUpload upload : uploadListing.getMultipartUploads()) {
                 if (upload.getInitiated().compareTo(date) < 0) {
-                    s3.abortMultipartUpload(new AbortMultipartUploadRequest(
-                            bucketName, upload.getKey(), upload.getUploadId()));
+                    s3.abortMultipartUpload(appendUserAgent(new AbortMultipartUploadRequest(
+                            bucketName, upload.getKey(), upload.getUploadId()), USER_AGENT));
                 }
             }
 
             ListMultipartUploadsRequest request = new ListMultipartUploadsRequest(bucketName)
                 .withUploadIdMarker(uploadListing.getNextUploadIdMarker())
                 .withKeyMarker(uploadListing.getNextKeyMarker());
-            uploadListing = s3.listMultipartUploads(request);
+            uploadListing = s3.listMultipartUploads(appendUserAgent(request, USER_AGENT));
         } while (uploadListing.isTruncated());
     }
 
@@ -413,10 +402,17 @@ public class TransferManager {
      */
     public void shutdownNow() {
         threadPool.shutdownNow();
-        notificationThreadPool.shutdownNow();
+        UploadMonitor.shutdownNow();
 
         if (s3 instanceof AmazonS3Client) {
             ((AmazonS3Client)s3).shutdown();
         }
     }
+    
+    public <X extends AmazonWebServiceRequest> X appendUserAgent(X request, String userAgent) {
+        request.getRequestClientOptions().addClientMarker(USER_AGENT);
+        return request;
+    }
+    
+    private static final String USER_AGENT = TransferManager.class.getName() + "/" + VersionInfoUtils.getVersion();
 }

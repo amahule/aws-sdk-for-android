@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Container for the parameters to the {@link com.amazonaws.services.sqs.AmazonSQS#setQueueAttributes(SetQueueAttributesRequest) SetQueueAttributes operation}.
  * <p>
  * Sets an attribute of a queue. Currently, you can set only the
- * VisibilityTimeout attribute for a queue.
+ * <code>VisibilityTimeout</code> attribute for a queue.
  * </p>
  *
  * @see com.amazonaws.services.sqs.AmazonSQS#setQueueAttributes(SetQueueAttributesRequest)
