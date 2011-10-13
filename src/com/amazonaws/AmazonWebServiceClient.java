@@ -172,16 +172,4 @@ public abstract class AmazonWebServiceClient {
         return executionContext;
     }
     
-    /**
-     * Internal-only method.  Returns the protocol spoken by this client. 
-     */
-    public String getProtocol() {
-        return AWS_QUERY_STRING_PROTOCOL;
-    }
-    
-    /**
-     * Internal-only constant to denote the AWS Query String protocol.
-     */
-    public final static String AWS_QUERY_STRING_PROTOCOL = "AWSQueryString";
-    public final static String AWS_REST_PROTOCOL = "AWSRest";
 }

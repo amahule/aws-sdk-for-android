@@ -140,6 +140,13 @@ public class AutoScalingGroup {
      */
     private java.util.List<EnabledMetric> enabledMetrics;
 
+    /**
+     * A list of status conditions for the Auto Scaling group.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>1 - 255<br/>
+     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     */
     private String status;
 
     /**
@@ -431,6 +438,7 @@ public class AutoScalingGroup {
      * @return Contains a list of availability zones for the group.
      */
     public java.util.List<String> getAvailabilityZones() {
+        
         if (availabilityZones == null) {
             availabilityZones = new java.util.ArrayList<String>();
         }
@@ -467,6 +475,7 @@ public class AutoScalingGroup {
      *         together. 
      */
     public AutoScalingGroup withAvailabilityZones(String... availabilityZones) {
+        if (getAvailabilityZones() == null) setAvailabilityZones(new java.util.ArrayList<String>());
         for (String value : availabilityZones) {
             getAvailabilityZones().add(value);
         }
@@ -502,6 +511,7 @@ public class AutoScalingGroup {
      * @return A list of load balancers associated with this Auto Scaling group.
      */
     public java.util.List<String> getLoadBalancerNames() {
+        
         if (loadBalancerNames == null) {
             loadBalancerNames = new java.util.ArrayList<String>();
         }
@@ -532,6 +542,7 @@ public class AutoScalingGroup {
      *         together. 
      */
     public AutoScalingGroup withLoadBalancerNames(String... loadBalancerNames) {
+        if (getLoadBalancerNames() == null) setLoadBalancerNames(new java.util.ArrayList<String>());
         for (String value : loadBalancerNames) {
             getLoadBalancerNames().add(value);
         }
@@ -662,6 +673,7 @@ public class AutoScalingGroup {
      * @return Provides a summary list of EC2 instances.
      */
     public java.util.List<Instance> getInstances() {
+        
         if (instances == null) {
             instances = new java.util.ArrayList<Instance>();
         }
@@ -692,6 +704,7 @@ public class AutoScalingGroup {
      *         together. 
      */
     public AutoScalingGroup withInstances(Instance... instances) {
+        if (getInstances() == null) setInstances(new java.util.ArrayList<Instance>());
         for (Instance value : instances) {
             getInstances().add(value);
         }
@@ -758,6 +771,7 @@ public class AutoScalingGroup {
      * @return Suspended processes associated with this Auto Scaling group.
      */
     public java.util.List<SuspendedProcess> getSuspendedProcesses() {
+        
         if (suspendedProcesses == null) {
             suspendedProcesses = new java.util.ArrayList<SuspendedProcess>();
         }
@@ -788,6 +802,7 @@ public class AutoScalingGroup {
      *         together. 
      */
     public AutoScalingGroup withSuspendedProcesses(SuspendedProcess... suspendedProcesses) {
+        if (getSuspendedProcesses() == null) setSuspendedProcesses(new java.util.ArrayList<SuspendedProcess>());
         for (SuspendedProcess value : suspendedProcesses) {
             getSuspendedProcesses().add(value);
         }
@@ -930,6 +945,7 @@ public class AutoScalingGroup {
      * @return A list of metrics enabled for this Auto Scaling group.
      */
     public java.util.List<EnabledMetric> getEnabledMetrics() {
+        
         if (enabledMetrics == null) {
             enabledMetrics = new java.util.ArrayList<EnabledMetric>();
         }
@@ -960,6 +976,7 @@ public class AutoScalingGroup {
      *         together. 
      */
     public AutoScalingGroup withEnabledMetrics(EnabledMetric... enabledMetrics) {
+        if (getEnabledMetrics() == null) setEnabledMetrics(new java.util.ArrayList<EnabledMetric>());
         for (EnabledMetric value : enabledMetrics) {
             getEnabledMetrics().add(value);
         }
@@ -987,33 +1004,33 @@ public class AutoScalingGroup {
     }
     
     /**
-     * Returns the value of the Status property for this object.
+     * A list of status conditions for the Auto Scaling group.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
      *
-     * @return The value of the Status property for this object.
+     * @return A list of status conditions for the Auto Scaling group.
      */
     public String getStatus() {
         return status;
     }
     
     /**
-     * Sets the value of the Status property for this object.
+     * A list of status conditions for the Auto Scaling group.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
      *
-     * @param status The new value for the Status property for this object.
+     * @param status A list of status conditions for the Auto Scaling group.
      */
     public void setStatus(String status) {
         this.status = status;
     }
     
     /**
-     * Sets the value of the Status property for this object.
+     * A list of status conditions for the Auto Scaling group.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -1021,7 +1038,7 @@ public class AutoScalingGroup {
      * <b>Length: </b>1 - 255<br/>
      * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
      *
-     * @param status The new value for the Status property for this object.
+     * @param status A list of status conditions for the Auto Scaling group.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

@@ -15,18 +15,24 @@
 package com.amazonaws.services.elasticloadbalancing.model;
 
 /**
- * Describe Load Balancer Policies Result
+ * <p>
+ * The output for the DescribeLoadBalancerPolicies action.
+ * </p>
  */
 public class DescribeLoadBalancerPoliciesResult {
 
+    /**
+     * A list of policy description structures.
+     */
     private java.util.List<PolicyDescription> policyDescriptions;
 
     /**
-     * Returns the value of the PolicyDescriptions property for this object.
+     * A list of policy description structures.
      *
-     * @return The value of the PolicyDescriptions property for this object.
+     * @return A list of policy description structures.
      */
     public java.util.List<PolicyDescription> getPolicyDescriptions() {
+        
         if (policyDescriptions == null) {
             policyDescriptions = new java.util.ArrayList<PolicyDescription>();
         }
@@ -34,9 +40,9 @@ public class DescribeLoadBalancerPoliciesResult {
     }
     
     /**
-     * Sets the value of the PolicyDescriptions property for this object.
+     * A list of policy description structures.
      *
-     * @param policyDescriptions The new value for the PolicyDescriptions property for this object.
+     * @param policyDescriptions A list of policy description structures.
      */
     public void setPolicyDescriptions(java.util.Collection<PolicyDescription> policyDescriptions) {
         java.util.List<PolicyDescription> policyDescriptionsCopy = new java.util.ArrayList<PolicyDescription>();
@@ -47,16 +53,17 @@ public class DescribeLoadBalancerPoliciesResult {
     }
     
     /**
-     * Sets the value of the PolicyDescriptions property for this object.
+     * A list of policy description structures.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param policyDescriptions The new value for the PolicyDescriptions property for this object.
+     * @param policyDescriptions A list of policy description structures.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
      */
     public DescribeLoadBalancerPoliciesResult withPolicyDescriptions(PolicyDescription... policyDescriptions) {
+        if (getPolicyDescriptions() == null) setPolicyDescriptions(new java.util.ArrayList<PolicyDescription>());
         for (PolicyDescription value : policyDescriptions) {
             getPolicyDescriptions().add(value);
         }
@@ -64,11 +71,11 @@ public class DescribeLoadBalancerPoliciesResult {
     }
     
     /**
-     * Sets the value of the PolicyDescriptions property for this object.
+     * A list of policy description structures.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param policyDescriptions The new value for the PolicyDescriptions property for this object.
+     * @param policyDescriptions A list of policy description structures.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

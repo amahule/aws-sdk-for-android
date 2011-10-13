@@ -20,8 +20,9 @@ import com.amazonaws.AmazonWebServiceRequest;
  * <p>
  * Sends an email message, with header and content specified by the
  * client. The <code>SendRawEmail</code> action is useful for sending
- * multipart MIME emails. The raw text of the message must comply with
- * Internet email standards; otherwise, the message cannot be sent.
+ * multipart MIME emails, with attachments or inline content. The raw
+ * text of the message must comply with Internet email standards;
+ * otherwise, the message cannot be sent.
  * </p>
  * <p>
  * <b>IMPORTANT:</b>If you have not yet requested production access to
@@ -29,33 +30,13 @@ import com.amazonaws.AmazonWebServiceRequest;
  * verified email addresses. For more information, go to the Amazon SES
  * Developer Guide.
  * </p>
- * <p>
- * Amazon SES has a limit on the total number of recipients per message:
- * The combined number of To:, CC: and BCC: email addresses cannot exceed
- * 50. If you need to send an email message to a larger audience, you can
- * divide your recipient list into groups of 50 or fewer, and then call
- * Amazon SES repeatedly to send the message to each group.
- * </p>
- * <p>
- * For every message that you send, the total number of recipients (To:,
- * CC: and BCC:) is counted against your <i>sending quota</i> - the
- * maximum number of emails you can send in a 24-hour period. For
- * information about your sending quota, go to the "Managing Your Sending
- * Activity" section of the <a
- * href="http://docs.amazonwebservices.com/ses/latest/DeveloperGuide">
- * Amazon SES Developer Guide </a> .
- * </p>
  *
  * @see com.amazonaws.services.simpleemail.AmazonSimpleEmailService#sendRawEmail(SendRawEmailRequest)
  */
 public class SendRawEmailRequest extends AmazonWebServiceRequest {
 
     /**
-     * The sender's email address. <note>If you specify the
-     * <code>Source</code> parameter, then bounce notifications and
-     * complaints will be sent to this email address. This takes precedence
-     * over any <i>Return-Path</i> header that you might include in the raw
-     * text of the message. </note>
+     * The sender's email address.
      */
     private String source;
 
@@ -104,53 +85,29 @@ public class SendRawEmailRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * The sender's email address. <note>If you specify the
-     * <code>Source</code> parameter, then bounce notifications and
-     * complaints will be sent to this email address. This takes precedence
-     * over any <i>Return-Path</i> header that you might include in the raw
-     * text of the message. </note>
+     * The sender's email address.
      *
-     * @return The sender's email address. <note>If you specify the
-     *         <code>Source</code> parameter, then bounce notifications and
-     *         complaints will be sent to this email address. This takes precedence
-     *         over any <i>Return-Path</i> header that you might include in the raw
-     *         text of the message. </note>
+     * @return The sender's email address.
      */
     public String getSource() {
         return source;
     }
     
     /**
-     * The sender's email address. <note>If you specify the
-     * <code>Source</code> parameter, then bounce notifications and
-     * complaints will be sent to this email address. This takes precedence
-     * over any <i>Return-Path</i> header that you might include in the raw
-     * text of the message. </note>
+     * The sender's email address.
      *
-     * @param source The sender's email address. <note>If you specify the
-     *         <code>Source</code> parameter, then bounce notifications and
-     *         complaints will be sent to this email address. This takes precedence
-     *         over any <i>Return-Path</i> header that you might include in the raw
-     *         text of the message. </note>
+     * @param source The sender's email address.
      */
     public void setSource(String source) {
         this.source = source;
     }
     
     /**
-     * The sender's email address. <note>If you specify the
-     * <code>Source</code> parameter, then bounce notifications and
-     * complaints will be sent to this email address. This takes precedence
-     * over any <i>Return-Path</i> header that you might include in the raw
-     * text of the message. </note>
+     * The sender's email address.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param source The sender's email address. <note>If you specify the
-     *         <code>Source</code> parameter, then bounce notifications and
-     *         complaints will be sent to this email address. This takes precedence
-     *         over any <i>Return-Path</i> header that you might include in the raw
-     *         text of the message. </note>
+     * @param source The sender's email address.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

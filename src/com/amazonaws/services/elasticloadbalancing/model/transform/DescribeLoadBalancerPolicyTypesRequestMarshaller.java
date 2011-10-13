@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.DefaultRequest;
 import com.amazonaws.services.elasticloadbalancing.model.*;
@@ -30,19 +31,25 @@ import com.amazonaws.util.StringUtils;
 public class DescribeLoadBalancerPolicyTypesRequestMarshaller implements Marshaller<Request<DescribeLoadBalancerPolicyTypesRequest>, DescribeLoadBalancerPolicyTypesRequest> {
 
     public Request<DescribeLoadBalancerPolicyTypesRequest> marshall(DescribeLoadBalancerPolicyTypesRequest describeLoadBalancerPolicyTypesRequest) {
+
+        if (describeLoadBalancerPolicyTypesRequest == null) {
+		    throw new AmazonClientException("Invalid argument passed to marshall(...)");
+		}
+
         Request<DescribeLoadBalancerPolicyTypesRequest> request = new DefaultRequest<DescribeLoadBalancerPolicyTypesRequest>(describeLoadBalancerPolicyTypesRequest, "AmazonElasticLoadBalancing");
         request.addParameter("Action", "DescribeLoadBalancerPolicyTypes");
         request.addParameter("Version", "2011-08-15");
-        if (describeLoadBalancerPolicyTypesRequest != null) {
-            java.util.List<String> policyTypeNamesList = describeLoadBalancerPolicyTypesRequest.getPolicyTypeNames();
-            int policyTypeNamesListIndex = 1;
 
-            for (String policyTypeNamesListValue : policyTypeNamesList) {
-                if (policyTypeNamesListValue != null) {
-                    request.addParameter("PolicyTypeNames.member." + policyTypeNamesListIndex, StringUtils.fromString(policyTypeNamesListValue));
-                }
-                policyTypeNamesListIndex++;
+
+        java.util.List<String> policyTypeNamesList = describeLoadBalancerPolicyTypesRequest.getPolicyTypeNames();
+        int policyTypeNamesListIndex = 1;
+
+        for (String policyTypeNamesListValue : policyTypeNamesList) {
+            if (policyTypeNamesListValue != null) {
+                request.addParameter("PolicyTypeNames.member." + policyTypeNamesListIndex, StringUtils.fromString(policyTypeNamesListValue));
             }
+
+            policyTypeNamesListIndex++;
         }
 
 

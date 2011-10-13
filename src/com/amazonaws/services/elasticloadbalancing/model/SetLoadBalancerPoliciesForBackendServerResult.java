@@ -15,7 +15,9 @@
 package com.amazonaws.services.elasticloadbalancing.model;
 
 /**
- * Set Load Balancer Policies For Backend Server Result
+ * <p>
+ * The output for the SetLoadBalancerPoliciesForBackendServer action.
+ * </p>
  */
 public class SetLoadBalancerPoliciesForBackendServerResult {
 

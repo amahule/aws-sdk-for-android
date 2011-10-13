@@ -44,7 +44,7 @@ public class DescribeLaunchConfigurationsRequest extends AmazonWebServiceRequest
     private String nextToken;
 
     /**
-     * The maximum number of launch configurations.
+     * The maximum number of launch configurations. The default is 100.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>1 - 50<br/>
@@ -57,6 +57,7 @@ public class DescribeLaunchConfigurationsRequest extends AmazonWebServiceRequest
      * @return A list of launch configuration names.
      */
     public java.util.List<String> getLaunchConfigurationNames() {
+        
         if (launchConfigurationNames == null) {
             launchConfigurationNames = new java.util.ArrayList<String>();
         }
@@ -87,6 +88,7 @@ public class DescribeLaunchConfigurationsRequest extends AmazonWebServiceRequest
      *         together. 
      */
     public DescribeLaunchConfigurationsRequest withLaunchConfigurationNames(String... launchConfigurationNames) {
+        if (getLaunchConfigurationNames() == null) setLaunchConfigurationNames(new java.util.ArrayList<String>());
         for (String value : launchConfigurationNames) {
             getLaunchConfigurationNames().add(value);
         }
@@ -157,38 +159,38 @@ public class DescribeLaunchConfigurationsRequest extends AmazonWebServiceRequest
     
     
     /**
-     * The maximum number of launch configurations.
+     * The maximum number of launch configurations. The default is 100.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>1 - 50<br/>
      *
-     * @return The maximum number of launch configurations.
+     * @return The maximum number of launch configurations. The default is 100.
      */
     public Integer getMaxRecords() {
         return maxRecords;
     }
     
     /**
-     * The maximum number of launch configurations.
+     * The maximum number of launch configurations. The default is 100.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>1 - 50<br/>
      *
-     * @param maxRecords The maximum number of launch configurations.
+     * @param maxRecords The maximum number of launch configurations. The default is 100.
      */
     public void setMaxRecords(Integer maxRecords) {
         this.maxRecords = maxRecords;
     }
     
     /**
-     * The maximum number of launch configurations.
+     * The maximum number of launch configurations. The default is 100.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>1 - 50<br/>
      *
-     * @param maxRecords The maximum number of launch configurations.
+     * @param maxRecords The maximum number of launch configurations. The default is 100.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

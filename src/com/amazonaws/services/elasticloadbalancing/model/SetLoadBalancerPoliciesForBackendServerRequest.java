@@ -17,42 +17,66 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticloadbalancing.AmazonElasticLoadBalancing#setLoadBalancerPoliciesForBackendServer(SetLoadBalancerPoliciesForBackendServerRequest) SetLoadBalancerPoliciesForBackendServer operation}.
- * 
+ * <p>
+ * Replaces the current set of policies associated with a port on which
+ * the back-end server is listening with a new set of policies. After the
+ * policies have been created using CreateLoadBalancerPolicy, they can be
+ * applied here as a list. At this time, only the back-end server
+ * authentication policy type can be applied to the back-end ports; this
+ * policy type is composed of multiple public key policies.
+ * </p>
  *
  * @see com.amazonaws.services.elasticloadbalancing.AmazonElasticLoadBalancing#setLoadBalancerPoliciesForBackendServer(SetLoadBalancerPoliciesForBackendServerRequest)
  */
 public class SetLoadBalancerPoliciesForBackendServerRequest extends AmazonWebServiceRequest {
 
+    /**
+     * The mnemonic name associated with the LoadBalancer. This name must be
+     * unique within the client AWS account.
+     */
     private String loadBalancerName;
 
+    /**
+     * The port number associated with the back-end server.
+     */
     private Integer instancePort;
 
+    /**
+     * List of policy names to be set. If the list is empty, then all current
+     * polices are removed from the back-end server.
+     */
     private java.util.List<String> policyNames;
 
     /**
-     * Returns the value of the LoadBalancerName property for this object.
+     * The mnemonic name associated with the LoadBalancer. This name must be
+     * unique within the client AWS account.
      *
-     * @return The value of the LoadBalancerName property for this object.
+     * @return The mnemonic name associated with the LoadBalancer. This name must be
+     *         unique within the client AWS account.
      */
     public String getLoadBalancerName() {
         return loadBalancerName;
     }
     
     /**
-     * Sets the value of the LoadBalancerName property for this object.
+     * The mnemonic name associated with the LoadBalancer. This name must be
+     * unique within the client AWS account.
      *
-     * @param loadBalancerName The new value for the LoadBalancerName property for this object.
+     * @param loadBalancerName The mnemonic name associated with the LoadBalancer. This name must be
+     *         unique within the client AWS account.
      */
     public void setLoadBalancerName(String loadBalancerName) {
         this.loadBalancerName = loadBalancerName;
     }
     
     /**
-     * Sets the value of the LoadBalancerName property for this object.
+     * The mnemonic name associated with the LoadBalancer. This name must be
+     * unique within the client AWS account.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param loadBalancerName The new value for the LoadBalancerName property for this object.
+     * @param loadBalancerName The mnemonic name associated with the LoadBalancer. This name must be
+     *         unique within the client AWS account.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -64,29 +88,29 @@ public class SetLoadBalancerPoliciesForBackendServerRequest extends AmazonWebSer
     
     
     /**
-     * Returns the value of the InstancePort property for this object.
+     * The port number associated with the back-end server.
      *
-     * @return The value of the InstancePort property for this object.
+     * @return The port number associated with the back-end server.
      */
     public Integer getInstancePort() {
         return instancePort;
     }
     
     /**
-     * Sets the value of the InstancePort property for this object.
+     * The port number associated with the back-end server.
      *
-     * @param instancePort The new value for the InstancePort property for this object.
+     * @param instancePort The port number associated with the back-end server.
      */
     public void setInstancePort(Integer instancePort) {
         this.instancePort = instancePort;
     }
     
     /**
-     * Sets the value of the InstancePort property for this object.
+     * The port number associated with the back-end server.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param instancePort The new value for the InstancePort property for this object.
+     * @param instancePort The port number associated with the back-end server.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -98,11 +122,14 @@ public class SetLoadBalancerPoliciesForBackendServerRequest extends AmazonWebSer
     
     
     /**
-     * Returns the value of the PolicyNames property for this object.
+     * List of policy names to be set. If the list is empty, then all current
+     * polices are removed from the back-end server.
      *
-     * @return The value of the PolicyNames property for this object.
+     * @return List of policy names to be set. If the list is empty, then all current
+     *         polices are removed from the back-end server.
      */
     public java.util.List<String> getPolicyNames() {
+        
         if (policyNames == null) {
             policyNames = new java.util.ArrayList<String>();
         }
@@ -110,9 +137,11 @@ public class SetLoadBalancerPoliciesForBackendServerRequest extends AmazonWebSer
     }
     
     /**
-     * Sets the value of the PolicyNames property for this object.
+     * List of policy names to be set. If the list is empty, then all current
+     * polices are removed from the back-end server.
      *
-     * @param policyNames The new value for the PolicyNames property for this object.
+     * @param policyNames List of policy names to be set. If the list is empty, then all current
+     *         polices are removed from the back-end server.
      */
     public void setPolicyNames(java.util.Collection<String> policyNames) {
         java.util.List<String> policyNamesCopy = new java.util.ArrayList<String>();
@@ -123,16 +152,19 @@ public class SetLoadBalancerPoliciesForBackendServerRequest extends AmazonWebSer
     }
     
     /**
-     * Sets the value of the PolicyNames property for this object.
+     * List of policy names to be set. If the list is empty, then all current
+     * polices are removed from the back-end server.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param policyNames The new value for the PolicyNames property for this object.
+     * @param policyNames List of policy names to be set. If the list is empty, then all current
+     *         polices are removed from the back-end server.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
      */
     public SetLoadBalancerPoliciesForBackendServerRequest withPolicyNames(String... policyNames) {
+        if (getPolicyNames() == null) setPolicyNames(new java.util.ArrayList<String>());
         for (String value : policyNames) {
             getPolicyNames().add(value);
         }
@@ -140,11 +172,13 @@ public class SetLoadBalancerPoliciesForBackendServerRequest extends AmazonWebSer
     }
     
     /**
-     * Sets the value of the PolicyNames property for this object.
+     * List of policy names to be set. If the list is empty, then all current
+     * polices are removed from the back-end server.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param policyNames The new value for the PolicyNames property for this object.
+     * @param policyNames List of policy names to be set. If the list is empty, then all current
+     *         polices are removed from the back-end server.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

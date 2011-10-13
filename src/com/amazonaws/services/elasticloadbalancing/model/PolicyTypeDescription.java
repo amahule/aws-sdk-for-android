@@ -15,40 +15,52 @@
 package com.amazonaws.services.elasticloadbalancing.model;
 
 /**
- * Policy Type Description
+ * <p>
+ * The PolicyTypeDescription data type.
+ * </p>
  */
 public class PolicyTypeDescription {
 
+    /**
+     * The name of the policy type.
+     */
     private String policyTypeName;
 
+    /**
+     * A human-readable description of the policy type.
+     */
     private String description;
 
+    /**
+     * The description of the policy attributes associated with the
+     * LoadBalancer policies defined by the Elastic Load Balancing service.
+     */
     private java.util.List<PolicyAttributeTypeDescription> policyAttributeTypeDescriptions;
 
     /**
-     * Returns the value of the PolicyTypeName property for this object.
+     * The name of the policy type.
      *
-     * @return The value of the PolicyTypeName property for this object.
+     * @return The name of the policy type.
      */
     public String getPolicyTypeName() {
         return policyTypeName;
     }
     
     /**
-     * Sets the value of the PolicyTypeName property for this object.
+     * The name of the policy type.
      *
-     * @param policyTypeName The new value for the PolicyTypeName property for this object.
+     * @param policyTypeName The name of the policy type.
      */
     public void setPolicyTypeName(String policyTypeName) {
         this.policyTypeName = policyTypeName;
     }
     
     /**
-     * Sets the value of the PolicyTypeName property for this object.
+     * The name of the policy type.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param policyTypeName The new value for the PolicyTypeName property for this object.
+     * @param policyTypeName The name of the policy type.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -60,29 +72,29 @@ public class PolicyTypeDescription {
     
     
     /**
-     * Returns the value of the Description property for this object.
+     * A human-readable description of the policy type.
      *
-     * @return The value of the Description property for this object.
+     * @return A human-readable description of the policy type.
      */
     public String getDescription() {
         return description;
     }
     
     /**
-     * Sets the value of the Description property for this object.
+     * A human-readable description of the policy type.
      *
-     * @param description The new value for the Description property for this object.
+     * @param description A human-readable description of the policy type.
      */
     public void setDescription(String description) {
         this.description = description;
     }
     
     /**
-     * Sets the value of the Description property for this object.
+     * A human-readable description of the policy type.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param description The new value for the Description property for this object.
+     * @param description A human-readable description of the policy type.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -94,13 +106,14 @@ public class PolicyTypeDescription {
     
     
     /**
-     * Returns the value of the PolicyAttributeTypeDescriptions property for
-     * this object.
+     * The description of the policy attributes associated with the
+     * LoadBalancer policies defined by the Elastic Load Balancing service.
      *
-     * @return The value of the PolicyAttributeTypeDescriptions property for this
-     *         object.
+     * @return The description of the policy attributes associated with the
+     *         LoadBalancer policies defined by the Elastic Load Balancing service.
      */
     public java.util.List<PolicyAttributeTypeDescription> getPolicyAttributeTypeDescriptions() {
+        
         if (policyAttributeTypeDescriptions == null) {
             policyAttributeTypeDescriptions = new java.util.ArrayList<PolicyAttributeTypeDescription>();
         }
@@ -108,11 +121,11 @@ public class PolicyTypeDescription {
     }
     
     /**
-     * Sets the value of the PolicyAttributeTypeDescriptions property for
-     * this object.
+     * The description of the policy attributes associated with the
+     * LoadBalancer policies defined by the Elastic Load Balancing service.
      *
-     * @param policyAttributeTypeDescriptions The new value for the PolicyAttributeTypeDescriptions property for
-     *         this object.
+     * @param policyAttributeTypeDescriptions The description of the policy attributes associated with the
+     *         LoadBalancer policies defined by the Elastic Load Balancing service.
      */
     public void setPolicyAttributeTypeDescriptions(java.util.Collection<PolicyAttributeTypeDescription> policyAttributeTypeDescriptions) {
         java.util.List<PolicyAttributeTypeDescription> policyAttributeTypeDescriptionsCopy = new java.util.ArrayList<PolicyAttributeTypeDescription>();
@@ -123,18 +136,19 @@ public class PolicyTypeDescription {
     }
     
     /**
-     * Sets the value of the PolicyAttributeTypeDescriptions property for
-     * this object.
+     * The description of the policy attributes associated with the
+     * LoadBalancer policies defined by the Elastic Load Balancing service.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param policyAttributeTypeDescriptions The new value for the PolicyAttributeTypeDescriptions property for
-     *         this object.
+     * @param policyAttributeTypeDescriptions The description of the policy attributes associated with the
+     *         LoadBalancer policies defined by the Elastic Load Balancing service.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
      */
     public PolicyTypeDescription withPolicyAttributeTypeDescriptions(PolicyAttributeTypeDescription... policyAttributeTypeDescriptions) {
+        if (getPolicyAttributeTypeDescriptions() == null) setPolicyAttributeTypeDescriptions(new java.util.ArrayList<PolicyAttributeTypeDescription>());
         for (PolicyAttributeTypeDescription value : policyAttributeTypeDescriptions) {
             getPolicyAttributeTypeDescriptions().add(value);
         }
@@ -142,13 +156,13 @@ public class PolicyTypeDescription {
     }
     
     /**
-     * Sets the value of the PolicyAttributeTypeDescriptions property for
-     * this object.
+     * The description of the policy attributes associated with the
+     * LoadBalancer policies defined by the Elastic Load Balancing service.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param policyAttributeTypeDescriptions The new value for the PolicyAttributeTypeDescriptions property for
-     *         this object.
+     * @param policyAttributeTypeDescriptions The description of the policy attributes associated with the
+     *         LoadBalancer policies defined by the Elastic Load Balancing service.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

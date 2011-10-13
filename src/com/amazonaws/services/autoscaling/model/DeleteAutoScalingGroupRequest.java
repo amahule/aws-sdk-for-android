@@ -22,13 +22,6 @@ import com.amazonaws.AmazonWebServiceRequest;
  * instances and no scaling activities in progress.
  * </p>
  * <p>
- * Starting with API version 2011-01-01, you can use the optional
- * parameter <code>--force-delete</code> to delete the auto scaling group
- * and any running instances it owns. When you use this parameter, Auto
- * Scaling will terminate the intances associated with the group and then
- * delete the group.
- * </p>
- * <p>
  * <b>NOTE:</b> To remove all instances before calling
  * DeleteAutoScalingGroup, you can call UpdateAutoScalingGroup to set the
  * minimum and maximum size of the AutoScalingGroup to zero.
@@ -38,39 +31,50 @@ import com.amazonaws.AmazonWebServiceRequest;
  */
 public class DeleteAutoScalingGroupRequest extends AmazonWebServiceRequest {
 
+    /**
+     * The name of the Auto Scaling group.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>1 - 1600<br/>
+     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     */
     private String autoScalingGroupName;
 
+    /**
+     * Starting with API version 2011-01-01, specifies that the Auto Scaling
+     * group will be deleted along with all instances associated with the
+     * group, without waiting for all instances to be terminated.
+     */
     private Boolean forceDelete;
 
     /**
-     * Returns the value of the AutoScalingGroupName property for this
-     * object.
+     * The name of the Auto Scaling group.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
      * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
      *
-     * @return The value of the AutoScalingGroupName property for this object.
+     * @return The name of the Auto Scaling group.
      */
     public String getAutoScalingGroupName() {
         return autoScalingGroupName;
     }
     
     /**
-     * Sets the value of the AutoScalingGroupName property for this object.
+     * The name of the Auto Scaling group.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1600<br/>
      * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
      *
-     * @param autoScalingGroupName The new value for the AutoScalingGroupName property for this object.
+     * @param autoScalingGroupName The name of the Auto Scaling group.
      */
     public void setAutoScalingGroupName(String autoScalingGroupName) {
         this.autoScalingGroupName = autoScalingGroupName;
     }
     
     /**
-     * Sets the value of the AutoScalingGroupName property for this object.
+     * The name of the Auto Scaling group.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -78,7 +82,7 @@ public class DeleteAutoScalingGroupRequest extends AmazonWebServiceRequest {
      * <b>Length: </b>1 - 1600<br/>
      * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
      *
-     * @param autoScalingGroupName The new value for the AutoScalingGroupName property for this object.
+     * @param autoScalingGroupName The name of the Auto Scaling group.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -90,29 +94,41 @@ public class DeleteAutoScalingGroupRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the ForceDelete property for this object.
+     * Starting with API version 2011-01-01, specifies that the Auto Scaling
+     * group will be deleted along with all instances associated with the
+     * group, without waiting for all instances to be terminated.
      *
-     * @return The value of the ForceDelete property for this object.
+     * @return Starting with API version 2011-01-01, specifies that the Auto Scaling
+     *         group will be deleted along with all instances associated with the
+     *         group, without waiting for all instances to be terminated.
      */
     public Boolean isForceDelete() {
         return forceDelete;
     }
     
     /**
-     * Sets the value of the ForceDelete property for this object.
+     * Starting with API version 2011-01-01, specifies that the Auto Scaling
+     * group will be deleted along with all instances associated with the
+     * group, without waiting for all instances to be terminated.
      *
-     * @param forceDelete The new value for the ForceDelete property for this object.
+     * @param forceDelete Starting with API version 2011-01-01, specifies that the Auto Scaling
+     *         group will be deleted along with all instances associated with the
+     *         group, without waiting for all instances to be terminated.
      */
     public void setForceDelete(Boolean forceDelete) {
         this.forceDelete = forceDelete;
     }
     
     /**
-     * Sets the value of the ForceDelete property for this object.
+     * Starting with API version 2011-01-01, specifies that the Auto Scaling
+     * group will be deleted along with all instances associated with the
+     * group, without waiting for all instances to be terminated.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param forceDelete The new value for the ForceDelete property for this object.
+     * @param forceDelete Starting with API version 2011-01-01, specifies that the Auto Scaling
+     *         group will be deleted along with all instances associated with the
+     *         group, without waiting for all instances to be terminated.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -124,9 +140,13 @@ public class DeleteAutoScalingGroupRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * Returns the value of the ForceDelete property for this object.
+     * Starting with API version 2011-01-01, specifies that the Auto Scaling
+     * group will be deleted along with all instances associated with the
+     * group, without waiting for all instances to be terminated.
      *
-     * @return The value of the ForceDelete property for this object.
+     * @return Starting with API version 2011-01-01, specifies that the Auto Scaling
+     *         group will be deleted along with all instances associated with the
+     *         group, without waiting for all instances to be terminated.
      */
     public Boolean getForceDelete() {
         return forceDelete;

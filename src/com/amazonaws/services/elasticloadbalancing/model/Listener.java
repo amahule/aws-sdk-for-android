@@ -22,9 +22,9 @@ package com.amazonaws.services.elasticloadbalancing.model;
 public class Listener {
 
     /**
-     * Specifies the LoadBalancer transport protocol to use for routing - TCP
-     * or HTTP. This property cannot be modified for the life of the
-     * LoadBalancer.
+     * Specifies the LoadBalancer transport protocol to use for routing -
+     * HTTP, HTTPS, TCP or SSL. This property cannot be modified for the life
+     * of the LoadBalancer.
      */
     private String protocol;
 
@@ -34,6 +34,21 @@ public class Listener {
      */
     private Integer loadBalancerPort;
 
+    /**
+     * Specifies the protocol to use for routing traffic to back-end
+     * instances - HTTP, HTTPS, TCP, or SSL. This property cannot be modified
+     * for the life of the LoadBalancer. <note> If the front-end protocol is
+     * HTTP or HTTPS, <code>InstanceProtocol</code> has to be at the same
+     * protocol layer, i.e., HTTP or HTTPS. Likewise, if the front-end
+     * protocol is TCP or SSL, InstanceProtocol has to be TCP or SSL. </note>
+     * <note> If there is another listener with the same
+     * <code>InstancePort</code> whose <code>InstanceProtocol</code> is
+     * secure, i.e., HTTPS or SSL, the listener's
+     * <code>InstanceProtocol</code> has to be secure, i.e., HTTPS or SSL. If
+     * there is another listener with the same <code>InstancePort</code>
+     * whose <code>InstanceProtocol</code> is HTTP or TCP, the listener's
+     * <code>InstanceProtocol</code> must be either HTTP or TCP. </note>
+     */
     private String instanceProtocol;
 
     /**
@@ -46,11 +61,10 @@ public class Listener {
     private Integer instancePort;
 
     /**
-     * The ID of the SSL certificate chain to use. For more information on
-     * SSL certificates, see <a
-     * ervices.com/IAM/latest/UserGuide/index.html?ManagingCredentials.html">
-     * Managing Keys and Certificates </a> in the AWS Identity and Access
-     * Management documentation.
+     * The ARN string of the server certificate. To get the ARN of the server
+     * certificate, call the AWS Identity and Access Management <a
+     * e/index.html?API_UploadServerCertificate.html">UploadServerCertificate
+     * </a> API.
      */
     private String sSLCertificateId;
 
@@ -66,8 +80,8 @@ public class Listener {
      * initialize any additional object members.
      * 
      * @param protocol Specifies the LoadBalancer transport protocol to use
-     * for routing - TCP or HTTP. This property cannot be modified for the
-     * life of the LoadBalancer.
+     * for routing - HTTP, HTTPS, TCP or SSL. This property cannot be
+     * modified for the life of the LoadBalancer.
      * @param loadBalancerPort Specifies the external LoadBalancer port
      * number. This property cannot be modified for the life of the
      * LoadBalancer.
@@ -82,41 +96,41 @@ public class Listener {
     }
     
     /**
-     * Specifies the LoadBalancer transport protocol to use for routing - TCP
-     * or HTTP. This property cannot be modified for the life of the
-     * LoadBalancer.
+     * Specifies the LoadBalancer transport protocol to use for routing -
+     * HTTP, HTTPS, TCP or SSL. This property cannot be modified for the life
+     * of the LoadBalancer.
      *
-     * @return Specifies the LoadBalancer transport protocol to use for routing - TCP
-     *         or HTTP. This property cannot be modified for the life of the
-     *         LoadBalancer.
+     * @return Specifies the LoadBalancer transport protocol to use for routing -
+     *         HTTP, HTTPS, TCP or SSL. This property cannot be modified for the life
+     *         of the LoadBalancer.
      */
     public String getProtocol() {
         return protocol;
     }
     
     /**
-     * Specifies the LoadBalancer transport protocol to use for routing - TCP
-     * or HTTP. This property cannot be modified for the life of the
-     * LoadBalancer.
+     * Specifies the LoadBalancer transport protocol to use for routing -
+     * HTTP, HTTPS, TCP or SSL. This property cannot be modified for the life
+     * of the LoadBalancer.
      *
-     * @param protocol Specifies the LoadBalancer transport protocol to use for routing - TCP
-     *         or HTTP. This property cannot be modified for the life of the
-     *         LoadBalancer.
+     * @param protocol Specifies the LoadBalancer transport protocol to use for routing -
+     *         HTTP, HTTPS, TCP or SSL. This property cannot be modified for the life
+     *         of the LoadBalancer.
      */
     public void setProtocol(String protocol) {
         this.protocol = protocol;
     }
     
     /**
-     * Specifies the LoadBalancer transport protocol to use for routing - TCP
-     * or HTTP. This property cannot be modified for the life of the
-     * LoadBalancer.
+     * Specifies the LoadBalancer transport protocol to use for routing -
+     * HTTP, HTTPS, TCP or SSL. This property cannot be modified for the life
+     * of the LoadBalancer.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param protocol Specifies the LoadBalancer transport protocol to use for routing - TCP
-     *         or HTTP. This property cannot be modified for the life of the
-     *         LoadBalancer.
+     * @param protocol Specifies the LoadBalancer transport protocol to use for routing -
+     *         HTTP, HTTPS, TCP or SSL. This property cannot be modified for the life
+     *         of the LoadBalancer.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -168,29 +182,101 @@ public class Listener {
     
     
     /**
-     * Returns the value of the InstanceProtocol property for this object.
+     * Specifies the protocol to use for routing traffic to back-end
+     * instances - HTTP, HTTPS, TCP, or SSL. This property cannot be modified
+     * for the life of the LoadBalancer. <note> If the front-end protocol is
+     * HTTP or HTTPS, <code>InstanceProtocol</code> has to be at the same
+     * protocol layer, i.e., HTTP or HTTPS. Likewise, if the front-end
+     * protocol is TCP or SSL, InstanceProtocol has to be TCP or SSL. </note>
+     * <note> If there is another listener with the same
+     * <code>InstancePort</code> whose <code>InstanceProtocol</code> is
+     * secure, i.e., HTTPS or SSL, the listener's
+     * <code>InstanceProtocol</code> has to be secure, i.e., HTTPS or SSL. If
+     * there is another listener with the same <code>InstancePort</code>
+     * whose <code>InstanceProtocol</code> is HTTP or TCP, the listener's
+     * <code>InstanceProtocol</code> must be either HTTP or TCP. </note>
      *
-     * @return The value of the InstanceProtocol property for this object.
+     * @return Specifies the protocol to use for routing traffic to back-end
+     *         instances - HTTP, HTTPS, TCP, or SSL. This property cannot be modified
+     *         for the life of the LoadBalancer. <note> If the front-end protocol is
+     *         HTTP or HTTPS, <code>InstanceProtocol</code> has to be at the same
+     *         protocol layer, i.e., HTTP or HTTPS. Likewise, if the front-end
+     *         protocol is TCP or SSL, InstanceProtocol has to be TCP or SSL. </note>
+     *         <note> If there is another listener with the same
+     *         <code>InstancePort</code> whose <code>InstanceProtocol</code> is
+     *         secure, i.e., HTTPS or SSL, the listener's
+     *         <code>InstanceProtocol</code> has to be secure, i.e., HTTPS or SSL. If
+     *         there is another listener with the same <code>InstancePort</code>
+     *         whose <code>InstanceProtocol</code> is HTTP or TCP, the listener's
+     *         <code>InstanceProtocol</code> must be either HTTP or TCP. </note>
      */
     public String getInstanceProtocol() {
         return instanceProtocol;
     }
     
     /**
-     * Sets the value of the InstanceProtocol property for this object.
+     * Specifies the protocol to use for routing traffic to back-end
+     * instances - HTTP, HTTPS, TCP, or SSL. This property cannot be modified
+     * for the life of the LoadBalancer. <note> If the front-end protocol is
+     * HTTP or HTTPS, <code>InstanceProtocol</code> has to be at the same
+     * protocol layer, i.e., HTTP or HTTPS. Likewise, if the front-end
+     * protocol is TCP or SSL, InstanceProtocol has to be TCP or SSL. </note>
+     * <note> If there is another listener with the same
+     * <code>InstancePort</code> whose <code>InstanceProtocol</code> is
+     * secure, i.e., HTTPS or SSL, the listener's
+     * <code>InstanceProtocol</code> has to be secure, i.e., HTTPS or SSL. If
+     * there is another listener with the same <code>InstancePort</code>
+     * whose <code>InstanceProtocol</code> is HTTP or TCP, the listener's
+     * <code>InstanceProtocol</code> must be either HTTP or TCP. </note>
      *
-     * @param instanceProtocol The new value for the InstanceProtocol property for this object.
+     * @param instanceProtocol Specifies the protocol to use for routing traffic to back-end
+     *         instances - HTTP, HTTPS, TCP, or SSL. This property cannot be modified
+     *         for the life of the LoadBalancer. <note> If the front-end protocol is
+     *         HTTP or HTTPS, <code>InstanceProtocol</code> has to be at the same
+     *         protocol layer, i.e., HTTP or HTTPS. Likewise, if the front-end
+     *         protocol is TCP or SSL, InstanceProtocol has to be TCP or SSL. </note>
+     *         <note> If there is another listener with the same
+     *         <code>InstancePort</code> whose <code>InstanceProtocol</code> is
+     *         secure, i.e., HTTPS or SSL, the listener's
+     *         <code>InstanceProtocol</code> has to be secure, i.e., HTTPS or SSL. If
+     *         there is another listener with the same <code>InstancePort</code>
+     *         whose <code>InstanceProtocol</code> is HTTP or TCP, the listener's
+     *         <code>InstanceProtocol</code> must be either HTTP or TCP. </note>
      */
     public void setInstanceProtocol(String instanceProtocol) {
         this.instanceProtocol = instanceProtocol;
     }
     
     /**
-     * Sets the value of the InstanceProtocol property for this object.
+     * Specifies the protocol to use for routing traffic to back-end
+     * instances - HTTP, HTTPS, TCP, or SSL. This property cannot be modified
+     * for the life of the LoadBalancer. <note> If the front-end protocol is
+     * HTTP or HTTPS, <code>InstanceProtocol</code> has to be at the same
+     * protocol layer, i.e., HTTP or HTTPS. Likewise, if the front-end
+     * protocol is TCP or SSL, InstanceProtocol has to be TCP or SSL. </note>
+     * <note> If there is another listener with the same
+     * <code>InstancePort</code> whose <code>InstanceProtocol</code> is
+     * secure, i.e., HTTPS or SSL, the listener's
+     * <code>InstanceProtocol</code> has to be secure, i.e., HTTPS or SSL. If
+     * there is another listener with the same <code>InstancePort</code>
+     * whose <code>InstanceProtocol</code> is HTTP or TCP, the listener's
+     * <code>InstanceProtocol</code> must be either HTTP or TCP. </note>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param instanceProtocol The new value for the InstanceProtocol property for this object.
+     * @param instanceProtocol Specifies the protocol to use for routing traffic to back-end
+     *         instances - HTTP, HTTPS, TCP, or SSL. This property cannot be modified
+     *         for the life of the LoadBalancer. <note> If the front-end protocol is
+     *         HTTP or HTTPS, <code>InstanceProtocol</code> has to be at the same
+     *         protocol layer, i.e., HTTP or HTTPS. Likewise, if the front-end
+     *         protocol is TCP or SSL, InstanceProtocol has to be TCP or SSL. </note>
+     *         <note> If there is another listener with the same
+     *         <code>InstancePort</code> whose <code>InstanceProtocol</code> is
+     *         secure, i.e., HTTPS or SSL, the listener's
+     *         <code>InstanceProtocol</code> has to be secure, i.e., HTTPS or SSL. If
+     *         there is another listener with the same <code>InstancePort</code>
+     *         whose <code>InstanceProtocol</code> is HTTP or TCP, the listener's
+     *         <code>InstanceProtocol</code> must be either HTTP or TCP. </note>
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -251,53 +337,47 @@ public class Listener {
     
     
     /**
-     * The ID of the SSL certificate chain to use. For more information on
-     * SSL certificates, see <a
-     * ervices.com/IAM/latest/UserGuide/index.html?ManagingCredentials.html">
-     * Managing Keys and Certificates </a> in the AWS Identity and Access
-     * Management documentation.
+     * The ARN string of the server certificate. To get the ARN of the server
+     * certificate, call the AWS Identity and Access Management <a
+     * e/index.html?API_UploadServerCertificate.html">UploadServerCertificate
+     * </a> API.
      *
-     * @return The ID of the SSL certificate chain to use. For more information on
-     *         SSL certificates, see <a
-     *         ervices.com/IAM/latest/UserGuide/index.html?ManagingCredentials.html">
-     *         Managing Keys and Certificates </a> in the AWS Identity and Access
-     *         Management documentation.
+     * @return The ARN string of the server certificate. To get the ARN of the server
+     *         certificate, call the AWS Identity and Access Management <a
+     *         e/index.html?API_UploadServerCertificate.html">UploadServerCertificate
+     *         </a> API.
      */
     public String getSSLCertificateId() {
         return sSLCertificateId;
     }
     
     /**
-     * The ID of the SSL certificate chain to use. For more information on
-     * SSL certificates, see <a
-     * ervices.com/IAM/latest/UserGuide/index.html?ManagingCredentials.html">
-     * Managing Keys and Certificates </a> in the AWS Identity and Access
-     * Management documentation.
+     * The ARN string of the server certificate. To get the ARN of the server
+     * certificate, call the AWS Identity and Access Management <a
+     * e/index.html?API_UploadServerCertificate.html">UploadServerCertificate
+     * </a> API.
      *
-     * @param sSLCertificateId The ID of the SSL certificate chain to use. For more information on
-     *         SSL certificates, see <a
-     *         ervices.com/IAM/latest/UserGuide/index.html?ManagingCredentials.html">
-     *         Managing Keys and Certificates </a> in the AWS Identity and Access
-     *         Management documentation.
+     * @param sSLCertificateId The ARN string of the server certificate. To get the ARN of the server
+     *         certificate, call the AWS Identity and Access Management <a
+     *         e/index.html?API_UploadServerCertificate.html">UploadServerCertificate
+     *         </a> API.
      */
     public void setSSLCertificateId(String sSLCertificateId) {
         this.sSLCertificateId = sSLCertificateId;
     }
     
     /**
-     * The ID of the SSL certificate chain to use. For more information on
-     * SSL certificates, see <a
-     * ervices.com/IAM/latest/UserGuide/index.html?ManagingCredentials.html">
-     * Managing Keys and Certificates </a> in the AWS Identity and Access
-     * Management documentation.
+     * The ARN string of the server certificate. To get the ARN of the server
+     * certificate, call the AWS Identity and Access Management <a
+     * e/index.html?API_UploadServerCertificate.html">UploadServerCertificate
+     * </a> API.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param sSLCertificateId The ID of the SSL certificate chain to use. For more information on
-     *         SSL certificates, see <a
-     *         ervices.com/IAM/latest/UserGuide/index.html?ManagingCredentials.html">
-     *         Managing Keys and Certificates </a> in the AWS Identity and Access
-     *         Management documentation.
+     * @param sSLCertificateId The ARN string of the server certificate. To get the ARN of the server
+     *         certificate, call the AWS Identity and Access Management <a
+     *         e/index.html?API_UploadServerCertificate.html">UploadServerCertificate
+     *         </a> API.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

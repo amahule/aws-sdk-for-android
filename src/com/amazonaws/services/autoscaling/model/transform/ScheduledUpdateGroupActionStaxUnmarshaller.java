@@ -59,6 +59,10 @@ public class ScheduledUpdateGroupActionStaxUnmarshaller implements Unmarshaller<
                     scheduledUpdateGroupAction.setScheduledActionARN(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
+                if (context.testExpression("Time", targetDepth)) {
+                    scheduledUpdateGroupAction.setTime(DateStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
                 if (context.testExpression("StartTime", targetDepth)) {
                     scheduledUpdateGroupAction.setStartTime(DateStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;

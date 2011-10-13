@@ -46,12 +46,35 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
     private String scheduledActionName;
 
     /**
+     * The time for this action to start. <code>Time</code> can be specified
+     * instead of <code>StartTime</code>, or vice versa. If <code>Time</code>
+     * is specified together with <code>StartTime</code>, their values should
+     * be identical. Otherwise, <code>PutScheduledUpdateGroupAction</code>
+     * will return an error.
+     */
+    private java.util.Date time;
+
+    /**
      * The time for this action to start.
      */
     private java.util.Date startTime;
 
+    /**
+     * The time for this action to end.
+     */
     private java.util.Date endTime;
 
+    /**
+     * The time when recurring future actions will start. Start time is
+     * specified by the user following the Unix Cron syntax format. For
+     * information about Cron syntax, go to <a
+     * href="http://en.wikipedia.org/wiki/Cron">Wikipedia, The Free
+     * Encyclopedia</a>.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>1 - 255<br/>
+     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     */
     private String recurrence;
 
     /**
@@ -65,7 +88,8 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
     private Integer maxSize;
 
     /**
-     * The number of EC2 instances that should be running in the group.
+     * The number of Amazon EC2 instances that should be running in the
+     * group.
      */
     private Integer desiredCapacity;
 
@@ -162,6 +186,64 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
     
     
     /**
+     * The time for this action to start. <code>Time</code> can be specified
+     * instead of <code>StartTime</code>, or vice versa. If <code>Time</code>
+     * is specified together with <code>StartTime</code>, their values should
+     * be identical. Otherwise, <code>PutScheduledUpdateGroupAction</code>
+     * will return an error.
+     *
+     * @return The time for this action to start. <code>Time</code> can be specified
+     *         instead of <code>StartTime</code>, or vice versa. If <code>Time</code>
+     *         is specified together with <code>StartTime</code>, their values should
+     *         be identical. Otherwise, <code>PutScheduledUpdateGroupAction</code>
+     *         will return an error.
+     */
+    public java.util.Date getTime() {
+        return time;
+    }
+    
+    /**
+     * The time for this action to start. <code>Time</code> can be specified
+     * instead of <code>StartTime</code>, or vice versa. If <code>Time</code>
+     * is specified together with <code>StartTime</code>, their values should
+     * be identical. Otherwise, <code>PutScheduledUpdateGroupAction</code>
+     * will return an error.
+     *
+     * @param time The time for this action to start. <code>Time</code> can be specified
+     *         instead of <code>StartTime</code>, or vice versa. If <code>Time</code>
+     *         is specified together with <code>StartTime</code>, their values should
+     *         be identical. Otherwise, <code>PutScheduledUpdateGroupAction</code>
+     *         will return an error.
+     */
+    public void setTime(java.util.Date time) {
+        this.time = time;
+    }
+    
+    /**
+     * The time for this action to start. <code>Time</code> can be specified
+     * instead of <code>StartTime</code>, or vice versa. If <code>Time</code>
+     * is specified together with <code>StartTime</code>, their values should
+     * be identical. Otherwise, <code>PutScheduledUpdateGroupAction</code>
+     * will return an error.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param time The time for this action to start. <code>Time</code> can be specified
+     *         instead of <code>StartTime</code>, or vice versa. If <code>Time</code>
+     *         is specified together with <code>StartTime</code>, their values should
+     *         be identical. Otherwise, <code>PutScheduledUpdateGroupAction</code>
+     *         will return an error.
+     *
+     * @return A reference to this updated object so that method calls can be chained 
+     *         together. 
+     */
+    public PutScheduledUpdateGroupActionRequest withTime(java.util.Date time) {
+        this.time = time;
+        return this;
+    }
+    
+    
+    /**
      * The time for this action to start.
      *
      * @return The time for this action to start.
@@ -196,29 +278,29 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
     
     
     /**
-     * Returns the value of the EndTime property for this object.
+     * The time for this action to end.
      *
-     * @return The value of the EndTime property for this object.
+     * @return The time for this action to end.
      */
     public java.util.Date getEndTime() {
         return endTime;
     }
     
     /**
-     * Sets the value of the EndTime property for this object.
+     * The time for this action to end.
      *
-     * @param endTime The new value for the EndTime property for this object.
+     * @param endTime The time for this action to end.
      */
     public void setEndTime(java.util.Date endTime) {
         this.endTime = endTime;
     }
     
     /**
-     * Sets the value of the EndTime property for this object.
+     * The time for this action to end.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param endTime The new value for the EndTime property for this object.
+     * @param endTime The time for this action to end.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -230,33 +312,53 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
     
     
     /**
-     * Returns the value of the Recurrence property for this object.
+     * The time when recurring future actions will start. Start time is
+     * specified by the user following the Unix Cron syntax format. For
+     * information about Cron syntax, go to <a
+     * href="http://en.wikipedia.org/wiki/Cron">Wikipedia, The Free
+     * Encyclopedia</a>.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
      *
-     * @return The value of the Recurrence property for this object.
+     * @return The time when recurring future actions will start. Start time is
+     *         specified by the user following the Unix Cron syntax format. For
+     *         information about Cron syntax, go to <a
+     *         href="http://en.wikipedia.org/wiki/Cron">Wikipedia, The Free
+     *         Encyclopedia</a>.
      */
     public String getRecurrence() {
         return recurrence;
     }
     
     /**
-     * Sets the value of the Recurrence property for this object.
+     * The time when recurring future actions will start. Start time is
+     * specified by the user following the Unix Cron syntax format. For
+     * information about Cron syntax, go to <a
+     * href="http://en.wikipedia.org/wiki/Cron">Wikipedia, The Free
+     * Encyclopedia</a>.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
      *
-     * @param recurrence The new value for the Recurrence property for this object.
+     * @param recurrence The time when recurring future actions will start. Start time is
+     *         specified by the user following the Unix Cron syntax format. For
+     *         information about Cron syntax, go to <a
+     *         href="http://en.wikipedia.org/wiki/Cron">Wikipedia, The Free
+     *         Encyclopedia</a>.
      */
     public void setRecurrence(String recurrence) {
         this.recurrence = recurrence;
     }
     
     /**
-     * Sets the value of the Recurrence property for this object.
+     * The time when recurring future actions will start. Start time is
+     * specified by the user following the Unix Cron syntax format. For
+     * information about Cron syntax, go to <a
+     * href="http://en.wikipedia.org/wiki/Cron">Wikipedia, The Free
+     * Encyclopedia</a>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -264,7 +366,11 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
      * <b>Length: </b>1 - 255<br/>
      * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
      *
-     * @param recurrence The new value for the Recurrence property for this object.
+     * @param recurrence The time when recurring future actions will start. Start time is
+     *         specified by the user following the Unix Cron syntax format. For
+     *         information about Cron syntax, go to <a
+     *         href="http://en.wikipedia.org/wiki/Cron">Wikipedia, The Free
+     *         Encyclopedia</a>.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -344,29 +450,35 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
     
     
     /**
-     * The number of EC2 instances that should be running in the group.
+     * The number of Amazon EC2 instances that should be running in the
+     * group.
      *
-     * @return The number of EC2 instances that should be running in the group.
+     * @return The number of Amazon EC2 instances that should be running in the
+     *         group.
      */
     public Integer getDesiredCapacity() {
         return desiredCapacity;
     }
     
     /**
-     * The number of EC2 instances that should be running in the group.
+     * The number of Amazon EC2 instances that should be running in the
+     * group.
      *
-     * @param desiredCapacity The number of EC2 instances that should be running in the group.
+     * @param desiredCapacity The number of Amazon EC2 instances that should be running in the
+     *         group.
      */
     public void setDesiredCapacity(Integer desiredCapacity) {
         this.desiredCapacity = desiredCapacity;
     }
     
     /**
-     * The number of EC2 instances that should be running in the group.
+     * The number of Amazon EC2 instances that should be running in the
+     * group.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param desiredCapacity The number of EC2 instances that should be running in the group.
+     * @param desiredCapacity The number of Amazon EC2 instances that should be running in the
+     *         group.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -391,6 +503,7 @@ public class PutScheduledUpdateGroupActionRequest extends AmazonWebServiceReques
         sb.append("{");
         sb.append("AutoScalingGroupName: " + autoScalingGroupName + ", ");
         sb.append("ScheduledActionName: " + scheduledActionName + ", ");
+        sb.append("Time: " + time + ", ");
         sb.append("StartTime: " + startTime + ", ");
         sb.append("EndTime: " + endTime + ", ");
         sb.append("Recurrence: " + recurrence + ", ");

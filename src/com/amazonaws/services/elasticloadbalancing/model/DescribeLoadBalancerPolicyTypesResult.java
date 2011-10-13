@@ -15,19 +15,30 @@
 package com.amazonaws.services.elasticloadbalancing.model;
 
 /**
- * Describe Load Balancer Policy Types Result
+ * <p>
+ * The output for the DescribeLoadBalancerPolicyTypes action.
+ * </p>
  */
 public class DescribeLoadBalancerPolicyTypesResult {
 
+    /**
+     * List of policy type description structures of the specified policy
+     * type. If no policy type names are specified, returns the description
+     * of all the policy types defined by Elastic Load Balancing service.
+     */
     private java.util.List<PolicyTypeDescription> policyTypeDescriptions;
 
     /**
-     * Returns the value of the PolicyTypeDescriptions property for this
-     * object.
+     * List of policy type description structures of the specified policy
+     * type. If no policy type names are specified, returns the description
+     * of all the policy types defined by Elastic Load Balancing service.
      *
-     * @return The value of the PolicyTypeDescriptions property for this object.
+     * @return List of policy type description structures of the specified policy
+     *         type. If no policy type names are specified, returns the description
+     *         of all the policy types defined by Elastic Load Balancing service.
      */
     public java.util.List<PolicyTypeDescription> getPolicyTypeDescriptions() {
+        
         if (policyTypeDescriptions == null) {
             policyTypeDescriptions = new java.util.ArrayList<PolicyTypeDescription>();
         }
@@ -35,9 +46,13 @@ public class DescribeLoadBalancerPolicyTypesResult {
     }
     
     /**
-     * Sets the value of the PolicyTypeDescriptions property for this object.
+     * List of policy type description structures of the specified policy
+     * type. If no policy type names are specified, returns the description
+     * of all the policy types defined by Elastic Load Balancing service.
      *
-     * @param policyTypeDescriptions The new value for the PolicyTypeDescriptions property for this object.
+     * @param policyTypeDescriptions List of policy type description structures of the specified policy
+     *         type. If no policy type names are specified, returns the description
+     *         of all the policy types defined by Elastic Load Balancing service.
      */
     public void setPolicyTypeDescriptions(java.util.Collection<PolicyTypeDescription> policyTypeDescriptions) {
         java.util.List<PolicyTypeDescription> policyTypeDescriptionsCopy = new java.util.ArrayList<PolicyTypeDescription>();
@@ -48,16 +63,21 @@ public class DescribeLoadBalancerPolicyTypesResult {
     }
     
     /**
-     * Sets the value of the PolicyTypeDescriptions property for this object.
+     * List of policy type description structures of the specified policy
+     * type. If no policy type names are specified, returns the description
+     * of all the policy types defined by Elastic Load Balancing service.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param policyTypeDescriptions The new value for the PolicyTypeDescriptions property for this object.
+     * @param policyTypeDescriptions List of policy type description structures of the specified policy
+     *         type. If no policy type names are specified, returns the description
+     *         of all the policy types defined by Elastic Load Balancing service.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
      */
     public DescribeLoadBalancerPolicyTypesResult withPolicyTypeDescriptions(PolicyTypeDescription... policyTypeDescriptions) {
+        if (getPolicyTypeDescriptions() == null) setPolicyTypeDescriptions(new java.util.ArrayList<PolicyTypeDescription>());
         for (PolicyTypeDescription value : policyTypeDescriptions) {
             getPolicyTypeDescriptions().add(value);
         }
@@ -65,11 +85,15 @@ public class DescribeLoadBalancerPolicyTypesResult {
     }
     
     /**
-     * Sets the value of the PolicyTypeDescriptions property for this object.
+     * List of policy type description structures of the specified policy
+     * type. If no policy type names are specified, returns the description
+     * of all the policy types defined by Elastic Load Balancing service.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param policyTypeDescriptions The new value for the PolicyTypeDescriptions property for this object.
+     * @param policyTypeDescriptions List of policy type description structures of the specified policy
+     *         type. If no policy type names are specified, returns the description
+     *         of all the policy types defined by Elastic Load Balancing service.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

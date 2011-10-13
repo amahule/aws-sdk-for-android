@@ -21,27 +21,21 @@ import com.amazonaws.services.autoscaling.model.*;
 /**
  * Interface for accessing AmazonAutoScaling.
  * Auto Scaling <p>
+ * This is the <i>Auto Scaling API Reference</i> . This guide provides
+ * detailed information about Auto Scaling actions, data types,
+ * parameters, and errors. For detailed information about Auto Scaling
+ * features and their associated API calls, go to the <a
+ * http://docs.amazonwebservices.com/AutoScaling/latest/DeveloperGuide/">
+ * Auto Scaling Developer Guide </a> .
+ * </p>
+ * <p>
  * Auto Scaling is a web service designed to automatically launch or
  * terminate EC2 instances based on user-defined policies, schedules, and
- * health checks. Auto Scaling responds automatically to changing
- * conditions. All you need to do is specify how it should respond to
- * those changes.
+ * health checks. This service is used in conjunction with Amazon
+ * CloudWatch and Elastic Load Balancing services.
  * </p>
  * <p>
- * Auto Scaling groups can work across multiple Availability Zones -
- * distinct physical locations for the hosted Amazon EC2 instances - so
- * that if an Availability Zone becomes unavailable, Auto Scaling will
- * automatically redistribute applications to a different Availability
- * Zone.
- * </p>
- * <p>
- * Every API call returns a response meta data object that contains a
- * request identifier. Successful requests return an HTTP 200 status
- * code. Unsuccessful requests return an error object and an HTTP status
- * code of 400 or 500.
- * </p>
- * <p>
- * The current WSDL is available at:
+ * This reference is based on the current WSDL, which is available at:
  * </p>
  * <p>
  * <a
@@ -174,7 +168,7 @@ public interface AmazonAutoScaling {
      * </p>
      * <p>
      * The specified launch configuration must not be attached to an Auto
-     * Scaling group. Once this call completes, the launch configuration is
+     * Scaling group. When this call completes, the launch configuration is
      * no longer available for use.
      * </p>
      *
@@ -249,8 +243,8 @@ public interface AmazonAutoScaling {
 
     /**
      * <p>
-     * Creates a new Auto Scaling group with the specified name. Once the
-     * creation request is completed, the AutoScalingGroup is ready to be
+     * Creates a new Auto Scaling group with the specified name. When the
+     * creation request is completed, the Auto Scaling group is ready to be
      * used in other calls.
      * </p>
      * <p>
@@ -392,12 +386,11 @@ public interface AmazonAutoScaling {
      * <p>
      * Configures an Auto Scaling group to send notifications when specified
      * events take place. Subscribers to this topic can have messages for
-     * events delivered to an endpoint such as a web server or e-mail
-     * address.
+     * events delivered to an endpoint such as a web server or email address.
      * </p>
      * <p>
-     * A new PutNotificationConfiguration overwrites an existing
-     * configuration.
+     * A new <code>PutNotificationConfiguration</code> overwrites an
+     * existing configuration.
      * </p>
      *
      * @param putNotificationConfigurationRequest Container for the necessary
@@ -563,7 +556,8 @@ public interface AmazonAutoScaling {
      * <p>
      * Returns a description of each Auto Scaling instance in the
      * InstanceIds list. If a list is not provided, the service returns the
-     * full details of all instances up to a maximum of fifty.
+     * full details of all instances up to a maximum of fifty. By default,
+     * the service returns a list of 20 items.
      * </p>
      * <p>
      * This action supports pagination by returning a token if there are
@@ -593,13 +587,25 @@ public interface AmazonAutoScaling {
 
     /**
      * <p>
-     * Creates a new launch configuration. Once created, the new launch
-     * configuration is available for immediate use.
+     * Creates a new launch configuration. The launch configuration name
+     * must be unique within the scope of the client's AWS account. The
+     * maximum limit of launch configurations, which by default is 100, must
+     * not yet have been met; otherwise, the call will fail. When created,
+     * the new launch configuration is available for immediate use.
      * </p>
      * <p>
-     * <b>NOTE:</b> The launch configuration name used must be unique, within
-     * the scope of the client's AWS account, and the maximum limit of launch
-     * configurations must not yet have been met, or else the call will fail.
+     * You can create a launch configuration with Amazon EC2 security groups
+     * or with Amazon VPC security groups. However, you can't use Amazon EC2
+     * security groups together with Amazon VPC security groups, or vice
+     * versa. In addition, you can only create Auto Scaling launch
+     * configurations with Amazon VPC security groups in the Regions where
+     * Amazon VPC is supported. Amazon VPC is currently available only in the
+     * Amazon EC2 US-East (Northern Virginia) Region, and in the Amazon EC2
+     * EU-West (Ireland) Region.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> At this time, Auto Scaling launch configurations don't
+     * support compressed (e.g. gzipped) user data files.
      * </p>
      *
      * @param createLaunchConfigurationRequest Container for the necessary
@@ -624,13 +630,6 @@ public interface AmazonAutoScaling {
      * <p>
      * Deletes the specified auto scaling group if the group has no
      * instances and no scaling activities in progress.
-     * </p>
-     * <p>
-     * Starting with API version 2011-01-01, you can use the optional
-     * parameter <code>--force-delete</code> to delete the auto scaling group
-     * and any running instances it owns. When you use this parameter, Auto
-     * Scaling will terminate the intances associated with the group and then
-     * delete the group.
      * </p>
      * <p>
      * <b>NOTE:</b> To remove all instances before calling
@@ -1082,7 +1081,8 @@ public interface AmazonAutoScaling {
      * <p>
      * Returns a description of each Auto Scaling instance in the
      * InstanceIds list. If a list is not provided, the service returns the
-     * full details of all instances up to a maximum of fifty.
+     * full details of all instances up to a maximum of fifty. By default,
+     * the service returns a list of 20 items.
      * </p>
      * <p>
      * This action supports pagination by returning a token if there are

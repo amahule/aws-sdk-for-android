@@ -15,38 +15,47 @@
 package com.amazonaws.services.elasticloadbalancing.model;
 
 /**
- * Policy Attribute
+ * <p>
+ * The PolicyAttribute data type. This data type contains a key/value
+ * pair that defines properties of a specific policy.
+ * </p>
  */
 public class PolicyAttribute {
 
+    /**
+     * The name of the attribute associated with the policy.
+     */
     private String attributeName;
 
+    /**
+     * The value of the attribute associated with the policy.
+     */
     private String attributeValue;
 
     /**
-     * Returns the value of the AttributeName property for this object.
+     * The name of the attribute associated with the policy.
      *
-     * @return The value of the AttributeName property for this object.
+     * @return The name of the attribute associated with the policy.
      */
     public String getAttributeName() {
         return attributeName;
     }
     
     /**
-     * Sets the value of the AttributeName property for this object.
+     * The name of the attribute associated with the policy.
      *
-     * @param attributeName The new value for the AttributeName property for this object.
+     * @param attributeName The name of the attribute associated with the policy.
      */
     public void setAttributeName(String attributeName) {
         this.attributeName = attributeName;
     }
     
     /**
-     * Sets the value of the AttributeName property for this object.
+     * The name of the attribute associated with the policy.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param attributeName The new value for the AttributeName property for this object.
+     * @param attributeName The name of the attribute associated with the policy.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -58,29 +67,29 @@ public class PolicyAttribute {
     
     
     /**
-     * Returns the value of the AttributeValue property for this object.
+     * The value of the attribute associated with the policy.
      *
-     * @return The value of the AttributeValue property for this object.
+     * @return The value of the attribute associated with the policy.
      */
     public String getAttributeValue() {
         return attributeValue;
     }
     
     /**
-     * Sets the value of the AttributeValue property for this object.
+     * The value of the attribute associated with the policy.
      *
-     * @param attributeValue The new value for the AttributeValue property for this object.
+     * @param attributeValue The value of the attribute associated with the policy.
      */
     public void setAttributeValue(String attributeValue) {
         this.attributeValue = attributeValue;
     }
     
     /**
-     * Sets the value of the AttributeValue property for this object.
+     * The value of the attribute associated with the policy.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param attributeValue The new value for the AttributeValue property for this object.
+     * @param attributeValue The value of the attribute associated with the policy.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

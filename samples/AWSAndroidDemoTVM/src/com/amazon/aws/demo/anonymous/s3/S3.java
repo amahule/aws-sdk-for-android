@@ -42,17 +42,7 @@ public class S3 {
 	private static ObjectListing objListing = null;
 	public static final String BUCKET_NAME = "_bucket_name";
 	public static final String OBJECT_NAME = "_object_name";
-	
-	static {
-		System.setProperty("org.xml.sax.driver","org.xmlpull.v1.sax2.Driver");
-		try {
-			XMLReader reader = XMLReaderFactory.createXMLReader();
-		}
-		catch ( SAXException e ) {
-			Log.e( "SAXException", e.getMessage() );
-		}
-	}
-		
+			
 	public static AmazonS3 getInstance() {
         return AWSAndroidDemoTVM.clientManager.s3();
 	}

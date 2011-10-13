@@ -59,6 +59,14 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
             throws AmazonServiceException, AmazonClientException;
 
     /**
+     * <p>
+     * Replaces the current set of policies associated with a port on which
+     * the back-end server is listening with a new set of policies. After the
+     * policies have been created using CreateLoadBalancerPolicy, they can be
+     * applied here as a list. At this time, only the back-end server
+     * authentication policy type can be applied to the back-end ports; this
+     * policy type is composed of multiple public key policies.
+     * </p>
      *
      * @param setLoadBalancerPoliciesForBackendServerRequest Container for
      *           the necessary parameters to execute the
@@ -151,9 +159,8 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
 
     /**
      * <p>
-     * Associates, updates, or disables a policy with a listener on the load
-     * balancer. Currently only zero (0) or one (1) policy can be associated
-     * with a listener.
+     * Associates, updates, or disables a policy with a listener on the
+     * LoadBalancer. You can associate multiple policies with a listener.
      * </p>
      *
      * @param setLoadBalancerPoliciesOfListenerRequest Container for the
@@ -207,13 +214,13 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * listeners.
      * </p>
      * <p>
-     * When a load balancer implements this policy, the load balancer uses a
+     * When a LoadBalancer implements this policy, the LoadBalancer uses a
      * special cookie to track the backend server instance for each request.
-     * When the load balancer receives a request, it first checks to see if
-     * this cookie is present in the request. If so, the load balancer sends
+     * When the LoadBalancer receives a request, it first checks to see if
+     * this cookie is present in the request. If so, the LoadBalancer sends
      * the request to the application server specified in the cookie. If not,
-     * the load balancer sends the request to a server that is chosen based
-     * on the existing load balancing algorithm.
+     * the LoadBalancer sends the request to a server that is chosen based on
+     * the existing load balancing algorithm.
      * </p>
      * <p>
      * A cookie is inserted into the response for binding subsequent
@@ -242,6 +249,15 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
             throws AmazonServiceException, AmazonClientException;
 
     /**
+     * <p>
+     * Returns detailed descriptions of the policies. If you specify a
+     * LoadBalancer name, the operation returns either the descriptions of
+     * the specified policies, or descriptions of all the policies created
+     * for the LoadBalancer. If you don't specify a LoadBalancer name, the
+     * operation returns descriptions of the specified sample policies, or
+     * descriptions of all the sample policies. The names of the sample
+     * policies have the <code>ELBSample-</code> prefix.
+     * </p>
      *
      * @param describeLoadBalancerPoliciesRequest Container for the necessary
      *           parameters to execute the DescribeLoadBalancerPolicies operation on
@@ -263,6 +279,13 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
             throws AmazonServiceException, AmazonClientException;
 
     /**
+     * <p>
+     * Returns meta-information on the specified LoadBalancer policies
+     * defined by the Elastic Load Balancing service. The policy types that
+     * are returned from this action can be used in a
+     * CreateLoadBalancerPolicy action to instantiate specific policy
+     * configurations that will be applied to an Elastic LoadBalancer.
+     * </p>
      *
      * @param describeLoadBalancerPolicyTypesRequest Container for the
      *           necessary parameters to execute the DescribeLoadBalancerPolicyTypes
@@ -331,7 +354,7 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * Creates a new LoadBalancer.
      * </p>
      * <p>
-     * Once the call has completed successfully, a new LoadBalancer is
+     * After the call has completed successfully, a new LoadBalancer is
      * created; however, it will not be usable until at least one instance
      * has been registered. When the LoadBalancer creation is completed, the
      * client can check whether or not it is usable by using the
@@ -341,14 +364,14 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * </p>
      * <p>
      * <b>NOTE:</b> Currently, the client's quota of LoadBalancers is limited
-     * to five per Region.
+     * to ten per Region.
      * </p>
      * <p>
-     * <b>NOTE:</b> Load balancer DNS names vary depending on the Region
-     * they're created in. For load balancers created in the United States,
+     * <b>NOTE:</b> LoadBalancer DNS names vary depending on the Region
+     * they're created in. For LoadBalancers created in the United States,
      * the DNS name ends with: us-east-1.elb.amazonaws.com (for the US
      * Standard Region) us-west-1.elb.amazonaws.com (for the Northern
-     * California Region) For load balancers created in the EU (Ireland)
+     * California Region) For LoadBalancers created in the EU (Ireland)
      * Region, the DNS name ends with: eu-west-1.elb.amazonaws.com
      * </p>
      *
@@ -408,6 +431,13 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
             throws AmazonServiceException, AmazonClientException;
 
     /**
+     * <p>
+     * Creates a new policy that contains the necessary attributes depending
+     * on the policy type. Policies are settings that are saved for your
+     * Elastic LoadBalancer and that can be applied to the front-end
+     * listener, or the back-end application server, depending on your policy
+     * type.
+     * </p>
      *
      * @param createLoadBalancerPolicyRequest Container for the necessary
      *           parameters to execute the CreateLoadBalancerPolicy operation on
@@ -469,7 +499,7 @@ public interface AmazonElasticLoadBalancingAsync extends AmazonElasticLoadBalanc
      * CreateLBCookieStickinessPolicy, except that the lifetime of the
      * special Elastic Load Balancing cookie follows the lifetime of the
      * application-generated cookie specified in the policy configuration.
-     * The load balancer only inserts a new stickiness cookie when the
+     * The LoadBalancer only inserts a new stickiness cookie when the
      * application response includes a new application cookie.
      * </p>
      * <p>

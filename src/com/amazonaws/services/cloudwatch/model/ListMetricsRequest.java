@@ -27,6 +27,11 @@ import com.amazonaws.AmazonWebServiceRequest;
  * retrieve further results, use returned NextToken values with
  * subsequent ListMetrics operations.
  * </p>
+ * <p>
+ * <b>NOTE:</b> If you create a metric with the PutMetricData action,
+ * allow up to fifteen minutes for the metric to appear in calls to the
+ * ListMetrics action.
+ * </p>
  *
  * @see com.amazonaws.services.cloudwatch.AmazonCloudWatch#listMetrics(ListMetricsRequest)
  */
@@ -161,6 +166,7 @@ public class ListMetricsRequest extends AmazonWebServiceRequest {
      * @return A list of dimensions to filter against.
      */
     public java.util.List<DimensionFilter> getDimensions() {
+        
         if (dimensions == null) {
             dimensions = new java.util.ArrayList<DimensionFilter>();
         }
@@ -197,6 +203,7 @@ public class ListMetricsRequest extends AmazonWebServiceRequest {
      *         together. 
      */
     public ListMetricsRequest withDimensions(DimensionFilter... dimensions) {
+        if (getDimensions() == null) setDimensions(new java.util.ArrayList<DimensionFilter>());
         for (DimensionFilter value : dimensions) {
             getDimensions().add(value);
         }

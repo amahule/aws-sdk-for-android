@@ -49,14 +49,27 @@ public class ScheduledUpdateGroupAction {
      */
     private String scheduledActionARN;
 
+    private java.util.Date time;
+
     /**
-     * The time that the action is scheduled to occur. This value can be up
+     * The time that the action is scheduled to begin. This value can be up
      * to one month in the future.
      */
     private java.util.Date startTime;
 
+    /**
+     * The time that the action is scheduled to end. This value can be up to
+     * one month in the future.
+     */
     private java.util.Date endTime;
 
+    /**
+     * The regular schedule that an action occurs.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Length: </b>1 - 255<br/>
+     * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
+     */
     private String recurrence;
 
     /**
@@ -71,9 +84,7 @@ public class ScheduledUpdateGroupAction {
 
     /**
      * The number of instances you prefer to maintain in your Auto Scaling
-     * group. The desired capacity must be no less than
-     * <a>ScheduledUpdateGroupAction$MinSize</a> and no greater than
-     * <a>ScheduledUpdateGroupAction$MaxSize</a>.
+     * group.
      */
     private Integer desiredCapacity;
 
@@ -216,10 +227,44 @@ public class ScheduledUpdateGroupAction {
     
     
     /**
-     * The time that the action is scheduled to occur. This value can be up
+     * Returns the value of the Time property for this object.
+     *
+     * @return The value of the Time property for this object.
+     */
+    public java.util.Date getTime() {
+        return time;
+    }
+    
+    /**
+     * Sets the value of the Time property for this object.
+     *
+     * @param time The new value for the Time property for this object.
+     */
+    public void setTime(java.util.Date time) {
+        this.time = time;
+    }
+    
+    /**
+     * Sets the value of the Time property for this object.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param time The new value for the Time property for this object.
+     *
+     * @return A reference to this updated object so that method calls can be chained 
+     *         together. 
+     */
+    public ScheduledUpdateGroupAction withTime(java.util.Date time) {
+        this.time = time;
+        return this;
+    }
+    
+    
+    /**
+     * The time that the action is scheduled to begin. This value can be up
      * to one month in the future.
      *
-     * @return The time that the action is scheduled to occur. This value can be up
+     * @return The time that the action is scheduled to begin. This value can be up
      *         to one month in the future.
      */
     public java.util.Date getStartTime() {
@@ -227,10 +272,10 @@ public class ScheduledUpdateGroupAction {
     }
     
     /**
-     * The time that the action is scheduled to occur. This value can be up
+     * The time that the action is scheduled to begin. This value can be up
      * to one month in the future.
      *
-     * @param startTime The time that the action is scheduled to occur. This value can be up
+     * @param startTime The time that the action is scheduled to begin. This value can be up
      *         to one month in the future.
      */
     public void setStartTime(java.util.Date startTime) {
@@ -238,12 +283,12 @@ public class ScheduledUpdateGroupAction {
     }
     
     /**
-     * The time that the action is scheduled to occur. This value can be up
+     * The time that the action is scheduled to begin. This value can be up
      * to one month in the future.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param startTime The time that the action is scheduled to occur. This value can be up
+     * @param startTime The time that the action is scheduled to begin. This value can be up
      *         to one month in the future.
      *
      * @return A reference to this updated object so that method calls can be chained 
@@ -256,29 +301,35 @@ public class ScheduledUpdateGroupAction {
     
     
     /**
-     * Returns the value of the EndTime property for this object.
+     * The time that the action is scheduled to end. This value can be up to
+     * one month in the future.
      *
-     * @return The value of the EndTime property for this object.
+     * @return The time that the action is scheduled to end. This value can be up to
+     *         one month in the future.
      */
     public java.util.Date getEndTime() {
         return endTime;
     }
     
     /**
-     * Sets the value of the EndTime property for this object.
+     * The time that the action is scheduled to end. This value can be up to
+     * one month in the future.
      *
-     * @param endTime The new value for the EndTime property for this object.
+     * @param endTime The time that the action is scheduled to end. This value can be up to
+     *         one month in the future.
      */
     public void setEndTime(java.util.Date endTime) {
         this.endTime = endTime;
     }
     
     /**
-     * Sets the value of the EndTime property for this object.
+     * The time that the action is scheduled to end. This value can be up to
+     * one month in the future.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param endTime The new value for the EndTime property for this object.
+     * @param endTime The time that the action is scheduled to end. This value can be up to
+     *         one month in the future.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -290,33 +341,33 @@ public class ScheduledUpdateGroupAction {
     
     
     /**
-     * Returns the value of the Recurrence property for this object.
+     * The regular schedule that an action occurs.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
      *
-     * @return The value of the Recurrence property for this object.
+     * @return The regular schedule that an action occurs.
      */
     public String getRecurrence() {
         return recurrence;
     }
     
     /**
-     * Sets the value of the Recurrence property for this object.
+     * The regular schedule that an action occurs.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
      * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
      *
-     * @param recurrence The new value for the Recurrence property for this object.
+     * @param recurrence The regular schedule that an action occurs.
      */
     public void setRecurrence(String recurrence) {
         this.recurrence = recurrence;
     }
     
     /**
-     * Sets the value of the Recurrence property for this object.
+     * The regular schedule that an action occurs.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -324,7 +375,7 @@ public class ScheduledUpdateGroupAction {
      * <b>Length: </b>1 - 255<br/>
      * <b>Pattern: </b>[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*<br/>
      *
-     * @param recurrence The new value for the Recurrence property for this object.
+     * @param recurrence The regular schedule that an action occurs.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -405,14 +456,10 @@ public class ScheduledUpdateGroupAction {
     
     /**
      * The number of instances you prefer to maintain in your Auto Scaling
-     * group. The desired capacity must be no less than
-     * <a>ScheduledUpdateGroupAction$MinSize</a> and no greater than
-     * <a>ScheduledUpdateGroupAction$MaxSize</a>.
+     * group.
      *
      * @return The number of instances you prefer to maintain in your Auto Scaling
-     *         group. The desired capacity must be no less than
-     *         <a>ScheduledUpdateGroupAction$MinSize</a> and no greater than
-     *         <a>ScheduledUpdateGroupAction$MaxSize</a>.
+     *         group.
      */
     public Integer getDesiredCapacity() {
         return desiredCapacity;
@@ -420,14 +467,10 @@ public class ScheduledUpdateGroupAction {
     
     /**
      * The number of instances you prefer to maintain in your Auto Scaling
-     * group. The desired capacity must be no less than
-     * <a>ScheduledUpdateGroupAction$MinSize</a> and no greater than
-     * <a>ScheduledUpdateGroupAction$MaxSize</a>.
+     * group.
      *
      * @param desiredCapacity The number of instances you prefer to maintain in your Auto Scaling
-     *         group. The desired capacity must be no less than
-     *         <a>ScheduledUpdateGroupAction$MinSize</a> and no greater than
-     *         <a>ScheduledUpdateGroupAction$MaxSize</a>.
+     *         group.
      */
     public void setDesiredCapacity(Integer desiredCapacity) {
         this.desiredCapacity = desiredCapacity;
@@ -435,16 +478,12 @@ public class ScheduledUpdateGroupAction {
     
     /**
      * The number of instances you prefer to maintain in your Auto Scaling
-     * group. The desired capacity must be no less than
-     * <a>ScheduledUpdateGroupAction$MinSize</a> and no greater than
-     * <a>ScheduledUpdateGroupAction$MaxSize</a>.
+     * group.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param desiredCapacity The number of instances you prefer to maintain in your Auto Scaling
-     *         group. The desired capacity must be no less than
-     *         <a>ScheduledUpdateGroupAction$MinSize</a> and no greater than
-     *         <a>ScheduledUpdateGroupAction$MaxSize</a>.
+     *         group.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -470,6 +509,7 @@ public class ScheduledUpdateGroupAction {
         sb.append("AutoScalingGroupName: " + autoScalingGroupName + ", ");
         sb.append("ScheduledActionName: " + scheduledActionName + ", ");
         sb.append("ScheduledActionARN: " + scheduledActionARN + ", ");
+        sb.append("Time: " + time + ", ");
         sb.append("StartTime: " + startTime + ", ");
         sb.append("EndTime: " + endTime + ", ");
         sb.append("Recurrence: " + recurrence + ", ");

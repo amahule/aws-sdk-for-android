@@ -127,11 +127,7 @@ public abstract class AbstractAWSSigner implements Signer {
      * @param credentials
      * @return A new credentials object with the sanitized credentials.
      */
-    protected AWSCredentials sanitizeCredentials(AWSCredentials credentials) {
-        if ( credentials instanceof RenewableAWSSessionCredentials ) {
-            credentials = ((RenewableAWSSessionCredentials) credentials).getImmutableCredentials();
-        }
-        
+    protected AWSCredentials sanitizeCredentials(AWSCredentials credentials) {        
         String accessKeyId = null;
         String secretKey   = null;
         String token = null;

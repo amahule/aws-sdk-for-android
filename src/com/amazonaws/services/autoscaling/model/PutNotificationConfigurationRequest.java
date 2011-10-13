@@ -20,12 +20,11 @@ import com.amazonaws.AmazonWebServiceRequest;
  * <p>
  * Configures an Auto Scaling group to send notifications when specified
  * events take place. Subscribers to this topic can have messages for
- * events delivered to an endpoint such as a web server or e-mail
- * address.
+ * events delivered to an endpoint such as a web server or email address.
  * </p>
  * <p>
- * A new PutNotificationConfiguration overwrites an existing
- * configuration.
+ * A new <code>PutNotificationConfiguration</code> overwrites an
+ * existing configuration.
  * </p>
  *
  * @see com.amazonaws.services.autoscaling.AmazonAutoScaling#putNotificationConfiguration(PutNotificationConfigurationRequest)
@@ -52,7 +51,8 @@ public class PutNotificationConfigurationRequest extends AmazonWebServiceRequest
     private String topicARN;
 
     /**
-     * The type of events for this action to start.
+     * The type of events that will trigger the notification. For more
+     * information, go to <a>DescribeAutoScalingNotificationTypes</a>.
      */
     private java.util.List<String> notificationTypes;
 
@@ -155,11 +155,14 @@ public class PutNotificationConfigurationRequest extends AmazonWebServiceRequest
     
     
     /**
-     * The type of events for this action to start.
+     * The type of events that will trigger the notification. For more
+     * information, go to <a>DescribeAutoScalingNotificationTypes</a>.
      *
-     * @return The type of events for this action to start.
+     * @return The type of events that will trigger the notification. For more
+     *         information, go to <a>DescribeAutoScalingNotificationTypes</a>.
      */
     public java.util.List<String> getNotificationTypes() {
+        
         if (notificationTypes == null) {
             notificationTypes = new java.util.ArrayList<String>();
         }
@@ -167,9 +170,11 @@ public class PutNotificationConfigurationRequest extends AmazonWebServiceRequest
     }
     
     /**
-     * The type of events for this action to start.
+     * The type of events that will trigger the notification. For more
+     * information, go to <a>DescribeAutoScalingNotificationTypes</a>.
      *
-     * @param notificationTypes The type of events for this action to start.
+     * @param notificationTypes The type of events that will trigger the notification. For more
+     *         information, go to <a>DescribeAutoScalingNotificationTypes</a>.
      */
     public void setNotificationTypes(java.util.Collection<String> notificationTypes) {
         java.util.List<String> notificationTypesCopy = new java.util.ArrayList<String>();
@@ -180,16 +185,19 @@ public class PutNotificationConfigurationRequest extends AmazonWebServiceRequest
     }
     
     /**
-     * The type of events for this action to start.
+     * The type of events that will trigger the notification. For more
+     * information, go to <a>DescribeAutoScalingNotificationTypes</a>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param notificationTypes The type of events for this action to start.
+     * @param notificationTypes The type of events that will trigger the notification. For more
+     *         information, go to <a>DescribeAutoScalingNotificationTypes</a>.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
      */
     public PutNotificationConfigurationRequest withNotificationTypes(String... notificationTypes) {
+        if (getNotificationTypes() == null) setNotificationTypes(new java.util.ArrayList<String>());
         for (String value : notificationTypes) {
             getNotificationTypes().add(value);
         }
@@ -197,11 +205,13 @@ public class PutNotificationConfigurationRequest extends AmazonWebServiceRequest
     }
     
     /**
-     * The type of events for this action to start.
+     * The type of events that will trigger the notification. For more
+     * information, go to <a>DescribeAutoScalingNotificationTypes</a>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param notificationTypes The type of events for this action to start.
+     * @param notificationTypes The type of events that will trigger the notification. For more
+     *         information, go to <a>DescribeAutoScalingNotificationTypes</a>.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

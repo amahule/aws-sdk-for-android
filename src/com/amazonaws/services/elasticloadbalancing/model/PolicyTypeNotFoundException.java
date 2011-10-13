@@ -17,7 +17,9 @@ package com.amazonaws.services.elasticloadbalancing.model;
 import com.amazonaws.AmazonServiceException;
 
 /**
- * AmazonElasticLoadBalancing exception
+ * <p>
+ * One or more of the specified policy types do not exist.
+ * </p>
  */        
 public class PolicyTypeNotFoundException extends AmazonServiceException {
     private static final long serialVersionUID = 1L;

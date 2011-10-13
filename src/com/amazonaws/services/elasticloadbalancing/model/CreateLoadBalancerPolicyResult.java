@@ -15,7 +15,9 @@
 package com.amazonaws.services.elasticloadbalancing.model;
 
 /**
- * Create Load Balancer Policy Result
+ * <p>
+ * The output for the CreateLoadBalancerPolicy action.
+ * </p>
  */
 public class CreateLoadBalancerPolicyResult {
 

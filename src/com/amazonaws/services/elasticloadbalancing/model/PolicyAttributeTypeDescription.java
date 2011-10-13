@@ -15,44 +15,70 @@
 package com.amazonaws.services.elasticloadbalancing.model;
 
 /**
- * Policy Attribute Type Description
+ * <p>
+ * The <code>PolicyAttributeTypeDescription</code> data type. This data
+ * type is used to describe values that are acceptable for the policy
+ * attribute.
+ * </p>
  */
 public class PolicyAttributeTypeDescription {
 
+    /**
+     * The name of the attribute associated with the policy type.
+     */
     private String attributeName;
 
+    /**
+     * The type of attribute. For example, Boolean, Integer, etc.
+     */
     private String attributeType;
 
+    /**
+     * A human-readable description of the attribute.
+     */
     private String description;
 
+    /**
+     * The default value of the attribute, if applicable.
+     */
     private String defaultValue;
 
+    /**
+     * The cardinality of the attribute. Valid Values: <ul> <li>ONE(1) :
+     * Single value required</li> <li>ZERO_OR_ONE(0..1) : Up to one value can
+     * be supplied</li> <li>ZERO_OR_MORE(0..*) : Optional. Multiple values
+     * are allowed</li> <li>ONE_OR_MORE(1..*0) : Required. Multiple values
+     * are allowed</li> </ul>
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>ONE, ZERO_OR_ONE, ZERO_OR_MORE, ONE_OR_MORE
+     */
     private String cardinality;
 
     /**
-     * Returns the value of the AttributeName property for this object.
+     * The name of the attribute associated with the policy type.
      *
-     * @return The value of the AttributeName property for this object.
+     * @return The name of the attribute associated with the policy type.
      */
     public String getAttributeName() {
         return attributeName;
     }
     
     /**
-     * Sets the value of the AttributeName property for this object.
+     * The name of the attribute associated with the policy type.
      *
-     * @param attributeName The new value for the AttributeName property for this object.
+     * @param attributeName The name of the attribute associated with the policy type.
      */
     public void setAttributeName(String attributeName) {
         this.attributeName = attributeName;
     }
     
     /**
-     * Sets the value of the AttributeName property for this object.
+     * The name of the attribute associated with the policy type.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param attributeName The new value for the AttributeName property for this object.
+     * @param attributeName The name of the attribute associated with the policy type.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -64,29 +90,29 @@ public class PolicyAttributeTypeDescription {
     
     
     /**
-     * Returns the value of the AttributeType property for this object.
+     * The type of attribute. For example, Boolean, Integer, etc.
      *
-     * @return The value of the AttributeType property for this object.
+     * @return The type of attribute. For example, Boolean, Integer, etc.
      */
     public String getAttributeType() {
         return attributeType;
     }
     
     /**
-     * Sets the value of the AttributeType property for this object.
+     * The type of attribute. For example, Boolean, Integer, etc.
      *
-     * @param attributeType The new value for the AttributeType property for this object.
+     * @param attributeType The type of attribute. For example, Boolean, Integer, etc.
      */
     public void setAttributeType(String attributeType) {
         this.attributeType = attributeType;
     }
     
     /**
-     * Sets the value of the AttributeType property for this object.
+     * The type of attribute. For example, Boolean, Integer, etc.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param attributeType The new value for the AttributeType property for this object.
+     * @param attributeType The type of attribute. For example, Boolean, Integer, etc.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -98,29 +124,29 @@ public class PolicyAttributeTypeDescription {
     
     
     /**
-     * Returns the value of the Description property for this object.
+     * A human-readable description of the attribute.
      *
-     * @return The value of the Description property for this object.
+     * @return A human-readable description of the attribute.
      */
     public String getDescription() {
         return description;
     }
     
     /**
-     * Sets the value of the Description property for this object.
+     * A human-readable description of the attribute.
      *
-     * @param description The new value for the Description property for this object.
+     * @param description A human-readable description of the attribute.
      */
     public void setDescription(String description) {
         this.description = description;
     }
     
     /**
-     * Sets the value of the Description property for this object.
+     * A human-readable description of the attribute.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param description The new value for the Description property for this object.
+     * @param description A human-readable description of the attribute.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -132,29 +158,29 @@ public class PolicyAttributeTypeDescription {
     
     
     /**
-     * Returns the value of the DefaultValue property for this object.
+     * The default value of the attribute, if applicable.
      *
-     * @return The value of the DefaultValue property for this object.
+     * @return The default value of the attribute, if applicable.
      */
     public String getDefaultValue() {
         return defaultValue;
     }
     
     /**
-     * Sets the value of the DefaultValue property for this object.
+     * The default value of the attribute, if applicable.
      *
-     * @param defaultValue The new value for the DefaultValue property for this object.
+     * @param defaultValue The default value of the attribute, if applicable.
      */
     public void setDefaultValue(String defaultValue) {
         this.defaultValue = defaultValue;
     }
     
     /**
-     * Sets the value of the DefaultValue property for this object.
+     * The default value of the attribute, if applicable.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param defaultValue The new value for the DefaultValue property for this object.
+     * @param defaultValue The default value of the attribute, if applicable.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -166,12 +192,20 @@ public class PolicyAttributeTypeDescription {
     
     
     /**
-     * Returns the value of the Cardinality property for this object.
+     * The cardinality of the attribute. Valid Values: <ul> <li>ONE(1) :
+     * Single value required</li> <li>ZERO_OR_ONE(0..1) : Up to one value can
+     * be supplied</li> <li>ZERO_OR_MORE(0..*) : Optional. Multiple values
+     * are allowed</li> <li>ONE_OR_MORE(1..*0) : Required. Multiple values
+     * are allowed</li> </ul>
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>ONE, ZERO_OR_ONE, ZERO_OR_MORE, ONE_OR_MORE
      *
-     * @return The value of the Cardinality property for this object.
+     * @return The cardinality of the attribute. Valid Values: <ul> <li>ONE(1) :
+     *         Single value required</li> <li>ZERO_OR_ONE(0..1) : Up to one value can
+     *         be supplied</li> <li>ZERO_OR_MORE(0..*) : Optional. Multiple values
+     *         are allowed</li> <li>ONE_OR_MORE(1..*0) : Required. Multiple values
+     *         are allowed</li> </ul>
      *
      * @see Cardinality
      */
@@ -180,12 +214,20 @@ public class PolicyAttributeTypeDescription {
     }
     
     /**
-     * Sets the value of the Cardinality property for this object.
+     * The cardinality of the attribute. Valid Values: <ul> <li>ONE(1) :
+     * Single value required</li> <li>ZERO_OR_ONE(0..1) : Up to one value can
+     * be supplied</li> <li>ZERO_OR_MORE(0..*) : Optional. Multiple values
+     * are allowed</li> <li>ONE_OR_MORE(1..*0) : Required. Multiple values
+     * are allowed</li> </ul>
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>ONE, ZERO_OR_ONE, ZERO_OR_MORE, ONE_OR_MORE
      *
-     * @param cardinality The new value for the Cardinality property for this object.
+     * @param cardinality The cardinality of the attribute. Valid Values: <ul> <li>ONE(1) :
+     *         Single value required</li> <li>ZERO_OR_ONE(0..1) : Up to one value can
+     *         be supplied</li> <li>ZERO_OR_MORE(0..*) : Optional. Multiple values
+     *         are allowed</li> <li>ONE_OR_MORE(1..*0) : Required. Multiple values
+     *         are allowed</li> </ul>
      *
      * @see Cardinality
      */
@@ -194,14 +236,22 @@ public class PolicyAttributeTypeDescription {
     }
     
     /**
-     * Sets the value of the Cardinality property for this object.
+     * The cardinality of the attribute. Valid Values: <ul> <li>ONE(1) :
+     * Single value required</li> <li>ZERO_OR_ONE(0..1) : Up to one value can
+     * be supplied</li> <li>ZERO_OR_MORE(0..*) : Optional. Multiple values
+     * are allowed</li> <li>ONE_OR_MORE(1..*0) : Required. Multiple values
+     * are allowed</li> </ul>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>ONE, ZERO_OR_ONE, ZERO_OR_MORE, ONE_OR_MORE
      *
-     * @param cardinality The new value for the Cardinality property for this object.
+     * @param cardinality The cardinality of the attribute. Valid Values: <ul> <li>ONE(1) :
+     *         Single value required</li> <li>ZERO_OR_ONE(0..1) : Up to one value can
+     *         be supplied</li> <li>ZERO_OR_MORE(0..*) : Optional. Multiple values
+     *         are allowed</li> <li>ONE_OR_MORE(1..*0) : Required. Multiple values
+     *         are allowed</li> </ul>
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

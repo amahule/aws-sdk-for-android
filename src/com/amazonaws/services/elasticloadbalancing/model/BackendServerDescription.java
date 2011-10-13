@@ -15,47 +15,60 @@
 package com.amazonaws.services.elasticloadbalancing.model;
 
 /**
- * Backend Server Description
+ * <p>
+ * This data type is used as a response element in the
+ * DescribeLoadBalancers action to describe the configuration of the
+ * back-end server.
+ * </p>
  */
 public class BackendServerDescription {
 
+    /**
+     * Provides the port on which the back-end server is listening.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Range: </b>1 - 65535<br/>
+     */
     private Integer instancePort;
 
+    /**
+     * Provides a list of policy names enabled for the back-end server.
+     */
     private java.util.List<String> policyNames;
 
     /**
-     * Returns the value of the InstancePort property for this object.
+     * Provides the port on which the back-end server is listening.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>1 - 65535<br/>
      *
-     * @return The value of the InstancePort property for this object.
+     * @return Provides the port on which the back-end server is listening.
      */
     public Integer getInstancePort() {
         return instancePort;
     }
     
     /**
-     * Sets the value of the InstancePort property for this object.
+     * Provides the port on which the back-end server is listening.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>1 - 65535<br/>
      *
-     * @param instancePort The new value for the InstancePort property for this object.
+     * @param instancePort Provides the port on which the back-end server is listening.
      */
     public void setInstancePort(Integer instancePort) {
         this.instancePort = instancePort;
     }
     
     /**
-     * Sets the value of the InstancePort property for this object.
+     * Provides the port on which the back-end server is listening.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>1 - 65535<br/>
      *
-     * @param instancePort The new value for the InstancePort property for this object.
+     * @param instancePort Provides the port on which the back-end server is listening.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -67,11 +80,12 @@ public class BackendServerDescription {
     
     
     /**
-     * Returns the value of the PolicyNames property for this object.
+     * Provides a list of policy names enabled for the back-end server.
      *
-     * @return The value of the PolicyNames property for this object.
+     * @return Provides a list of policy names enabled for the back-end server.
      */
     public java.util.List<String> getPolicyNames() {
+        
         if (policyNames == null) {
             policyNames = new java.util.ArrayList<String>();
         }
@@ -79,9 +93,9 @@ public class BackendServerDescription {
     }
     
     /**
-     * Sets the value of the PolicyNames property for this object.
+     * Provides a list of policy names enabled for the back-end server.
      *
-     * @param policyNames The new value for the PolicyNames property for this object.
+     * @param policyNames Provides a list of policy names enabled for the back-end server.
      */
     public void setPolicyNames(java.util.Collection<String> policyNames) {
         java.util.List<String> policyNamesCopy = new java.util.ArrayList<String>();
@@ -92,16 +106,17 @@ public class BackendServerDescription {
     }
     
     /**
-     * Sets the value of the PolicyNames property for this object.
+     * Provides a list of policy names enabled for the back-end server.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param policyNames The new value for the PolicyNames property for this object.
+     * @param policyNames Provides a list of policy names enabled for the back-end server.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
      */
     public BackendServerDescription withPolicyNames(String... policyNames) {
+        if (getPolicyNames() == null) setPolicyNames(new java.util.ArrayList<String>());
         for (String value : policyNames) {
             getPolicyNames().add(value);
         }
@@ -109,11 +124,11 @@ public class BackendServerDescription {
     }
     
     /**
-     * Sets the value of the PolicyNames property for this object.
+     * Provides a list of policy names enabled for the back-end server.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param policyNames The new value for the PolicyNames property for this object.
+     * @param policyNames Provides a list of policy names enabled for the back-end server.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

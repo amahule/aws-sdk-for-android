@@ -19,6 +19,11 @@ package com.amazonaws.services.autoscaling.model;
  * A scaling action that is scheduled for a future time and date. An
  * action can be scheduled up to thirty days in advance.
  * </p>
+ * <p>
+ * Starting with API version 2011-01-01, you can use
+ * <code>recurrence</code> to specify that a scaling action occurs
+ * regularly on a schedule.
+ * </p>
  */
 public class DescribeScheduledActionsResult {
 
@@ -41,6 +46,7 @@ public class DescribeScheduledActionsResult {
      * @return A list of scheduled actions designed to update an Auto Scaling group.
      */
     public java.util.List<ScheduledUpdateGroupAction> getScheduledUpdateGroupActions() {
+        
         if (scheduledUpdateGroupActions == null) {
             scheduledUpdateGroupActions = new java.util.ArrayList<ScheduledUpdateGroupAction>();
         }
@@ -71,6 +77,7 @@ public class DescribeScheduledActionsResult {
      *         together. 
      */
     public DescribeScheduledActionsResult withScheduledUpdateGroupActions(ScheduledUpdateGroupAction... scheduledUpdateGroupActions) {
+        if (getScheduledUpdateGroupActions() == null) setScheduledUpdateGroupActions(new java.util.ArrayList<ScheduledUpdateGroupAction>());
         for (ScheduledUpdateGroupAction value : scheduledUpdateGroupActions) {
             getScheduledUpdateGroupActions().add(value);
         }

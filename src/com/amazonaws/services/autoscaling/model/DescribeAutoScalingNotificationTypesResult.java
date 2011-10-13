@@ -20,22 +20,32 @@ package com.amazonaws.services.autoscaling.model;
 public class DescribeAutoScalingNotificationTypesResult {
 
     /**
-     * Notification types supported by Auto Scaling; i.e.,
-     * autoscaling:EC2_Instance_Launch, autoscaling:EC2_Instance_Terminate,
-     * autoscaling:Error
+     * Notification types supported by Auto Scaling. They are:
+     * autoscaling:EC2_INSTANCE_LAUNCH,
+     * autoscaling:EC2_INSTANCE_LAUNCH_ERROR,
+     * autoscaling:EC2_INSTANCE_TERMINATE,
+     * autoscaling:EC2_INSTANCE_TERMINATE_ERROR,
+     * autoscaling:TEST_NOTIFICATION
      */
     private java.util.List<String> autoScalingNotificationTypes;
 
     /**
-     * Notification types supported by Auto Scaling; i.e.,
-     * autoscaling:EC2_Instance_Launch, autoscaling:EC2_Instance_Terminate,
-     * autoscaling:Error
+     * Notification types supported by Auto Scaling. They are:
+     * autoscaling:EC2_INSTANCE_LAUNCH,
+     * autoscaling:EC2_INSTANCE_LAUNCH_ERROR,
+     * autoscaling:EC2_INSTANCE_TERMINATE,
+     * autoscaling:EC2_INSTANCE_TERMINATE_ERROR,
+     * autoscaling:TEST_NOTIFICATION
      *
-     * @return Notification types supported by Auto Scaling; i.e.,
-     *         autoscaling:EC2_Instance_Launch, autoscaling:EC2_Instance_Terminate,
-     *         autoscaling:Error
+     * @return Notification types supported by Auto Scaling. They are:
+     *         autoscaling:EC2_INSTANCE_LAUNCH,
+     *         autoscaling:EC2_INSTANCE_LAUNCH_ERROR,
+     *         autoscaling:EC2_INSTANCE_TERMINATE,
+     *         autoscaling:EC2_INSTANCE_TERMINATE_ERROR,
+     *         autoscaling:TEST_NOTIFICATION
      */
     public java.util.List<String> getAutoScalingNotificationTypes() {
+        
         if (autoScalingNotificationTypes == null) {
             autoScalingNotificationTypes = new java.util.ArrayList<String>();
         }
@@ -43,13 +53,19 @@ public class DescribeAutoScalingNotificationTypesResult {
     }
     
     /**
-     * Notification types supported by Auto Scaling; i.e.,
-     * autoscaling:EC2_Instance_Launch, autoscaling:EC2_Instance_Terminate,
-     * autoscaling:Error
+     * Notification types supported by Auto Scaling. They are:
+     * autoscaling:EC2_INSTANCE_LAUNCH,
+     * autoscaling:EC2_INSTANCE_LAUNCH_ERROR,
+     * autoscaling:EC2_INSTANCE_TERMINATE,
+     * autoscaling:EC2_INSTANCE_TERMINATE_ERROR,
+     * autoscaling:TEST_NOTIFICATION
      *
-     * @param autoScalingNotificationTypes Notification types supported by Auto Scaling; i.e.,
-     *         autoscaling:EC2_Instance_Launch, autoscaling:EC2_Instance_Terminate,
-     *         autoscaling:Error
+     * @param autoScalingNotificationTypes Notification types supported by Auto Scaling. They are:
+     *         autoscaling:EC2_INSTANCE_LAUNCH,
+     *         autoscaling:EC2_INSTANCE_LAUNCH_ERROR,
+     *         autoscaling:EC2_INSTANCE_TERMINATE,
+     *         autoscaling:EC2_INSTANCE_TERMINATE_ERROR,
+     *         autoscaling:TEST_NOTIFICATION
      */
     public void setAutoScalingNotificationTypes(java.util.Collection<String> autoScalingNotificationTypes) {
         java.util.List<String> autoScalingNotificationTypesCopy = new java.util.ArrayList<String>();
@@ -60,20 +76,27 @@ public class DescribeAutoScalingNotificationTypesResult {
     }
     
     /**
-     * Notification types supported by Auto Scaling; i.e.,
-     * autoscaling:EC2_Instance_Launch, autoscaling:EC2_Instance_Terminate,
-     * autoscaling:Error
+     * Notification types supported by Auto Scaling. They are:
+     * autoscaling:EC2_INSTANCE_LAUNCH,
+     * autoscaling:EC2_INSTANCE_LAUNCH_ERROR,
+     * autoscaling:EC2_INSTANCE_TERMINATE,
+     * autoscaling:EC2_INSTANCE_TERMINATE_ERROR,
+     * autoscaling:TEST_NOTIFICATION
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param autoScalingNotificationTypes Notification types supported by Auto Scaling; i.e.,
-     *         autoscaling:EC2_Instance_Launch, autoscaling:EC2_Instance_Terminate,
-     *         autoscaling:Error
+     * @param autoScalingNotificationTypes Notification types supported by Auto Scaling. They are:
+     *         autoscaling:EC2_INSTANCE_LAUNCH,
+     *         autoscaling:EC2_INSTANCE_LAUNCH_ERROR,
+     *         autoscaling:EC2_INSTANCE_TERMINATE,
+     *         autoscaling:EC2_INSTANCE_TERMINATE_ERROR,
+     *         autoscaling:TEST_NOTIFICATION
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
      */
     public DescribeAutoScalingNotificationTypesResult withAutoScalingNotificationTypes(String... autoScalingNotificationTypes) {
+        if (getAutoScalingNotificationTypes() == null) setAutoScalingNotificationTypes(new java.util.ArrayList<String>());
         for (String value : autoScalingNotificationTypes) {
             getAutoScalingNotificationTypes().add(value);
         }
@@ -81,15 +104,21 @@ public class DescribeAutoScalingNotificationTypesResult {
     }
     
     /**
-     * Notification types supported by Auto Scaling; i.e.,
-     * autoscaling:EC2_Instance_Launch, autoscaling:EC2_Instance_Terminate,
-     * autoscaling:Error
+     * Notification types supported by Auto Scaling. They are:
+     * autoscaling:EC2_INSTANCE_LAUNCH,
+     * autoscaling:EC2_INSTANCE_LAUNCH_ERROR,
+     * autoscaling:EC2_INSTANCE_TERMINATE,
+     * autoscaling:EC2_INSTANCE_TERMINATE_ERROR,
+     * autoscaling:TEST_NOTIFICATION
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param autoScalingNotificationTypes Notification types supported by Auto Scaling; i.e.,
-     *         autoscaling:EC2_Instance_Launch, autoscaling:EC2_Instance_Terminate,
-     *         autoscaling:Error
+     * @param autoScalingNotificationTypes Notification types supported by Auto Scaling. They are:
+     *         autoscaling:EC2_INSTANCE_LAUNCH,
+     *         autoscaling:EC2_INSTANCE_LAUNCH_ERROR,
+     *         autoscaling:EC2_INSTANCE_TERMINATE,
+     *         autoscaling:EC2_INSTANCE_TERMINATE_ERROR,
+     *         autoscaling:TEST_NOTIFICATION
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

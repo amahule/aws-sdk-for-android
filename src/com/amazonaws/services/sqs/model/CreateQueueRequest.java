@@ -27,7 +27,7 @@ import com.amazonaws.AmazonWebServiceRequest;
  * succeeds and the queue URL for the existing queue is returned.
  * </p>
  * <p>
- * <b>IMPORTANT:</b> If you provide a value for DefaultVisibilityTimeout
+ * <b>IMPORTANT:</b>If you provide a value for DefaultVisibilityTimeout
  * that is different from the value for the existing queue, you receive
  * an error.
  * </p>
@@ -37,7 +37,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 public class CreateQueueRequest extends AmazonWebServiceRequest {
 
     /**
-     * The name to use for the created queue.
+     * The name for the queue to be created.
      */
     private String queueName;
 
@@ -57,36 +57,36 @@ public class CreateQueueRequest extends AmazonWebServiceRequest {
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
      * 
-     * @param queueName The name to use for the created queue.
+     * @param queueName The name for the queue to be created.
      */
     public CreateQueueRequest(String queueName) {
         this.queueName = queueName;
     }
     
     /**
-     * The name to use for the created queue.
+     * The name for the queue to be created.
      *
-     * @return The name to use for the created queue.
+     * @return The name for the queue to be created.
      */
     public String getQueueName() {
         return queueName;
     }
     
     /**
-     * The name to use for the created queue.
+     * The name for the queue to be created.
      *
-     * @param queueName The name to use for the created queue.
+     * @param queueName The name for the queue to be created.
      */
     public void setQueueName(String queueName) {
         this.queueName = queueName;
     }
     
     /**
-     * The name to use for the created queue.
+     * The name for the queue to be created.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param queueName The name to use for the created queue.
+     * @param queueName The name for the queue to be created.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

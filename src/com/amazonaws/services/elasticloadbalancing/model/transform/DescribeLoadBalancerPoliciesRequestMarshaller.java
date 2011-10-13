@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.DefaultRequest;
 import com.amazonaws.services.elasticloadbalancing.model.*;
@@ -30,24 +31,28 @@ import com.amazonaws.util.StringUtils;
 public class DescribeLoadBalancerPoliciesRequestMarshaller implements Marshaller<Request<DescribeLoadBalancerPoliciesRequest>, DescribeLoadBalancerPoliciesRequest> {
 
     public Request<DescribeLoadBalancerPoliciesRequest> marshall(DescribeLoadBalancerPoliciesRequest describeLoadBalancerPoliciesRequest) {
+
+        if (describeLoadBalancerPoliciesRequest == null) {
+		    throw new AmazonClientException("Invalid argument passed to marshall(...)");
+		}
+
         Request<DescribeLoadBalancerPoliciesRequest> request = new DefaultRequest<DescribeLoadBalancerPoliciesRequest>(describeLoadBalancerPoliciesRequest, "AmazonElasticLoadBalancing");
         request.addParameter("Action", "DescribeLoadBalancerPolicies");
         request.addParameter("Version", "2011-08-15");
-        if (describeLoadBalancerPoliciesRequest != null) {
-            if (describeLoadBalancerPoliciesRequest.getLoadBalancerName() != null) {
-                request.addParameter("LoadBalancerName", StringUtils.fromString(describeLoadBalancerPoliciesRequest.getLoadBalancerName()));
-            }
-        }
-        if (describeLoadBalancerPoliciesRequest != null) {
-            java.util.List<String> policyNamesList = describeLoadBalancerPoliciesRequest.getPolicyNames();
-            int policyNamesListIndex = 1;
 
-            for (String policyNamesListValue : policyNamesList) {
-                if (policyNamesListValue != null) {
-                    request.addParameter("PolicyNames.member." + policyNamesListIndex, StringUtils.fromString(policyNamesListValue));
-                }
-                policyNamesListIndex++;
+        if (describeLoadBalancerPoliciesRequest.getLoadBalancerName() != null) {
+            request.addParameter("LoadBalancerName", StringUtils.fromString(describeLoadBalancerPoliciesRequest.getLoadBalancerName()));
+        }
+
+        java.util.List<String> policyNamesList = describeLoadBalancerPoliciesRequest.getPolicyNames();
+        int policyNamesListIndex = 1;
+
+        for (String policyNamesListValue : policyNamesList) {
+            if (policyNamesListValue != null) {
+                request.addParameter("PolicyNames.member." + policyNamesListIndex, StringUtils.fromString(policyNamesListValue));
             }
+
+            policyNamesListIndex++;
         }
 
 

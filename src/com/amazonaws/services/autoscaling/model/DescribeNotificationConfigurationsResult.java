@@ -22,7 +22,7 @@ package com.amazonaws.services.autoscaling.model;
 public class DescribeNotificationConfigurationsResult {
 
     /**
-     * The list of notification configurations.<i>Should we be clearer?</i>>
+     * The list of notification configurations.
      */
     private java.util.List<NotificationConfiguration> notificationConfigurations;
 
@@ -36,11 +36,12 @@ public class DescribeNotificationConfigurationsResult {
     private String nextToken;
 
     /**
-     * The list of notification configurations.<i>Should we be clearer?</i>>
+     * The list of notification configurations.
      *
-     * @return The list of notification configurations.<i>Should we be clearer?</i>>
+     * @return The list of notification configurations.
      */
     public java.util.List<NotificationConfiguration> getNotificationConfigurations() {
+        
         if (notificationConfigurations == null) {
             notificationConfigurations = new java.util.ArrayList<NotificationConfiguration>();
         }
@@ -48,9 +49,9 @@ public class DescribeNotificationConfigurationsResult {
     }
     
     /**
-     * The list of notification configurations.<i>Should we be clearer?</i>>
+     * The list of notification configurations.
      *
-     * @param notificationConfigurations The list of notification configurations.<i>Should we be clearer?</i>>
+     * @param notificationConfigurations The list of notification configurations.
      */
     public void setNotificationConfigurations(java.util.Collection<NotificationConfiguration> notificationConfigurations) {
         java.util.List<NotificationConfiguration> notificationConfigurationsCopy = new java.util.ArrayList<NotificationConfiguration>();
@@ -61,16 +62,17 @@ public class DescribeNotificationConfigurationsResult {
     }
     
     /**
-     * The list of notification configurations.<i>Should we be clearer?</i>>
+     * The list of notification configurations.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param notificationConfigurations The list of notification configurations.<i>Should we be clearer?</i>>
+     * @param notificationConfigurations The list of notification configurations.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
      */
     public DescribeNotificationConfigurationsResult withNotificationConfigurations(NotificationConfiguration... notificationConfigurations) {
+        if (getNotificationConfigurations() == null) setNotificationConfigurations(new java.util.ArrayList<NotificationConfiguration>());
         for (NotificationConfiguration value : notificationConfigurations) {
             getNotificationConfigurations().add(value);
         }
@@ -78,11 +80,11 @@ public class DescribeNotificationConfigurationsResult {
     }
     
     /**
-     * The list of notification configurations.<i>Should we be clearer?</i>>
+     * The list of notification configurations.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param notificationConfigurations The list of notification configurations.<i>Should we be clearer?</i>>
+     * @param notificationConfigurations The list of notification configurations.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

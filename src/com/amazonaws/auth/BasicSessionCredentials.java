@@ -14,10 +14,8 @@
  */
 package com.amazonaws.auth;
 
-
-
 /**
- * Simple credentials with canned keys and session token.
+ * Simple session credentials with keys and session token.
  */
 public class BasicSessionCredentials implements AWSSessionCredentials {
 
@@ -26,7 +24,6 @@ public class BasicSessionCredentials implements AWSSessionCredentials {
     private final String sessionToken;
     
     public BasicSessionCredentials(String awsAccessKey, String awsSecretKey, String sessionToken) {
-        super();
         this.awsAccessKey = awsAccessKey;
         this.awsSecretKey = awsSecretKey;
         this.sessionToken = sessionToken;

@@ -15,40 +15,51 @@
 package com.amazonaws.services.elasticloadbalancing.model;
 
 /**
- * Policy Description
+ * <p>
+ * The <code>PolicyDescription</code> data type.
+ * </p>
  */
 public class PolicyDescription {
 
+    /**
+     * The name mof the policy associated with the LoadBalancer.
+     */
     private String policyName;
 
+    /**
+     * The name of the policy type associated with the LoadBalancer.
+     */
     private String policyTypeName;
 
+    /**
+     * A list of policy attribute description structures.
+     */
     private java.util.List<PolicyAttributeDescription> policyAttributeDescriptions;
 
     /**
-     * Returns the value of the PolicyName property for this object.
+     * The name mof the policy associated with the LoadBalancer.
      *
-     * @return The value of the PolicyName property for this object.
+     * @return The name mof the policy associated with the LoadBalancer.
      */
     public String getPolicyName() {
         return policyName;
     }
     
     /**
-     * Sets the value of the PolicyName property for this object.
+     * The name mof the policy associated with the LoadBalancer.
      *
-     * @param policyName The new value for the PolicyName property for this object.
+     * @param policyName The name mof the policy associated with the LoadBalancer.
      */
     public void setPolicyName(String policyName) {
         this.policyName = policyName;
     }
     
     /**
-     * Sets the value of the PolicyName property for this object.
+     * The name mof the policy associated with the LoadBalancer.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param policyName The new value for the PolicyName property for this object.
+     * @param policyName The name mof the policy associated with the LoadBalancer.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -60,29 +71,29 @@ public class PolicyDescription {
     
     
     /**
-     * Returns the value of the PolicyTypeName property for this object.
+     * The name of the policy type associated with the LoadBalancer.
      *
-     * @return The value of the PolicyTypeName property for this object.
+     * @return The name of the policy type associated with the LoadBalancer.
      */
     public String getPolicyTypeName() {
         return policyTypeName;
     }
     
     /**
-     * Sets the value of the PolicyTypeName property for this object.
+     * The name of the policy type associated with the LoadBalancer.
      *
-     * @param policyTypeName The new value for the PolicyTypeName property for this object.
+     * @param policyTypeName The name of the policy type associated with the LoadBalancer.
      */
     public void setPolicyTypeName(String policyTypeName) {
         this.policyTypeName = policyTypeName;
     }
     
     /**
-     * Sets the value of the PolicyTypeName property for this object.
+     * The name of the policy type associated with the LoadBalancer.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param policyTypeName The new value for the PolicyTypeName property for this object.
+     * @param policyTypeName The name of the policy type associated with the LoadBalancer.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -94,12 +105,12 @@ public class PolicyDescription {
     
     
     /**
-     * Returns the value of the PolicyAttributeDescriptions property for this
-     * object.
+     * A list of policy attribute description structures.
      *
-     * @return The value of the PolicyAttributeDescriptions property for this object.
+     * @return A list of policy attribute description structures.
      */
     public java.util.List<PolicyAttributeDescription> getPolicyAttributeDescriptions() {
+        
         if (policyAttributeDescriptions == null) {
             policyAttributeDescriptions = new java.util.ArrayList<PolicyAttributeDescription>();
         }
@@ -107,11 +118,9 @@ public class PolicyDescription {
     }
     
     /**
-     * Sets the value of the PolicyAttributeDescriptions property for this
-     * object.
+     * A list of policy attribute description structures.
      *
-     * @param policyAttributeDescriptions The new value for the PolicyAttributeDescriptions property for this
-     *         object.
+     * @param policyAttributeDescriptions A list of policy attribute description structures.
      */
     public void setPolicyAttributeDescriptions(java.util.Collection<PolicyAttributeDescription> policyAttributeDescriptions) {
         java.util.List<PolicyAttributeDescription> policyAttributeDescriptionsCopy = new java.util.ArrayList<PolicyAttributeDescription>();
@@ -122,18 +131,17 @@ public class PolicyDescription {
     }
     
     /**
-     * Sets the value of the PolicyAttributeDescriptions property for this
-     * object.
+     * A list of policy attribute description structures.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param policyAttributeDescriptions The new value for the PolicyAttributeDescriptions property for this
-     *         object.
+     * @param policyAttributeDescriptions A list of policy attribute description structures.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
      */
     public PolicyDescription withPolicyAttributeDescriptions(PolicyAttributeDescription... policyAttributeDescriptions) {
+        if (getPolicyAttributeDescriptions() == null) setPolicyAttributeDescriptions(new java.util.ArrayList<PolicyAttributeDescription>());
         for (PolicyAttributeDescription value : policyAttributeDescriptions) {
             getPolicyAttributeDescriptions().add(value);
         }
@@ -141,13 +149,11 @@ public class PolicyDescription {
     }
     
     /**
-     * Sets the value of the PolicyAttributeDescriptions property for this
-     * object.
+     * A list of policy attribute description structures.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param policyAttributeDescriptions The new value for the PolicyAttributeDescriptions property for this
-     *         object.
+     * @param policyAttributeDescriptions A list of policy attribute description structures.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 

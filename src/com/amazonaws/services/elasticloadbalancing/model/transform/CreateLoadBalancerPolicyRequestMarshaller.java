@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.DefaultRequest;
 import com.amazonaws.services.elasticloadbalancing.model.*;
@@ -30,42 +31,40 @@ import com.amazonaws.util.StringUtils;
 public class CreateLoadBalancerPolicyRequestMarshaller implements Marshaller<Request<CreateLoadBalancerPolicyRequest>, CreateLoadBalancerPolicyRequest> {
 
     public Request<CreateLoadBalancerPolicyRequest> marshall(CreateLoadBalancerPolicyRequest createLoadBalancerPolicyRequest) {
+
+        if (createLoadBalancerPolicyRequest == null) {
+		    throw new AmazonClientException("Invalid argument passed to marshall(...)");
+		}
+
         Request<CreateLoadBalancerPolicyRequest> request = new DefaultRequest<CreateLoadBalancerPolicyRequest>(createLoadBalancerPolicyRequest, "AmazonElasticLoadBalancing");
         request.addParameter("Action", "CreateLoadBalancerPolicy");
         request.addParameter("Version", "2011-08-15");
-        if (createLoadBalancerPolicyRequest != null) {
-            if (createLoadBalancerPolicyRequest.getLoadBalancerName() != null) {
-                request.addParameter("LoadBalancerName", StringUtils.fromString(createLoadBalancerPolicyRequest.getLoadBalancerName()));
-            }
+
+        if (createLoadBalancerPolicyRequest.getLoadBalancerName() != null) {
+            request.addParameter("LoadBalancerName", StringUtils.fromString(createLoadBalancerPolicyRequest.getLoadBalancerName()));
         }
-        if (createLoadBalancerPolicyRequest != null) {
-            if (createLoadBalancerPolicyRequest.getPolicyName() != null) {
-                request.addParameter("PolicyName", StringUtils.fromString(createLoadBalancerPolicyRequest.getPolicyName()));
-            }
+        if (createLoadBalancerPolicyRequest.getPolicyName() != null) {
+            request.addParameter("PolicyName", StringUtils.fromString(createLoadBalancerPolicyRequest.getPolicyName()));
         }
-        if (createLoadBalancerPolicyRequest != null) {
-            if (createLoadBalancerPolicyRequest.getPolicyTypeName() != null) {
-                request.addParameter("PolicyTypeName", StringUtils.fromString(createLoadBalancerPolicyRequest.getPolicyTypeName()));
-            }
+        if (createLoadBalancerPolicyRequest.getPolicyTypeName() != null) {
+            request.addParameter("PolicyTypeName", StringUtils.fromString(createLoadBalancerPolicyRequest.getPolicyTypeName()));
         }
 
-        if (createLoadBalancerPolicyRequest != null) {
-            java.util.List<PolicyAttribute> policyAttributesList = createLoadBalancerPolicyRequest.getPolicyAttributes();
-            int policyAttributesListIndex = 1;
-            for (PolicyAttribute policyAttributesListValue : policyAttributesList) {
-                if (policyAttributesListValue != null) {
-                    if (policyAttributesListValue.getAttributeName() != null) {
-                        request.addParameter("PolicyAttributes.member." + policyAttributesListIndex + ".AttributeName", StringUtils.fromString(policyAttributesListValue.getAttributeName()));
-                    }
-                }
-                if (policyAttributesListValue != null) {
-                    if (policyAttributesListValue.getAttributeValue() != null) {
-                        request.addParameter("PolicyAttributes.member." + policyAttributesListIndex + ".AttributeValue", StringUtils.fromString(policyAttributesListValue.getAttributeValue()));
-                    }
-                }
+        java.util.List<PolicyAttribute> policyAttributesList = createLoadBalancerPolicyRequest.getPolicyAttributes();
+        int policyAttributesListIndex = 1;
 
-                policyAttributesListIndex++;
+        for (PolicyAttribute policyAttributesListValue : policyAttributesList) {
+            PolicyAttribute policyAttributeMember = policyAttributesListValue;
+            if (policyAttributeMember != null) {
+                if (policyAttributeMember.getAttributeName() != null) {
+                    request.addParameter("PolicyAttributes.member." + policyAttributesListIndex + ".AttributeName", StringUtils.fromString(policyAttributeMember.getAttributeName()));
+                }
+                if (policyAttributeMember.getAttributeValue() != null) {
+                    request.addParameter("PolicyAttributes.member." + policyAttributesListIndex + ".AttributeValue", StringUtils.fromString(policyAttributeMember.getAttributeValue()));
+                }
             }
+
+            policyAttributesListIndex++;
         }
 
 

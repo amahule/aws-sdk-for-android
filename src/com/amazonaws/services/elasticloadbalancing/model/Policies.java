@@ -15,14 +15,27 @@
 package com.amazonaws.services.elasticloadbalancing.model;
 
 /**
- * Policies
+ * <p>
+ * The policies data type.
+ * </p>
  */
 public class Policies {
 
+    /**
+     * A list of the <a>AppCookieStickinessPolicy</a> objects created with
+     * <a>CreateAppCookieStickinessPolicy</a>.
+     */
     private java.util.List<AppCookieStickinessPolicy> appCookieStickinessPolicies;
 
+    /**
+     * A list of <a>LBCookieStickinessPolicy</a> objects created with
+     * <a>CreateAppCookieStickinessPolicy</a>.
+     */
     private java.util.List<LBCookieStickinessPolicy> lBCookieStickinessPolicies;
 
+    /**
+     * A list of policy names other than the stickiness policies.
+     */
     private java.util.List<String> otherPolicies;
 
     /**
@@ -32,12 +45,14 @@ public class Policies {
     public Policies() {}
     
     /**
-     * Returns the value of the AppCookieStickinessPolicies property for this
-     * object.
+     * A list of the <a>AppCookieStickinessPolicy</a> objects created with
+     * <a>CreateAppCookieStickinessPolicy</a>.
      *
-     * @return The value of the AppCookieStickinessPolicies property for this object.
+     * @return A list of the <a>AppCookieStickinessPolicy</a> objects created with
+     *         <a>CreateAppCookieStickinessPolicy</a>.
      */
     public java.util.List<AppCookieStickinessPolicy> getAppCookieStickinessPolicies() {
+        
         if (appCookieStickinessPolicies == null) {
             appCookieStickinessPolicies = new java.util.ArrayList<AppCookieStickinessPolicy>();
         }
@@ -45,11 +60,11 @@ public class Policies {
     }
     
     /**
-     * Sets the value of the AppCookieStickinessPolicies property for this
-     * object.
+     * A list of the <a>AppCookieStickinessPolicy</a> objects created with
+     * <a>CreateAppCookieStickinessPolicy</a>.
      *
-     * @param appCookieStickinessPolicies The new value for the AppCookieStickinessPolicies property for this
-     *         object.
+     * @param appCookieStickinessPolicies A list of the <a>AppCookieStickinessPolicy</a> objects created with
+     *         <a>CreateAppCookieStickinessPolicy</a>.
      */
     public void setAppCookieStickinessPolicies(java.util.Collection<AppCookieStickinessPolicy> appCookieStickinessPolicies) {
         java.util.List<AppCookieStickinessPolicy> appCookieStickinessPoliciesCopy = new java.util.ArrayList<AppCookieStickinessPolicy>();
@@ -60,18 +75,19 @@ public class Policies {
     }
     
     /**
-     * Sets the value of the AppCookieStickinessPolicies property for this
-     * object.
+     * A list of the <a>AppCookieStickinessPolicy</a> objects created with
+     * <a>CreateAppCookieStickinessPolicy</a>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param appCookieStickinessPolicies The new value for the AppCookieStickinessPolicies property for this
-     *         object.
+     * @param appCookieStickinessPolicies A list of the <a>AppCookieStickinessPolicy</a> objects created with
+     *         <a>CreateAppCookieStickinessPolicy</a>.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
      */
     public Policies withAppCookieStickinessPolicies(AppCookieStickinessPolicy... appCookieStickinessPolicies) {
+        if (getAppCookieStickinessPolicies() == null) setAppCookieStickinessPolicies(new java.util.ArrayList<AppCookieStickinessPolicy>());
         for (AppCookieStickinessPolicy value : appCookieStickinessPolicies) {
             getAppCookieStickinessPolicies().add(value);
         }
@@ -79,13 +95,13 @@ public class Policies {
     }
     
     /**
-     * Sets the value of the AppCookieStickinessPolicies property for this
-     * object.
+     * A list of the <a>AppCookieStickinessPolicy</a> objects created with
+     * <a>CreateAppCookieStickinessPolicy</a>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param appCookieStickinessPolicies The new value for the AppCookieStickinessPolicies property for this
-     *         object.
+     * @param appCookieStickinessPolicies A list of the <a>AppCookieStickinessPolicy</a> objects created with
+     *         <a>CreateAppCookieStickinessPolicy</a>.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -101,12 +117,14 @@ public class Policies {
     }
     
     /**
-     * Returns the value of the LBCookieStickinessPolicies property for this
-     * object.
+     * A list of <a>LBCookieStickinessPolicy</a> objects created with
+     * <a>CreateAppCookieStickinessPolicy</a>.
      *
-     * @return The value of the LBCookieStickinessPolicies property for this object.
+     * @return A list of <a>LBCookieStickinessPolicy</a> objects created with
+     *         <a>CreateAppCookieStickinessPolicy</a>.
      */
     public java.util.List<LBCookieStickinessPolicy> getLBCookieStickinessPolicies() {
+        
         if (lBCookieStickinessPolicies == null) {
             lBCookieStickinessPolicies = new java.util.ArrayList<LBCookieStickinessPolicy>();
         }
@@ -114,11 +132,11 @@ public class Policies {
     }
     
     /**
-     * Sets the value of the LBCookieStickinessPolicies property for this
-     * object.
+     * A list of <a>LBCookieStickinessPolicy</a> objects created with
+     * <a>CreateAppCookieStickinessPolicy</a>.
      *
-     * @param lBCookieStickinessPolicies The new value for the LBCookieStickinessPolicies property for this
-     *         object.
+     * @param lBCookieStickinessPolicies A list of <a>LBCookieStickinessPolicy</a> objects created with
+     *         <a>CreateAppCookieStickinessPolicy</a>.
      */
     public void setLBCookieStickinessPolicies(java.util.Collection<LBCookieStickinessPolicy> lBCookieStickinessPolicies) {
         java.util.List<LBCookieStickinessPolicy> lBCookieStickinessPoliciesCopy = new java.util.ArrayList<LBCookieStickinessPolicy>();
@@ -129,18 +147,19 @@ public class Policies {
     }
     
     /**
-     * Sets the value of the LBCookieStickinessPolicies property for this
-     * object.
+     * A list of <a>LBCookieStickinessPolicy</a> objects created with
+     * <a>CreateAppCookieStickinessPolicy</a>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param lBCookieStickinessPolicies The new value for the LBCookieStickinessPolicies property for this
-     *         object.
+     * @param lBCookieStickinessPolicies A list of <a>LBCookieStickinessPolicy</a> objects created with
+     *         <a>CreateAppCookieStickinessPolicy</a>.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
      */
     public Policies withLBCookieStickinessPolicies(LBCookieStickinessPolicy... lBCookieStickinessPolicies) {
+        if (getLBCookieStickinessPolicies() == null) setLBCookieStickinessPolicies(new java.util.ArrayList<LBCookieStickinessPolicy>());
         for (LBCookieStickinessPolicy value : lBCookieStickinessPolicies) {
             getLBCookieStickinessPolicies().add(value);
         }
@@ -148,13 +167,13 @@ public class Policies {
     }
     
     /**
-     * Sets the value of the LBCookieStickinessPolicies property for this
-     * object.
+     * A list of <a>LBCookieStickinessPolicy</a> objects created with
+     * <a>CreateAppCookieStickinessPolicy</a>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param lBCookieStickinessPolicies The new value for the LBCookieStickinessPolicies property for this
-     *         object.
+     * @param lBCookieStickinessPolicies A list of <a>LBCookieStickinessPolicy</a> objects created with
+     *         <a>CreateAppCookieStickinessPolicy</a>.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -170,11 +189,12 @@ public class Policies {
     }
     
     /**
-     * Returns the value of the OtherPolicies property for this object.
+     * A list of policy names other than the stickiness policies.
      *
-     * @return The value of the OtherPolicies property for this object.
+     * @return A list of policy names other than the stickiness policies.
      */
     public java.util.List<String> getOtherPolicies() {
+        
         if (otherPolicies == null) {
             otherPolicies = new java.util.ArrayList<String>();
         }
@@ -182,9 +202,9 @@ public class Policies {
     }
     
     /**
-     * Sets the value of the OtherPolicies property for this object.
+     * A list of policy names other than the stickiness policies.
      *
-     * @param otherPolicies The new value for the OtherPolicies property for this object.
+     * @param otherPolicies A list of policy names other than the stickiness policies.
      */
     public void setOtherPolicies(java.util.Collection<String> otherPolicies) {
         java.util.List<String> otherPoliciesCopy = new java.util.ArrayList<String>();
@@ -195,16 +215,17 @@ public class Policies {
     }
     
     /**
-     * Sets the value of the OtherPolicies property for this object.
+     * A list of policy names other than the stickiness policies.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param otherPolicies The new value for the OtherPolicies property for this object.
+     * @param otherPolicies A list of policy names other than the stickiness policies.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
      */
     public Policies withOtherPolicies(String... otherPolicies) {
+        if (getOtherPolicies() == null) setOtherPolicies(new java.util.ArrayList<String>());
         for (String value : otherPolicies) {
             getOtherPolicies().add(value);
         }
@@ -212,11 +233,11 @@ public class Policies {
     }
     
     /**
-     * Sets the value of the OtherPolicies property for this object.
+     * A list of policy names other than the stickiness policies.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param otherPolicies The new value for the OtherPolicies property for this object.
+     * @param otherPolicies A list of policy names other than the stickiness policies.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
