@@ -39,7 +39,7 @@ public abstract class AmazonWebServiceRequest {
      */
 	private AWSCredentials credentials;
 
-    
+
     /**
      * Returns the optional STS security token associated with the request.
      *

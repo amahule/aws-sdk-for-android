@@ -106,7 +106,7 @@ public class RevokeSecurityGroupIngressRequestMarshaller implements Marshaller<R
 
                 for (String ipRangesListValue : ipRangesList) {
                     if (ipRangesListValue != null) {
-                        request.addParameter("IpPermissions." + ipPermissionsListIndex + ".IpRanges." + ipRangesListIndex, StringUtils.fromString(ipRangesListValue));
+                        request.addParameter("IpPermissions." + ipPermissionsListIndex + ".IpRanges." + ipRangesListIndex + ".CidrIp", StringUtils.fromString(ipRangesListValue));
                     }
 
                     ipRangesListIndex++;
