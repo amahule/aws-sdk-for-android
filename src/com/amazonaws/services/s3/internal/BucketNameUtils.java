@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -98,22 +98,10 @@ public class BucketNameUtils {
         }
     }
 
-
+    /**
+     * Convience method that allows the DNS rules to be altered for different SDKs.
+     */    
     public boolean isDNSBucketName(String bucketName) {
-        if (bucketName == null) return false;
-
-        if (bucketName.length() < 3 || bucketName.length() > 63) return false;
-        
-        if (bucketName.endsWith("-")) return false;
-
-        if (bucketName.contains("_")) return false;
-
-        if (bucketName.contains(".")) return false;
-
-        if (bucketName.contains("-.") || bucketName.contains(".-")) return false;
-
-        if (!bucketName.toLowerCase().equals(bucketName)) return false;
-
-        return true;
+        return isValidV2BucketName( bucketName );
     }
 }

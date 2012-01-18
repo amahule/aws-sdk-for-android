@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ public class ConfirmProductInstanceRequestMarshaller implements Marshaller<Reque
 
         Request<ConfirmProductInstanceRequest> request = new DefaultRequest<ConfirmProductInstanceRequest>(confirmProductInstanceRequest, "AmazonEC2");
         request.addParameter("Action", "ConfirmProductInstance");
-        request.addParameter("Version", "2011-05-15");
+        request.addParameter("Version", "2011-11-01");
 
         if (confirmProductInstanceRequest.getProductCode() != null) {
             request.addParameter("ProductCode", StringUtils.fromString(confirmProductInstanceRequest.getProductCode()));

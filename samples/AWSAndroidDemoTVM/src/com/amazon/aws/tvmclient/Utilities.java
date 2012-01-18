@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -57,7 +57,7 @@ public class Utilities {
         
         public String getSignature( String dataToSign, String key ) {
             try {
-                return super.sign( dataToSign.getBytes( "UTF-8" ), key, SigningAlgorithm.HmacSHA256 );
+				return super.signAndBase64Encode( dataToSign.getBytes( "UTF-8" ), key, SigningAlgorithm.HmacSHA256 );
             }
             catch ( Exception exception ) {
                 return null;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -78,6 +78,14 @@ public class LoadBalancerDescriptionStaxUnmarshaller implements Unmarshaller<Loa
                     loadBalancerDescription.getAvailabilityZones().add(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
+                if (context.testExpression("Subnets/member", targetDepth)) {
+                    loadBalancerDescription.getSubnets().add(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+                if (context.testExpression("VPCId", targetDepth)) {
+                    loadBalancerDescription.setVPCId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
                 if (context.testExpression("Instances/member", targetDepth)) {
                     loadBalancerDescription.getInstances().add(InstanceStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
@@ -88,6 +96,10 @@ public class LoadBalancerDescriptionStaxUnmarshaller implements Unmarshaller<Loa
                 }
                 if (context.testExpression("SourceSecurityGroup", targetDepth)) {
                     loadBalancerDescription.setSourceSecurityGroup(SourceSecurityGroupStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+                if (context.testExpression("SecurityGroups/member", targetDepth)) {
+                    loadBalancerDescription.getSecurityGroups().add(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
                 if (context.testExpression("CreatedTime", targetDepth)) {

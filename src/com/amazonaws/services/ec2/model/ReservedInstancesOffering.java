@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ public class ReservedInstancesOffering {
      * The instance type on which the Reserved Instances can be used.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>t1.micro, m1.small, m1.large, m1.xlarge, m2.xlarge, m2.2xlarge, m2.4xlarge, c1.medium, c1.xlarge, cc1.4xlarge, cg1.4xlarge
+     * <b>Allowed Values: </b>t1.micro, m1.small, m1.large, m1.xlarge, m2.xlarge, m2.2xlarge, m2.4xlarge, c1.medium, c1.xlarge, cc1.4xlarge, cc2.8xlarge, cg1.4xlarge
      */
     private String instanceType;
 
@@ -71,6 +71,16 @@ public class ReservedInstancesOffering {
     private String currencyCode;
 
     /**
+     * The Reserved Instance offering type.
+     */
+    private String offeringType;
+
+    /**
+     * The recurring charge tag assigned to the resource.
+     */
+    private java.util.List<RecurringCharge> recurringCharges;
+
+    /**
      * The unique ID of this Reserved Instances offering.
      *
      * @return The unique ID of this Reserved Instances offering.
@@ -108,7 +118,7 @@ public class ReservedInstancesOffering {
      * The instance type on which the Reserved Instances can be used.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>t1.micro, m1.small, m1.large, m1.xlarge, m2.xlarge, m2.2xlarge, m2.4xlarge, c1.medium, c1.xlarge, cc1.4xlarge, cg1.4xlarge
+     * <b>Allowed Values: </b>t1.micro, m1.small, m1.large, m1.xlarge, m2.xlarge, m2.2xlarge, m2.4xlarge, c1.medium, c1.xlarge, cc1.4xlarge, cc2.8xlarge, cg1.4xlarge
      *
      * @return The instance type on which the Reserved Instances can be used.
      *
@@ -122,7 +132,7 @@ public class ReservedInstancesOffering {
      * The instance type on which the Reserved Instances can be used.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>t1.micro, m1.small, m1.large, m1.xlarge, m2.xlarge, m2.2xlarge, m2.4xlarge, c1.medium, c1.xlarge, cc1.4xlarge, cg1.4xlarge
+     * <b>Allowed Values: </b>t1.micro, m1.small, m1.large, m1.xlarge, m2.xlarge, m2.2xlarge, m2.4xlarge, c1.medium, c1.xlarge, cc1.4xlarge, cc2.8xlarge, cg1.4xlarge
      *
      * @param instanceType The instance type on which the Reserved Instances can be used.
      *
@@ -138,7 +148,7 @@ public class ReservedInstancesOffering {
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>t1.micro, m1.small, m1.large, m1.xlarge, m2.xlarge, m2.2xlarge, m2.4xlarge, c1.medium, c1.xlarge, cc1.4xlarge, cg1.4xlarge
+     * <b>Allowed Values: </b>t1.micro, m1.small, m1.large, m1.xlarge, m2.xlarge, m2.2xlarge, m2.4xlarge, c1.medium, c1.xlarge, cc1.4xlarge, cc2.8xlarge, cg1.4xlarge
      *
      * @param instanceType The instance type on which the Reserved Instances can be used.
      *
@@ -152,6 +162,40 @@ public class ReservedInstancesOffering {
         return this;
     }
     
+    
+    /**
+     * The instance type on which the Reserved Instances can be used.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>t1.micro, m1.small, m1.large, m1.xlarge, m2.xlarge, m2.2xlarge, m2.4xlarge, c1.medium, c1.xlarge, cc1.4xlarge, cc2.8xlarge, cg1.4xlarge
+     *
+     * @param instanceType The instance type on which the Reserved Instances can be used.
+     *
+     * @see InstanceType
+     */
+    public void setInstanceType(InstanceType instanceType) {
+        this.instanceType = instanceType.toString();
+    }
+    
+    /**
+     * The instance type on which the Reserved Instances can be used.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>t1.micro, m1.small, m1.large, m1.xlarge, m2.xlarge, m2.2xlarge, m2.4xlarge, c1.medium, c1.xlarge, cc1.4xlarge, cc2.8xlarge, cg1.4xlarge
+     *
+     * @param instanceType The instance type on which the Reserved Instances can be used.
+     *
+     * @return A reference to this updated object so that method calls can be chained 
+     *         together. 
+     *
+     * @see InstanceType
+     */
+    public ReservedInstancesOffering withInstanceType(InstanceType instanceType) {
+        this.instanceType = instanceType.toString();
+        return this;
+    }
     
     /**
      * The Availability Zone in which the Reserved Instances can be used.
@@ -398,6 +442,109 @@ public class ReservedInstancesOffering {
     
     
     /**
+     * The Reserved Instance offering type.
+     *
+     * @return The Reserved Instance offering type.
+     */
+    public String getOfferingType() {
+        return offeringType;
+    }
+    
+    /**
+     * The Reserved Instance offering type.
+     *
+     * @param offeringType The Reserved Instance offering type.
+     */
+    public void setOfferingType(String offeringType) {
+        this.offeringType = offeringType;
+    }
+    
+    /**
+     * The Reserved Instance offering type.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param offeringType The Reserved Instance offering type.
+     *
+     * @return A reference to this updated object so that method calls can be chained 
+     *         together. 
+     */
+    public ReservedInstancesOffering withOfferingType(String offeringType) {
+        this.offeringType = offeringType;
+        return this;
+    }
+    
+    
+    /**
+     * The recurring charge tag assigned to the resource.
+     *
+     * @return The recurring charge tag assigned to the resource.
+     */
+    public java.util.List<RecurringCharge> getRecurringCharges() {
+        
+        if (recurringCharges == null) {
+            recurringCharges = new java.util.ArrayList<RecurringCharge>();
+        }
+        return recurringCharges;
+    }
+    
+    /**
+     * The recurring charge tag assigned to the resource.
+     *
+     * @param recurringCharges The recurring charge tag assigned to the resource.
+     */
+    public void setRecurringCharges(java.util.Collection<RecurringCharge> recurringCharges) {
+        if (recurringCharges == null) {
+            this.recurringCharges = null;
+            return;
+        }
+
+        java.util.List<RecurringCharge> recurringChargesCopy = new java.util.ArrayList<RecurringCharge>(recurringCharges.size());
+        recurringChargesCopy.addAll(recurringCharges);
+        this.recurringCharges = recurringChargesCopy;
+    }
+    
+    /**
+     * The recurring charge tag assigned to the resource.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param recurringCharges The recurring charge tag assigned to the resource.
+     *
+     * @return A reference to this updated object so that method calls can be chained 
+     *         together. 
+     */
+    public ReservedInstancesOffering withRecurringCharges(RecurringCharge... recurringCharges) {
+        if (getRecurringCharges() == null) setRecurringCharges(new java.util.ArrayList<RecurringCharge>(recurringCharges.length));
+        for (RecurringCharge value : recurringCharges) {
+            getRecurringCharges().add(value);
+        }
+        return this;
+    }
+    
+    /**
+     * The recurring charge tag assigned to the resource.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param recurringCharges The recurring charge tag assigned to the resource.
+     *
+     * @return A reference to this updated object so that method calls can be chained 
+     *         together. 
+     */
+    public ReservedInstancesOffering withRecurringCharges(java.util.Collection<RecurringCharge> recurringCharges) {
+        if (recurringCharges == null) {
+            this.recurringCharges = null;
+        } else {
+            java.util.List<RecurringCharge> recurringChargesCopy = new java.util.ArrayList<RecurringCharge>(recurringCharges.size());
+            recurringChargesCopy.addAll(recurringCharges);
+            this.recurringCharges = recurringChargesCopy;
+        }
+
+        return this;
+    }
+    
+    /**
      * Returns a string representation of this object; useful for testing and
      * debugging.
      *
@@ -409,17 +556,71 @@ public class ReservedInstancesOffering {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        sb.append("ReservedInstancesOfferingId: " + reservedInstancesOfferingId + ", ");
-        sb.append("InstanceType: " + instanceType + ", ");
-        sb.append("AvailabilityZone: " + availabilityZone + ", ");
-        sb.append("Duration: " + duration + ", ");
-        sb.append("UsagePrice: " + usagePrice + ", ");
-        sb.append("FixedPrice: " + fixedPrice + ", ");
-        sb.append("ProductDescription: " + productDescription + ", ");
-        sb.append("InstanceTenancy: " + instanceTenancy + ", ");
-        sb.append("CurrencyCode: " + currencyCode + ", ");
+        if (reservedInstancesOfferingId != null) sb.append("ReservedInstancesOfferingId: " + reservedInstancesOfferingId + ", ");
+        if (instanceType != null) sb.append("InstanceType: " + instanceType + ", ");
+        if (availabilityZone != null) sb.append("AvailabilityZone: " + availabilityZone + ", ");
+        if (duration != null) sb.append("Duration: " + duration + ", ");
+        if (usagePrice != null) sb.append("UsagePrice: " + usagePrice + ", ");
+        if (fixedPrice != null) sb.append("FixedPrice: " + fixedPrice + ", ");
+        if (productDescription != null) sb.append("ProductDescription: " + productDescription + ", ");
+        if (instanceTenancy != null) sb.append("InstanceTenancy: " + instanceTenancy + ", ");
+        if (currencyCode != null) sb.append("CurrencyCode: " + currencyCode + ", ");
+        if (offeringType != null) sb.append("OfferingType: " + offeringType + ", ");
+        if (recurringCharges != null) sb.append("RecurringCharges: " + recurringCharges + ", ");
         sb.append("}");
         return sb.toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+        
+        hashCode = prime * hashCode + ((getReservedInstancesOfferingId() == null) ? 0 : getReservedInstancesOfferingId().hashCode()); 
+        hashCode = prime * hashCode + ((getInstanceType() == null) ? 0 : getInstanceType().hashCode()); 
+        hashCode = prime * hashCode + ((getAvailabilityZone() == null) ? 0 : getAvailabilityZone().hashCode()); 
+        hashCode = prime * hashCode + ((getDuration() == null) ? 0 : getDuration().hashCode()); 
+        hashCode = prime * hashCode + ((getUsagePrice() == null) ? 0 : getUsagePrice().hashCode()); 
+        hashCode = prime * hashCode + ((getFixedPrice() == null) ? 0 : getFixedPrice().hashCode()); 
+        hashCode = prime * hashCode + ((getProductDescription() == null) ? 0 : getProductDescription().hashCode()); 
+        hashCode = prime * hashCode + ((getInstanceTenancy() == null) ? 0 : getInstanceTenancy().hashCode()); 
+        hashCode = prime * hashCode + ((getCurrencyCode() == null) ? 0 : getCurrencyCode().hashCode()); 
+        hashCode = prime * hashCode + ((getOfferingType() == null) ? 0 : getOfferingType().hashCode()); 
+        hashCode = prime * hashCode + ((getRecurringCharges() == null) ? 0 : getRecurringCharges().hashCode()); 
+        return hashCode;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+    
+        if (obj instanceof ReservedInstancesOffering == false) return false;
+        ReservedInstancesOffering other = (ReservedInstancesOffering)obj;
+        
+        if (other.getReservedInstancesOfferingId() == null ^ this.getReservedInstancesOfferingId() == null) return false;
+        if (other.getReservedInstancesOfferingId() != null && other.getReservedInstancesOfferingId().equals(this.getReservedInstancesOfferingId()) == false) return false; 
+        if (other.getInstanceType() == null ^ this.getInstanceType() == null) return false;
+        if (other.getInstanceType() != null && other.getInstanceType().equals(this.getInstanceType()) == false) return false; 
+        if (other.getAvailabilityZone() == null ^ this.getAvailabilityZone() == null) return false;
+        if (other.getAvailabilityZone() != null && other.getAvailabilityZone().equals(this.getAvailabilityZone()) == false) return false; 
+        if (other.getDuration() == null ^ this.getDuration() == null) return false;
+        if (other.getDuration() != null && other.getDuration().equals(this.getDuration()) == false) return false; 
+        if (other.getUsagePrice() == null ^ this.getUsagePrice() == null) return false;
+        if (other.getUsagePrice() != null && other.getUsagePrice().equals(this.getUsagePrice()) == false) return false; 
+        if (other.getFixedPrice() == null ^ this.getFixedPrice() == null) return false;
+        if (other.getFixedPrice() != null && other.getFixedPrice().equals(this.getFixedPrice()) == false) return false; 
+        if (other.getProductDescription() == null ^ this.getProductDescription() == null) return false;
+        if (other.getProductDescription() != null && other.getProductDescription().equals(this.getProductDescription()) == false) return false; 
+        if (other.getInstanceTenancy() == null ^ this.getInstanceTenancy() == null) return false;
+        if (other.getInstanceTenancy() != null && other.getInstanceTenancy().equals(this.getInstanceTenancy()) == false) return false; 
+        if (other.getCurrencyCode() == null ^ this.getCurrencyCode() == null) return false;
+        if (other.getCurrencyCode() != null && other.getCurrencyCode().equals(this.getCurrencyCode()) == false) return false; 
+        if (other.getOfferingType() == null ^ this.getOfferingType() == null) return false;
+        if (other.getOfferingType() != null && other.getOfferingType().equals(this.getOfferingType()) == false) return false; 
+        if (other.getRecurringCharges() == null ^ this.getRecurringCharges() == null) return false;
+        if (other.getRecurringCharges() != null && other.getRecurringCharges().equals(this.getRecurringCharges()) == false) return false; 
+        return true;
     }
     
 }

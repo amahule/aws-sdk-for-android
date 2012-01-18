@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -33,7 +33,6 @@ import javax.xml.xpath.XPathFactory;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -48,6 +47,10 @@ import com.amazonaws.AmazonClientException;
  */
 public class XpathUtils {
 
+    private static XPathFactory xpathFactory = XPathFactory.newInstance();
+
+    private static XPath xpath = xpathFactory.newXPath();
+
     /** Shared DateUtils object for parsing and formatting dates */
     private static DateUtils dateUtils = new DateUtils();
 
@@ -59,10 +62,10 @@ public class XpathUtils {
 
     public static Document documentFrom(InputStream is)
             throws SAXException, IOException, ParserConfigurationException {
+
         is = new NamespaceRemovingInputStream(is);
         Document doc = factory.newDocumentBuilder().parse(is);
         is.close();
-		
         return doc;
     }
 
@@ -94,7 +97,7 @@ public class XpathUtils {
     public static Double asDouble(String expression, Node node)
             throws XPathExpressionException {
         String doubleString = evaluateAsString(expression, node);
-        return (isEmptyString(doubleString)) ? null : Double.valueOf(doubleString);
+        return (isEmptyString(doubleString)) ? null : Double.parseDouble(doubleString);
     }
 
     /**
@@ -135,7 +138,7 @@ public class XpathUtils {
     public static Integer asInteger(String expression, Node node)
             throws XPathExpressionException {
         String intString = evaluateAsString(expression, node);
-        return (isEmptyString(intString)) ? null : Integer.valueOf(intString);
+        return (isEmptyString(intString)) ? null : Integer.parseInt(intString);
     }
 
     /**
@@ -156,7 +159,7 @@ public class XpathUtils {
     public static Boolean asBoolean(String expression, Node node)
             throws XPathExpressionException {
         String booleanString = evaluateAsString(expression, node);
-        return (isEmptyString(booleanString)) ? null : Boolean.valueOf(booleanString);
+        return (isEmptyString(booleanString)) ? null : Boolean.parseBoolean(booleanString);
     }
 
     /**
@@ -198,7 +201,7 @@ public class XpathUtils {
     public static Long asLong(String expression, Node node)
             throws XPathExpressionException {
         String longString = evaluateAsString(expression, node);
-        return (isEmptyString(longString)) ? null : Long.valueOf(longString);
+        return (isEmptyString(longString)) ? null : Long.parseLong(longString);
     }
 
     /**
@@ -296,6 +299,27 @@ public class XpathUtils {
     }
 
     /**
+     * Evaluates the specified XPath expression and returns the result as a
+     * Node.
+     *
+     * @param nodeName
+     *            The XPath expression to evaluate.
+     * @param node
+     *            The node to run the expression on.
+     *
+     * @return The Node result.
+     *
+     * @throws XPathExpressionException
+     *             If there was a problem processing the specified XPath
+     *             expression.
+     */
+    public static Node asNode(String nodeName, Node node)
+            throws XPathExpressionException {
+        if (node == null) return null;
+        return (Node) xpath.evaluate(nodeName, node, XPathConstants.NODE);
+    }
+
+    /**
      * Returns the length of the specified node list.
      *
      * @param list
@@ -325,25 +349,23 @@ public class XpathUtils {
     private static String evaluateAsString(String expression, Node node) throws XPathExpressionException {
         if (isEmpty(node)) return null;
 
-		String s = evaluateXPath( node, expression );
-		if ( s == null ) {
-			return null;
-		}
-		else {
-	        return s.trim();
-		}
-    }
+        if (expression != ".") {
+            /*
+             * If the expression being evaluated doesn't select a node, we want
+             * to return null to distinguish between cases where a node isn't
+             * present (which should be represented as null) and when a node is
+             * present, but empty (which should be represented as the empty
+             * string).
+             *
+             * We skip this test if the expression is "." since we've already
+             * checked that the node exists.
+             */
+            if (asNode(expression, node) == null) return null;
+        }
 
-    public static Node asNode(String nodeName, Node node)
-            throws XPathExpressionException {
-        if (node == null) return null;
-        return findXPathNode(node, nodeName);
-    }
+        String s = xpath.evaluate(expression, node);
 
-    public static NodeList asNodeList(String nodeName, Node node)
-            throws XPathExpressionException {
-        if (node == null) return null;
-        return findXPathNodeList(node, nodeName);
+        return s.trim();
     }
 
     /**
@@ -359,112 +381,5 @@ public class XpathUtils {
 
         return false;
     }
-	
-	private static String evaluateXPath( Node node, String xPath ) {
-		int currentSearchIndex = 0;
-		while ( currentSearchIndex < xPath.length() ) {
-		
-			int endingIndex = xPath.indexOf( "/", currentSearchIndex );
-			
-			String noderNameFromXPath = null;
-			if ( endingIndex == -1 ) {
-				noderNameFromXPath = xPath.substring( currentSearchIndex );
-			}
-			else {
-				noderNameFromXPath = xPath.substring( currentSearchIndex, endingIndex );
-			}
-			
-			node = findChildNodeWithName( node, noderNameFromXPath );
-			
-			if ( endingIndex == -1 ) {
-				break;
-			}
-			
-			currentSearchIndex = endingIndex + 1;
-		}
-		
-		if ( node != null && node.getFirstChild() != null ) {
-			return node.getFirstChild().getNodeValue();
-		}
-		else if ( node != null ) {
-			return node.getNodeValue();
-		}
-		else {
-			return null;
-		}		
-	}
-	
-	private static Node findXPathNode( Node node, String xPath ) {
-		int currentSearchIndex = 0;
-		while ( currentSearchIndex < xPath.length() ) {
-		
-			int endingIndex = xPath.indexOf( "/", currentSearchIndex );
-			
-			String noderNameFromXPath = null;
-			if ( endingIndex == -1 ) {
-				noderNameFromXPath = xPath.substring( currentSearchIndex );
-			}
-			else {
-				noderNameFromXPath = xPath.substring( currentSearchIndex, endingIndex );
-			}
-			
-			node = findChildNodeWithName( node, noderNameFromXPath );
-			
-			if ( endingIndex == -1 ) {
-				break;
-			}
-			
-			currentSearchIndex = endingIndex + 1;
-		}
-		
-		return node;
-	}
-	
-	private static NodeList findXPathNodeList( Node node, String xPath ) {
-		int currentSearchIndex = 0;
-		while ( currentSearchIndex < xPath.length() ) {
-		
-			int endingIndex = xPath.indexOf( "/", currentSearchIndex );
-			
-			String noderNameFromXPath = null;
-			if ( endingIndex == -1 ) {
-				noderNameFromXPath = xPath.substring( currentSearchIndex );
-			}
-			else {
-				noderNameFromXPath = xPath.substring( currentSearchIndex, endingIndex );
-			}
-			
-			node = findChildNodeWithName( node, noderNameFromXPath );
-			
-			if ( endingIndex == -1 ) {
-				break;
-			}
-			
-			currentSearchIndex = endingIndex + 1;
-		}
-		
-		return node.getChildNodes();
-	}
-
-	private static Node findChildNodeWithName( Node node, String childName ) {
-		if ( node == null ) {
-			return null;
-		}
-		else {
-			if ( node.getNodeName().equals( childName ) ) {
-				return node;
-			}
-			else {		
-				NodeList nodeList = node.getChildNodes();
-				for ( int i = 0; i < nodeList.getLength(); i++ ) {
-					if ( nodeList.item( i ).getNodeName().equals( childName ) ) {
-						return nodeList.item( i );
-					}
-				}
-				
-				return null;
-			}
-		}		
-	}
 
 }

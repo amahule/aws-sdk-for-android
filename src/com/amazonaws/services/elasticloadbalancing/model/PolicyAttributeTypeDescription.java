@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -49,9 +49,6 @@ public class PolicyAttributeTypeDescription {
      * be supplied</li> <li>ZERO_OR_MORE(0..*) : Optional. Multiple values
      * are allowed</li> <li>ONE_OR_MORE(1..*0) : Required. Multiple values
      * are allowed</li> </ul>
-     * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>ONE, ZERO_OR_ONE, ZERO_OR_MORE, ONE_OR_MORE
      */
     private String cardinality;
 
@@ -197,17 +194,12 @@ public class PolicyAttributeTypeDescription {
      * be supplied</li> <li>ZERO_OR_MORE(0..*) : Optional. Multiple values
      * are allowed</li> <li>ONE_OR_MORE(1..*0) : Required. Multiple values
      * are allowed</li> </ul>
-     * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>ONE, ZERO_OR_ONE, ZERO_OR_MORE, ONE_OR_MORE
      *
      * @return The cardinality of the attribute. Valid Values: <ul> <li>ONE(1) :
      *         Single value required</li> <li>ZERO_OR_ONE(0..1) : Up to one value can
      *         be supplied</li> <li>ZERO_OR_MORE(0..*) : Optional. Multiple values
      *         are allowed</li> <li>ONE_OR_MORE(1..*0) : Required. Multiple values
      *         are allowed</li> </ul>
-     *
-     * @see Cardinality
      */
     public String getCardinality() {
         return cardinality;
@@ -219,17 +211,12 @@ public class PolicyAttributeTypeDescription {
      * be supplied</li> <li>ZERO_OR_MORE(0..*) : Optional. Multiple values
      * are allowed</li> <li>ONE_OR_MORE(1..*0) : Required. Multiple values
      * are allowed</li> </ul>
-     * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>ONE, ZERO_OR_ONE, ZERO_OR_MORE, ONE_OR_MORE
      *
      * @param cardinality The cardinality of the attribute. Valid Values: <ul> <li>ONE(1) :
      *         Single value required</li> <li>ZERO_OR_ONE(0..1) : Up to one value can
      *         be supplied</li> <li>ZERO_OR_MORE(0..*) : Optional. Multiple values
      *         are allowed</li> <li>ONE_OR_MORE(1..*0) : Required. Multiple values
      *         are allowed</li> </ul>
-     *
-     * @see Cardinality
      */
     public void setCardinality(String cardinality) {
         this.cardinality = cardinality;
@@ -243,9 +230,6 @@ public class PolicyAttributeTypeDescription {
      * are allowed</li> </ul>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
-     * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>ONE, ZERO_OR_ONE, ZERO_OR_MORE, ONE_OR_MORE
      *
      * @param cardinality The cardinality of the attribute. Valid Values: <ul> <li>ONE(1) :
      *         Single value required</li> <li>ZERO_OR_ONE(0..1) : Up to one value can
@@ -255,8 +239,6 @@ public class PolicyAttributeTypeDescription {
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
-     *
-     * @see Cardinality
      */
     public PolicyAttributeTypeDescription withCardinality(String cardinality) {
         this.cardinality = cardinality;
@@ -276,13 +258,47 @@ public class PolicyAttributeTypeDescription {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        sb.append("AttributeName: " + attributeName + ", ");
-        sb.append("AttributeType: " + attributeType + ", ");
-        sb.append("Description: " + description + ", ");
-        sb.append("DefaultValue: " + defaultValue + ", ");
-        sb.append("Cardinality: " + cardinality + ", ");
+        if (attributeName != null) sb.append("AttributeName: " + attributeName + ", ");
+        if (attributeType != null) sb.append("AttributeType: " + attributeType + ", ");
+        if (description != null) sb.append("Description: " + description + ", ");
+        if (defaultValue != null) sb.append("DefaultValue: " + defaultValue + ", ");
+        if (cardinality != null) sb.append("Cardinality: " + cardinality + ", ");
         sb.append("}");
         return sb.toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+        
+        hashCode = prime * hashCode + ((getAttributeName() == null) ? 0 : getAttributeName().hashCode()); 
+        hashCode = prime * hashCode + ((getAttributeType() == null) ? 0 : getAttributeType().hashCode()); 
+        hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode()); 
+        hashCode = prime * hashCode + ((getDefaultValue() == null) ? 0 : getDefaultValue().hashCode()); 
+        hashCode = prime * hashCode + ((getCardinality() == null) ? 0 : getCardinality().hashCode()); 
+        return hashCode;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+    
+        if (obj instanceof PolicyAttributeTypeDescription == false) return false;
+        PolicyAttributeTypeDescription other = (PolicyAttributeTypeDescription)obj;
+        
+        if (other.getAttributeName() == null ^ this.getAttributeName() == null) return false;
+        if (other.getAttributeName() != null && other.getAttributeName().equals(this.getAttributeName()) == false) return false; 
+        if (other.getAttributeType() == null ^ this.getAttributeType() == null) return false;
+        if (other.getAttributeType() != null && other.getAttributeType().equals(this.getAttributeType()) == false) return false; 
+        if (other.getDescription() == null ^ this.getDescription() == null) return false;
+        if (other.getDescription() != null && other.getDescription().equals(this.getDescription()) == false) return false; 
+        if (other.getDefaultValue() == null ^ this.getDefaultValue() == null) return false;
+        if (other.getDefaultValue() != null && other.getDefaultValue().equals(this.getDefaultValue()) == false) return false; 
+        if (other.getCardinality() == null ^ this.getCardinality() == null) return false;
+        if (other.getCardinality() != null && other.getCardinality().equals(this.getCardinality()) == false) return false; 
+        return true;
     }
     
 }

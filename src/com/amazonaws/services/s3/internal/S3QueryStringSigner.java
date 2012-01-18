@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -61,25 +61,26 @@ public class S3QueryStringSigner<T> extends AbstractAWSSigner {
     }
 
     public void sign(Request<?> request, AWSCredentials credentials) throws AmazonClientException {
+        AWSCredentials sanitizedCredentials = sanitizeCredentials(credentials);
+
+        if ( sanitizedCredentials instanceof AWSSessionCredentials ) {
+            addSessionCredentials(request, (AWSSessionCredentials) sanitizedCredentials);
+        }
+        
         String expirationInSeconds = Long.toString(expiration.getTime() / 1000L);
 
         String canonicalString = RestUtils.makeS3CanonicalString(
                 httpVerb, resourcePath, request, expirationInSeconds);
-
-        AWSCredentials sanitizedCredentials = sanitizeCredentials(credentials);
-
-        String signature = super.sign(canonicalString, sanitizedCredentials.getAWSSecretKey(), SigningAlgorithm.HmacSHA1);
+        
+        String signature = super.signAndBase64Encode(canonicalString, sanitizedCredentials.getAWSSecretKey(), SigningAlgorithm.HmacSHA1);
 
         request.addParameter("AWSAccessKeyId", sanitizedCredentials.getAWSAccessKeyId());
         request.addParameter("Expires", expirationInSeconds);
         request.addParameter("Signature", signature);
     }
 
-    /**
-     * Session credentials for pre-signed URLs are not supported.
-     */
     @Override
     protected void addSessionCredentials(Request<?> request, AWSSessionCredentials credentials) {
-        throw new RuntimeException("Session credentials are not supported for pre-signed URLs");
+        request.addParameter("x-amz-security-token", credentials.getSessionToken());
     }
 }

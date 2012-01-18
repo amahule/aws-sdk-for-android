@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -107,7 +107,7 @@ public enum Region {
 	 * </p>
 	 */
     AP_Tokyo("ap-northeast-1"),
-    
+
     /**
      * The South America (Sao Paulo) Region. This region uses Amazon S3 servers
      * located in Sao Paulo.
@@ -119,6 +119,7 @@ public enum Region {
      * </p>
      */
     SA_SaoPaulo("sa-east-1");
+
 
     /** The unique ID representing each region. */
     private final String regionId;

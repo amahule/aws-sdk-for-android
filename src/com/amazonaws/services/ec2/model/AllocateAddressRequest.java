@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -91,6 +91,44 @@ public class AllocateAddressRequest extends AmazonWebServiceRequest {
     
     
     /**
+     * Set to <code>vpc</code> to allocate the address to your VPC. By
+     * default, will allocate to EC2.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>vpc, standard
+     *
+     * @param domain Set to <code>vpc</code> to allocate the address to your VPC. By
+     *         default, will allocate to EC2.
+     *
+     * @see DomainType
+     */
+    public void setDomain(DomainType domain) {
+        this.domain = domain.toString();
+    }
+    
+    /**
+     * Set to <code>vpc</code> to allocate the address to your VPC. By
+     * default, will allocate to EC2.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>vpc, standard
+     *
+     * @param domain Set to <code>vpc</code> to allocate the address to your VPC. By
+     *         default, will allocate to EC2.
+     *
+     * @return A reference to this updated object so that method calls can be chained 
+     *         together. 
+     *
+     * @see DomainType
+     */
+    public AllocateAddressRequest withDomain(DomainType domain) {
+        this.domain = domain.toString();
+        return this;
+    }
+    
+    /**
      * Returns a string representation of this object; useful for testing and
      * debugging.
      *
@@ -102,9 +140,31 @@ public class AllocateAddressRequest extends AmazonWebServiceRequest {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        sb.append("Domain: " + domain + ", ");
+        if (domain != null) sb.append("Domain: " + domain + ", ");
         sb.append("}");
         return sb.toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+        
+        hashCode = prime * hashCode + ((getDomain() == null) ? 0 : getDomain().hashCode()); 
+        return hashCode;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+    
+        if (obj instanceof AllocateAddressRequest == false) return false;
+        AllocateAddressRequest other = (AllocateAddressRequest)obj;
+        
+        if (other.getDomain() == null ^ this.getDomain() == null) return false;
+        if (other.getDomain() != null && other.getDomain().equals(this.getDomain()) == false) return false; 
+        return true;
     }
     
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ public class DescribeLoadBalancersRequestMarshaller implements Marshaller<Reques
 
         Request<DescribeLoadBalancersRequest> request = new DefaultRequest<DescribeLoadBalancersRequest>(describeLoadBalancersRequest, "AmazonElasticLoadBalancing");
         request.addParameter("Action", "DescribeLoadBalancers");
-        request.addParameter("Version", "2011-08-15");
+        request.addParameter("Version", "2011-11-15");
 
 
         java.util.List<String> loadBalancerNamesList = describeLoadBalancersRequest.getLoadBalancerNames();
@@ -50,6 +50,9 @@ public class DescribeLoadBalancersRequestMarshaller implements Marshaller<Reques
             }
 
             loadBalancerNamesListIndex++;
+        }
+        if (describeLoadBalancersRequest.getMarker() != null) {
+            request.addParameter("Marker", StringUtils.fromString(describeLoadBalancersRequest.getMarker()));
         }
 
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -321,6 +321,40 @@ public class Datapoint {
     
     
     /**
+     * The standard unit used for the datapoint.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>Seconds, Microseconds, Milliseconds, Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, Bits, Kilobits, Megabits, Gigabits, Terabits, Percent, Count, Bytes/Second, Kilobytes/Second, Megabytes/Second, Gigabytes/Second, Terabytes/Second, Bits/Second, Kilobits/Second, Megabits/Second, Gigabits/Second, Terabits/Second, Count/Second, None
+     *
+     * @param unit The standard unit used for the datapoint.
+     *
+     * @see StandardUnit
+     */
+    public void setUnit(StandardUnit unit) {
+        this.unit = unit.toString();
+    }
+    
+    /**
+     * The standard unit used for the datapoint.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>Seconds, Microseconds, Milliseconds, Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, Bits, Kilobits, Megabits, Gigabits, Terabits, Percent, Count, Bytes/Second, Kilobytes/Second, Megabytes/Second, Gigabytes/Second, Terabytes/Second, Bits/Second, Kilobits/Second, Megabits/Second, Gigabits/Second, Terabits/Second, Count/Second, None
+     *
+     * @param unit The standard unit used for the datapoint.
+     *
+     * @return A reference to this updated object so that method calls can be chained 
+     *         together. 
+     *
+     * @see StandardUnit
+     */
+    public Datapoint withUnit(StandardUnit unit) {
+        this.unit = unit.toString();
+        return this;
+    }
+    
+    /**
      * Returns a string representation of this object; useful for testing and
      * debugging.
      *
@@ -332,15 +366,55 @@ public class Datapoint {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        sb.append("Timestamp: " + timestamp + ", ");
-        sb.append("SampleCount: " + sampleCount + ", ");
-        sb.append("Average: " + average + ", ");
-        sb.append("Sum: " + sum + ", ");
-        sb.append("Minimum: " + minimum + ", ");
-        sb.append("Maximum: " + maximum + ", ");
-        sb.append("Unit: " + unit + ", ");
+        if (timestamp != null) sb.append("Timestamp: " + timestamp + ", ");
+        if (sampleCount != null) sb.append("SampleCount: " + sampleCount + ", ");
+        if (average != null) sb.append("Average: " + average + ", ");
+        if (sum != null) sb.append("Sum: " + sum + ", ");
+        if (minimum != null) sb.append("Minimum: " + minimum + ", ");
+        if (maximum != null) sb.append("Maximum: " + maximum + ", ");
+        if (unit != null) sb.append("Unit: " + unit + ", ");
         sb.append("}");
         return sb.toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+        
+        hashCode = prime * hashCode + ((getTimestamp() == null) ? 0 : getTimestamp().hashCode()); 
+        hashCode = prime * hashCode + ((getSampleCount() == null) ? 0 : getSampleCount().hashCode()); 
+        hashCode = prime * hashCode + ((getAverage() == null) ? 0 : getAverage().hashCode()); 
+        hashCode = prime * hashCode + ((getSum() == null) ? 0 : getSum().hashCode()); 
+        hashCode = prime * hashCode + ((getMinimum() == null) ? 0 : getMinimum().hashCode()); 
+        hashCode = prime * hashCode + ((getMaximum() == null) ? 0 : getMaximum().hashCode()); 
+        hashCode = prime * hashCode + ((getUnit() == null) ? 0 : getUnit().hashCode()); 
+        return hashCode;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+    
+        if (obj instanceof Datapoint == false) return false;
+        Datapoint other = (Datapoint)obj;
+        
+        if (other.getTimestamp() == null ^ this.getTimestamp() == null) return false;
+        if (other.getTimestamp() != null && other.getTimestamp().equals(this.getTimestamp()) == false) return false; 
+        if (other.getSampleCount() == null ^ this.getSampleCount() == null) return false;
+        if (other.getSampleCount() != null && other.getSampleCount().equals(this.getSampleCount()) == false) return false; 
+        if (other.getAverage() == null ^ this.getAverage() == null) return false;
+        if (other.getAverage() != null && other.getAverage().equals(this.getAverage()) == false) return false; 
+        if (other.getSum() == null ^ this.getSum() == null) return false;
+        if (other.getSum() != null && other.getSum().equals(this.getSum()) == false) return false; 
+        if (other.getMinimum() == null ^ this.getMinimum() == null) return false;
+        if (other.getMinimum() != null && other.getMinimum().equals(this.getMinimum()) == false) return false; 
+        if (other.getMaximum() == null ^ this.getMaximum() == null) return false;
+        if (other.getMaximum() != null && other.getMaximum().equals(this.getMaximum()) == false) return false; 
+        if (other.getUnit() == null ^ this.getUnit() == null) return false;
+        if (other.getUnit() != null && other.getUnit().equals(this.getUnit()) == false) return false; 
+        return true;
     }
     
 }

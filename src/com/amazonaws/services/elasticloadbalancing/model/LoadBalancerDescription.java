@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -75,6 +75,16 @@ public class LoadBalancerDescription {
     private java.util.List<String> availabilityZones;
 
     /**
+     * Provides a list of VPC subnet IDs for the LoadBalancer.
+     */
+    private java.util.List<String> subnets;
+
+    /**
+     * Provides the ID of the VPC attached to the LoadBalancer.
+     */
+    private String vPCId;
+
+    /**
      * Provides a list of EC2 instance IDs for the LoadBalancer.
      */
     private java.util.List<Instance> instances;
@@ -93,6 +103,11 @@ public class LoadBalancerDescription {
      * inbound source.
      */
     private SourceSecurityGroup sourceSecurityGroup;
+
+    /**
+     * The security groups the LoadBalancer is a member of (VPC only).
+     */
+    private java.util.List<String> securityGroups;
 
     /**
      * Provides the date and time the LoadBalancer was created.
@@ -328,10 +343,13 @@ public class LoadBalancerDescription {
      *         ListenerDescriptions element.
      */
     public void setListenerDescriptions(java.util.Collection<ListenerDescription> listenerDescriptions) {
-        java.util.List<ListenerDescription> listenerDescriptionsCopy = new java.util.ArrayList<ListenerDescription>();
-        if (listenerDescriptions != null) {
-            listenerDescriptionsCopy.addAll(listenerDescriptions);
+        if (listenerDescriptions == null) {
+            this.listenerDescriptions = null;
+            return;
         }
+
+        java.util.List<ListenerDescription> listenerDescriptionsCopy = new java.util.ArrayList<ListenerDescription>(listenerDescriptions.size());
+        listenerDescriptionsCopy.addAll(listenerDescriptions);
         this.listenerDescriptions = listenerDescriptionsCopy;
     }
     
@@ -350,7 +368,7 @@ public class LoadBalancerDescription {
      *         together. 
      */
     public LoadBalancerDescription withListenerDescriptions(ListenerDescription... listenerDescriptions) {
-        if (getListenerDescriptions() == null) setListenerDescriptions(new java.util.ArrayList<ListenerDescription>());
+        if (getListenerDescriptions() == null) setListenerDescriptions(new java.util.ArrayList<ListenerDescription>(listenerDescriptions.length));
         for (ListenerDescription value : listenerDescriptions) {
             getListenerDescriptions().add(value);
         }
@@ -372,11 +390,13 @@ public class LoadBalancerDescription {
      *         together. 
      */
     public LoadBalancerDescription withListenerDescriptions(java.util.Collection<ListenerDescription> listenerDescriptions) {
-        java.util.List<ListenerDescription> listenerDescriptionsCopy = new java.util.ArrayList<ListenerDescription>();
-        if (listenerDescriptions != null) {
+        if (listenerDescriptions == null) {
+            this.listenerDescriptions = null;
+        } else {
+            java.util.List<ListenerDescription> listenerDescriptionsCopy = new java.util.ArrayList<ListenerDescription>(listenerDescriptions.size());
             listenerDescriptionsCopy.addAll(listenerDescriptions);
+            this.listenerDescriptions = listenerDescriptionsCopy;
         }
-        this.listenerDescriptions = listenerDescriptionsCopy;
 
         return this;
     }
@@ -434,10 +454,13 @@ public class LoadBalancerDescription {
      * @param backendServerDescriptions Contains a list of back-end server descriptions.
      */
     public void setBackendServerDescriptions(java.util.Collection<BackendServerDescription> backendServerDescriptions) {
-        java.util.List<BackendServerDescription> backendServerDescriptionsCopy = new java.util.ArrayList<BackendServerDescription>();
-        if (backendServerDescriptions != null) {
-            backendServerDescriptionsCopy.addAll(backendServerDescriptions);
+        if (backendServerDescriptions == null) {
+            this.backendServerDescriptions = null;
+            return;
         }
+
+        java.util.List<BackendServerDescription> backendServerDescriptionsCopy = new java.util.ArrayList<BackendServerDescription>(backendServerDescriptions.size());
+        backendServerDescriptionsCopy.addAll(backendServerDescriptions);
         this.backendServerDescriptions = backendServerDescriptionsCopy;
     }
     
@@ -452,7 +475,7 @@ public class LoadBalancerDescription {
      *         together. 
      */
     public LoadBalancerDescription withBackendServerDescriptions(BackendServerDescription... backendServerDescriptions) {
-        if (getBackendServerDescriptions() == null) setBackendServerDescriptions(new java.util.ArrayList<BackendServerDescription>());
+        if (getBackendServerDescriptions() == null) setBackendServerDescriptions(new java.util.ArrayList<BackendServerDescription>(backendServerDescriptions.length));
         for (BackendServerDescription value : backendServerDescriptions) {
             getBackendServerDescriptions().add(value);
         }
@@ -470,11 +493,13 @@ public class LoadBalancerDescription {
      *         together. 
      */
     public LoadBalancerDescription withBackendServerDescriptions(java.util.Collection<BackendServerDescription> backendServerDescriptions) {
-        java.util.List<BackendServerDescription> backendServerDescriptionsCopy = new java.util.ArrayList<BackendServerDescription>();
-        if (backendServerDescriptions != null) {
+        if (backendServerDescriptions == null) {
+            this.backendServerDescriptions = null;
+        } else {
+            java.util.List<BackendServerDescription> backendServerDescriptionsCopy = new java.util.ArrayList<BackendServerDescription>(backendServerDescriptions.size());
             backendServerDescriptionsCopy.addAll(backendServerDescriptions);
+            this.backendServerDescriptions = backendServerDescriptionsCopy;
         }
-        this.backendServerDescriptions = backendServerDescriptionsCopy;
 
         return this;
     }
@@ -498,10 +523,13 @@ public class LoadBalancerDescription {
      * @param availabilityZones Specifies a list of Availability Zones.
      */
     public void setAvailabilityZones(java.util.Collection<String> availabilityZones) {
-        java.util.List<String> availabilityZonesCopy = new java.util.ArrayList<String>();
-        if (availabilityZones != null) {
-            availabilityZonesCopy.addAll(availabilityZones);
+        if (availabilityZones == null) {
+            this.availabilityZones = null;
+            return;
         }
+
+        java.util.List<String> availabilityZonesCopy = new java.util.ArrayList<String>(availabilityZones.size());
+        availabilityZonesCopy.addAll(availabilityZones);
         this.availabilityZones = availabilityZonesCopy;
     }
     
@@ -516,7 +544,7 @@ public class LoadBalancerDescription {
      *         together. 
      */
     public LoadBalancerDescription withAvailabilityZones(String... availabilityZones) {
-        if (getAvailabilityZones() == null) setAvailabilityZones(new java.util.ArrayList<String>());
+        if (getAvailabilityZones() == null) setAvailabilityZones(new java.util.ArrayList<String>(availabilityZones.length));
         for (String value : availabilityZones) {
             getAvailabilityZones().add(value);
         }
@@ -534,14 +562,119 @@ public class LoadBalancerDescription {
      *         together. 
      */
     public LoadBalancerDescription withAvailabilityZones(java.util.Collection<String> availabilityZones) {
-        java.util.List<String> availabilityZonesCopy = new java.util.ArrayList<String>();
-        if (availabilityZones != null) {
+        if (availabilityZones == null) {
+            this.availabilityZones = null;
+        } else {
+            java.util.List<String> availabilityZonesCopy = new java.util.ArrayList<String>(availabilityZones.size());
             availabilityZonesCopy.addAll(availabilityZones);
+            this.availabilityZones = availabilityZonesCopy;
         }
-        this.availabilityZones = availabilityZonesCopy;
 
         return this;
     }
+    
+    /**
+     * Provides a list of VPC subnet IDs for the LoadBalancer.
+     *
+     * @return Provides a list of VPC subnet IDs for the LoadBalancer.
+     */
+    public java.util.List<String> getSubnets() {
+        
+        if (subnets == null) {
+            subnets = new java.util.ArrayList<String>();
+        }
+        return subnets;
+    }
+    
+    /**
+     * Provides a list of VPC subnet IDs for the LoadBalancer.
+     *
+     * @param subnets Provides a list of VPC subnet IDs for the LoadBalancer.
+     */
+    public void setSubnets(java.util.Collection<String> subnets) {
+        if (subnets == null) {
+            this.subnets = null;
+            return;
+        }
+
+        java.util.List<String> subnetsCopy = new java.util.ArrayList<String>(subnets.size());
+        subnetsCopy.addAll(subnets);
+        this.subnets = subnetsCopy;
+    }
+    
+    /**
+     * Provides a list of VPC subnet IDs for the LoadBalancer.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param subnets Provides a list of VPC subnet IDs for the LoadBalancer.
+     *
+     * @return A reference to this updated object so that method calls can be chained 
+     *         together. 
+     */
+    public LoadBalancerDescription withSubnets(String... subnets) {
+        if (getSubnets() == null) setSubnets(new java.util.ArrayList<String>(subnets.length));
+        for (String value : subnets) {
+            getSubnets().add(value);
+        }
+        return this;
+    }
+    
+    /**
+     * Provides a list of VPC subnet IDs for the LoadBalancer.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param subnets Provides a list of VPC subnet IDs for the LoadBalancer.
+     *
+     * @return A reference to this updated object so that method calls can be chained 
+     *         together. 
+     */
+    public LoadBalancerDescription withSubnets(java.util.Collection<String> subnets) {
+        if (subnets == null) {
+            this.subnets = null;
+        } else {
+            java.util.List<String> subnetsCopy = new java.util.ArrayList<String>(subnets.size());
+            subnetsCopy.addAll(subnets);
+            this.subnets = subnetsCopy;
+        }
+
+        return this;
+    }
+    
+    /**
+     * Provides the ID of the VPC attached to the LoadBalancer.
+     *
+     * @return Provides the ID of the VPC attached to the LoadBalancer.
+     */
+    public String getVPCId() {
+        return vPCId;
+    }
+    
+    /**
+     * Provides the ID of the VPC attached to the LoadBalancer.
+     *
+     * @param vPCId Provides the ID of the VPC attached to the LoadBalancer.
+     */
+    public void setVPCId(String vPCId) {
+        this.vPCId = vPCId;
+    }
+    
+    /**
+     * Provides the ID of the VPC attached to the LoadBalancer.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param vPCId Provides the ID of the VPC attached to the LoadBalancer.
+     *
+     * @return A reference to this updated object so that method calls can be chained 
+     *         together. 
+     */
+    public LoadBalancerDescription withVPCId(String vPCId) {
+        this.vPCId = vPCId;
+        return this;
+    }
+    
     
     /**
      * Provides a list of EC2 instance IDs for the LoadBalancer.
@@ -562,10 +695,13 @@ public class LoadBalancerDescription {
      * @param instances Provides a list of EC2 instance IDs for the LoadBalancer.
      */
     public void setInstances(java.util.Collection<Instance> instances) {
-        java.util.List<Instance> instancesCopy = new java.util.ArrayList<Instance>();
-        if (instances != null) {
-            instancesCopy.addAll(instances);
+        if (instances == null) {
+            this.instances = null;
+            return;
         }
+
+        java.util.List<Instance> instancesCopy = new java.util.ArrayList<Instance>(instances.size());
+        instancesCopy.addAll(instances);
         this.instances = instancesCopy;
     }
     
@@ -580,7 +716,7 @@ public class LoadBalancerDescription {
      *         together. 
      */
     public LoadBalancerDescription withInstances(Instance... instances) {
-        if (getInstances() == null) setInstances(new java.util.ArrayList<Instance>());
+        if (getInstances() == null) setInstances(new java.util.ArrayList<Instance>(instances.length));
         for (Instance value : instances) {
             getInstances().add(value);
         }
@@ -598,11 +734,13 @@ public class LoadBalancerDescription {
      *         together. 
      */
     public LoadBalancerDescription withInstances(java.util.Collection<Instance> instances) {
-        java.util.List<Instance> instancesCopy = new java.util.ArrayList<Instance>();
-        if (instances != null) {
+        if (instances == null) {
+            this.instances = null;
+        } else {
+            java.util.List<Instance> instancesCopy = new java.util.ArrayList<Instance>(instances.size());
             instancesCopy.addAll(instances);
+            this.instances = instancesCopy;
         }
-        this.instances = instancesCopy;
 
         return this;
     }
@@ -706,6 +844,75 @@ public class LoadBalancerDescription {
     
     
     /**
+     * The security groups the LoadBalancer is a member of (VPC only).
+     *
+     * @return The security groups the LoadBalancer is a member of (VPC only).
+     */
+    public java.util.List<String> getSecurityGroups() {
+        
+        if (securityGroups == null) {
+            securityGroups = new java.util.ArrayList<String>();
+        }
+        return securityGroups;
+    }
+    
+    /**
+     * The security groups the LoadBalancer is a member of (VPC only).
+     *
+     * @param securityGroups The security groups the LoadBalancer is a member of (VPC only).
+     */
+    public void setSecurityGroups(java.util.Collection<String> securityGroups) {
+        if (securityGroups == null) {
+            this.securityGroups = null;
+            return;
+        }
+
+        java.util.List<String> securityGroupsCopy = new java.util.ArrayList<String>(securityGroups.size());
+        securityGroupsCopy.addAll(securityGroups);
+        this.securityGroups = securityGroupsCopy;
+    }
+    
+    /**
+     * The security groups the LoadBalancer is a member of (VPC only).
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param securityGroups The security groups the LoadBalancer is a member of (VPC only).
+     *
+     * @return A reference to this updated object so that method calls can be chained 
+     *         together. 
+     */
+    public LoadBalancerDescription withSecurityGroups(String... securityGroups) {
+        if (getSecurityGroups() == null) setSecurityGroups(new java.util.ArrayList<String>(securityGroups.length));
+        for (String value : securityGroups) {
+            getSecurityGroups().add(value);
+        }
+        return this;
+    }
+    
+    /**
+     * The security groups the LoadBalancer is a member of (VPC only).
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param securityGroups The security groups the LoadBalancer is a member of (VPC only).
+     *
+     * @return A reference to this updated object so that method calls can be chained 
+     *         together. 
+     */
+    public LoadBalancerDescription withSecurityGroups(java.util.Collection<String> securityGroups) {
+        if (securityGroups == null) {
+            this.securityGroups = null;
+        } else {
+            java.util.List<String> securityGroupsCopy = new java.util.ArrayList<String>(securityGroups.size());
+            securityGroupsCopy.addAll(securityGroups);
+            this.securityGroups = securityGroupsCopy;
+        }
+
+        return this;
+    }
+    
+    /**
      * Provides the date and time the LoadBalancer was created.
      *
      * @return Provides the date and time the LoadBalancer was created.
@@ -751,20 +958,87 @@ public class LoadBalancerDescription {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        sb.append("LoadBalancerName: " + loadBalancerName + ", ");
-        sb.append("DNSName: " + dNSName + ", ");
-        sb.append("CanonicalHostedZoneName: " + canonicalHostedZoneName + ", ");
-        sb.append("CanonicalHostedZoneNameID: " + canonicalHostedZoneNameID + ", ");
-        sb.append("ListenerDescriptions: " + listenerDescriptions + ", ");
-        sb.append("Policies: " + policies + ", ");
-        sb.append("BackendServerDescriptions: " + backendServerDescriptions + ", ");
-        sb.append("AvailabilityZones: " + availabilityZones + ", ");
-        sb.append("Instances: " + instances + ", ");
-        sb.append("HealthCheck: " + healthCheck + ", ");
-        sb.append("SourceSecurityGroup: " + sourceSecurityGroup + ", ");
-        sb.append("CreatedTime: " + createdTime + ", ");
+        if (loadBalancerName != null) sb.append("LoadBalancerName: " + loadBalancerName + ", ");
+        if (dNSName != null) sb.append("DNSName: " + dNSName + ", ");
+        if (canonicalHostedZoneName != null) sb.append("CanonicalHostedZoneName: " + canonicalHostedZoneName + ", ");
+        if (canonicalHostedZoneNameID != null) sb.append("CanonicalHostedZoneNameID: " + canonicalHostedZoneNameID + ", ");
+        if (listenerDescriptions != null) sb.append("ListenerDescriptions: " + listenerDescriptions + ", ");
+        if (policies != null) sb.append("Policies: " + policies + ", ");
+        if (backendServerDescriptions != null) sb.append("BackendServerDescriptions: " + backendServerDescriptions + ", ");
+        if (availabilityZones != null) sb.append("AvailabilityZones: " + availabilityZones + ", ");
+        if (subnets != null) sb.append("Subnets: " + subnets + ", ");
+        if (vPCId != null) sb.append("VPCId: " + vPCId + ", ");
+        if (instances != null) sb.append("Instances: " + instances + ", ");
+        if (healthCheck != null) sb.append("HealthCheck: " + healthCheck + ", ");
+        if (sourceSecurityGroup != null) sb.append("SourceSecurityGroup: " + sourceSecurityGroup + ", ");
+        if (securityGroups != null) sb.append("SecurityGroups: " + securityGroups + ", ");
+        if (createdTime != null) sb.append("CreatedTime: " + createdTime + ", ");
         sb.append("}");
         return sb.toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+        
+        hashCode = prime * hashCode + ((getLoadBalancerName() == null) ? 0 : getLoadBalancerName().hashCode()); 
+        hashCode = prime * hashCode + ((getDNSName() == null) ? 0 : getDNSName().hashCode()); 
+        hashCode = prime * hashCode + ((getCanonicalHostedZoneName() == null) ? 0 : getCanonicalHostedZoneName().hashCode()); 
+        hashCode = prime * hashCode + ((getCanonicalHostedZoneNameID() == null) ? 0 : getCanonicalHostedZoneNameID().hashCode()); 
+        hashCode = prime * hashCode + ((getListenerDescriptions() == null) ? 0 : getListenerDescriptions().hashCode()); 
+        hashCode = prime * hashCode + ((getPolicies() == null) ? 0 : getPolicies().hashCode()); 
+        hashCode = prime * hashCode + ((getBackendServerDescriptions() == null) ? 0 : getBackendServerDescriptions().hashCode()); 
+        hashCode = prime * hashCode + ((getAvailabilityZones() == null) ? 0 : getAvailabilityZones().hashCode()); 
+        hashCode = prime * hashCode + ((getSubnets() == null) ? 0 : getSubnets().hashCode()); 
+        hashCode = prime * hashCode + ((getVPCId() == null) ? 0 : getVPCId().hashCode()); 
+        hashCode = prime * hashCode + ((getInstances() == null) ? 0 : getInstances().hashCode()); 
+        hashCode = prime * hashCode + ((getHealthCheck() == null) ? 0 : getHealthCheck().hashCode()); 
+        hashCode = prime * hashCode + ((getSourceSecurityGroup() == null) ? 0 : getSourceSecurityGroup().hashCode()); 
+        hashCode = prime * hashCode + ((getSecurityGroups() == null) ? 0 : getSecurityGroups().hashCode()); 
+        hashCode = prime * hashCode + ((getCreatedTime() == null) ? 0 : getCreatedTime().hashCode()); 
+        return hashCode;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+    
+        if (obj instanceof LoadBalancerDescription == false) return false;
+        LoadBalancerDescription other = (LoadBalancerDescription)obj;
+        
+        if (other.getLoadBalancerName() == null ^ this.getLoadBalancerName() == null) return false;
+        if (other.getLoadBalancerName() != null && other.getLoadBalancerName().equals(this.getLoadBalancerName()) == false) return false; 
+        if (other.getDNSName() == null ^ this.getDNSName() == null) return false;
+        if (other.getDNSName() != null && other.getDNSName().equals(this.getDNSName()) == false) return false; 
+        if (other.getCanonicalHostedZoneName() == null ^ this.getCanonicalHostedZoneName() == null) return false;
+        if (other.getCanonicalHostedZoneName() != null && other.getCanonicalHostedZoneName().equals(this.getCanonicalHostedZoneName()) == false) return false; 
+        if (other.getCanonicalHostedZoneNameID() == null ^ this.getCanonicalHostedZoneNameID() == null) return false;
+        if (other.getCanonicalHostedZoneNameID() != null && other.getCanonicalHostedZoneNameID().equals(this.getCanonicalHostedZoneNameID()) == false) return false; 
+        if (other.getListenerDescriptions() == null ^ this.getListenerDescriptions() == null) return false;
+        if (other.getListenerDescriptions() != null && other.getListenerDescriptions().equals(this.getListenerDescriptions()) == false) return false; 
+        if (other.getPolicies() == null ^ this.getPolicies() == null) return false;
+        if (other.getPolicies() != null && other.getPolicies().equals(this.getPolicies()) == false) return false; 
+        if (other.getBackendServerDescriptions() == null ^ this.getBackendServerDescriptions() == null) return false;
+        if (other.getBackendServerDescriptions() != null && other.getBackendServerDescriptions().equals(this.getBackendServerDescriptions()) == false) return false; 
+        if (other.getAvailabilityZones() == null ^ this.getAvailabilityZones() == null) return false;
+        if (other.getAvailabilityZones() != null && other.getAvailabilityZones().equals(this.getAvailabilityZones()) == false) return false; 
+        if (other.getSubnets() == null ^ this.getSubnets() == null) return false;
+        if (other.getSubnets() != null && other.getSubnets().equals(this.getSubnets()) == false) return false; 
+        if (other.getVPCId() == null ^ this.getVPCId() == null) return false;
+        if (other.getVPCId() != null && other.getVPCId().equals(this.getVPCId()) == false) return false; 
+        if (other.getInstances() == null ^ this.getInstances() == null) return false;
+        if (other.getInstances() != null && other.getInstances().equals(this.getInstances()) == false) return false; 
+        if (other.getHealthCheck() == null ^ this.getHealthCheck() == null) return false;
+        if (other.getHealthCheck() != null && other.getHealthCheck().equals(this.getHealthCheck()) == false) return false; 
+        if (other.getSourceSecurityGroup() == null ^ this.getSourceSecurityGroup() == null) return false;
+        if (other.getSourceSecurityGroup() != null && other.getSourceSecurityGroup().equals(this.getSourceSecurityGroup()) == false) return false; 
+        if (other.getSecurityGroups() == null ^ this.getSecurityGroups() == null) return false;
+        if (other.getSecurityGroups() != null && other.getSecurityGroups().equals(this.getSecurityGroups()) == false) return false; 
+        if (other.getCreatedTime() == null ^ this.getCreatedTime() == null) return false;
+        if (other.getCreatedTime() != null && other.getCreatedTime().equals(this.getCreatedTime()) == false) return false; 
+        return true;
     }
     
 }

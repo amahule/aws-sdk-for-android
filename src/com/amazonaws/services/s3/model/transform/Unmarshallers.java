@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -17,8 +17,10 @@ package com.amazonaws.services.s3.model.transform;
 import java.io.InputStream;
 import java.util.List;
 
+import com.amazonaws.services.s3.internal.DeleteObjectsResponse;
 import com.amazonaws.services.s3.model.AccessControlList;
 import com.amazonaws.services.s3.model.Bucket;
+import com.amazonaws.services.s3.model.BucketLifecycleConfiguration;
 import com.amazonaws.services.s3.model.BucketLoggingConfiguration;
 import com.amazonaws.services.s3.model.BucketNotificationConfiguration;
 import com.amazonaws.services.s3.model.BucketVersioningConfiguration;
@@ -206,6 +208,22 @@ public class Unmarshallers {
         public PartListing unmarshall(InputStream in) throws Exception {
             return new XmlResponsesSaxParser().parseListPartsResponse(in)
                 .getListPartsResult();
+        }
+    }
+    
+    public static final class DeleteObjectsResultUnmarshaller implements
+            Unmarshaller<DeleteObjectsResponse, InputStream> {
+
+        public DeleteObjectsResponse unmarshall(InputStream in) throws Exception {
+            return new XmlResponsesSaxParser().parseDeletedObjectsResult(in).getDeleteObjectResult();
+        }
+    }
+    
+    public static final class BucketLifecycleConfigurationUnmarshaller implements
+            Unmarshaller<BucketLifecycleConfiguration, InputStream> {
+
+        public BucketLifecycleConfiguration unmarshall(InputStream in) throws Exception {
+            return new XmlResponsesSaxParser().parseBucketLifecycleConfigurationResponse(in).getConfiguration();
         }
     }
 

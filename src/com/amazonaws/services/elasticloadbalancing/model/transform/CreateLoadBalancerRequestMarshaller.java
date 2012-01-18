@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ public class CreateLoadBalancerRequestMarshaller implements Marshaller<Request<C
 
         Request<CreateLoadBalancerRequest> request = new DefaultRequest<CreateLoadBalancerRequest>(createLoadBalancerRequest, "AmazonElasticLoadBalancing");
         request.addParameter("Action", "CreateLoadBalancer");
-        request.addParameter("Version", "2011-08-15");
+        request.addParameter("Version", "2011-11-15");
 
         if (createLoadBalancerRequest.getLoadBalancerName() != null) {
             request.addParameter("LoadBalancerName", StringUtils.fromString(createLoadBalancerRequest.getLoadBalancerName()));
@@ -79,6 +79,28 @@ public class CreateLoadBalancerRequestMarshaller implements Marshaller<Request<C
             }
 
             availabilityZonesListIndex++;
+        }
+
+        java.util.List<String> subnetsList = createLoadBalancerRequest.getSubnets();
+        int subnetsListIndex = 1;
+
+        for (String subnetsListValue : subnetsList) {
+            if (subnetsListValue != null) {
+                request.addParameter("Subnets.member." + subnetsListIndex, StringUtils.fromString(subnetsListValue));
+            }
+
+            subnetsListIndex++;
+        }
+
+        java.util.List<String> securityGroupsList = createLoadBalancerRequest.getSecurityGroups();
+        int securityGroupsListIndex = 1;
+
+        for (String securityGroupsListValue : securityGroupsList) {
+            if (securityGroupsListValue != null) {
+                request.addParameter("SecurityGroups.member." + securityGroupsListIndex, StringUtils.fromString(securityGroupsListValue));
+            }
+
+            securityGroupsListIndex++;
         }
 
 

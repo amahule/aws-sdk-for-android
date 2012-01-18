@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -50,8 +50,14 @@ public class RegisterInstancesWithLoadBalancerRequest extends AmazonWebServiceRe
     private String loadBalancerName;
 
     /**
-     * A list of instances IDs that should be registered with the
-     * LoadBalancer.
+     * A list of instance IDs that should be registered with the
+     * LoadBalancer. <note>If you stop and then restart the instance, the
+     * instance ID changes. Elastic Load Balancing cannot recognize the new
+     * ID, which prevents it from routing traffic to your instance. We
+     * recommend you de-register and then register your the new instance ID
+     * with the load balancer after you restart your instance. To de-register
+     * your instances from load balancer, use
+     * <a>DeregisterInstancesFromLoadBalancer</a> action.</note>
      */
     private java.util.List<Instance> instances;
 
@@ -68,13 +74,21 @@ public class RegisterInstancesWithLoadBalancerRequest extends AmazonWebServiceRe
      * 
      * @param loadBalancerName The name associated with the LoadBalancer. The
      * name must be unique within the client AWS account.
-     * @param instances A list of instances IDs that should be registered
-     * with the LoadBalancer.
+     * @param instances A list of instance IDs that should be registered with
+     * the LoadBalancer. <note>If you stop and then restart the instance, the
+     * instance ID changes. Elastic Load Balancing cannot recognize the new
+     * ID, which prevents it from routing traffic to your instance. We
+     * recommend you de-register and then register your the new instance ID
+     * with the load balancer after you restart your instance. To de-register
+     * your instances from load balancer, use
+     * <a>DeregisterInstancesFromLoadBalancer</a> action.</note>
      */
     public RegisterInstancesWithLoadBalancerRequest(String loadBalancerName, java.util.List<Instance> instances) {
         this.loadBalancerName = loadBalancerName;
         this.instances = instances;
     }
+
+    
     
     /**
      * The name associated with the LoadBalancer. The name must be unique
@@ -117,11 +131,23 @@ public class RegisterInstancesWithLoadBalancerRequest extends AmazonWebServiceRe
     
     
     /**
-     * A list of instances IDs that should be registered with the
-     * LoadBalancer.
+     * A list of instance IDs that should be registered with the
+     * LoadBalancer. <note>If you stop and then restart the instance, the
+     * instance ID changes. Elastic Load Balancing cannot recognize the new
+     * ID, which prevents it from routing traffic to your instance. We
+     * recommend you de-register and then register your the new instance ID
+     * with the load balancer after you restart your instance. To de-register
+     * your instances from load balancer, use
+     * <a>DeregisterInstancesFromLoadBalancer</a> action.</note>
      *
-     * @return A list of instances IDs that should be registered with the
-     *         LoadBalancer.
+     * @return A list of instance IDs that should be registered with the
+     *         LoadBalancer. <note>If you stop and then restart the instance, the
+     *         instance ID changes. Elastic Load Balancing cannot recognize the new
+     *         ID, which prevents it from routing traffic to your instance. We
+     *         recommend you de-register and then register your the new instance ID
+     *         with the load balancer after you restart your instance. To de-register
+     *         your instances from load balancer, use
+     *         <a>DeregisterInstancesFromLoadBalancer</a> action.</note>
      */
     public java.util.List<Instance> getInstances() {
         
@@ -132,34 +158,61 @@ public class RegisterInstancesWithLoadBalancerRequest extends AmazonWebServiceRe
     }
     
     /**
-     * A list of instances IDs that should be registered with the
-     * LoadBalancer.
+     * A list of instance IDs that should be registered with the
+     * LoadBalancer. <note>If you stop and then restart the instance, the
+     * instance ID changes. Elastic Load Balancing cannot recognize the new
+     * ID, which prevents it from routing traffic to your instance. We
+     * recommend you de-register and then register your the new instance ID
+     * with the load balancer after you restart your instance. To de-register
+     * your instances from load balancer, use
+     * <a>DeregisterInstancesFromLoadBalancer</a> action.</note>
      *
-     * @param instances A list of instances IDs that should be registered with the
-     *         LoadBalancer.
+     * @param instances A list of instance IDs that should be registered with the
+     *         LoadBalancer. <note>If you stop and then restart the instance, the
+     *         instance ID changes. Elastic Load Balancing cannot recognize the new
+     *         ID, which prevents it from routing traffic to your instance. We
+     *         recommend you de-register and then register your the new instance ID
+     *         with the load balancer after you restart your instance. To de-register
+     *         your instances from load balancer, use
+     *         <a>DeregisterInstancesFromLoadBalancer</a> action.</note>
      */
     public void setInstances(java.util.Collection<Instance> instances) {
-        java.util.List<Instance> instancesCopy = new java.util.ArrayList<Instance>();
-        if (instances != null) {
-            instancesCopy.addAll(instances);
+        if (instances == null) {
+            this.instances = null;
+            return;
         }
+
+        java.util.List<Instance> instancesCopy = new java.util.ArrayList<Instance>(instances.size());
+        instancesCopy.addAll(instances);
         this.instances = instancesCopy;
     }
     
     /**
-     * A list of instances IDs that should be registered with the
-     * LoadBalancer.
+     * A list of instance IDs that should be registered with the
+     * LoadBalancer. <note>If you stop and then restart the instance, the
+     * instance ID changes. Elastic Load Balancing cannot recognize the new
+     * ID, which prevents it from routing traffic to your instance. We
+     * recommend you de-register and then register your the new instance ID
+     * with the load balancer after you restart your instance. To de-register
+     * your instances from load balancer, use
+     * <a>DeregisterInstancesFromLoadBalancer</a> action.</note>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param instances A list of instances IDs that should be registered with the
-     *         LoadBalancer.
+     * @param instances A list of instance IDs that should be registered with the
+     *         LoadBalancer. <note>If you stop and then restart the instance, the
+     *         instance ID changes. Elastic Load Balancing cannot recognize the new
+     *         ID, which prevents it from routing traffic to your instance. We
+     *         recommend you de-register and then register your the new instance ID
+     *         with the load balancer after you restart your instance. To de-register
+     *         your instances from load balancer, use
+     *         <a>DeregisterInstancesFromLoadBalancer</a> action.</note>
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
      */
     public RegisterInstancesWithLoadBalancerRequest withInstances(Instance... instances) {
-        if (getInstances() == null) setInstances(new java.util.ArrayList<Instance>());
+        if (getInstances() == null) setInstances(new java.util.ArrayList<Instance>(instances.length));
         for (Instance value : instances) {
             getInstances().add(value);
         }
@@ -167,23 +220,37 @@ public class RegisterInstancesWithLoadBalancerRequest extends AmazonWebServiceRe
     }
     
     /**
-     * A list of instances IDs that should be registered with the
-     * LoadBalancer.
+     * A list of instance IDs that should be registered with the
+     * LoadBalancer. <note>If you stop and then restart the instance, the
+     * instance ID changes. Elastic Load Balancing cannot recognize the new
+     * ID, which prevents it from routing traffic to your instance. We
+     * recommend you de-register and then register your the new instance ID
+     * with the load balancer after you restart your instance. To de-register
+     * your instances from load balancer, use
+     * <a>DeregisterInstancesFromLoadBalancer</a> action.</note>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param instances A list of instances IDs that should be registered with the
-     *         LoadBalancer.
+     * @param instances A list of instance IDs that should be registered with the
+     *         LoadBalancer. <note>If you stop and then restart the instance, the
+     *         instance ID changes. Elastic Load Balancing cannot recognize the new
+     *         ID, which prevents it from routing traffic to your instance. We
+     *         recommend you de-register and then register your the new instance ID
+     *         with the load balancer after you restart your instance. To de-register
+     *         your instances from load balancer, use
+     *         <a>DeregisterInstancesFromLoadBalancer</a> action.</note>
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
      */
     public RegisterInstancesWithLoadBalancerRequest withInstances(java.util.Collection<Instance> instances) {
-        java.util.List<Instance> instancesCopy = new java.util.ArrayList<Instance>();
-        if (instances != null) {
+        if (instances == null) {
+            this.instances = null;
+        } else {
+            java.util.List<Instance> instancesCopy = new java.util.ArrayList<Instance>(instances.size());
             instancesCopy.addAll(instances);
+            this.instances = instancesCopy;
         }
-        this.instances = instancesCopy;
 
         return this;
     }
@@ -200,10 +267,35 @@ public class RegisterInstancesWithLoadBalancerRequest extends AmazonWebServiceRe
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        sb.append("LoadBalancerName: " + loadBalancerName + ", ");
-        sb.append("Instances: " + instances + ", ");
+        if (loadBalancerName != null) sb.append("LoadBalancerName: " + loadBalancerName + ", ");
+        if (instances != null) sb.append("Instances: " + instances + ", ");
         sb.append("}");
         return sb.toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+        
+        hashCode = prime * hashCode + ((getLoadBalancerName() == null) ? 0 : getLoadBalancerName().hashCode()); 
+        hashCode = prime * hashCode + ((getInstances() == null) ? 0 : getInstances().hashCode()); 
+        return hashCode;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+    
+        if (obj instanceof RegisterInstancesWithLoadBalancerRequest == false) return false;
+        RegisterInstancesWithLoadBalancerRequest other = (RegisterInstancesWithLoadBalancerRequest)obj;
+        
+        if (other.getLoadBalancerName() == null ^ this.getLoadBalancerName() == null) return false;
+        if (other.getLoadBalancerName() != null && other.getLoadBalancerName().equals(this.getLoadBalancerName()) == false) return false; 
+        if (other.getInstances() == null ^ this.getInstances() == null) return false;
+        if (other.getInstances() != null && other.getInstances().equals(this.getInstances()) == false) return false; 
+        return true;
     }
     
 }

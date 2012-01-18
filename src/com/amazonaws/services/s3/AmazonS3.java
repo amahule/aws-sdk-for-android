@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ import com.amazonaws.services.s3.internal.Constants;
 import com.amazonaws.services.s3.model.AbortMultipartUploadRequest;
 import com.amazonaws.services.s3.model.AccessControlList;
 import com.amazonaws.services.s3.model.Bucket;
+import com.amazonaws.services.s3.model.BucketLifecycleConfiguration;
 import com.amazonaws.services.s3.model.BucketLoggingConfiguration;
 import com.amazonaws.services.s3.model.BucketNotificationConfiguration;
 import com.amazonaws.services.s3.model.BucketPolicy;
@@ -45,6 +46,8 @@ import com.amazonaws.services.s3.model.DeleteBucketPolicyRequest;
 import com.amazonaws.services.s3.model.DeleteBucketRequest;
 import com.amazonaws.services.s3.model.DeleteBucketWebsiteConfigurationRequest;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
+import com.amazonaws.services.s3.model.DeleteObjectsRequest;
+import com.amazonaws.services.s3.model.DeleteObjectsResult;
 import com.amazonaws.services.s3.model.DeleteVersionRequest;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.amazonaws.services.s3.model.GetBucketAclRequest;
@@ -61,6 +64,7 @@ import com.amazonaws.services.s3.model.ListMultipartUploadsRequest;
 import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ListPartsRequest;
 import com.amazonaws.services.s3.model.ListVersionsRequest;
+import com.amazonaws.services.s3.model.MultiObjectDeleteException;
 import com.amazonaws.services.s3.model.MultipartUploadListing;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.ObjectMetadata;
@@ -2325,6 +2329,29 @@ public interface AmazonS3 {
         throws AmazonClientException, AmazonServiceException;
 
     /**
+     * Deletes multiple objects in a single bucket from S3.
+     * <p>
+     * In some cases, some objects will be successfully deleted, while some
+     * attempts will cause an error. If any object in the request cannot be
+     * deleted, this method throws a {@link MultiObjectDeleteException} with
+     * details of the error.
+     * 
+     * @param deleteObjectsRequest
+     *            The request object containing all options for deleting
+     *            multiple objects.
+     * @throws MultiObjectDeleteException
+     *             if one or more of the objects couldn't be deleted.
+     * @throws AmazonClientException
+     *             If any errors are encountered in the client while making the
+     *             request or handling the response.
+     * @throws AmazonServiceException
+     *             If any errors occurred in Amazon S3 while processing the
+     *             request.
+     */
+    public DeleteObjectsResult deleteObjects(DeleteObjectsRequest deleteObjectsRequest) throws AmazonClientException,
+            AmazonServiceException;
+
+    /**
      * <p>
      * Deletes a specific version of the specified object in the specified
      * bucket. Once deleted, there is no method to restore or undelete an object
@@ -2593,6 +2620,37 @@ public interface AmazonS3 {
     public void setBucketVersioningConfiguration(SetBucketVersioningConfigurationRequest setBucketVersioningConfigurationRequest)
         throws AmazonClientException, AmazonServiceException;
 
+    /**
+     * Gets the lifecycle configuration for the specified bucket, or null if no
+     * configuration has been established.
+     * 
+     * @param bucketName
+     *            The name of the bucket for which to retrieve lifecycle
+     *            configuration.
+     */
+    public BucketLifecycleConfiguration getBucketLifecycleConfiguration(String bucketName);
+
+    /**
+     * Sets the lifecycle configuration for the specified bucket.
+     * 
+     * @param bucketName
+     *            The name of the bucket for which to set the lifecycle
+     *            configuration.
+     * @param bucketLifecycleConfiguration
+     *            The new lifecycle configuration for this bucket, which
+     *            completely replaces any existing configuration.
+     */
+    public void setBucketLifecycleConfiguration(String bucketName, BucketLifecycleConfiguration bucketLifecycleConfiguration);
+
+    /**
+     * Removes the lifecycle configuration for the bucket specified.
+     * 
+     * @param bucketName
+     *            The name of the bucket for which to remove the lifecycle
+     *            configuration.
+     */
+    public void deleteBucketLifecycleConfiguration(String bucketName);
+    
     /**
      * Gets the notification configuration for the specified bucket.
      * <p>

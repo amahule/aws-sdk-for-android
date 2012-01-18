@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -49,6 +49,13 @@ public enum SQSActions implements Action {
      * @see AmazonSQS#createQueue(com.amazonaws.services.sqs.model.CreateQueueRequest)
      */
     CreateQueue("sqs:CreateQueue"),
+
+    /**
+     * Action for the GetQueueUrl operation on Amazon SQS.
+     *
+     * @see AmazonSQS#getQueueUrl(com.amazonaws.services.sqs.model.GetQueueUrlRequest)
+     */
+    GetQueueUrl("sqs:GetQueueUrl"),
 
     /**
      * Action for the DeleteMessage operation on Amazon SQS.
@@ -104,7 +111,28 @@ public enum SQSActions implements Action {
      *
      * @see AmazonSQS#setQueueAttributes(com.amazonaws.services.sqs.model.SetQueueAttributesRequest)
      */
-    SetQueueAttributes("sqs:SetQueueAttributes");
+    SetQueueAttributes("sqs:SetQueueAttributes"),
+
+    /**
+     * Action for the SendMessageBatch operation on Amazon SQS.
+     *
+     * @see AmazonSQS#sendMessageBatch(com.amazonaws.services.sqs.model.SendMessageBatchRequest)
+     */
+    SendMessageBatch("sqs:SendMessageBatch"),
+
+    /**
+     * Action for the ChangeMessageVisibilityBatch operation on Amazon SQS.
+     *
+     * @see AmazonSQS#changeMessageVisibilityBatch(com.amazonaws.services.sqs.model.ChangeMessageVisibilityBatchRequest)
+     */
+    ChangeMessageVisibilityBatch("sqs:ChangeMessageVisibilityBatch"),
+
+    /**
+     * Action for the DeleteMessageBatch operation on Amazon SQS.
+     *
+     * @see AmazonSQS#deleteMessageBatch(com.amazonaws.services.sqs.model.DeleteMessageBatchRequest)
+     */
+    DeleteMessageBatch("sqs:DeleteMessageBatch");
 
     private final String action;
 

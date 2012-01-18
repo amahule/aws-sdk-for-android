@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -214,6 +214,40 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest {
     
     
     /**
+     * The statistic for the metric.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>SampleCount, Average, Sum, Minimum, Maximum
+     *
+     * @param statistic The statistic for the metric.
+     *
+     * @see Statistic
+     */
+    public void setStatistic(Statistic statistic) {
+        this.statistic = statistic.toString();
+    }
+    
+    /**
+     * The statistic for the metric.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>SampleCount, Average, Sum, Minimum, Maximum
+     *
+     * @param statistic The statistic for the metric.
+     *
+     * @return A reference to this updated object so that method calls can be chained 
+     *         together. 
+     *
+     * @see Statistic
+     */
+    public DescribeAlarmsForMetricRequest withStatistic(Statistic statistic) {
+        this.statistic = statistic.toString();
+        return this;
+    }
+    
+    /**
      * The list of dimensions associated with the metric.
      * <p>
      * <b>Constraints:</b><br/>
@@ -238,10 +272,13 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest {
      * @param dimensions The list of dimensions associated with the metric.
      */
     public void setDimensions(java.util.Collection<Dimension> dimensions) {
-        java.util.List<Dimension> dimensionsCopy = new java.util.ArrayList<Dimension>();
-        if (dimensions != null) {
-            dimensionsCopy.addAll(dimensions);
+        if (dimensions == null) {
+            this.dimensions = null;
+            return;
         }
+
+        java.util.List<Dimension> dimensionsCopy = new java.util.ArrayList<Dimension>(dimensions.size());
+        dimensionsCopy.addAll(dimensions);
         this.dimensions = dimensionsCopy;
     }
     
@@ -259,7 +296,7 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest {
      *         together. 
      */
     public DescribeAlarmsForMetricRequest withDimensions(Dimension... dimensions) {
-        if (getDimensions() == null) setDimensions(new java.util.ArrayList<Dimension>());
+        if (getDimensions() == null) setDimensions(new java.util.ArrayList<Dimension>(dimensions.length));
         for (Dimension value : dimensions) {
             getDimensions().add(value);
         }
@@ -280,11 +317,13 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest {
      *         together. 
      */
     public DescribeAlarmsForMetricRequest withDimensions(java.util.Collection<Dimension> dimensions) {
-        java.util.List<Dimension> dimensionsCopy = new java.util.ArrayList<Dimension>();
-        if (dimensions != null) {
+        if (dimensions == null) {
+            this.dimensions = null;
+        } else {
+            java.util.List<Dimension> dimensionsCopy = new java.util.ArrayList<Dimension>(dimensions.size());
             dimensionsCopy.addAll(dimensions);
+            this.dimensions = dimensionsCopy;
         }
-        this.dimensions = dimensionsCopy;
 
         return this;
     }
@@ -382,6 +421,40 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest {
     
     
     /**
+     * The unit for the metric.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>Seconds, Microseconds, Milliseconds, Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, Bits, Kilobits, Megabits, Gigabits, Terabits, Percent, Count, Bytes/Second, Kilobytes/Second, Megabytes/Second, Gigabytes/Second, Terabytes/Second, Bits/Second, Kilobits/Second, Megabits/Second, Gigabits/Second, Terabits/Second, Count/Second, None
+     *
+     * @param unit The unit for the metric.
+     *
+     * @see StandardUnit
+     */
+    public void setUnit(StandardUnit unit) {
+        this.unit = unit.toString();
+    }
+    
+    /**
+     * The unit for the metric.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>Seconds, Microseconds, Milliseconds, Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, Bits, Kilobits, Megabits, Gigabits, Terabits, Percent, Count, Bytes/Second, Kilobytes/Second, Megabytes/Second, Gigabytes/Second, Terabytes/Second, Bits/Second, Kilobits/Second, Megabits/Second, Gigabits/Second, Terabits/Second, Count/Second, None
+     *
+     * @param unit The unit for the metric.
+     *
+     * @return A reference to this updated object so that method calls can be chained 
+     *         together. 
+     *
+     * @see StandardUnit
+     */
+    public DescribeAlarmsForMetricRequest withUnit(StandardUnit unit) {
+        this.unit = unit.toString();
+        return this;
+    }
+    
+    /**
      * Returns a string representation of this object; useful for testing and
      * debugging.
      *
@@ -393,14 +466,51 @@ public class DescribeAlarmsForMetricRequest extends AmazonWebServiceRequest {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        sb.append("MetricName: " + metricName + ", ");
-        sb.append("Namespace: " + namespace + ", ");
-        sb.append("Statistic: " + statistic + ", ");
-        sb.append("Dimensions: " + dimensions + ", ");
-        sb.append("Period: " + period + ", ");
-        sb.append("Unit: " + unit + ", ");
+        if (metricName != null) sb.append("MetricName: " + metricName + ", ");
+        if (namespace != null) sb.append("Namespace: " + namespace + ", ");
+        if (statistic != null) sb.append("Statistic: " + statistic + ", ");
+        if (dimensions != null) sb.append("Dimensions: " + dimensions + ", ");
+        if (period != null) sb.append("Period: " + period + ", ");
+        if (unit != null) sb.append("Unit: " + unit + ", ");
         sb.append("}");
         return sb.toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+        
+        hashCode = prime * hashCode + ((getMetricName() == null) ? 0 : getMetricName().hashCode()); 
+        hashCode = prime * hashCode + ((getNamespace() == null) ? 0 : getNamespace().hashCode()); 
+        hashCode = prime * hashCode + ((getStatistic() == null) ? 0 : getStatistic().hashCode()); 
+        hashCode = prime * hashCode + ((getDimensions() == null) ? 0 : getDimensions().hashCode()); 
+        hashCode = prime * hashCode + ((getPeriod() == null) ? 0 : getPeriod().hashCode()); 
+        hashCode = prime * hashCode + ((getUnit() == null) ? 0 : getUnit().hashCode()); 
+        return hashCode;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+    
+        if (obj instanceof DescribeAlarmsForMetricRequest == false) return false;
+        DescribeAlarmsForMetricRequest other = (DescribeAlarmsForMetricRequest)obj;
+        
+        if (other.getMetricName() == null ^ this.getMetricName() == null) return false;
+        if (other.getMetricName() != null && other.getMetricName().equals(this.getMetricName()) == false) return false; 
+        if (other.getNamespace() == null ^ this.getNamespace() == null) return false;
+        if (other.getNamespace() != null && other.getNamespace().equals(this.getNamespace()) == false) return false; 
+        if (other.getStatistic() == null ^ this.getStatistic() == null) return false;
+        if (other.getStatistic() != null && other.getStatistic().equals(this.getStatistic()) == false) return false; 
+        if (other.getDimensions() == null ^ this.getDimensions() == null) return false;
+        if (other.getDimensions() != null && other.getDimensions().equals(this.getDimensions()) == false) return false; 
+        if (other.getPeriod() == null ^ this.getPeriod() == null) return false;
+        if (other.getPeriod() != null && other.getPeriod().equals(this.getPeriod()) == false) return false; 
+        if (other.getUnit() == null ^ this.getUnit() == null) return false;
+        if (other.getUnit() != null && other.getUnit().equals(this.getUnit()) == false) return false; 
+        return true;
     }
     
 }

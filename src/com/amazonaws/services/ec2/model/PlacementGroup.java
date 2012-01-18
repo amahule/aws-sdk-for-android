@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -62,6 +62,8 @@ public class PlacementGroup {
     public PlacementGroup(String groupName) {
         this.groupName = groupName;
     }
+
+    
     
     /**
      * The name of this <code>PlacementGroup</code>.
@@ -153,6 +155,44 @@ public class PlacementGroup {
     
     
     /**
+     * The strategy to use when allocating Amazon EC2 instances for the
+     * <code>PlacementGroup</code>.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>cluster
+     *
+     * @param strategy The strategy to use when allocating Amazon EC2 instances for the
+     *         <code>PlacementGroup</code>.
+     *
+     * @see PlacementStrategy
+     */
+    public void setStrategy(PlacementStrategy strategy) {
+        this.strategy = strategy.toString();
+    }
+    
+    /**
+     * The strategy to use when allocating Amazon EC2 instances for the
+     * <code>PlacementGroup</code>.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>cluster
+     *
+     * @param strategy The strategy to use when allocating Amazon EC2 instances for the
+     *         <code>PlacementGroup</code>.
+     *
+     * @return A reference to this updated object so that method calls can be chained 
+     *         together. 
+     *
+     * @see PlacementStrategy
+     */
+    public PlacementGroup withStrategy(PlacementStrategy strategy) {
+        this.strategy = strategy.toString();
+        return this;
+    }
+    
+    /**
      * The state of this <code>PlacementGroup</code>.
      * <p>
      * <b>Constraints:</b><br/>
@@ -202,6 +242,40 @@ public class PlacementGroup {
     
     
     /**
+     * The state of this <code>PlacementGroup</code>.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>pending, available, deleting, deleted
+     *
+     * @param state The state of this <code>PlacementGroup</code>.
+     *
+     * @see PlacementGroupState
+     */
+    public void setState(PlacementGroupState state) {
+        this.state = state.toString();
+    }
+    
+    /**
+     * The state of this <code>PlacementGroup</code>.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>pending, available, deleting, deleted
+     *
+     * @param state The state of this <code>PlacementGroup</code>.
+     *
+     * @return A reference to this updated object so that method calls can be chained 
+     *         together. 
+     *
+     * @see PlacementGroupState
+     */
+    public PlacementGroup withState(PlacementGroupState state) {
+        this.state = state.toString();
+        return this;
+    }
+    
+    /**
      * Returns a string representation of this object; useful for testing and
      * debugging.
      *
@@ -213,11 +287,39 @@ public class PlacementGroup {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        sb.append("GroupName: " + groupName + ", ");
-        sb.append("Strategy: " + strategy + ", ");
-        sb.append("State: " + state + ", ");
+        if (groupName != null) sb.append("GroupName: " + groupName + ", ");
+        if (strategy != null) sb.append("Strategy: " + strategy + ", ");
+        if (state != null) sb.append("State: " + state + ", ");
         sb.append("}");
         return sb.toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+        
+        hashCode = prime * hashCode + ((getGroupName() == null) ? 0 : getGroupName().hashCode()); 
+        hashCode = prime * hashCode + ((getStrategy() == null) ? 0 : getStrategy().hashCode()); 
+        hashCode = prime * hashCode + ((getState() == null) ? 0 : getState().hashCode()); 
+        return hashCode;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+    
+        if (obj instanceof PlacementGroup == false) return false;
+        PlacementGroup other = (PlacementGroup)obj;
+        
+        if (other.getGroupName() == null ^ this.getGroupName() == null) return false;
+        if (other.getGroupName() != null && other.getGroupName().equals(this.getGroupName()) == false) return false; 
+        if (other.getStrategy() == null ^ this.getStrategy() == null) return false;
+        if (other.getStrategy() != null && other.getStrategy().equals(this.getStrategy()) == false) return false; 
+        if (other.getState() == null ^ this.getState() == null) return false;
+        if (other.getState() != null && other.getState().equals(this.getState()) == false) return false; 
+        return true;
     }
     
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Portions copyright 2006-2009 James Murty. Please see LICENSE.txt
  * for applicable license terms and NOTICE.txt for applicable notices.
@@ -39,7 +39,8 @@ public class RestUtils {
      */
     private static final List<String> SIGNED_PARAMETERS = Arrays.asList(new String[] {
     		"acl", "torrent", "logging", "location", "policy", "requestPayment", "versioning",
-    		"versions", "versionId", "notification", "uploadId", "uploads", "partNumber", "website",
+    		"versions", "versionId", "notification", "uploadId", "uploads", "partNumber", "website", 
+    		"delete", "lifecycle",
             ResponseHeaderOverrides.RESPONSE_HEADER_CACHE_CONTROL,
             ResponseHeaderOverrides.RESPONSE_HEADER_CONTENT_DISPOSITION,
             ResponseHeaderOverrides.RESPONSE_HEADER_CONTENT_ENCODING,

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -88,7 +88,7 @@ class HttpClientFactory {
 		 * register a new scheme for HTTPS that won't cause self-signed certs to
 		 * error out.
 		 */
-        if (false) {
+        if (System.getProperty("com.amazonaws.sdk.disableCertChecking") != null) {
         	Scheme sch = new Scheme("https", 443, new TrustingSocketFactory());
         	httpClient.getConnectionManager().getSchemeRegistry().register(sch);
         }

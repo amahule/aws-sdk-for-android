@@ -23,7 +23,6 @@ To run this specific sample you will need to do the following:
    * Select the  Libraries tab.
    * Click Add External JARs. The Browse dialog box opens.
    * Browse to samples/AWSAndroidDemoTVMIdentity/lib/aws-android-sdk-X.X.X-debug.jar, then click Select.
-   * Browse to samples/AWSAndroidDemoTVMIdentity/lib/tvmclient.jar, then click Select.
    * Click OK
 
 3. Update your App configuration:

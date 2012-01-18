@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -36,6 +36,11 @@ public class AvailabilityZone {
      * Name of the region in which this zone resides.
      */
     private String regionName;
+
+    /**
+     * A list of messages about the Availability Zone.
+     */
+    private java.util.List<AvailabilityZoneMessage> messages;
 
     /**
      * Name of the Availability Zone.
@@ -140,6 +145,75 @@ public class AvailabilityZone {
     
     
     /**
+     * A list of messages about the Availability Zone.
+     *
+     * @return A list of messages about the Availability Zone.
+     */
+    public java.util.List<AvailabilityZoneMessage> getMessages() {
+        
+        if (messages == null) {
+            messages = new java.util.ArrayList<AvailabilityZoneMessage>();
+        }
+        return messages;
+    }
+    
+    /**
+     * A list of messages about the Availability Zone.
+     *
+     * @param messages A list of messages about the Availability Zone.
+     */
+    public void setMessages(java.util.Collection<AvailabilityZoneMessage> messages) {
+        if (messages == null) {
+            this.messages = null;
+            return;
+        }
+
+        java.util.List<AvailabilityZoneMessage> messagesCopy = new java.util.ArrayList<AvailabilityZoneMessage>(messages.size());
+        messagesCopy.addAll(messages);
+        this.messages = messagesCopy;
+    }
+    
+    /**
+     * A list of messages about the Availability Zone.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param messages A list of messages about the Availability Zone.
+     *
+     * @return A reference to this updated object so that method calls can be chained 
+     *         together. 
+     */
+    public AvailabilityZone withMessages(AvailabilityZoneMessage... messages) {
+        if (getMessages() == null) setMessages(new java.util.ArrayList<AvailabilityZoneMessage>(messages.length));
+        for (AvailabilityZoneMessage value : messages) {
+            getMessages().add(value);
+        }
+        return this;
+    }
+    
+    /**
+     * A list of messages about the Availability Zone.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param messages A list of messages about the Availability Zone.
+     *
+     * @return A reference to this updated object so that method calls can be chained 
+     *         together. 
+     */
+    public AvailabilityZone withMessages(java.util.Collection<AvailabilityZoneMessage> messages) {
+        if (messages == null) {
+            this.messages = null;
+        } else {
+            java.util.List<AvailabilityZoneMessage> messagesCopy = new java.util.ArrayList<AvailabilityZoneMessage>(messages.size());
+            messagesCopy.addAll(messages);
+            this.messages = messagesCopy;
+        }
+
+        return this;
+    }
+    
+    /**
      * Returns a string representation of this object; useful for testing and
      * debugging.
      *
@@ -151,11 +225,43 @@ public class AvailabilityZone {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        sb.append("ZoneName: " + zoneName + ", ");
-        sb.append("State: " + state + ", ");
-        sb.append("RegionName: " + regionName + ", ");
+        if (zoneName != null) sb.append("ZoneName: " + zoneName + ", ");
+        if (state != null) sb.append("State: " + state + ", ");
+        if (regionName != null) sb.append("RegionName: " + regionName + ", ");
+        if (messages != null) sb.append("Messages: " + messages + ", ");
         sb.append("}");
         return sb.toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+        
+        hashCode = prime * hashCode + ((getZoneName() == null) ? 0 : getZoneName().hashCode()); 
+        hashCode = prime * hashCode + ((getState() == null) ? 0 : getState().hashCode()); 
+        hashCode = prime * hashCode + ((getRegionName() == null) ? 0 : getRegionName().hashCode()); 
+        hashCode = prime * hashCode + ((getMessages() == null) ? 0 : getMessages().hashCode()); 
+        return hashCode;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+    
+        if (obj instanceof AvailabilityZone == false) return false;
+        AvailabilityZone other = (AvailabilityZone)obj;
+        
+        if (other.getZoneName() == null ^ this.getZoneName() == null) return false;
+        if (other.getZoneName() != null && other.getZoneName().equals(this.getZoneName()) == false) return false; 
+        if (other.getState() == null ^ this.getState() == null) return false;
+        if (other.getState() != null && other.getState().equals(this.getState()) == false) return false; 
+        if (other.getRegionName() == null ^ this.getRegionName() == null) return false;
+        if (other.getRegionName() != null && other.getRegionName().equals(this.getRegionName()) == false) return false; 
+        if (other.getMessages() == null ^ this.getMessages() == null) return false;
+        if (other.getMessages() != null && other.getMessages().equals(this.getMessages()) == false) return false; 
+        return true;
     }
     
 }

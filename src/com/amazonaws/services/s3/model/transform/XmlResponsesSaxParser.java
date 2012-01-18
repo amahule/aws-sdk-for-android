@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Portions copyright 2006-2009 James Murty. Please see LICENSE.txt
  * for applicable license terms and NOTICE.txt for applicable notices.
@@ -25,6 +25,7 @@ import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
@@ -39,21 +40,30 @@ import org.xml.sax.helpers.XMLReaderFactory;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.services.s3.internal.Constants;
+import com.amazonaws.services.s3.internal.DeleteObjectsResponse;
+import com.amazonaws.services.s3.internal.ObjectExpirationResult;
 import com.amazonaws.services.s3.internal.ServerSideEncryptionResult;
 import com.amazonaws.services.s3.internal.ServiceUtils;
 import com.amazonaws.services.s3.model.AccessControlList;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.Bucket;
+import com.amazonaws.services.s3.model.BucketLifecycleConfiguration;
+import com.amazonaws.services.s3.model.BucketLifecycleConfiguration.Rule;
 import com.amazonaws.services.s3.model.BucketLoggingConfiguration;
 import com.amazonaws.services.s3.model.BucketNotificationConfiguration;
+import com.amazonaws.services.s3.model.BucketNotificationConfiguration.TopicConfiguration;
 import com.amazonaws.services.s3.model.BucketVersioningConfiguration;
 import com.amazonaws.services.s3.model.BucketWebsiteConfiguration;
 import com.amazonaws.services.s3.model.CanonicalGrantee;
 import com.amazonaws.services.s3.model.CompleteMultipartUploadResult;
+import com.amazonaws.services.s3.model.DeleteObjectsResult;
+import com.amazonaws.services.s3.model.DeleteObjectsResult.DeletedObject;
 import com.amazonaws.services.s3.model.EmailAddressGrantee;
 import com.amazonaws.services.s3.model.Grantee;
 import com.amazonaws.services.s3.model.GroupGrantee;
 import com.amazonaws.services.s3.model.InitiateMultipartUploadResult;
+import com.amazonaws.services.s3.model.MultiObjectDeleteException;
+import com.amazonaws.services.s3.model.MultiObjectDeleteException.DeleteError;
 import com.amazonaws.services.s3.model.MultipartUpload;
 import com.amazonaws.services.s3.model.MultipartUploadListing;
 import com.amazonaws.services.s3.model.ObjectListing;
@@ -65,7 +75,6 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.amazonaws.services.s3.model.S3VersionSummary;
 import com.amazonaws.services.s3.model.VersionListing;
-import com.amazonaws.services.s3.model.BucketNotificationConfiguration.TopicConfiguration;
 
 /**
  * XML Sax parser to read XML documents returned by S3 via the REST interface,
@@ -333,6 +342,13 @@ public class XmlResponsesSaxParser {
         parseXmlInputStream(handler, inputStream);
         return handler;
     }
+    
+    public BucketLifecycleConfigurationHandler parseBucketLifecycleConfigurationResponse(InputStream inputStream) 
+    {
+        BucketLifecycleConfigurationHandler handler = new BucketLifecycleConfigurationHandler();
+        parseXmlInputStream(handler, inputStream);
+        return handler;
+    }
 
     public String parseBucketLocationResponse(InputStream inputStream)
         throws AmazonClientException
@@ -362,6 +378,12 @@ public class XmlResponsesSaxParser {
         throws AmazonClientException
     {
         BucketNotificationConfigurationHandler handler = new BucketNotificationConfigurationHandler();
+        parseXmlInputStream(handler, inputStream);
+        return handler;
+    }
+    
+    public DeleteObjectsHandler parseDeletedObjectsResult(InputStream inputStream) {
+        DeleteObjectsHandler handler = new DeleteObjectsHandler();
         parseXmlInputStream(handler, inputStream);
         return handler;
     }
@@ -922,13 +944,16 @@ public class XmlResponsesSaxParser {
     }
 
 
-    public class CopyObjectResultHandler extends DefaultHandler implements ServerSideEncryptionResult {
+    public class CopyObjectResultHandler extends DefaultHandler implements ServerSideEncryptionResult, ObjectExpirationResult {       
+
         // Data items for successful copy
         private String etag = null;
         private Date lastModified = null;
         private String versionId = null;
         private String serverSideEncryption;
-       
+        private Date expirationTime;
+        private String expirationTimeRuleId;
+        
         // Data items for failed copy
         private String errorCode = null;
         private String errorMessage = null;
@@ -958,9 +983,25 @@ public class XmlResponsesSaxParser {
         public String getServerSideEncryption() {
             return serverSideEncryption;
         }
-        
+
         public void setServerSideEncryption(String serverSideEncryption) {
             this.serverSideEncryption = serverSideEncryption;
+        }
+
+        public Date getExpirationTime() {
+            return expirationTime;
+        }
+
+        public void setExpirationTime(Date expirationTime) {
+            this.expirationTime = expirationTime;
+        }
+
+        public String getExpirationTimeRuleId() {
+            return expirationTimeRuleId;
+        }
+
+        public void setExpirationTimeRuleId(String expirationTimeRuleId) {
+            this.expirationTimeRuleId = expirationTimeRuleId;
         }
 
         public String getETag() {
@@ -1339,7 +1380,9 @@ public class XmlResponsesSaxParser {
      *     <HostId>Uuag1LuByRx9e6j5Onimru9pO4ZVKnJ2Qz7/C1NPcfTWAtRPfTaOFg==</HostId>
      * </Error>
      */
-    public class CompleteMultipartUploadHandler extends DefaultHandler implements ServerSideEncryptionResult {
+    public class CompleteMultipartUploadHandler extends DefaultHandler implements ServerSideEncryptionResult,
+            ObjectExpirationResult {
+
         private StringBuilder text;
 
         // Successful completion
@@ -1355,6 +1398,40 @@ public class XmlResponsesSaxParser {
         public void setServerSideEncryption(String serverSideEncryption) {
             if ( result != null )
                 result.setServerSideEncryption(serverSideEncryption);
+        }
+
+        /**
+         * @see com.amazonaws.services.s3.model.CompleteMultipartUploadResult#getExpirationTime()
+         */
+        public Date getExpirationTime() {
+            if ( result != null )
+                return result.getExpirationTime();
+            return null;
+        }
+        
+        /**
+         * @see com.amazonaws.services.s3.model.CompleteMultipartUploadResult#setExpirationTime(java.util.Date)
+         */
+        public void setExpirationTime(Date expirationTime) {
+            if ( result != null )
+                result.setExpirationTime(expirationTime);
+        }
+        
+        /**
+         * @see com.amazonaws.services.s3.model.CompleteMultipartUploadResult#getExpirationTimeRuleId()
+         */
+        public String getExpirationTimeRuleId() {
+            if ( result != null )
+                return result.getExpirationTimeRuleId();
+            return null;
+        }
+        
+        /**
+         * @see com.amazonaws.services.s3.model.CompleteMultipartUploadResult#setExpirationTimeRuleId(java.lang.String)
+         */        
+        public void setExpirationTimeRuleId(String expirationTimeRuleId) {
+            if ( result != null )
+                result.setExpirationTimeRuleId(expirationTimeRuleId);
         }
 
         // Error during completion
@@ -1864,6 +1941,191 @@ public class XmlResponsesSaxParser {
         }
     }
 
+    /*
+        HTTP/1.1 200 OK
+        x-amz-id-2: Uuag1LuByRx9e6j5Onimru9pO4ZVKnJ2Qz7/C1NPcfTWAtRPfTaOFg==
+        x-amz-request-id: 656c76696e6727732072657175657374
+        Date: Tue, 20 Sep 2012 20:34:56 GMT
+        Content-Type: application/xml
+        Transfer-Encoding: chunked
+        Connection: keep-alive
+        Server: AmazonS3
+        
+        <?xml version="1.0" encoding="UTF-8"?>
+        <DeleteResult>
+            <Deleted>
+               <Key>Key</Key>
+               <VersionId>Version</VersionId>
+            </Deleted>
+            <Error>
+               <Key>Key</Key>
+               <VersionId>Version</VersionId>
+               <Code>Code</Code>
+               <Message>Message</Message>
+            </Error> 
+            <Deleted>
+               <Key>Key</Key>
+               <DeleteMarker>true</DeleteMarker>
+               <DeleteMarkerVersionId>Version</DeleteMarkerVersionId>
+            </Deleted>
+        </DeleteResult>
+     */
+    public class DeleteObjectsHandler extends DefaultHandler {
+        private StringBuilder text;
+        
+        private DeletedObject deletedObject = null;
+        private DeleteError error = null;
+        private List<DeletedObject> deletedObjects = new LinkedList<DeleteObjectsResult.DeletedObject>();
+        private List<DeleteError> deleteErrors = new LinkedList<MultiObjectDeleteException.DeleteError>();
+    
+        public DeleteObjectsResponse getDeleteObjectResult() {
+            return new DeleteObjectsResponse(deletedObjects, deleteErrors);
+        }
+    
+        @Override
+        public void startDocument() {
+            text = new StringBuilder();
+        }
+    
+        @Override
+        public void startElement(String uri, String name, String qName, Attributes attrs) {
+            if ( name.equals("Deleted") ) {
+                deletedObject = new DeletedObject();
+            } else if ( name.equals("Error") ) {
+                error = new DeleteError();
+            } else if ( name.equals("Key") ) {
+            } else if ( name.equals("VersionId") ) {
+            } else if ( name.equals("Code") ) {
+            } else if ( name.equals("Message") ) {
+            } else if ( name.equals("DeleteMarker") ) {
+            } else if ( name.equals("DeleteMarkerVersionId") ) {
+            } else if ( name.equals("DeletedResult") ) {
+            } else {
+                log.warn("Unexpected tag: " + name);
+            }
+            text.setLength(0);
+        }
+    
+        @Override
+        public void endElement(String uri, String name, String qName) throws SAXException {
+            if ( name.equals("Deleted") ) {
+                deletedObjects.add(deletedObject);
+                deletedObject = null;
+            } else if ( name.equals("Error") ) {
+                deleteErrors.add(error);
+                error = null;
+            } else if ( name.equals("Key") ) {
+                if ( deletedObject != null ) {
+                    deletedObject.setKey(text.toString());
+                } else if ( error != null ) {
+                    error.setKey(text.toString());
+                }
+            } else if ( name.equals("VersionId") ) {
+                if ( deletedObject != null ) {
+                    deletedObject.setVersionId(text.toString());
+                } else if ( error != null ) {
+                    error.setVersionId(text.toString());
+                }
+            } else if ( name.equals("Code") ) {
+                if ( error != null ) {
+                    error.setCode(text.toString());
+                }
+            } else if ( name.equals("Message") ) {
+                if ( error != null ) {
+                    error.setMessage(text.toString());
+                }
+            } else if ( name.equals("DeleteMarker") ) {
+                if ( deletedObject != null ) {
+                    deletedObject.setDeleteMarker(text.toString().equals("true"));
+                }
+            } else if ( name.equals("DeleteMarkerVersionId") ) {
+                if ( deletedObject != null ) {
+                    deletedObject.setDeleteMarkerVersionId(text.toString());
+                }
+            }
+        }
+    
+        @Override
+        public void characters(char ch[], int start, int length) {
+            this.text.append(ch, start, length);
+        }
+    }
+    
+    /*
+    HTTP/1.1 200 OK
+    x-amz-id-2: Uuag1LuByRx9e6j5Onimru9pO4ZVKnJ2Qz7/C1NPcfTWAtRPfTaOFg==
+    x-amz-request-id: 656c76696e6727732072657175657374
+    Date: Tue, 20 Sep 2012 20:34:56 GMT
+    Content-Length: xxx
+    Connection: keep-alive
+    Server: AmazonS3
+    
+    <LifecycleConfiguration>
+        <Rule>
+            <ID>Expire object after 10 days</ID>
+            <Prefix>prefix</Prefix>
+            <Status>Enabled</Status>
+            <Expiration>
+                <Days>10</Days>
+            </Expiration>
+        </Rule>
+    </LifecycleConfiguration>
+    */
+    public class BucketLifecycleConfigurationHandler extends DefaultHandler {
+        private StringBuilder text;
+        private Rule rule;
+        private List<Rule> rules = new LinkedList<Rule>();
+        
+        public BucketLifecycleConfiguration getConfiguration() {
+            return new BucketLifecycleConfiguration(rules);
+        }
+        
+        @Override
+        public void startDocument() {
+            text = new StringBuilder();
+        }
+    
+        @Override
+        public void startElement(String uri, String name, String qName, Attributes attrs) {
+            if ( name.equals("LifecycleConfiguration") ) {
+            } else if ( name.equals("Rule") ) {
+                rule = new Rule();
+            } else if ( name.equals("ID") ) {
+            } else if ( name.equals("Prefix") ) {
+            } else if ( name.equals("Status") ) {
+            } else if ( name.equals("Expiration") ) {
+            } else if ( name.equals("Days") ) {
+            } else {
+                log.warn("Unexpected tag: " + name);
+            }
+            text.setLength(0);
+        }
+    
+        @Override
+        public void endElement(String uri, String name, String qName) throws SAXException {
+            if ( name.equals("LifecycleConfiguration") ) {
+            } else if ( name.equals("Rule") ) {
+                rules.add(rule);
+                rule = null;
+            } else if ( name.equals("ID") ) {
+                rule.setId(text.toString());
+            } else if ( name.equals("Prefix") ) {
+                rule.setPrefix(text.toString());
+            } else if ( name.equals("Status") ) {
+                rule.setStatus(text.toString());
+            } else if ( name.equals("Expiration") ) {
+            } else if ( name.equals("Days") ) {
+                rule.setExpirationInDays(Integer.parseInt(text.toString()));
+            } else {
+                log.warn("Unexpected tag: " + name);
+            }
+        }
+    
+        @Override
+        public void characters(char ch[], int start, int length) {
+            this.text.append(ch, start, length);
+        }
+    }
 
     private static String findAttributeValue( String qnameToFind, Attributes attrs ) {
         for ( int i = 0; i < attrs.getLength(); i++ ) {
@@ -1875,4 +2137,6 @@ public class XmlResponsesSaxParser {
 
         return null;
     }
+
+
 }

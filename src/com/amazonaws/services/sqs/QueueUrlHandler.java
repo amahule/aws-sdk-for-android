@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -32,12 +32,13 @@ import com.amazonaws.handlers.AbstractRequestHandler;
 public class QueueUrlHandler extends AbstractRequestHandler {
     private static final String QUEUE_URL_PARAMETER = "QueueUrl";
 
-	public void beforeRequest(Request request) {
+	public void beforeRequest(Request<?> request) {
         if (request.getParameters().get(QUEUE_URL_PARAMETER) != null) {
             String queueUrl = (String)request.getParameters().remove(QUEUE_URL_PARAMETER);
 
             try {
-                request.setEndpoint(new URI(queueUrl));
+                URI uri = new URI(queueUrl);
+				request.setResourcePath(uri.getPath());
             } catch (URISyntaxException e) {
                 throw new AmazonClientException("Unable to parse SQS queue URL '" + queueUrl + "'", e);
             }

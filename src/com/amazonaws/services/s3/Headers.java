@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -74,6 +74,9 @@ public interface Headers {
     
     /** Header for optional server-side encryption algorithm */
     public static final String SERVER_SIDE_ENCRYPTION = "x-amz-server-side-encryption";
+    
+    /** Header for optional object expiration */
+    public static final String EXPIRATION = "x-amz-expiration";
 
     /** ETag matching constraint header for the copy object request */
     public static final String COPY_SOURCE_IF_MATCH = "x-amz-copy-source-if-match";
