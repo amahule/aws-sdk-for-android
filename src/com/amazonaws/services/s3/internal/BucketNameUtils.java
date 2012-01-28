@@ -98,10 +98,22 @@ public class BucketNameUtils {
         }
     }
 
-    /**
-     * Convience method that allows the DNS rules to be altered for different SDKs.
-     */    
+
     public boolean isDNSBucketName(String bucketName) {
-        return isValidV2BucketName( bucketName );
+        if (bucketName == null) return false;
+
+        if (bucketName.length() < 3 || bucketName.length() > 63) return false;
+        
+        if (bucketName.endsWith("-")) return false;
+
+        if (bucketName.contains("_")) return false;
+
+        if (bucketName.contains(".")) return false;
+
+        if (bucketName.contains("-.") || bucketName.contains(".-")) return false;
+
+        if (!bucketName.toLowerCase().equals(bucketName)) return false;
+
+        return true;
     }
 }

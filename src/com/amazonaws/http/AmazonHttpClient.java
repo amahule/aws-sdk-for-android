@@ -15,6 +15,7 @@
 package com.amazonaws.http;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.URI;
@@ -251,8 +252,11 @@ public class AmazonHttpClient {
             try {
                 if (retryCount > 0) {
                     pauseExponentially(retryCount, exception, executionContext.getCustomBackoffStrategy());
-                    if (entity != null && entity.getContent().markSupported()) {
-                        entity.getContent().reset();
+                    if ( entity != null ) {
+                        InputStream content = entity.getContent();
+                        if ( content.markSupported() ) {
+                            content.reset();
+                        }
                     }
                 }
 

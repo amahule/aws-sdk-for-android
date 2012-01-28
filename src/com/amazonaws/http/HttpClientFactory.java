@@ -88,7 +88,7 @@ class HttpClientFactory {
 		 * register a new scheme for HTTPS that won't cause self-signed certs to
 		 * error out.
 		 */
-        if (System.getProperty("com.amazonaws.sdk.disableCertChecking") != null) {
+        if (false) {
         	Scheme sch = new Scheme("https", 443, new TrustingSocketFactory());
         	httpClient.getConnectionManager().getSchemeRegistry().register(sch);
         }

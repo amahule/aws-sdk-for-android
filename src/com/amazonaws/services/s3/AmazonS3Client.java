@@ -259,6 +259,13 @@ public class AmazonS3Client extends AmazonWebServiceClient implements AmazonS3 {
      */
     public AmazonS3Client(AWSCredentials awsCredentials, ClientConfiguration clientConfiguration) {
         super(clientConfiguration);
+		System.setProperty("org.xml.sax.driver","org.xmlpull.v1.sax2.Driver");
+		try {
+			org.xml.sax.XMLReader reader = org.xml.sax.helpers.XMLReaderFactory.createXMLReader();
+		}
+		catch ( org.xml.sax.SAXException e ) {
+            log.warn("Unable to load XMLReader " + e.getMessage(), e);
+		}
         this.awsCredentialsProvider = new StaticCredentialsProvider(awsCredentials);
         init();
     }
