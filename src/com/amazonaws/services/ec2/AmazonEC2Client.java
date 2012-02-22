@@ -639,6 +639,29 @@ public class AmazonEC2Client extends AmazonWebServiceClient implements AmazonEC2
     }
     
     /**
+     *
+     * @param importVolumeRequest Container for the necessary parameters to
+     *           execute the ImportVolume service method on AmazonEC2.
+     * 
+     * @return The response from the ImportVolume service method, as returned
+     *         by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public ImportVolumeResult importVolume(ImportVolumeRequest importVolumeRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        Request<ImportVolumeRequest> request = new ImportVolumeRequestMarshaller().marshall(importVolumeRequest);
+        return invoke(request, new ImportVolumeResultStaxUnmarshaller());
+    }
+    
+    /**
      * <p>
      * The DescribeSecurityGroups operation returns information about
      * security groups that you own.
@@ -977,6 +1000,27 @@ public class AmazonEC2Client extends AmazonWebServiceClient implements AmazonEC2
     }
     
     /**
+     *
+     * @param cancelConversionTaskRequest Container for the necessary
+     *           parameters to execute the CancelConversionTask service method on
+     *           AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public void cancelConversionTask(CancelConversionTaskRequest cancelConversionTaskRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        Request<CancelConversionTaskRequest> request = new CancelConversionTaskRequestMarshaller().marshall(cancelConversionTaskRequest);
+        invoke(request, null);
+    }
+    
+    /**
      * <p>
      * Describes the status of the indicated volume or, in lieu of any
      * specified, all volumes belonging to the caller. Volumes that have been
@@ -1002,6 +1046,27 @@ public class AmazonEC2Client extends AmazonWebServiceClient implements AmazonEC2
             throws AmazonServiceException, AmazonClientException {
         Request<DescribeVolumesRequest> request = new DescribeVolumesRequestMarshaller().marshall(describeVolumesRequest);
         return invoke(request, new DescribeVolumesResultStaxUnmarshaller());
+    }
+    
+    /**
+     *
+     * @param reportInstanceStatusRequest Container for the necessary
+     *           parameters to execute the ReportInstanceStatus service method on
+     *           AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public void reportInstanceStatus(ReportInstanceStatusRequest reportInstanceStatusRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        Request<ReportInstanceStatusRequest> request = new ReportInstanceStatusRequestMarshaller().marshall(reportInstanceStatusRequest);
+        invoke(request, null);
     }
     
     /**
@@ -1058,6 +1123,29 @@ public class AmazonEC2Client extends AmazonWebServiceClient implements AmazonEC2
             throws AmazonServiceException, AmazonClientException {
         Request<DescribeBundleTasksRequest> request = new DescribeBundleTasksRequestMarshaller().marshall(describeBundleTasksRequest);
         return invoke(request, new DescribeBundleTasksResultStaxUnmarshaller());
+    }
+    
+    /**
+     *
+     * @param importInstanceRequest Container for the necessary parameters to
+     *           execute the ImportInstance service method on AmazonEC2.
+     * 
+     * @return The response from the ImportInstance service method, as
+     *         returned by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public ImportInstanceResult importInstance(ImportInstanceRequest importInstanceRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        Request<ImportInstanceRequest> request = new ImportInstanceRequestMarshaller().marshall(importInstanceRequest);
+        return invoke(request, new ImportInstanceResultStaxUnmarshaller());
     }
     
     /**
@@ -1186,6 +1274,30 @@ public class AmazonEC2Client extends AmazonWebServiceClient implements AmazonEC2
             throws AmazonServiceException, AmazonClientException {
         Request<CreateSpotDatafeedSubscriptionRequest> request = new CreateSpotDatafeedSubscriptionRequestMarshaller().marshall(createSpotDatafeedSubscriptionRequest);
         return invoke(request, new CreateSpotDatafeedSubscriptionResultStaxUnmarshaller());
+    }
+    
+    /**
+     *
+     * @param describeConversionTasksRequest Container for the necessary
+     *           parameters to execute the DescribeConversionTasks service method on
+     *           AmazonEC2.
+     * 
+     * @return The response from the DescribeConversionTasks service method,
+     *         as returned by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public DescribeConversionTasksResult describeConversionTasks(DescribeConversionTasksRequest describeConversionTasksRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        Request<DescribeConversionTasksRequest> request = new DescribeConversionTasksRequestMarshaller().marshall(describeConversionTasksRequest);
+        return invoke(request, new DescribeConversionTasksResultStaxUnmarshaller());
     }
     
     /**
@@ -1922,6 +2034,34 @@ public class AmazonEC2Client extends AmazonWebServiceClient implements AmazonEC2
     
     /**
      * <p>
+     * The DescribeImageAttribute operation returns information about an
+     * attribute of an AMI. Only one attribute can be specified per call.
+     * </p>
+     *
+     * @param describeImageAttributeRequest Container for the necessary
+     *           parameters to execute the DescribeImageAttribute service method on
+     *           AmazonEC2.
+     * 
+     * @return The response from the DescribeImageAttribute service method,
+     *         as returned by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public DescribeImageAttributeResult describeImageAttribute(DescribeImageAttributeRequest describeImageAttributeRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        Request<DescribeImageAttributeRequest> request = new DescribeImageAttributeRequestMarshaller().marshall(describeImageAttributeRequest);
+        return invoke(request, new DescribeImageAttributeResultStaxUnmarshaller());
+    }
+    
+    /**
+     * <p>
      * The DescribeKeyPairs operation returns information about key pairs
      * available to you. If you specify key pairs, information about those
      * key pairs is returned. Otherwise, information for all registered key
@@ -1947,34 +2087,6 @@ public class AmazonEC2Client extends AmazonWebServiceClient implements AmazonEC2
             throws AmazonServiceException, AmazonClientException {
         Request<DescribeKeyPairsRequest> request = new DescribeKeyPairsRequestMarshaller().marshall(describeKeyPairsRequest);
         return invoke(request, new DescribeKeyPairsResultStaxUnmarshaller());
-    }
-    
-    /**
-     * <p>
-     * The DescribeImageAttribute operation returns information about an
-     * attribute of an AMI. Only one attribute can be specified per call.
-     * </p>
-     *
-     * @param describeImageAttributeRequest Container for the necessary
-     *           parameters to execute the DescribeImageAttribute service method on
-     *           AmazonEC2.
-     * 
-     * @return The response from the DescribeImageAttribute service method,
-     *         as returned by AmazonEC2.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonEC2 indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public DescribeImageAttributeResult describeImageAttribute(DescribeImageAttributeRequest describeImageAttributeRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        Request<DescribeImageAttributeRequest> request = new DescribeImageAttributeRequestMarshaller().marshall(describeImageAttributeRequest);
-        return invoke(request, new DescribeImageAttributeResultStaxUnmarshaller());
     }
     
     /**
@@ -2615,6 +2727,24 @@ public class AmazonEC2Client extends AmazonWebServiceClient implements AmazonEC2
     }
     
     /**
+     * 
+     * @return The response from the ImportVolume service method, as returned
+     *         by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public ImportVolumeResult importVolume() throws AmazonServiceException, AmazonClientException {
+        return importVolume(new ImportVolumeRequest());
+    }
+    
+    /**
      * <p>
      * The DescribeSecurityGroups operation returns information about
      * security groups that you own.
@@ -2716,6 +2846,21 @@ public class AmazonEC2Client extends AmazonWebServiceClient implements AmazonEC2
     }
     
     /**
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public void reportInstanceStatus() throws AmazonServiceException, AmazonClientException {
+        reportInstanceStatus(new ReportInstanceStatusRequest());
+    }
+    
+    /**
      * <p>
      * The DescribeBundleTasks operation describes in-progress and recent
      * bundle tasks. Complete and failed tasks are removed from the list a
@@ -2768,6 +2913,24 @@ public class AmazonEC2Client extends AmazonWebServiceClient implements AmazonEC2
      */
     public void revokeSecurityGroupIngress() throws AmazonServiceException, AmazonClientException {
         revokeSecurityGroupIngress(new RevokeSecurityGroupIngressRequest());
+    }
+    
+    /**
+     * 
+     * @return The response from the DescribeConversionTasks service method,
+     *         as returned by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public DescribeConversionTasksResult describeConversionTasks() throws AmazonServiceException, AmazonClientException {
+        return describeConversionTasks(new DescribeConversionTasksRequest());
     }
     
     /**

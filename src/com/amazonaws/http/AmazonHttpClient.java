@@ -210,7 +210,7 @@ public class AmazonHttpClient {
         // connections so that they don't sit around in CLOSE_WAIT.
         httpClient.getConnectionManager().closeIdleConnections(30, TimeUnit.SECONDS);
 
-        requestLog.info("Sending Request: " + request.toString());
+        requestLog.debug("Sending Request: " + request.toString());
 
         // Apply whatever request options we know how to handle, such as user-agent.
         applyRequestData(request);
@@ -250,7 +250,7 @@ public class AmazonHttpClient {
 
             org.apache.http.HttpResponse response = null;
             try {
-                if (retryCount > 0) {
+                if ( retryCount > 0 ) {
                     pauseExponentially(retryCount, exception, executionContext.getCustomBackoffStrategy());
                     if ( entity != null ) {
                         InputStream content = entity.getContent();
@@ -478,13 +478,13 @@ public class AmazonHttpClient {
 
             responseMetadataCache.add(request.getOriginalRequest(), awsResponse.getResponseMetadata());
 
-            requestLog.info("Received successful response: " + apacheHttpResponse.getStatusLine().getStatusCode()
+            requestLog.debug("Received successful response: " + apacheHttpResponse.getStatusLine().getStatusCode()
                     + ", AWS Request ID: " + awsResponse.getRequestId());
 
             return awsResponse.getResult();
         } catch (Exception e) {
             String errorMessage = "Unable to unmarshall response (" + e.getMessage() + ")";
-            log.error(errorMessage, e);
+            log.warn(errorMessage, e);
             throw new AmazonClientException(errorMessage, e);
         }
     }
@@ -520,7 +520,7 @@ public class AmazonHttpClient {
         AmazonServiceException exception = null;
         try {
             exception = errorResponseHandler.handle(response);
-            requestLog.info("Received error response: " + exception.toString());
+            requestLog.debug("Received error response: " + exception.toString());
         } catch (Exception e) {
         	// If the errorResponseHandler doesn't work, then check for error
             // responses that don't have any content
@@ -566,7 +566,7 @@ public class AmazonHttpClient {
      *             from the HttpClient method object.
      */
     private HttpResponse createResponse(HttpRequestBase method, Request<?> request, org.apache.http.HttpResponse apacheHttpResponse) throws IOException {
-        HttpResponse httpResponse = new HttpResponse(request);
+        HttpResponse httpResponse = new HttpResponse(request, method);
 
         if (apacheHttpResponse.getEntity() != null) {
         	httpResponse.setContent(apacheHttpResponse.getEntity().getContent());

@@ -24,4 +24,10 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		/>
+	<Button 
+		android:id="@+id/s3_main_async_button"
+		android:text="Async Transfer"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		/>
 </LinearLayout>

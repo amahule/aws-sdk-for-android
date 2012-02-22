@@ -30,6 +30,7 @@
 		
 		<activity android:name=".s3.S3Menu"></activity>
 		<activity android:name=".s3.S3BucketList"></activity>
+		<activity android:name=".s3.S3AsyncActivity"></activity>
 		<activity android:name=".s3.S3CreateBucket"></activity>
 		<activity android:name=".s3.S3BucketView"></activity>
 		<activity android:name=".s3.S3ObjectView"></activity>

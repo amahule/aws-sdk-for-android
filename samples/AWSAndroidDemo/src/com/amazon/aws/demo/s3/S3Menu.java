@@ -26,6 +26,7 @@ public class S3Menu extends Activity {
 	
 	Button listButton;
 	Button createButton;
+	Button asyncButton;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class S3Menu extends Activity {
     public void wireButtons(){
     	listButton = (Button) findViewById(R.id.s3_main_list_button);
     	createButton = (Button) findViewById(R.id.s3_main_create_button);
+    	asyncButton = (Button) findViewById(R.id.s3_main_async_button);
     	
     	listButton.setOnClickListener(new View.OnClickListener() {
 			
@@ -51,6 +53,14 @@ public class S3Menu extends Activity {
 			@Override
 			public void onClick(View v) {
 				startActivity(new Intent(S3Menu.this, S3CreateBucket.class));
+			}
+		});
+    	
+    	asyncButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(S3Menu.this, S3AsyncActivity.class));
 			}
 		});
     }

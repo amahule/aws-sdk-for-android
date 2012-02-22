@@ -207,6 +207,18 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
     public ExecutorService getExecutorService() {
         return executorService;
     }
+    
+    /**
+     * Shuts down the client, releasing all managed resources. This includes
+     * forcibly terminating all pending asynchronous service calls. Clients who
+     * wish to give pending asynchronous service calls time to complete should
+     * call getExecutorService().shutdown() prior to calling this method.
+     */
+    @Override
+    public void shutdown() {
+        super.shutdown();
+        executorService.shutdownNow();
+    }
             
     /**
      * <p>
@@ -723,6 +735,31 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
     }
     
     /**
+     *
+     * @param importVolumeRequest Container for the necessary parameters to
+     *           execute the ImportVolume operation on AmazonEC2.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ImportVolume service method, as returned by AmazonEC2.
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<ImportVolumeResult> importVolumeAsync(final ImportVolumeRequest importVolumeRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<ImportVolumeResult>() {
+            public ImportVolumeResult call() throws Exception {
+                return importVolume(importVolumeRequest);
+		    }
+		});
+    }
+    
+    /**
      * <p>
      * The DescribeSecurityGroups operation returns information about
      * security groups that you own.
@@ -1109,6 +1146,32 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
     }
     
     /**
+     *
+     * @param cancelConversionTaskRequest Container for the necessary
+     *           parameters to execute the CancelConversionTask operation on AmazonEC2.
+     * 
+     * @return A Java Future object containing the response from the
+     *         CancelConversionTask service method, as returned by AmazonEC2.
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> cancelConversionTaskAsync(final CancelConversionTaskRequest cancelConversionTaskRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+                cancelConversionTask(cancelConversionTaskRequest);
+                return null;
+		    }
+		});
+    }
+    
+    /**
      * <p>
      * Describes the status of the indicated volume or, in lieu of any
      * specified, all volumes belonging to the caller. Volumes that have been
@@ -1134,6 +1197,32 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeVolumesResult>() {
             public DescribeVolumesResult call() throws Exception {
                 return describeVolumes(describeVolumesRequest);
+		    }
+		});
+    }
+    
+    /**
+     *
+     * @param reportInstanceStatusRequest Container for the necessary
+     *           parameters to execute the ReportInstanceStatus operation on AmazonEC2.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ReportInstanceStatus service method, as returned by AmazonEC2.
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> reportInstanceStatusAsync(final ReportInstanceStatusRequest reportInstanceStatusRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+                reportInstanceStatus(reportInstanceStatusRequest);
+                return null;
 		    }
 		});
     }
@@ -1193,6 +1282,31 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeBundleTasksResult>() {
             public DescribeBundleTasksResult call() throws Exception {
                 return describeBundleTasks(describeBundleTasksRequest);
+		    }
+		});
+    }
+    
+    /**
+     *
+     * @param importInstanceRequest Container for the necessary parameters to
+     *           execute the ImportInstance operation on AmazonEC2.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ImportInstance service method, as returned by AmazonEC2.
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<ImportInstanceResult> importInstanceAsync(final ImportInstanceRequest importInstanceRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<ImportInstanceResult>() {
+            public ImportInstanceResult call() throws Exception {
+                return importInstance(importInstanceRequest);
 		    }
 		});
     }
@@ -1337,6 +1451,32 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<CreateSpotDatafeedSubscriptionResult>() {
             public CreateSpotDatafeedSubscriptionResult call() throws Exception {
                 return createSpotDatafeedSubscription(createSpotDatafeedSubscriptionRequest);
+		    }
+		});
+    }
+    
+    /**
+     *
+     * @param describeConversionTasksRequest Container for the necessary
+     *           parameters to execute the DescribeConversionTasks operation on
+     *           AmazonEC2.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DescribeConversionTasks service method, as returned by AmazonEC2.
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeConversionTasksResult> describeConversionTasksAsync(final DescribeConversionTasksRequest describeConversionTasksRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<DescribeConversionTasksResult>() {
+            public DescribeConversionTasksResult call() throws Exception {
+                return describeConversionTasks(describeConversionTasksRequest);
 		    }
 		});
     }
@@ -2136,6 +2276,36 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
     
     /**
      * <p>
+     * The DescribeImageAttribute operation returns information about an
+     * attribute of an AMI. Only one attribute can be specified per call.
+     * </p>
+     *
+     * @param describeImageAttributeRequest Container for the necessary
+     *           parameters to execute the DescribeImageAttribute operation on
+     *           AmazonEC2.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DescribeImageAttribute service method, as returned by AmazonEC2.
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeImageAttributeResult> describeImageAttributeAsync(final DescribeImageAttributeRequest describeImageAttributeRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<DescribeImageAttributeResult>() {
+            public DescribeImageAttributeResult call() throws Exception {
+                return describeImageAttribute(describeImageAttributeRequest);
+		    }
+		});
+    }
+    
+    /**
+     * <p>
      * The DescribeKeyPairs operation returns information about key pairs
      * available to you. If you specify key pairs, information about those
      * key pairs is returned. Otherwise, information for all registered key
@@ -2161,36 +2331,6 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeKeyPairsResult>() {
             public DescribeKeyPairsResult call() throws Exception {
                 return describeKeyPairs(describeKeyPairsRequest);
-		    }
-		});
-    }
-    
-    /**
-     * <p>
-     * The DescribeImageAttribute operation returns information about an
-     * attribute of an AMI. Only one attribute can be specified per call.
-     * </p>
-     *
-     * @param describeImageAttributeRequest Container for the necessary
-     *           parameters to execute the DescribeImageAttribute operation on
-     *           AmazonEC2.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DescribeImageAttribute service method, as returned by AmazonEC2.
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonEC2 indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<DescribeImageAttributeResult> describeImageAttributeAsync(final DescribeImageAttributeRequest describeImageAttributeRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<DescribeImageAttributeResult>() {
-            public DescribeImageAttributeResult call() throws Exception {
-                return describeImageAttribute(describeImageAttributeRequest);
 		    }
 		});
     }

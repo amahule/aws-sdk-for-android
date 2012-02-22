@@ -496,6 +496,26 @@ public interface AmazonEC2 {
             throws AmazonServiceException, AmazonClientException;
 
     /**
+     *
+     * @param importVolumeRequest Container for the necessary parameters to
+     *           execute the ImportVolume service method on AmazonEC2.
+     * 
+     * @return The response from the ImportVolume service method, as returned
+     *         by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public ImportVolumeResult importVolume(ImportVolumeRequest importVolumeRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
      * <p>
      * The DescribeSecurityGroups operation returns information about
      * security groups that you own.
@@ -798,6 +818,24 @@ public interface AmazonEC2 {
             throws AmazonServiceException, AmazonClientException;
 
     /**
+     *
+     * @param cancelConversionTaskRequest Container for the necessary
+     *           parameters to execute the CancelConversionTask service method on
+     *           AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public void cancelConversionTask(CancelConversionTaskRequest cancelConversionTaskRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
      * <p>
      * Describes the status of the indicated volume or, in lieu of any
      * specified, all volumes belonging to the caller. Volumes that have been
@@ -820,6 +858,24 @@ public interface AmazonEC2 {
      *             either a problem with the data in the request, or a server side issue.
      */
     public DescribeVolumesResult describeVolumes(DescribeVolumesRequest describeVolumesRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     *
+     * @param reportInstanceStatusRequest Container for the necessary
+     *           parameters to execute the ReportInstanceStatus service method on
+     *           AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public void reportInstanceStatus(ReportInstanceStatusRequest reportInstanceStatusRequest) 
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -870,6 +926,26 @@ public interface AmazonEC2 {
      *             either a problem with the data in the request, or a server side issue.
      */
     public DescribeBundleTasksResult describeBundleTasks(DescribeBundleTasksRequest describeBundleTasksRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     *
+     * @param importInstanceRequest Container for the necessary parameters to
+     *           execute the ImportInstance service method on AmazonEC2.
+     * 
+     * @return The response from the ImportInstance service method, as
+     *         returned by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public ImportInstanceResult importInstance(ImportInstanceRequest importInstanceRequest) 
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -986,6 +1062,27 @@ public interface AmazonEC2 {
      *             either a problem with the data in the request, or a server side issue.
      */
     public CreateSpotDatafeedSubscriptionResult createSpotDatafeedSubscription(CreateSpotDatafeedSubscriptionRequest createSpotDatafeedSubscriptionRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     *
+     * @param describeConversionTasksRequest Container for the necessary
+     *           parameters to execute the DescribeConversionTasks service method on
+     *           AmazonEC2.
+     * 
+     * @return The response from the DescribeConversionTasks service method,
+     *         as returned by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public DescribeConversionTasksResult describeConversionTasks(DescribeConversionTasksRequest describeConversionTasksRequest) 
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -1662,6 +1759,31 @@ public interface AmazonEC2 {
 
     /**
      * <p>
+     * The DescribeImageAttribute operation returns information about an
+     * attribute of an AMI. Only one attribute can be specified per call.
+     * </p>
+     *
+     * @param describeImageAttributeRequest Container for the necessary
+     *           parameters to execute the DescribeImageAttribute service method on
+     *           AmazonEC2.
+     * 
+     * @return The response from the DescribeImageAttribute service method,
+     *         as returned by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public DescribeImageAttributeResult describeImageAttribute(DescribeImageAttributeRequest describeImageAttributeRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
      * The DescribeKeyPairs operation returns information about key pairs
      * available to you. If you specify key pairs, information about those
      * key pairs is returned. Otherwise, information for all registered key
@@ -1684,31 +1806,6 @@ public interface AmazonEC2 {
      *             either a problem with the data in the request, or a server side issue.
      */
     public DescribeKeyPairsResult describeKeyPairs(DescribeKeyPairsRequest describeKeyPairsRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * The DescribeImageAttribute operation returns information about an
-     * attribute of an AMI. Only one attribute can be specified per call.
-     * </p>
-     *
-     * @param describeImageAttributeRequest Container for the necessary
-     *           parameters to execute the DescribeImageAttribute service method on
-     *           AmazonEC2.
-     * 
-     * @return The response from the DescribeImageAttribute service method,
-     *         as returned by AmazonEC2.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonEC2 indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public DescribeImageAttributeResult describeImageAttribute(DescribeImageAttributeRequest describeImageAttributeRequest) 
             throws AmazonServiceException, AmazonClientException;
 
     /**
@@ -2294,6 +2391,22 @@ public interface AmazonEC2 {
     public DescribeRegionsResult describeRegions() throws AmazonServiceException, AmazonClientException;
     
     /**
+     * 
+     * @return The response from the ImportVolume service method, as returned
+     *         by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public ImportVolumeResult importVolume() throws AmazonServiceException, AmazonClientException;
+    
+    /**
      * <p>
      * The DescribeSecurityGroups operation returns information about
      * security groups that you own.
@@ -2387,6 +2500,19 @@ public interface AmazonEC2 {
     public DescribeVolumesResult describeVolumes() throws AmazonServiceException, AmazonClientException;
     
     /**
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public void reportInstanceStatus() throws AmazonServiceException, AmazonClientException;
+    
+    /**
      * <p>
      * The DescribeBundleTasks operation describes in-progress and recent
      * bundle tasks. Complete and failed tasks are removed from the list a
@@ -2436,6 +2562,22 @@ public interface AmazonEC2 {
      *             either a problem with the data in the request, or a server side issue.
      */
     public void revokeSecurityGroupIngress() throws AmazonServiceException, AmazonClientException;
+    
+    /**
+     * 
+     * @return The response from the DescribeConversionTasks service method,
+     *         as returned by AmazonEC2.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public DescribeConversionTasksResult describeConversionTasks() throws AmazonServiceException, AmazonClientException;
     
     /**
      * <p>
