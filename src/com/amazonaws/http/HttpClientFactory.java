@@ -41,6 +41,7 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
+import org.apache.http.client.params.HttpClientParams;
 
 import com.amazonaws.ClientConfiguration;
 
@@ -66,6 +67,7 @@ class HttpClientFactory {
 
         /* Set HTTP client parameters */
         HttpParams httpClientParams = new BasicHttpParams();
+        HttpClientParams.setRedirecting(httpClientParams, false);
         HttpProtocolParams.setUserAgent(httpClientParams, userAgent);
         HttpConnectionParams.setConnectionTimeout(httpClientParams, config.getConnectionTimeout());
         HttpConnectionParams.setSoTimeout(httpClientParams, config.getSocketTimeout());

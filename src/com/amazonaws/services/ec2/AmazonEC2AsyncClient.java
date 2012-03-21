@@ -892,6 +892,35 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
     
     /**
      * <p>
+     * Enable IO on the volume after an event has occured.
+     * </p>
+     *
+     * @param enableVolumeIORequest Container for the necessary parameters to
+     *           execute the EnableVolumeIO operation on AmazonEC2.
+     * 
+     * @return A Java Future object containing the response from the
+     *         EnableVolumeIO service method, as returned by AmazonEC2.
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> enableVolumeIOAsync(final EnableVolumeIORequest enableVolumeIORequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+                enableVolumeIO(enableVolumeIORequest);
+                return null;
+		    }
+		});
+    }
+    
+    /**
+     * <p>
      * Attach a previously created volume to a running instance.
      * </p>
      *
@@ -944,6 +973,34 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
         return executorService.submit(new Callable<DescribeLicensesResult>() {
             public DescribeLicensesResult call() throws Exception {
                 return describeLicenses(describeLicensesRequest);
+		    }
+		});
+    }
+    
+    /**
+     * <p>
+     * Describes the status of a volume.
+     * </p>
+     *
+     * @param describeVolumeStatusRequest Container for the necessary
+     *           parameters to execute the DescribeVolumeStatus operation on AmazonEC2.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DescribeVolumeStatus service method, as returned by AmazonEC2.
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeVolumeStatusResult> describeVolumeStatusAsync(final DescribeVolumeStatusRequest describeVolumeStatusRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<DescribeVolumeStatusResult>() {
+            public DescribeVolumeStatusResult call() throws Exception {
+                return describeVolumeStatus(describeVolumeStatusRequest);
 		    }
 		});
     }
@@ -1660,6 +1717,33 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
     }
     
     /**
+     *
+     * @param modifyVolumeAttributeRequest Container for the necessary
+     *           parameters to execute the ModifyVolumeAttribute operation on
+     *           AmazonEC2.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ModifyVolumeAttribute service method, as returned by AmazonEC2.
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> modifyVolumeAttributeAsync(final ModifyVolumeAttributeRequest modifyVolumeAttributeRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+                modifyVolumeAttribute(modifyVolumeAttributeRequest);
+                return null;
+		    }
+		});
+    }
+    
+    /**
      * <p>
      * The DescribeImages operation returns information about AMIs, AKIs,
      * and ARIs available to the user. Information returned includes image
@@ -1975,6 +2059,32 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client
             public Void call() throws Exception {
                 createTags(createTagsRequest);
                 return null;
+		    }
+		});
+    }
+    
+    /**
+     *
+     * @param describeVolumeAttributeRequest Container for the necessary
+     *           parameters to execute the DescribeVolumeAttribute operation on
+     *           AmazonEC2.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DescribeVolumeAttribute service method, as returned by AmazonEC2.
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonEC2 indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeVolumeAttributeResult> describeVolumeAttributeAsync(final DescribeVolumeAttributeRequest describeVolumeAttributeRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<DescribeVolumeAttributeResult>() {
+            public DescribeVolumeAttributeResult call() throws Exception {
+                return describeVolumeAttribute(describeVolumeAttributeRequest);
 		    }
 		});
     }

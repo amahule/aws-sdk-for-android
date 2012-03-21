@@ -27,7 +27,9 @@ import org.apache.commons.logging.LogFactory;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
+import com.amazonaws.util.AwsHostNameUtils;
 import com.amazonaws.util.BinaryUtils;
+import com.amazonaws.util.HttpUtils;
 
 /**
  * Signer implementation that signs requests with the AWS4 signing protocol.
@@ -73,6 +75,14 @@ public class AWS4Signer extends AbstractAWSSigner {
         String regionName  = extractRegionName(request.getEndpoint());
         String serviceName = extractServiceName(request.getEndpoint());
 
+        // AWS4 requires that we sign the Host header so we
+        // have to have it in the request by the time we sign.
+        String hostHeader = request.getEndpoint().getHost();
+        if (HttpUtils.isUsingNonDefaultPort(request.getEndpoint())) {
+            hostHeader += ":" + request.getEndpoint().getPort();
+        }
+        request.addHeader("Host", hostHeader);
+
         Date date = new Date();
         if (overriddenDate != null) date = overriddenDate;
 
@@ -88,7 +98,7 @@ public class AWS4Signer extends AbstractAWSSigner {
             getCanonicalizedHeaderString(request) + "\n" +
             getSignedHeadersString(request) + "\n" +
             BinaryUtils.toHex(hash(getRequestPayload(request)));
-            
+
         log.debug("AWS4 Canonical Request: '\"" + canonicalRequest + "\"");
 
         String scope = dateStamp + "/" + regionName + "/" + serviceName + "/" + TERMINATOR;
@@ -162,44 +172,15 @@ public class AWS4Signer extends AbstractAWSSigner {
     private String extractRegionName(URI endpoint) {
         if (regionName != null) return regionName;
 
-        String host = endpoint.getHost();
-
-        // If we don't recognize the domain, just return the default
-        if (!host.endsWith(".amazonaws.com")) return "us-east-1";
-
-        String serviceAndRegion = host.substring(0, host.indexOf(".amazonaws.com"));
-
-        char separator = '.';
-        if (serviceAndRegion.startsWith("s3")) separator = '-';
-
-        if (serviceAndRegion.indexOf(separator) == -1) return "us-east-1";
-
-        String region = serviceAndRegion.substring(serviceAndRegion.indexOf(separator) + 1);
-        if ("us-gov".equals(region)) {
-            return "us-gov-west-1";
-        }
-
-        return region;
+        return AwsHostNameUtils.parseRegionName(endpoint);
     }
 
     private String extractServiceName(URI endpoint) {
         if (serviceName != null) return serviceName;
 
-        String host = endpoint.getHost();
-
-        // If we don't recognize the domain, just return the default
-        if (!host.endsWith(".amazonaws.com")) return "us-east-1";
-
-        String serviceAndRegion = host.substring(0, host.indexOf(".amazonaws.com"));
-
-        char separator = '.';
-        if (serviceAndRegion.startsWith("s3")) separator = '-';
-
-        if (serviceAndRegion.indexOf(separator) == -1) return "us-east-1";
-
-        String service = serviceAndRegion.substring(0, serviceAndRegion.indexOf(separator));
-        return service;
+        return AwsHostNameUtils.parseServiceName(endpoint);
     }
+
 
     void overrideDate(Date overriddenDate) {
         this.overriddenDate = overriddenDate;

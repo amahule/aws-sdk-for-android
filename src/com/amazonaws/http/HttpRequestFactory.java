@@ -63,6 +63,9 @@ class HttpRequestFactory {
 				uri += "/";
 			}
 			uri += request.getResourcePath();
+		} else if (!uri.endsWith("/")) {
+                    // only pad if not already / terminated
+		    uri += "/";
 		}
 
 		String encodedParams = HttpUtils.encodeParameters(request);
