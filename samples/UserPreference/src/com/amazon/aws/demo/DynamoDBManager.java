@@ -15,8 +15,9 @@
 
 package com.amazon.aws.demo;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.amazon.aws.tvmclient.PropertyLoader;
 import com.amazonaws.services.dynamodb.AmazonDynamoDBClient;
@@ -112,8 +113,8 @@ public class DynamoDBManager {
 	/*
 	 Scans the table and returns the list of users.
 	 */
-	@SuppressWarnings( "unchecked" )
-	public static ArrayList<HashMap<String, AttributeValue>> getUserList() {
+	@SuppressWarnings("unchecked")
+	public static List<Map<String, AttributeValue>> getUserList() {
 		
 		AmazonDynamoDBClient ddb = UserPreferenceDemoActivity.clientManager.ddb();
 		
@@ -121,14 +122,14 @@ public class DynamoDBManager {
 		request.setTableName( PropertyLoader.getInstance().getTestTableName() );
 		ScanResult result = ddb.scan( request );
 		
-		return (ArrayList<HashMap<String, AttributeValue>>) result.getItems();
+		return result.getItems();
 	}
 	
 	/*
 	 Retrieves all of the attribute/value pairs for the specified user.
 	 */
-	@SuppressWarnings( "unchecked" )
-	public static HashMap<String, AttributeValue> getUserInfo( int userNo ) {
+	@SuppressWarnings("unchecked")
+	public static Map<String, AttributeValue> getUserInfo( int userNo ) {
 		
 		AmazonDynamoDBClient ddb = UserPreferenceDemoActivity.clientManager.ddb();
 		
@@ -138,7 +139,7 @@ public class DynamoDBManager {
 		
 		GetItemResult result = ddb.getItem( request );
 		
-		return (HashMap<String, AttributeValue>) result.getItem();
+		return result.getItem();
 	}
 	
 	/*

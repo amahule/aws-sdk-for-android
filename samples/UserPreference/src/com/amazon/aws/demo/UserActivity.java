@@ -15,7 +15,7 @@
 
 package com.amazon.aws.demo;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import com.amazonaws.services.dynamodb.model.AttributeValue;
 
@@ -42,7 +42,7 @@ public class UserActivity extends Activity {
 		setContentView( R.layout.user_preference );
 		
 		userNo = Integer.valueOf( getIntent().getExtras().getString( "USER_NO" ) );
-		HashMap<String, AttributeValue> userInfo = DynamoDBManager.getUserInfo( userNo );
+		Map<String, AttributeValue> userInfo = DynamoDBManager.getUserInfo( userNo );
 		
 		String userName = userInfo.get( "firstName" ).getS() + " " + userInfo.get( "lastName" ).getS();
 		

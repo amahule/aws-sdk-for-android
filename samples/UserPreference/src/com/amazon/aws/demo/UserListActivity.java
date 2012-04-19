@@ -16,7 +16,8 @@
 package com.amazon.aws.demo;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.amazonaws.services.dynamodb.model.AttributeValue;
 
@@ -36,7 +37,7 @@ import android.widget.Toast;
 public class UserListActivity extends ListActivity {
 	
 	private static final String TAG = "UserListActivity";
-	private ArrayList<HashMap<String, AttributeValue>> items = null;
+	private List<Map<String, AttributeValue>> items = null;
 	private ArrayList<String> labels = null;
 	private int currentPosition = 0;
 	private ArrayAdapter<String> arrayAdapter = null;
@@ -50,7 +51,7 @@ public class UserListActivity extends ListActivity {
 			
 			this.items = DynamoDBManager.getUserList();
 			
-			for ( HashMap<String, AttributeValue> hp : this.items ) {
+			for ( Map<String, AttributeValue> hp : this.items ) {
 				this.labels.add( hp.get( "firstName" ).getS() + " " + hp.get( "lastName" ).getS() );
 			}
 			

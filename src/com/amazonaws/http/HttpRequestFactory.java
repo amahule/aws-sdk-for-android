@@ -64,7 +64,6 @@ class HttpRequestFactory {
 			}
 			uri += request.getResourcePath();
 		} else if (!uri.endsWith("/")) {
-                    // only pad if not already / terminated
 		    uri += "/";
 		}
 
