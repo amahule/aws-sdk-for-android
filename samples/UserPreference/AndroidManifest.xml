@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.amazon.aws.demo"
+    package="com.amazonaws.demo.userpreferences"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -19,8 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="UserListActivity"></activity>
-        <activity android:name="UserActivity"></activity>
+        <activity android:name=".UserListActivity"></activity>
+        <activity android:name=".UserActivity"></activity>
     </application>
 
 </manifest>

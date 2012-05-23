@@ -6,7 +6,7 @@ This sample demonstrates how Android can interact with Amazon SES to record user
    * Go to File -> New Android Project. The New Project wizard opens.
    * Select Create project from existing source, then click the Browse button to select the sample code. The Browse dialog box opens.
    * Browse to the samples/FeedbackForm directory, then click Open.
-   * Verify that the Build Target  is Android 2.1.
+   * Verify that the Build Target  is Android 2.2.
    * Click Finish.
 
 2. Edit the Project properties:
@@ -18,7 +18,7 @@ This sample demonstrates how Android can interact with Amazon SES to record user
    * Click OK
 
 3. Update your App configuration:
-   * Open the AwsCredential.properties file located in src/com/amazon/aws/demo.
+   * Open the AwsCredential.properties file located in src/com/amazon/aws/demo/feedback.
    * Edit the file and provide your AWS Credentials.
 
 4. Run the project:
