@@ -47,6 +47,9 @@ public class GeneratePresignedUrlRequest extends AmazonWebServiceRequest {
     /** The key of the object involved in this request */
     private String key;
 
+    /** The optional Content-Type header that will be sent when the presigned URL is accessed */
+    private String contentType;
+
     /**
      * An optional expiration date at which point the generated pre-signed URL
      * will no longer be accepted by Amazon S3. If not specified, a default
@@ -322,6 +325,41 @@ public class GeneratePresignedUrlRequest extends AmazonWebServiceRequest {
      */
     public GeneratePresignedUrlRequest withResponseHeaders(ResponseHeaderOverrides responseHeaders) {
         setResponseHeaders(responseHeaders);
+        return this;
+    }
+
+    /**
+     * Gets the expected content-type of the request. The content-type is included in
+     * the signature.
+     *
+     * @return The expected content-type
+     */
+    public String getContentType() {
+        return contentType;
+    }
+
+    /**
+     * Sets the expected content-type of the request. The content-type is included in
+     * the signature.
+     * @param contentType
+     *            The expected content-type
+     */
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    /**
+     * Sets the expected content-type of the request and returns
+     * this object, for method chaining.
+     *
+     * @param contentType
+     *            The expected content-type
+     *
+     *
+     * @return This {@link GeneratePresignedUrlRequest} for method chaining.
+     */
+    public GeneratePresignedUrlRequest withContentType(String contentType) {
+        setContentType(contentType);
         return this;
     }
 }
