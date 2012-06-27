@@ -70,7 +70,7 @@ public class AmazonClientManager {
         return PropertyLoader.getInstance().hasCredentials();
     }
     
-    public Response validateCredentials() {
+    public synchronized Response validateCredentials() {
         Response ableToGetToken = Response.SUCCESSFUL;
     
         if ( AmazonSharedPreferencesWrapper.areCredentialsExpired( this.sharedPreferences ) ) {
@@ -99,7 +99,7 @@ public class AmazonClientManager {
         return ableToGetToken;        
     }
     
-    public void clearCredentials() {
+    public synchronized void clearCredentials() {
         s3Client = null;
         sqsClient = null;
         sdbClient = null;
