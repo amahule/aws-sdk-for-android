@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,19 +18,15 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.simpledb.AmazonSimpleDB#getAttributes(GetAttributesRequest) GetAttributes operation}.
  * <p>
- * Returns all of the attributes associated with the specified item.
- * Optionally, the attributes returned can be limited to one or more
- * attributes by specifying an attribute name parameter.
+ * Returns all of the attributes associated with the specified item. Optionally, the attributes returned can be limited to one or more attributes by
+ * specifying an attribute name parameter.
  * </p>
  * <p>
- * If the item does not exist on the replica that was accessed for this
- * operation, an empty set is returned. The system does not return an
- * error as it cannot guarantee the item does not exist on other
- * replicas.
+ * If the item does not exist on the replica that was accessed for this operation, an empty set is returned. The system does not return an error as it
+ * cannot guarantee the item does not exist on other replicas.
  * </p>
  * <p>
- * <b>NOTE:</b> If GetAttributes is called without being passed any
- * attribute names, all the attributes for the item are returned.
+ * <b>NOTE:</b> If GetAttributes is called without being passed any attribute names, all the attributes for the item are returned.
  * </p>
  *
  * @see com.amazonaws.services.simpledb.AmazonSimpleDB#getAttributes(GetAttributesRequest)
@@ -80,6 +76,8 @@ public class GetAttributesRequest extends AmazonWebServiceRequest {
         this.domainName = domainName;
         this.itemName = itemName;
     }
+
+    
     
     /**
      * The name of the domain in which to perform the operation.
@@ -155,6 +153,7 @@ public class GetAttributesRequest extends AmazonWebServiceRequest {
      * @return The names of the attributes.
      */
     public java.util.List<String> getAttributeNames() {
+        
         if (attributeNames == null) {
             attributeNames = new java.util.ArrayList<String>();
         }
@@ -167,10 +166,13 @@ public class GetAttributesRequest extends AmazonWebServiceRequest {
      * @param attributeNames The names of the attributes.
      */
     public void setAttributeNames(java.util.Collection<String> attributeNames) {
-        java.util.List<String> attributeNamesCopy = new java.util.ArrayList<String>();
-        if (attributeNames != null) {
-            attributeNamesCopy.addAll(attributeNames);
+        if (attributeNames == null) {
+            this.attributeNames = null;
+            return;
         }
+
+        java.util.List<String> attributeNamesCopy = new java.util.ArrayList<String>(attributeNames.size());
+        attributeNamesCopy.addAll(attributeNames);
         this.attributeNames = attributeNamesCopy;
     }
     
@@ -185,6 +187,7 @@ public class GetAttributesRequest extends AmazonWebServiceRequest {
      *         together. 
      */
     public GetAttributesRequest withAttributeNames(String... attributeNames) {
+        if (getAttributeNames() == null) setAttributeNames(new java.util.ArrayList<String>(attributeNames.length));
         for (String value : attributeNames) {
             getAttributeNames().add(value);
         }
@@ -202,11 +205,13 @@ public class GetAttributesRequest extends AmazonWebServiceRequest {
      *         together. 
      */
     public GetAttributesRequest withAttributeNames(java.util.Collection<String> attributeNames) {
-        java.util.List<String> attributeNamesCopy = new java.util.ArrayList<String>();
-        if (attributeNames != null) {
+        if (attributeNames == null) {
+            this.attributeNames = null;
+        } else {
+            java.util.List<String> attributeNamesCopy = new java.util.ArrayList<String>(attributeNames.size());
             attributeNamesCopy.addAll(attributeNames);
+            this.attributeNames = attributeNamesCopy;
         }
-        this.attributeNames = attributeNamesCopy;
 
         return this;
     }
@@ -298,12 +303,43 @@ public class GetAttributesRequest extends AmazonWebServiceRequest {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        sb.append("DomainName: " + domainName + ", ");
-        sb.append("ItemName: " + itemName + ", ");
-        sb.append("AttributeNames: " + attributeNames + ", ");
-        sb.append("ConsistentRead: " + consistentRead + ", ");
+        if (domainName != null) sb.append("DomainName: " + domainName + ", ");
+        if (itemName != null) sb.append("ItemName: " + itemName + ", ");
+        if (attributeNames != null) sb.append("AttributeNames: " + attributeNames + ", ");
+        if (consistentRead != null) sb.append("ConsistentRead: " + consistentRead + ", ");
         sb.append("}");
         return sb.toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+        
+        hashCode = prime * hashCode + ((getDomainName() == null) ? 0 : getDomainName().hashCode()); 
+        hashCode = prime * hashCode + ((getItemName() == null) ? 0 : getItemName().hashCode()); 
+        hashCode = prime * hashCode + ((getAttributeNames() == null) ? 0 : getAttributeNames().hashCode()); 
+        hashCode = prime * hashCode + ((isConsistentRead() == null) ? 0 : isConsistentRead().hashCode()); 
+        return hashCode;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+    
+        if (obj instanceof GetAttributesRequest == false) return false;
+        GetAttributesRequest other = (GetAttributesRequest)obj;
+        
+        if (other.getDomainName() == null ^ this.getDomainName() == null) return false;
+        if (other.getDomainName() != null && other.getDomainName().equals(this.getDomainName()) == false) return false; 
+        if (other.getItemName() == null ^ this.getItemName() == null) return false;
+        if (other.getItemName() != null && other.getItemName().equals(this.getItemName()) == false) return false; 
+        if (other.getAttributeNames() == null ^ this.getAttributeNames() == null) return false;
+        if (other.getAttributeNames() != null && other.getAttributeNames().equals(this.getAttributeNames()) == false) return false; 
+        if (other.isConsistentRead() == null ^ this.isConsistentRead() == null) return false;
+        if (other.isConsistentRead() != null && other.isConsistentRead().equals(this.isConsistentRead()) == false) return false; 
+        return true;
     }
     
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,9 +18,25 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.sqs.AmazonSQS#getQueueAttributes(GetQueueAttributesRequest) GetQueueAttributes operation}.
  * <p>
- * Gets one or all attributes of a queue. Queues currently have two
- * attributes you can get: <code>ApproximateNumberOfMessages</code> and
- * <code>VisibilityTimeout</code> .
+ * Gets attributes for the specified queue. The following attributes are supported:
+ * <ul>
+ * <li> <code>All</code> - returns all values.</li>
+ * <li> <code>ApproximateNumberOfMessages</code> - returns the approximate number of visible messages in a queue. For more information, see Resources
+ * Required to Process Messages in the Amazon SQS Developer Guide.</li>
+ * <li> <code>ApproximateNumberOfMessagesNotVisible</code> - returns the approximate number of messages that are not timed-out and not deleted. For more
+ * information, see Resources Required to Process Messages in the Amazon SQS Developer Guide.</li>
+ * <li> <code>VisibilityTimeout</code> - returns the visibility timeout for the queue. For more information about visibility timeout, see Visibility
+ * Timeout in the Amazon SQS Developer Guide.</li>
+ * <li> <code>CreatedTimestamp</code> - returns the time when the queue was created (epoch time in seconds).</li>
+ * <li> <code>LastModifiedTimestamp</code> - returns the time when the queue was last changed (epoch time in seconds).</li>
+ * <li> <code>Policy</code> - returns the queue's policy.</li>
+ * <li> <code>MaximumMessageSize</code> - returns the limit of how many bytes a message can contain before Amazon SQS rejects it.</li>
+ * <li> <code>MessageRetentionPeriod</code> - returns the number of seconds Amazon SQS retains a message.</li>
+ * <li> <code>QueueArn</code> - returns the queue's Amazon resource name (ARN).</li>
+ * <li> <code>ApproximateNumberOfMessagesDelayed</code> - returns the approximate number of messages that are pending to be added to the queue.</li>
+ * <li> <code>DelaySeconds</code> - returns the default delay on the queue in seconds.</li>
+ * 
+ * </ul>
  * 
  * </p>
  *
@@ -29,12 +45,12 @@ import com.amazonaws.AmazonWebServiceRequest;
 public class GetQueueAttributesRequest extends AmazonWebServiceRequest {
 
     /**
-     * 
+     * The URL of the SQS queue to take action on.
      */
     private String queueUrl;
 
     /**
-     * A list of attributes to get.
+     * A list of attributes to retrieve information for.
      */
     private java.util.List<String> attributeNames;
 
@@ -49,36 +65,38 @@ public class GetQueueAttributesRequest extends AmazonWebServiceRequest {
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
      * 
-     * @param queueUrl
+     * @param queueUrl The URL of the SQS queue to take action on.
      */
     public GetQueueAttributesRequest(String queueUrl) {
         this.queueUrl = queueUrl;
     }
+
+    
     
     /**
-     * 
+     * The URL of the SQS queue to take action on.
      *
-     * @return 
+     * @return The URL of the SQS queue to take action on.
      */
     public String getQueueUrl() {
         return queueUrl;
     }
     
     /**
-     * 
+     * The URL of the SQS queue to take action on.
      *
-     * @param queueUrl 
+     * @param queueUrl The URL of the SQS queue to take action on.
      */
     public void setQueueUrl(String queueUrl) {
         this.queueUrl = queueUrl;
     }
     
     /**
-     * 
+     * The URL of the SQS queue to take action on.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param queueUrl 
+     * @param queueUrl The URL of the SQS queue to take action on.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -90,11 +108,12 @@ public class GetQueueAttributesRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * A list of attributes to get.
+     * A list of attributes to retrieve information for.
      *
-     * @return A list of attributes to get.
+     * @return A list of attributes to retrieve information for.
      */
     public java.util.List<String> getAttributeNames() {
+        
         if (attributeNames == null) {
             attributeNames = new java.util.ArrayList<String>();
         }
@@ -102,29 +121,33 @@ public class GetQueueAttributesRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * A list of attributes to get.
+     * A list of attributes to retrieve information for.
      *
-     * @param attributeNames A list of attributes to get.
+     * @param attributeNames A list of attributes to retrieve information for.
      */
     public void setAttributeNames(java.util.Collection<String> attributeNames) {
-        java.util.List<String> attributeNamesCopy = new java.util.ArrayList<String>();
-        if (attributeNames != null) {
-            attributeNamesCopy.addAll(attributeNames);
+        if (attributeNames == null) {
+            this.attributeNames = null;
+            return;
         }
+
+        java.util.List<String> attributeNamesCopy = new java.util.ArrayList<String>(attributeNames.size());
+        attributeNamesCopy.addAll(attributeNames);
         this.attributeNames = attributeNamesCopy;
     }
     
     /**
-     * A list of attributes to get.
+     * A list of attributes to retrieve information for.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param attributeNames A list of attributes to get.
+     * @param attributeNames A list of attributes to retrieve information for.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
      */
     public GetQueueAttributesRequest withAttributeNames(String... attributeNames) {
+        if (getAttributeNames() == null) setAttributeNames(new java.util.ArrayList<String>(attributeNames.length));
         for (String value : attributeNames) {
             getAttributeNames().add(value);
         }
@@ -132,21 +155,23 @@ public class GetQueueAttributesRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * A list of attributes to get.
+     * A list of attributes to retrieve information for.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param attributeNames A list of attributes to get.
+     * @param attributeNames A list of attributes to retrieve information for.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
      */
     public GetQueueAttributesRequest withAttributeNames(java.util.Collection<String> attributeNames) {
-        java.util.List<String> attributeNamesCopy = new java.util.ArrayList<String>();
-        if (attributeNames != null) {
+        if (attributeNames == null) {
+            this.attributeNames = null;
+        } else {
+            java.util.List<String> attributeNamesCopy = new java.util.ArrayList<String>(attributeNames.size());
             attributeNamesCopy.addAll(attributeNames);
+            this.attributeNames = attributeNamesCopy;
         }
-        this.attributeNames = attributeNamesCopy;
 
         return this;
     }
@@ -163,10 +188,35 @@ public class GetQueueAttributesRequest extends AmazonWebServiceRequest {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        sb.append("QueueUrl: " + queueUrl + ", ");
-        sb.append("AttributeNames: " + attributeNames + ", ");
+        if (queueUrl != null) sb.append("QueueUrl: " + queueUrl + ", ");
+        if (attributeNames != null) sb.append("AttributeNames: " + attributeNames + ", ");
         sb.append("}");
         return sb.toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+        
+        hashCode = prime * hashCode + ((getQueueUrl() == null) ? 0 : getQueueUrl().hashCode()); 
+        hashCode = prime * hashCode + ((getAttributeNames() == null) ? 0 : getAttributeNames().hashCode()); 
+        return hashCode;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+    
+        if (obj instanceof GetQueueAttributesRequest == false) return false;
+        GetQueueAttributesRequest other = (GetQueueAttributesRequest)obj;
+        
+        if (other.getQueueUrl() == null ^ this.getQueueUrl() == null) return false;
+        if (other.getQueueUrl() != null && other.getQueueUrl().equals(this.getQueueUrl()) == false) return false; 
+        if (other.getAttributeNames() == null ^ this.getAttributeNames() == null) return false;
+        if (other.getAttributeNames() != null && other.getAttributeNames().equals(this.getAttributeNames()) == false) return false; 
+        return true;
     }
     
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -62,6 +62,18 @@ public enum Region {
     US_West("us-west-1"),
 
     /**
+     * The US-West-2 (Oregon) Region. This region uses Amazon S3 servers located
+     * in Oregon.
+     * <p>
+     * When using buckets in this region, optionally set the client
+     * endpoint to <code>s3-us-west-2.amazonaws.com</code> on all requests to these buckets
+     * to reduce any latency experienced after the first hour of
+     * creating a bucket in this region.
+     * </p>
+     */
+    US_West_2("us-west-2"),
+
+    /**
      * The EU (Ireland) Amazon S3 Region. This region uses Amazon S3 servers located
      * in Ireland.
      * <p>
@@ -82,7 +94,32 @@ public enum Region {
      * creating a bucket in this region.
      * </p>
      */
-    AP_Singapore("ap-southeast-1");
+    AP_Singapore("ap-southeast-1"),
+
+	/**
+	 * The Asia Pacific (Tokyo) Region. This region uses Amazon S3 servers
+	 * located in Tokyo.
+	 * <p>
+	 * When using buckets in this region, optionally set the client endpoint to
+	 * <code>s3-ap-northeast-1.amazonaws.com</code> on all requests to these
+	 * buckets to reduce any latency experienced after the first hour of
+	 * creating a bucket in this region.
+	 * </p>
+	 */
+    AP_Tokyo("ap-northeast-1"),
+
+    /**
+     * The South America (Sao Paulo) Region. This region uses Amazon S3 servers
+     * located in Sao Paulo.
+     * <p>
+     * When using buckets in this region, optionally set the client endpoint to
+     * <code>s3-sa-east-1.amazonaws.com</code> on all requests to these buckets
+     * to reduce any latency experienced after the first hour of creating a
+     * bucket in this region.
+     * </p>
+     */
+    SA_SaoPaulo("sa-east-1");
+
 
     /** The unique ID representing each region. */
     private final String regionId;

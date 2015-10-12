@@ -1,10 +1,24 @@
+/*
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
 package com.amazon.aws.demo.sqs;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.amazon.aws.demo.AWSDemo;
+import com.amazon.aws.demo.AWSAndroidDemo;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClient;
 import com.amazonaws.services.sqs.model.CreateQueueRequest;
@@ -19,17 +33,14 @@ import com.amazonaws.services.sqs.model.SetQueueAttributesRequest;
 
 public class SimpleQueue {
 	
-	private static AmazonSQS simpleQueue = null;
+	private static AmazonSQSClient simpleQueue = null;
 	private static List<Message> lastRecievedMessages = null;
 	public static final String QUEUE_URL = "_queue_url"; 
 	public static final String MESSAGE_INDEX = "_message_index";
 	public static final String MESSAGE_ID = "_message_id";
 	
-	public static AmazonSQS getInstance() {
-        if ( simpleQueue == null ) {
-		    simpleQueue = new AmazonSQSClient(AWSDemo.credentials);
-        }
-        return simpleQueue;
+	public static AmazonSQSClient getInstance() {
+        return AWSAndroidDemo.clientManager.sqs();
 	}
 	
 	public static CreateQueueResult createQueue(String queueName){

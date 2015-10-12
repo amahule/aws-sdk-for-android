@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
  */
 package com.amazonaws.auth.policy;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.amazonaws.auth.policy.conditions.ConditionFactory;
@@ -144,5 +145,41 @@ public abstract class Condition {
     public void setValues(List<String> values) {
         this.values = values;
     }
-
+    
+    /**
+     * Fluent version of {@link Condition#setType(String)}
+     * @return this
+     */
+    public Condition withType(String type) {
+        setType(type);
+        return this;        
+    }
+    
+    /**
+     * Fluent version of {@link Condition#setConditionKey(String)}
+     * @return this
+     */
+    public Condition withConditionKey(String key) {
+        setConditionKey(key);
+        return this;
+    }
+    
+    /**
+     * Fluent version of {@link Condition#setValues(List)}
+     * @return this
+     */
+    public Condition withValues(String... values) {
+        setValues(Arrays.asList(values));
+        return this;
+    }
+    
+    
+    /**
+     * Fluent version of {@link Condition#setValues(List)}
+     * @return this
+     */
+    public Condition withValues(List<String> values) {
+        setValues(values);
+        return this;
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Portions copyright 2006-2009 James Murty. Please see LICENSE.txt
  * for applicable license terms and NOTICE.txt for applicable notices.
@@ -27,6 +27,7 @@ import java.util.TreeMap;
 
 import com.amazonaws.Request;
 import com.amazonaws.services.s3.Headers;
+import com.amazonaws.services.s3.model.ResponseHeaderOverrides;
 
 /**
  * Utilities useful for REST/HTTP S3Service implementations.
@@ -36,10 +37,16 @@ public class RestUtils {
      * The set of request parameters which must be included in the canonical
      * string to sign.
      */
-    private static final List<String> SIGNED_PARAMETERS = Arrays.asList(new String[]{
-        "acl", "torrent", "logging", "location", "policy", "requestPayment",
-        "versioning", "versions", "versionId", "notification",
-        "uploadId", "uploads", "partNumber"
+    private static final List<String> SIGNED_PARAMETERS = Arrays.asList(new String[] {
+    		"acl", "torrent", "logging", "location", "policy", "requestPayment", "versioning",
+    		"versions", "versionId", "notification", "uploadId", "uploads", "partNumber", "website", 
+    		"delete", "lifecycle",
+            ResponseHeaderOverrides.RESPONSE_HEADER_CACHE_CONTROL,
+            ResponseHeaderOverrides.RESPONSE_HEADER_CONTENT_DISPOSITION,
+            ResponseHeaderOverrides.RESPONSE_HEADER_CONTENT_ENCODING,
+            ResponseHeaderOverrides.RESPONSE_HEADER_CONTENT_LANGUAGE,
+            ResponseHeaderOverrides.RESPONSE_HEADER_CONTENT_TYPE,
+            ResponseHeaderOverrides.RESPONSE_HEADER_EXPIRES,
     });
 
     /**
@@ -95,6 +102,14 @@ public class RestUtils {
             interestingHeaders.put("content-md5", "");
         }
 
+        // Any parameters that are prefixed with "x-amz-" need to be included
+        // in the headers section of the canonical string to sign
+        for (Map.Entry<String, String> parameter: request.getParameters().entrySet()) {
+            if (parameter.getKey().startsWith("x-amz-")) {
+                interestingHeaders.put(parameter.getKey(), parameter.getValue());
+            }
+        }
+
         // Add all the interesting headers (i.e.: all that startwith x-amz- ;-))
         for (Iterator<Map.Entry<String, String>> i = interestingHeaders.entrySet().iterator(); i.hasNext(); ) {
             Map.Entry<String, String> entry = (Map.Entry<String, String>) i.next();
@@ -117,7 +132,7 @@ public class RestUtils {
         char separator = '?';
         for (String parameterName : parameterNames) {
             // Skip any parameters that aren't part of the canonical signed string
-            if (SIGNED_PARAMETERS.contains(parameterName) == false) continue;
+        	if (SIGNED_PARAMETERS.contains(parameterName) == false) continue;
 
             buf.append(separator);
             buf.append(parameterName);

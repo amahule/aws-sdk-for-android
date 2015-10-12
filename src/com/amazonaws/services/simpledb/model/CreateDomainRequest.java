@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,22 +18,17 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.simpledb.AmazonSimpleDB#createDomain(CreateDomainRequest) CreateDomain operation}.
  * <p>
- * The <code>CreateDomain</code> operation creates a new domain. The
- * domain name should be unique among the domains associated with the
- * Access Key ID provided in the request. The <code>CreateDomain</code>
- * operation may take 10 or more seconds to complete.
+ * The <code>CreateDomain</code> operation creates a new domain. The domain name should be unique among the domains associated with the Access Key ID
+ * provided in the request. The <code>CreateDomain</code> operation may take 10 or more seconds to complete.
  * </p>
  * <p>
- * <b>NOTE:</b> CreateDomain is an idempotent operation; running it
- * multiple times using the same domain name will not result in an error
- * response.
+ * <b>NOTE:</b> CreateDomain is an idempotent operation; running it multiple times using the same domain name will not result in an error response.
  * </p>
  * <p>
  * The client can create up to 100 domains per account.
  * </p>
  * <p>
- * If the client requires additional domains, go to <a
- * href="http://aws.amazon.com/contact-us/simpledb-limit-request/">
+ * If the client requires additional domains, go to <a href="http://aws.amazon.com/contact-us/simpledb-limit-request/">
  * http://aws.amazon.com/contact-us/simpledb-limit-request/ </a> .
  * </p>
  *
@@ -66,6 +61,8 @@ public class CreateDomainRequest extends AmazonWebServiceRequest {
     public CreateDomainRequest(String domainName) {
         this.domainName = domainName;
     }
+
+    
     
     /**
      * The name of the domain to create. The name can range between 3 and 255
@@ -125,9 +122,31 @@ public class CreateDomainRequest extends AmazonWebServiceRequest {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        sb.append("DomainName: " + domainName + ", ");
+        if (domainName != null) sb.append("DomainName: " + domainName + ", ");
         sb.append("}");
         return sb.toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+        
+        hashCode = prime * hashCode + ((getDomainName() == null) ? 0 : getDomainName().hashCode()); 
+        return hashCode;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+    
+        if (obj instanceof CreateDomainRequest == false) return false;
+        CreateDomainRequest other = (CreateDomainRequest)obj;
+        
+        if (other.getDomainName() == null ^ this.getDomainName() == null) return false;
+        if (other.getDomainName() != null && other.getDomainName().equals(this.getDomainName()) == false) return false; 
+        return true;
     }
     
 }

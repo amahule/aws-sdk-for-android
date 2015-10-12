@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Portions copyright 2006-2009 James Murty. Please see LICENSE.txt
  * for applicable license terms and NOTICE.txt for applicable notices.
@@ -44,6 +44,13 @@ package com.amazonaws.services.s3.model;
  */
 public class EmailAddressGrantee implements Grantee {
     private String emailAddress = null;
+    
+    /* (non-Javadoc)
+     * @see com.amazonaws.services.s3.model.Grantee#getTypeIdentifier()
+     */
+    public String getTypeIdentifier() {
+        return "emailAddress";
+    }
 
     /**
      * Constructs a new {@link EmailAddressGrantee} object
@@ -77,15 +84,39 @@ public class EmailAddressGrantee implements Grantee {
         return emailAddress;
     }
 
-    public boolean equals(Object obj) {
-        if (obj instanceof EmailAddressGrantee) {
-            return emailAddress.equals(((EmailAddressGrantee)obj).emailAddress);
-        }
-        return false;
-    }
-
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
     public int hashCode() {
-        return emailAddress.hashCode();
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((emailAddress == null) ? 0 : emailAddress.hashCode());
+        return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if ( this == obj )
+            return true;
+        if ( obj == null )
+            return false;
+        if ( getClass() != obj.getClass() )
+            return false;
+        EmailAddressGrantee other = (EmailAddressGrantee) obj;
+        if ( emailAddress == null ) {
+            if ( other.emailAddress != null )
+                return false;
+        } else if ( !emailAddress.equals(other.emailAddress) )
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return emailAddress;
+    }
 }

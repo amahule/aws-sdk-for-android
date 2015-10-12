@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -56,6 +56,7 @@ public class UploadPartRequestFactory {
 
     public synchronized UploadPartRequest getNextUploadPartRequest() {
         long partSize = Math.min(optimalPartSize, remainingBytes);
+        boolean isLastPart = (remainingBytes - partSize <= 0);
 
         UploadPartRequest request = null;
         if (putObjectRequest.getInputStream() != null) {
@@ -63,7 +64,7 @@ public class UploadPartRequestFactory {
                 .withBucketName(bucketName)
                 .withKey(key)
                 .withUploadId(uploadId)
-                .withInputStream(new InputSubstream(putObjectRequest.getInputStream(), 0, partSize))
+                .withInputStream(new InputSubstream(putObjectRequest.getInputStream(), 0, partSize, isLastPart))
                 .withPartNumber(partNumber++)
                 .withPartSize(partSize);
         } else {
@@ -77,10 +78,12 @@ public class UploadPartRequestFactory {
                 .withPartSize(partSize);
         }
 
-        request.setProgressListener(putObjectRequest.getProgressListener());
-
         offset += partSize;
         remainingBytes -= partSize;
+        
+        request.setLastPart(isLastPart);
+        request.setProgressListener(putObjectRequest.getProgressListener());
+
         return request;
     }
 }

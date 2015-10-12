@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ import java.net.URISyntaxException;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
-import com.amazonaws.handlers.RequestHandler;
+import com.amazonaws.handlers.AbstractRequestHandler;
 
 /**
  * Custom request handler for SQS that processes the request before it gets
@@ -29,25 +29,19 @@ import com.amazonaws.handlers.RequestHandler;
  * handling to update the endpoint and resource path on the request before it's
  * executed.
  */
-public class QueueUrlHandler implements RequestHandler {
-
+public class QueueUrlHandler extends AbstractRequestHandler {
     private static final String QUEUE_URL_PARAMETER = "QueueUrl";
 
-    /**
-     * @see com.amazonaws.handlers.RequestHandler#handleRequest(com.amazonaws.Request)
-     */
-    public <T> Request<T> handleRequest(Request<T> request) {
+	public void beforeRequest(Request<?> request) {
         if (request.getParameters().get(QUEUE_URL_PARAMETER) != null) {
-            String queueUrl = request.getParameters().remove(QUEUE_URL_PARAMETER);
+            String queueUrl = (String)request.getParameters().remove(QUEUE_URL_PARAMETER);
 
             try {
-                request.setEndpoint(new URI(queueUrl));
+                URI uri = new URI(queueUrl);
+				request.setResourcePath(uri.getPath());
             } catch (URISyntaxException e) {
                 throw new AmazonClientException("Unable to parse SQS queue URL '" + queueUrl + "'", e);
             }
         }
-
-        return request;
-    }
-
+	}
 }

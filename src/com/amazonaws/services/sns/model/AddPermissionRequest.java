@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,9 +18,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.sns.AmazonSNS#addPermission(AddPermissionRequest) AddPermission operation}.
  * <p>
- * The AddPermission action adds a statement to a topic's access control
- * policy, granting access for the specified AWS accounts to the
- * specified actions.
+ * The AddPermission action adds a statement to a topic's access control policy, granting access for the specified AWS accounts to the specified actions.
  * </p>
  *
  * @see com.amazonaws.services.sns.AmazonSNS#addPermission(AddPermissionRequest)
@@ -81,6 +79,8 @@ public class AddPermissionRequest extends AmazonWebServiceRequest {
         this.aWSAccountIds = aWSAccountIds;
         this.actionNames = actionNames;
     }
+
+    
     
     /**
      * The ARN of the topic whose access control policy you wish to modify.
@@ -166,6 +166,7 @@ public class AddPermissionRequest extends AmazonWebServiceRequest {
      *         AWS Identifiers</aulink> in the &service; Developer Guide.-->
      */
     public java.util.List<String> getAWSAccountIds() {
+        
         if (aWSAccountIds == null) {
             aWSAccountIds = new java.util.ArrayList<String>();
         }
@@ -188,10 +189,13 @@ public class AddPermissionRequest extends AmazonWebServiceRequest {
      *         AWS Identifiers</aulink> in the &service; Developer Guide.-->
      */
     public void setAWSAccountIds(java.util.Collection<String> aWSAccountIds) {
-        java.util.List<String> aWSAccountIdsCopy = new java.util.ArrayList<String>();
-        if (aWSAccountIds != null) {
-            aWSAccountIdsCopy.addAll(aWSAccountIds);
+        if (aWSAccountIds == null) {
+            this.aWSAccountIds = null;
+            return;
         }
+
+        java.util.List<String> aWSAccountIdsCopy = new java.util.ArrayList<String>(aWSAccountIds.size());
+        aWSAccountIdsCopy.addAll(aWSAccountIds);
         this.aWSAccountIds = aWSAccountIdsCopy;
     }
     
@@ -216,6 +220,7 @@ public class AddPermissionRequest extends AmazonWebServiceRequest {
      *         together. 
      */
     public AddPermissionRequest withAWSAccountIds(String... aWSAccountIds) {
+        if (getAWSAccountIds() == null) setAWSAccountIds(new java.util.ArrayList<String>(aWSAccountIds.length));
         for (String value : aWSAccountIds) {
             getAWSAccountIds().add(value);
         }
@@ -243,11 +248,13 @@ public class AddPermissionRequest extends AmazonWebServiceRequest {
      *         together. 
      */
     public AddPermissionRequest withAWSAccountIds(java.util.Collection<String> aWSAccountIds) {
-        java.util.List<String> aWSAccountIdsCopy = new java.util.ArrayList<String>();
-        if (aWSAccountIds != null) {
+        if (aWSAccountIds == null) {
+            this.aWSAccountIds = null;
+        } else {
+            java.util.List<String> aWSAccountIdsCopy = new java.util.ArrayList<String>(aWSAccountIds.size());
             aWSAccountIdsCopy.addAll(aWSAccountIds);
+            this.aWSAccountIds = aWSAccountIdsCopy;
         }
-        this.aWSAccountIds = aWSAccountIdsCopy;
 
         return this;
     }
@@ -258,6 +265,7 @@ public class AddPermissionRequest extends AmazonWebServiceRequest {
      * @return The action you want to allow for the specified principal(s).
      */
     public java.util.List<String> getActionNames() {
+        
         if (actionNames == null) {
             actionNames = new java.util.ArrayList<String>();
         }
@@ -270,10 +278,13 @@ public class AddPermissionRequest extends AmazonWebServiceRequest {
      * @param actionNames The action you want to allow for the specified principal(s).
      */
     public void setActionNames(java.util.Collection<String> actionNames) {
-        java.util.List<String> actionNamesCopy = new java.util.ArrayList<String>();
-        if (actionNames != null) {
-            actionNamesCopy.addAll(actionNames);
+        if (actionNames == null) {
+            this.actionNames = null;
+            return;
         }
+
+        java.util.List<String> actionNamesCopy = new java.util.ArrayList<String>(actionNames.size());
+        actionNamesCopy.addAll(actionNames);
         this.actionNames = actionNamesCopy;
     }
     
@@ -288,6 +299,7 @@ public class AddPermissionRequest extends AmazonWebServiceRequest {
      *         together. 
      */
     public AddPermissionRequest withActionNames(String... actionNames) {
+        if (getActionNames() == null) setActionNames(new java.util.ArrayList<String>(actionNames.length));
         for (String value : actionNames) {
             getActionNames().add(value);
         }
@@ -305,11 +317,13 @@ public class AddPermissionRequest extends AmazonWebServiceRequest {
      *         together. 
      */
     public AddPermissionRequest withActionNames(java.util.Collection<String> actionNames) {
-        java.util.List<String> actionNamesCopy = new java.util.ArrayList<String>();
-        if (actionNames != null) {
+        if (actionNames == null) {
+            this.actionNames = null;
+        } else {
+            java.util.List<String> actionNamesCopy = new java.util.ArrayList<String>(actionNames.size());
             actionNamesCopy.addAll(actionNames);
+            this.actionNames = actionNamesCopy;
         }
-        this.actionNames = actionNamesCopy;
 
         return this;
     }
@@ -326,12 +340,43 @@ public class AddPermissionRequest extends AmazonWebServiceRequest {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        sb.append("TopicArn: " + topicArn + ", ");
-        sb.append("Label: " + label + ", ");
-        sb.append("AWSAccountIds: " + aWSAccountIds + ", ");
-        sb.append("ActionNames: " + actionNames + ", ");
+        if (topicArn != null) sb.append("TopicArn: " + topicArn + ", ");
+        if (label != null) sb.append("Label: " + label + ", ");
+        if (aWSAccountIds != null) sb.append("AWSAccountIds: " + aWSAccountIds + ", ");
+        if (actionNames != null) sb.append("ActionNames: " + actionNames + ", ");
         sb.append("}");
         return sb.toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+        
+        hashCode = prime * hashCode + ((getTopicArn() == null) ? 0 : getTopicArn().hashCode()); 
+        hashCode = prime * hashCode + ((getLabel() == null) ? 0 : getLabel().hashCode()); 
+        hashCode = prime * hashCode + ((getAWSAccountIds() == null) ? 0 : getAWSAccountIds().hashCode()); 
+        hashCode = prime * hashCode + ((getActionNames() == null) ? 0 : getActionNames().hashCode()); 
+        return hashCode;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+    
+        if (obj instanceof AddPermissionRequest == false) return false;
+        AddPermissionRequest other = (AddPermissionRequest)obj;
+        
+        if (other.getTopicArn() == null ^ this.getTopicArn() == null) return false;
+        if (other.getTopicArn() != null && other.getTopicArn().equals(this.getTopicArn()) == false) return false; 
+        if (other.getLabel() == null ^ this.getLabel() == null) return false;
+        if (other.getLabel() != null && other.getLabel().equals(this.getLabel()) == false) return false; 
+        if (other.getAWSAccountIds() == null ^ this.getAWSAccountIds() == null) return false;
+        if (other.getAWSAccountIds() != null && other.getAWSAccountIds().equals(this.getAWSAccountIds()) == false) return false; 
+        if (other.getActionNames() == null ^ this.getActionNames() == null) return false;
+        if (other.getActionNames() != null && other.getActionNames().equals(this.getActionNames()) == false) return false; 
+        return true;
     }
     
 }

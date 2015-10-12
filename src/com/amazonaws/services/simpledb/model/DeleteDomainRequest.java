@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,15 +18,12 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.simpledb.AmazonSimpleDB#deleteDomain(DeleteDomainRequest) DeleteDomain operation}.
  * <p>
- * The <code>DeleteDomain</code> operation deletes a domain. Any items
- * (and their attributes) in the domain are deleted as well. The
- * <code>DeleteDomain</code> operation might take 10 or more seconds to
- * complete.
+ * The <code>DeleteDomain</code> operation deletes a domain. Any items (and their attributes) in the domain are deleted as well. The
+ * <code>DeleteDomain</code> operation might take 10 or more seconds to complete.
  * </p>
  * <p>
- * <b>NOTE:</b> Running DeleteDomain on a domain that does not exist or
- * running the function multiple times using the same domain name will
- * not result in an error response.
+ * <b>NOTE:</b> Running DeleteDomain on a domain that does not exist or running the function multiple times using the same domain name will not result in
+ * an error response.
  * </p>
  *
  * @see com.amazonaws.services.simpledb.AmazonSimpleDB#deleteDomain(DeleteDomainRequest)
@@ -54,6 +51,8 @@ public class DeleteDomainRequest extends AmazonWebServiceRequest {
     public DeleteDomainRequest(String domainName) {
         this.domainName = domainName;
     }
+
+    
     
     /**
      * The name of the domain to delete.
@@ -101,9 +100,31 @@ public class DeleteDomainRequest extends AmazonWebServiceRequest {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        sb.append("DomainName: " + domainName + ", ");
+        if (domainName != null) sb.append("DomainName: " + domainName + ", ");
         sb.append("}");
         return sb.toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+        
+        hashCode = prime * hashCode + ((getDomainName() == null) ? 0 : getDomainName().hashCode()); 
+        return hashCode;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+    
+        if (obj instanceof DeleteDomainRequest == false) return false;
+        DeleteDomainRequest other = (DeleteDomainRequest)obj;
+        
+        if (other.getDomainName() == null ^ this.getDomainName() == null) return false;
+        if (other.getDomainName() != null && other.getDomainName().equals(this.getDomainName()) == false) return false; 
+        return true;
     }
     
 }

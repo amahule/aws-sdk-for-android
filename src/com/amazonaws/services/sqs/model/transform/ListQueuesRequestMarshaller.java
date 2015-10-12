@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.DefaultRequest;
 import com.amazonaws.services.sqs.model.*;
@@ -30,13 +31,17 @@ import com.amazonaws.util.StringUtils;
 public class ListQueuesRequestMarshaller implements Marshaller<Request<ListQueuesRequest>, ListQueuesRequest> {
 
     public Request<ListQueuesRequest> marshall(ListQueuesRequest listQueuesRequest) {
+
+        if (listQueuesRequest == null) {
+		    throw new AmazonClientException("Invalid argument passed to marshall(...)");
+		}
+
         Request<ListQueuesRequest> request = new DefaultRequest<ListQueuesRequest>(listQueuesRequest, "AmazonSQS");
         request.addParameter("Action", "ListQueues");
-        request.addParameter("Version", "2009-02-01");
-        if (listQueuesRequest != null) {
-            if (listQueuesRequest.getQueueNamePrefix() != null) {
-                request.addParameter("QueueNamePrefix", StringUtils.fromString(listQueuesRequest.getQueueNamePrefix()));
-            }
+        request.addParameter("Version", "2011-10-01");
+
+        if (listQueuesRequest.getQueueNamePrefix() != null) {
+            request.addParameter("QueueNamePrefix", StringUtils.fromString(listQueuesRequest.getQueueNamePrefix()));
         }
 
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -16,17 +16,19 @@ package com.amazonaws.services.s3.transfer.internal;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.amazonaws.services.s3.model.ProgressEvent;
 import com.amazonaws.services.s3.model.ProgressListener;
 
 public class ProgressListenerChain implements ProgressListener {
     private final List<ProgressListener> listeners = new ArrayList<ProgressListener>();
-    private final ExecutorService executor;
 
-    public ProgressListenerChain(ExecutorService executor, ProgressListener... listeners) {
-        this.executor = executor;
+    private static final Log log = LogFactory.getLog(ProgressListenerChain.class);
+    
+    public ProgressListenerChain(ProgressListener... listeners) {
         for (ProgressListener listener : listeners) addProgressListener(listener);
     }
 
@@ -41,16 +43,12 @@ public class ProgressListenerChain implements ProgressListener {
     }
 
     public void progressChanged(final ProgressEvent progressEvent) {
-        if (executor.isShutdown()) return;
-
-        executor.submit(new Runnable() {
-            public void run() {
-                for (ProgressListener listener : listeners) {
-                    try {
-                        listener.progressChanged(progressEvent);
-                    } catch (Throwable t) {}
-                }
+        for ( ProgressListener listener : listeners ) {
+            try {
+                listener.progressChanged(progressEvent);
+            } catch ( Throwable t ) {
+                log.warn("Couldn't update progress listener", t);
             }
-        });
+        }
     }
 }

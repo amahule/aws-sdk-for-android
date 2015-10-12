@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,21 +18,16 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.simpledb.AmazonSimpleDB#select(SelectRequest) Select operation}.
  * <p>
- * The <code>Select</code> operation returns a set of attributes for
- * <code>ItemNames</code> that match the select expression.
- * <code>Select</code> is similar to the standard SQL SELECT statement.
+ * The <code>Select</code> operation returns a set of attributes for <code>ItemNames</code> that match the select expression. <code>Select</code> is
+ * similar to the standard SQL SELECT statement.
  * </p>
  * <p>
- * The total size of the response cannot exceed 1 MB in total size.
- * Amazon SimpleDB automatically adjusts the number of items returned per
- * page to enforce this limit. For example, if the client asks to
- * retrieve 2500 items, but each individual item is 10 kB in size, the
- * system returns 100 items and an appropriate <code>NextToken</code> so
- * the client can access the next page of results.
+ * The total size of the response cannot exceed 1 MB in total size. Amazon SimpleDB automatically adjusts the number of items returned per page to
+ * enforce this limit. For example, if the client asks to retrieve 2500 items, but each individual item is 10 kB in size, the system returns 100 items
+ * and an appropriate <code>NextToken</code> so the client can access the next page of results.
  * </p>
  * <p>
- * For information on how to construct select expressions, see Using
- * Select to Create Amazon SimpleDB Queries in the Developer Guide.
+ * For information on how to construct select expressions, see Using Select to Create Amazon SimpleDB Queries in the Developer Guide.
  * </p>
  *
  * @see com.amazonaws.services.simpledb.AmazonSimpleDB#select(SelectRequest)
@@ -75,6 +70,8 @@ public class SelectRequest extends AmazonWebServiceRequest {
     public SelectRequest(String selectExpression) {
         this.selectExpression = selectExpression;
     }
+
+    
     
     /**
      * Constructs a new SelectRequest object.
@@ -92,6 +89,8 @@ public class SelectRequest extends AmazonWebServiceRequest {
         this.selectExpression = selectExpression;
         this.consistentRead = consistentRead;
     }
+
+    
     
     /**
      * The expression used to query the domain.
@@ -254,11 +253,39 @@ public class SelectRequest extends AmazonWebServiceRequest {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        sb.append("SelectExpression: " + selectExpression + ", ");
-        sb.append("NextToken: " + nextToken + ", ");
-        sb.append("ConsistentRead: " + consistentRead + ", ");
+        if (selectExpression != null) sb.append("SelectExpression: " + selectExpression + ", ");
+        if (nextToken != null) sb.append("NextToken: " + nextToken + ", ");
+        if (consistentRead != null) sb.append("ConsistentRead: " + consistentRead + ", ");
         sb.append("}");
         return sb.toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+        
+        hashCode = prime * hashCode + ((getSelectExpression() == null) ? 0 : getSelectExpression().hashCode()); 
+        hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode()); 
+        hashCode = prime * hashCode + ((isConsistentRead() == null) ? 0 : isConsistentRead().hashCode()); 
+        return hashCode;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+    
+        if (obj instanceof SelectRequest == false) return false;
+        SelectRequest other = (SelectRequest)obj;
+        
+        if (other.getSelectExpression() == null ^ this.getSelectExpression() == null) return false;
+        if (other.getSelectExpression() != null && other.getSelectExpression().equals(this.getSelectExpression()) == false) return false; 
+        if (other.getNextToken() == null ^ this.getNextToken() == null) return false;
+        if (other.getNextToken() != null && other.getNextToken().equals(this.getNextToken()) == false) return false; 
+        if (other.isConsistentRead() == null ^ this.isConsistentRead() == null) return false;
+        if (other.isConsistentRead() != null && other.isConsistentRead().equals(this.isConsistentRead()) == false) return false; 
+        return true;
     }
     
 }

@@ -1,5 +1,5 @@
 /*
-  * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+  * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Portions copyright 2006-2009 James Murty. Please see LICENSE.txt
  * for applicable license terms and NOTICE.txt for applicable notices.
@@ -34,7 +34,14 @@ package com.amazonaws.services.s3.model;
 public class CanonicalGrantee implements Grantee {
     private String id = null;
     private String displayName = null;
-
+        
+    /* (non-Javadoc)
+     * @see com.amazonaws.services.s3.model.Grantee#getTypeIdentifier()
+     */
+    public String getTypeIdentifier() {
+        return "id";
+    }
+    
     /**
      * Constructs a new {@link CanonicalGrantee} object 
      * with the given canonical ID.

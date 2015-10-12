@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,25 +18,18 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.simpledb.AmazonSimpleDB#deleteAttributes(DeleteAttributesRequest) DeleteAttributes operation}.
  * <p>
- * Deletes one or more attributes associated with an item. If all
- * attributes of the item are deleted, the item is deleted.
+ * Deletes one or more attributes associated with an item. If all attributes of the item are deleted, the item is deleted.
  * </p>
  * <p>
- * <b>NOTE:</b> If DeleteAttributes is called without being passed any
- * attributes or values specified, all the attributes for the item are
- * deleted.
+ * <b>NOTE:</b> If DeleteAttributes is called without being passed any attributes or values specified, all the attributes for the item are deleted.
  * </p>
  * <p>
- * <code>DeleteAttributes</code> is an idempotent operation; running it
- * multiple times on the same item or attribute does not result in an
- * error response.
+ * <code>DeleteAttributes</code> is an idempotent operation; running it multiple times on the same item or attribute does not result in an error
+ * response.
  * </p>
  * <p>
- * Because Amazon SimpleDB makes multiple copies of item data and uses
- * an eventual consistency update model, performing a GetAttributes or
- * Select operation (read) immediately after a
- * <code>DeleteAttributes</code> or PutAttributes operation (write) might
- * not return updated item data.
+ * Because Amazon SimpleDB makes multiple copies of item data and uses an eventual consistency update model, performing a GetAttributes or Select
+ * operation (read) immediately after a <code>DeleteAttributes</code> or PutAttributes operation (write) might not return updated item data.
  * </p>
  *
  * @see com.amazonaws.services.simpledb.AmazonSimpleDB#deleteAttributes(DeleteAttributesRequest)
@@ -90,6 +83,8 @@ public class DeleteAttributesRequest extends AmazonWebServiceRequest {
         this.domainName = domainName;
         this.itemName = itemName;
     }
+
+    
     
     /**
      * Constructs a new DeleteAttributesRequest object.
@@ -110,6 +105,8 @@ public class DeleteAttributesRequest extends AmazonWebServiceRequest {
         this.itemName = itemName;
         this.attributes = attributes;
     }
+
+    
     
     /**
      * Constructs a new DeleteAttributesRequest object.
@@ -135,6 +132,8 @@ public class DeleteAttributesRequest extends AmazonWebServiceRequest {
         this.attributes = attributes;
         this.expected = expected;
     }
+
+    
     
     /**
      * The name of the domain in which to perform the operation.
@@ -224,6 +223,7 @@ public class DeleteAttributesRequest extends AmazonWebServiceRequest {
      *         represent categories of data that can be assigned to items.
      */
     public java.util.List<Attribute> getAttributes() {
+        
         if (attributes == null) {
             attributes = new java.util.ArrayList<Attribute>();
         }
@@ -238,10 +238,13 @@ public class DeleteAttributesRequest extends AmazonWebServiceRequest {
      *         represent categories of data that can be assigned to items.
      */
     public void setAttributes(java.util.Collection<Attribute> attributes) {
-        java.util.List<Attribute> attributesCopy = new java.util.ArrayList<Attribute>();
-        if (attributes != null) {
-            attributesCopy.addAll(attributes);
+        if (attributes == null) {
+            this.attributes = null;
+            return;
         }
+
+        java.util.List<Attribute> attributesCopy = new java.util.ArrayList<Attribute>(attributes.size());
+        attributesCopy.addAll(attributes);
         this.attributes = attributesCopy;
     }
     
@@ -258,6 +261,7 @@ public class DeleteAttributesRequest extends AmazonWebServiceRequest {
      *         together. 
      */
     public DeleteAttributesRequest withAttributes(Attribute... attributes) {
+        if (getAttributes() == null) setAttributes(new java.util.ArrayList<Attribute>(attributes.length));
         for (Attribute value : attributes) {
             getAttributes().add(value);
         }
@@ -277,11 +281,13 @@ public class DeleteAttributesRequest extends AmazonWebServiceRequest {
      *         together. 
      */
     public DeleteAttributesRequest withAttributes(java.util.Collection<Attribute> attributes) {
-        java.util.List<Attribute> attributesCopy = new java.util.ArrayList<Attribute>();
-        if (attributes != null) {
+        if (attributes == null) {
+            this.attributes = null;
+        } else {
+            java.util.List<Attribute> attributesCopy = new java.util.ArrayList<Attribute>(attributes.size());
             attributesCopy.addAll(attributes);
+            this.attributes = attributesCopy;
         }
-        this.attributes = attributesCopy;
 
         return this;
     }
@@ -350,12 +356,43 @@ public class DeleteAttributesRequest extends AmazonWebServiceRequest {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        sb.append("DomainName: " + domainName + ", ");
-        sb.append("ItemName: " + itemName + ", ");
-        sb.append("Attributes: " + attributes + ", ");
-        sb.append("Expected: " + expected + ", ");
+        if (domainName != null) sb.append("DomainName: " + domainName + ", ");
+        if (itemName != null) sb.append("ItemName: " + itemName + ", ");
+        if (attributes != null) sb.append("Attributes: " + attributes + ", ");
+        if (expected != null) sb.append("Expected: " + expected + ", ");
         sb.append("}");
         return sb.toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+        
+        hashCode = prime * hashCode + ((getDomainName() == null) ? 0 : getDomainName().hashCode()); 
+        hashCode = prime * hashCode + ((getItemName() == null) ? 0 : getItemName().hashCode()); 
+        hashCode = prime * hashCode + ((getAttributes() == null) ? 0 : getAttributes().hashCode()); 
+        hashCode = prime * hashCode + ((getExpected() == null) ? 0 : getExpected().hashCode()); 
+        return hashCode;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+    
+        if (obj instanceof DeleteAttributesRequest == false) return false;
+        DeleteAttributesRequest other = (DeleteAttributesRequest)obj;
+        
+        if (other.getDomainName() == null ^ this.getDomainName() == null) return false;
+        if (other.getDomainName() != null && other.getDomainName().equals(this.getDomainName()) == false) return false; 
+        if (other.getItemName() == null ^ this.getItemName() == null) return false;
+        if (other.getItemName() != null && other.getItemName().equals(this.getItemName()) == false) return false; 
+        if (other.getAttributes() == null ^ this.getAttributes() == null) return false;
+        if (other.getAttributes() != null && other.getAttributes().equals(this.getAttributes()) == false) return false; 
+        if (other.getExpected() == null ^ this.getExpected() == null) return false;
+        if (other.getExpected() != null && other.getExpected().equals(this.getExpected()) == false) return false; 
+        return true;
     }
     
 }

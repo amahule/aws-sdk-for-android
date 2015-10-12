@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,8 +18,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.sqs.AmazonSQS#setQueueAttributes(SetQueueAttributesRequest) SetQueueAttributes operation}.
  * <p>
- * Sets an attribute of a queue. Currently, you can set only the
- * <code>VisibilityTimeout</code> attribute for a queue.
+ * Sets an attribute of a queue. The set of attributes that can be set are - DelaySeconds, MessageRetentionPeriod, MaximumMessageSize, VisibilityTimeout
+ * and Policy.
  * </p>
  *
  * @see com.amazonaws.services.sqs.AmazonSQS#setQueueAttributes(SetQueueAttributesRequest)
@@ -27,12 +27,12 @@ import com.amazonaws.AmazonWebServiceRequest;
 public class SetQueueAttributesRequest extends AmazonWebServiceRequest {
 
     /**
-     * 
+     * The URL of the SQS queue to take action on.
      */
     private String queueUrl;
 
     /**
-     * A list of attributes to set.
+     * A map of attributes to set.
      */
     private java.util.Map<String,String> attributes;
 
@@ -47,38 +47,40 @@ public class SetQueueAttributesRequest extends AmazonWebServiceRequest {
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
      * 
-     * @param queueUrl
-     * @param attributes A list of attributes to set.
+     * @param queueUrl The URL of the SQS queue to take action on.
+     * @param attributes A map of attributes to set.
      */
     public SetQueueAttributesRequest(String queueUrl, java.util.Map<String,String> attributes) {
         this.queueUrl = queueUrl;
         this.attributes = attributes;
     }
+
+    
     
     /**
-     * 
+     * The URL of the SQS queue to take action on.
      *
-     * @return 
+     * @return The URL of the SQS queue to take action on.
      */
     public String getQueueUrl() {
         return queueUrl;
     }
     
     /**
-     * 
+     * The URL of the SQS queue to take action on.
      *
-     * @param queueUrl 
+     * @param queueUrl The URL of the SQS queue to take action on.
      */
     public void setQueueUrl(String queueUrl) {
         this.queueUrl = queueUrl;
     }
     
     /**
-     * 
+     * The URL of the SQS queue to take action on.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param queueUrl 
+     * @param queueUrl The URL of the SQS queue to take action on.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -90,11 +92,12 @@ public class SetQueueAttributesRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * A list of attributes to set.
+     * A map of attributes to set.
      *
-     * @return A list of attributes to set.
+     * @return A map of attributes to set.
      */
     public java.util.Map<String,String> getAttributes() {
+        
         if (attributes == null) {
             attributes = new java.util.HashMap<String,String>();
         }
@@ -102,20 +105,20 @@ public class SetQueueAttributesRequest extends AmazonWebServiceRequest {
     }
     
     /**
-     * A list of attributes to set.
+     * A map of attributes to set.
      *
-     * @param attributes A list of attributes to set.
+     * @param attributes A map of attributes to set.
      */
     public void setAttributes(java.util.Map<String,String> attributes) {
         this.attributes = attributes;
     }
     
     /**
-     * A list of attributes to set.
+     * A map of attributes to set.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param attributes A list of attributes to set.
+     * @param attributes A map of attributes to set.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -137,10 +140,35 @@ public class SetQueueAttributesRequest extends AmazonWebServiceRequest {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        sb.append("QueueUrl: " + queueUrl + ", ");
-        sb.append("Attributes: " + attributes + ", ");
+        if (queueUrl != null) sb.append("QueueUrl: " + queueUrl + ", ");
+        if (attributes != null) sb.append("Attributes: " + attributes + ", ");
         sb.append("}");
         return sb.toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+        
+        hashCode = prime * hashCode + ((getQueueUrl() == null) ? 0 : getQueueUrl().hashCode()); 
+        hashCode = prime * hashCode + ((getAttributes() == null) ? 0 : getAttributes().hashCode()); 
+        return hashCode;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+    
+        if (obj instanceof SetQueueAttributesRequest == false) return false;
+        SetQueueAttributesRequest other = (SetQueueAttributesRequest)obj;
+        
+        if (other.getQueueUrl() == null ^ this.getQueueUrl() == null) return false;
+        if (other.getQueueUrl() != null && other.getQueueUrl().equals(this.getQueueUrl()) == false) return false; 
+        if (other.getAttributes() == null ^ this.getAttributes() == null) return false;
+        if (other.getAttributes() != null && other.getAttributes().equals(this.getAttributes()) == false) return false; 
+        return true;
     }
     
 }

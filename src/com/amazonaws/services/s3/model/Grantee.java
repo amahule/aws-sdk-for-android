@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Portions copyright 2006-2009 James Murty. Please see LICENSE.txt
  * for applicable license terms and NOTICE.txt for applicable notices.
@@ -24,6 +24,12 @@ package com.amazonaws.services.s3.model;
  */
 public interface Grantee {
 
+    /**
+     * Returns the identifier for the type of this grant, to be used when
+     * specifying grants in the header of a request.
+     */
+    public String getTypeIdentifier();
+    
     /**
      * Sets the identifier for this grantee. The meaning of the identifier is
      * specific to each implementation of the {@link Grantee}.

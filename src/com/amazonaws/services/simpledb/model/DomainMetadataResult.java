@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -50,7 +50,8 @@ public class DomainMetadataResult {
     private Long attributeValuesSizeBytes;
 
     /**
-     * The data and time when metadata was calculated in Epoch (UNIX) time.
+     * The data and time when metadata was calculated, in Epoch (UNIX)
+     * seconds.
      */
     private Integer timestamp;
 
@@ -259,29 +260,35 @@ public class DomainMetadataResult {
     
     
     /**
-     * The data and time when metadata was calculated in Epoch (UNIX) time.
+     * The data and time when metadata was calculated, in Epoch (UNIX)
+     * seconds.
      *
-     * @return The data and time when metadata was calculated in Epoch (UNIX) time.
+     * @return The data and time when metadata was calculated, in Epoch (UNIX)
+     *         seconds.
      */
     public Integer getTimestamp() {
         return timestamp;
     }
     
     /**
-     * The data and time when metadata was calculated in Epoch (UNIX) time.
+     * The data and time when metadata was calculated, in Epoch (UNIX)
+     * seconds.
      *
-     * @param timestamp The data and time when metadata was calculated in Epoch (UNIX) time.
+     * @param timestamp The data and time when metadata was calculated, in Epoch (UNIX)
+     *         seconds.
      */
     public void setTimestamp(Integer timestamp) {
         this.timestamp = timestamp;
     }
     
     /**
-     * The data and time when metadata was calculated in Epoch (UNIX) time.
+     * The data and time when metadata was calculated, in Epoch (UNIX)
+     * seconds.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param timestamp The data and time when metadata was calculated in Epoch (UNIX) time.
+     * @param timestamp The data and time when metadata was calculated, in Epoch (UNIX)
+     *         seconds.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -304,15 +311,55 @@ public class DomainMetadataResult {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        sb.append("ItemCount: " + itemCount + ", ");
-        sb.append("ItemNamesSizeBytes: " + itemNamesSizeBytes + ", ");
-        sb.append("AttributeNameCount: " + attributeNameCount + ", ");
-        sb.append("AttributeNamesSizeBytes: " + attributeNamesSizeBytes + ", ");
-        sb.append("AttributeValueCount: " + attributeValueCount + ", ");
-        sb.append("AttributeValuesSizeBytes: " + attributeValuesSizeBytes + ", ");
-        sb.append("Timestamp: " + timestamp + ", ");
+        if (itemCount != null) sb.append("ItemCount: " + itemCount + ", ");
+        if (itemNamesSizeBytes != null) sb.append("ItemNamesSizeBytes: " + itemNamesSizeBytes + ", ");
+        if (attributeNameCount != null) sb.append("AttributeNameCount: " + attributeNameCount + ", ");
+        if (attributeNamesSizeBytes != null) sb.append("AttributeNamesSizeBytes: " + attributeNamesSizeBytes + ", ");
+        if (attributeValueCount != null) sb.append("AttributeValueCount: " + attributeValueCount + ", ");
+        if (attributeValuesSizeBytes != null) sb.append("AttributeValuesSizeBytes: " + attributeValuesSizeBytes + ", ");
+        if (timestamp != null) sb.append("Timestamp: " + timestamp + ", ");
         sb.append("}");
         return sb.toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+        
+        hashCode = prime * hashCode + ((getItemCount() == null) ? 0 : getItemCount().hashCode()); 
+        hashCode = prime * hashCode + ((getItemNamesSizeBytes() == null) ? 0 : getItemNamesSizeBytes().hashCode()); 
+        hashCode = prime * hashCode + ((getAttributeNameCount() == null) ? 0 : getAttributeNameCount().hashCode()); 
+        hashCode = prime * hashCode + ((getAttributeNamesSizeBytes() == null) ? 0 : getAttributeNamesSizeBytes().hashCode()); 
+        hashCode = prime * hashCode + ((getAttributeValueCount() == null) ? 0 : getAttributeValueCount().hashCode()); 
+        hashCode = prime * hashCode + ((getAttributeValuesSizeBytes() == null) ? 0 : getAttributeValuesSizeBytes().hashCode()); 
+        hashCode = prime * hashCode + ((getTimestamp() == null) ? 0 : getTimestamp().hashCode()); 
+        return hashCode;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+    
+        if (obj instanceof DomainMetadataResult == false) return false;
+        DomainMetadataResult other = (DomainMetadataResult)obj;
+        
+        if (other.getItemCount() == null ^ this.getItemCount() == null) return false;
+        if (other.getItemCount() != null && other.getItemCount().equals(this.getItemCount()) == false) return false; 
+        if (other.getItemNamesSizeBytes() == null ^ this.getItemNamesSizeBytes() == null) return false;
+        if (other.getItemNamesSizeBytes() != null && other.getItemNamesSizeBytes().equals(this.getItemNamesSizeBytes()) == false) return false; 
+        if (other.getAttributeNameCount() == null ^ this.getAttributeNameCount() == null) return false;
+        if (other.getAttributeNameCount() != null && other.getAttributeNameCount().equals(this.getAttributeNameCount()) == false) return false; 
+        if (other.getAttributeNamesSizeBytes() == null ^ this.getAttributeNamesSizeBytes() == null) return false;
+        if (other.getAttributeNamesSizeBytes() != null && other.getAttributeNamesSizeBytes().equals(this.getAttributeNamesSizeBytes()) == false) return false; 
+        if (other.getAttributeValueCount() == null ^ this.getAttributeValueCount() == null) return false;
+        if (other.getAttributeValueCount() != null && other.getAttributeValueCount().equals(this.getAttributeValueCount()) == false) return false; 
+        if (other.getAttributeValuesSizeBytes() == null ^ this.getAttributeValuesSizeBytes() == null) return false;
+        if (other.getAttributeValuesSizeBytes() != null && other.getAttributeValuesSizeBytes().equals(this.getAttributeValuesSizeBytes()) == false) return false; 
+        if (other.getTimestamp() == null ^ this.getTimestamp() == null) return false;
+        if (other.getTimestamp() != null && other.getTimestamp().equals(this.getTimestamp()) == false) return false; 
+        return true;
     }
     
 }

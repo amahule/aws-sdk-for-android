@@ -1,3 +1,17 @@
+/*
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
 package com.amazon.aws.demo.s3;
 
 import com.amazon.aws.demo.R;
@@ -12,6 +26,7 @@ public class S3Menu extends Activity {
 	
 	Button listButton;
 	Button createButton;
+	Button asyncButton;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,6 +38,7 @@ public class S3Menu extends Activity {
     public void wireButtons(){
     	listButton = (Button) findViewById(R.id.s3_main_list_button);
     	createButton = (Button) findViewById(R.id.s3_main_create_button);
+    	asyncButton = (Button) findViewById(R.id.s3_main_async_button);
     	
     	listButton.setOnClickListener(new View.OnClickListener() {
 			
@@ -37,6 +53,14 @@ public class S3Menu extends Activity {
 			@Override
 			public void onClick(View v) {
 				startActivity(new Intent(S3Menu.this, S3CreateBucket.class));
+			}
+		});
+    	
+    	asyncButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(S3Menu.this, S3AsyncActivity.class));
 			}
 		});
     }

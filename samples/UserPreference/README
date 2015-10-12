@@ -1,0 +1,29 @@
+Running the UserPreference Sample
+============================================
+This sample demonstrates how Android can interact with Amazon DynamoDB to store user preferences. For a detailed description of the code, open and read the UserPreference.html file.
+
+1. In Eclipse "Open a Sample Android Project"
+   * Go to File -> New Android Project. The New Project wizard opens.
+   * Select Create project from existing source, then click the Browse button to select the sample code. The Browse dialog box opens.
+   * Browse to the samples/UserPreference directory, then click Open.
+   * Verify that the Build Target is Android 2.2.
+   * Click Finish.
+
+2. Edit the Project properties:
+   * Go to Project ->  Properties.
+   * Select Java Build Path
+   * Select the  Libraries tab.
+   * Click Add External JARs. The Browse dialog box opens.
+   * Browse to samples/UserPreference/libs/aws-android-sdk-X.X.X-debug.jar, then click Select.
+   * Click OK
+
+3. Update your App configuration:
+   * Open the AwsCredential.properties file located in src/com/amazonaws/tvmclient.
+   * Edit the file and provide:
+     + The DNS domain name where your Token Vending Machine is running (ex: tvm.elasticbeanstalk.com)
+     + Set useSSL to "true" or "false" based on whether your configured your Token Vending Machine with SSL or not.
+
+4. Run the project:
+   * Go to Project ->  Clean.
+   * Go to Project ->  Build All.
+   * Go to Run -> Run.

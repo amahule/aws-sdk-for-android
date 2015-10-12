@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,10 +21,17 @@ import com.amazonaws.util.VersionInfoUtils;
  */
 public class ClientConfiguration {
 
-    /**
-     * The default HTTP user agent header for AWS Java SDK clients.
-     */
+    /** The default timeout for a connected socket. */
+    public static final int DEFAULT_SOCKET_TIMEOUT = 50 * 1000;
+
+    /** The default max connection pool size. */
+    public static final int DEFAULT_MAX_CONNECTIONS = 50;
+
+    /** The default HTTP user agent header for AWS Java SDK clients. */
     public static final String DEFAULT_USER_AGENT = VersionInfoUtils.getUserAgent();
+
+    /** The default maximum number of retries for error responses. */
+    public static final int DEFAULT_MAX_RETRIES = 3;
 
     /** The HTTP user agent header passed with all HTTP requests. */
     private String userAgent = DEFAULT_USER_AGENT;
@@ -33,7 +40,7 @@ public class ClientConfiguration {
      * The maximum number of times that a retryable failed request (ex: a 5xx
      * response from a service) will be retried.
      */
-    private int maxErrorRetry = 3;
+    private int maxErrorRetry = DEFAULT_MAX_RETRIES;
 
     /**
      * The protocol to use when connecting to Amazon Web Services.
@@ -55,15 +62,21 @@ public class ClientConfiguration {
     /** Optionally specifies the password to use when connecting through a proxy. */
     private String proxyPassword = null;
 
-    /** The maximum number of open HTTP connections. */
-    private int maxConnections = 50;
+    /** Optional Windows domain name for configuring NTLM proxy support. */
+    private String proxyDomain = null;
+
+    /** Optional Windows workstation name for configuring NTLM proxy support. */
+    private String proxyWorkstation = null;
+
+	/** The maximum number of open HTTP connections. */
+    private int maxConnections = DEFAULT_MAX_CONNECTIONS;
 
     /**
      * The amount of time to wait (in milliseconds) for data to be transfered
      * over an established, open connection before the connection is timed out.
      * A value of 0 means infinity, and is not recommended.
      */
-    private int socketTimeout = 50 * 1000;
+    private int socketTimeout = DEFAULT_SOCKET_TIMEOUT;
 
     /**
      * The amount of time to wait (in milliseconds) when initially establishing
@@ -86,8 +99,29 @@ public class ClientConfiguration {
      */
     private int socketReceiveBufferSizeHint = 0;
 
+
+    public ClientConfiguration() {}
+
+    public ClientConfiguration(ClientConfiguration other) {
+        this.connectionTimeout = other.connectionTimeout;
+        this.maxConnections    = other.maxConnections;
+        this.maxErrorRetry     = other.maxErrorRetry;
+        this.protocol          = other.protocol;
+        this.proxyDomain       = other.proxyDomain;
+        this.proxyHost         = other.proxyHost;
+        this.proxyPassword     = other.proxyPassword;
+        this.proxyPort         = other.proxyPort;
+        this.proxyUsername     = other.proxyUsername;
+        this.proxyWorkstation  = other.proxyWorkstation;
+        this.socketTimeout     = other.socketTimeout;
+        this.userAgent         = other.userAgent;
+
+        this.socketReceiveBufferSizeHint = other.socketReceiveBufferSizeHint;
+        this.socketSendBufferSizeHint    = other.socketSendBufferSizeHint;
+    }
+
     /**
-     * Returns the protocol (i.e. HTTP or HTTPS) to use when connecting to
+     * Returns the protocol (HTTP or HTTPS) to use when connecting to
      * Amazon Web Services.
      * <p>
      * The default configuration is to use HTTPS for all requests for increased
@@ -344,6 +378,89 @@ public class ClientConfiguration {
         setProxyPassword(proxyPassword);
         return this;
     }
+
+	/**
+	 * Returns the optional Windows domain name for configuring an NTLM proxy.
+	 * If you aren't using a Windows NTLM proxy, you do not need to set this
+	 * field.
+	 *
+	 * @return The optional Windows domain name for configuring an NTLM proxy.
+	 */
+    public String getProxyDomain() {
+		return proxyDomain;
+	}
+
+	/**
+	 * Sets the optional Windows domain name for configuration an NTML proxy.
+	 * If you aren't using a Windows NTLM proxy, you do not need to set this
+	 * field.
+	 *
+	 * @param proxyDomain
+	 *            The optional Windows domain name for configuring an NTLM
+	 *            proxy.
+	 */
+	public void setProxyDomain(String proxyDomain) {
+		this.proxyDomain = proxyDomain;
+	}
+
+	/**
+	 * Sets the optional Windows domain name for configuration an NTML proxy and
+	 * returns a reference to this updated ClientConfiguration object so that
+	 * additional method calls can be chained together. If you aren't using a
+	 * Windows NTLM proxy, you do not need to set this field.
+	 *
+	 * @param proxyDomain
+	 *            The optional Windows domain name for configuring an NTLM
+	 *            proxy.
+	 *
+     * @return The updated ClientConfiguration object.
+	 */
+	public ClientConfiguration withProxyDomain(String proxyDomain) {
+		setProxyDomain(proxyDomain);
+		return this;
+	}
+
+	/**
+	 * Returns the optional Windows workstation name for configuring NTLM proxy
+	 * support. If you aren't using a Windows NTLM proxy, you do not need to set
+	 * this field.
+	 *
+	 * @return The optional Windows workstation name for configuring NTLM proxy
+	 *         support.
+	 */
+	public String getProxyWorkstation() {
+		return proxyWorkstation;
+	}
+
+	/**
+	 * Sets the optional Windows workstation name for configuring NTLM proxy
+	 * support. If you aren't using a Windows NTLM proxy, you do not need to set
+	 * this field.
+	 *
+	 * @param proxyWorkstation
+	 *            The optional Windows workstation name for configuring NTLM
+	 *            proxy support.
+	 */
+	public void setProxyWorkstation(String proxyWorkstation) {
+		this.proxyWorkstation = proxyWorkstation;
+	}
+
+	/**
+	 * Sets the optional Windows workstation name for configuring NTLM proxy
+	 * support, and returns the updated ClientConfiguration object so that
+	 * additional method calls can be chained together. If you aren't using a
+	 * Windows NTLM proxy, you do not need to set this field.
+	 *
+	 * @param proxyWorkstation
+	 *            The optional Windows workstation name for configuring NTLM
+	 *            proxy support.
+	 *
+	 * @return The updated ClientConfiguration object.
+	 */
+	public ClientConfiguration withProxyWorkstation(String proxyWorkstation) {
+		setProxyWorkstation(proxyWorkstation);
+		return this;
+	}
 
     /**
      * Returns the maximum number of retry attempts for failed retryable

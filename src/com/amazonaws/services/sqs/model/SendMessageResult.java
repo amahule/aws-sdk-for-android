@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -15,9 +15,7 @@
 package com.amazonaws.services.sqs.model;
 
 /**
- * <p>
  * 
- * </p>
  */
 public class SendMessageResult {
 
@@ -31,7 +29,7 @@ public class SendMessageResult {
     private String mD5OfMessageBody;
 
     /**
-     * The message ID of the message sent to the queue.
+     * The message ID of the message added to the queue.
      */
     private String messageId;
 
@@ -94,29 +92,29 @@ public class SendMessageResult {
     
     
     /**
-     * The message ID of the message sent to the queue.
+     * The message ID of the message added to the queue.
      *
-     * @return The message ID of the message sent to the queue.
+     * @return The message ID of the message added to the queue.
      */
     public String getMessageId() {
         return messageId;
     }
     
     /**
-     * The message ID of the message sent to the queue.
+     * The message ID of the message added to the queue.
      *
-     * @param messageId The message ID of the message sent to the queue.
+     * @param messageId The message ID of the message added to the queue.
      */
     public void setMessageId(String messageId) {
         this.messageId = messageId;
     }
     
     /**
-     * The message ID of the message sent to the queue.
+     * The message ID of the message added to the queue.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param messageId The message ID of the message sent to the queue.
+     * @param messageId The message ID of the message added to the queue.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -139,10 +137,35 @@ public class SendMessageResult {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        sb.append("MD5OfMessageBody: " + mD5OfMessageBody + ", ");
-        sb.append("MessageId: " + messageId + ", ");
+        if (mD5OfMessageBody != null) sb.append("MD5OfMessageBody: " + mD5OfMessageBody + ", ");
+        if (messageId != null) sb.append("MessageId: " + messageId + ", ");
         sb.append("}");
         return sb.toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+        
+        hashCode = prime * hashCode + ((getMD5OfMessageBody() == null) ? 0 : getMD5OfMessageBody().hashCode()); 
+        hashCode = prime * hashCode + ((getMessageId() == null) ? 0 : getMessageId().hashCode()); 
+        return hashCode;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+    
+        if (obj instanceof SendMessageResult == false) return false;
+        SendMessageResult other = (SendMessageResult)obj;
+        
+        if (other.getMD5OfMessageBody() == null ^ this.getMD5OfMessageBody() == null) return false;
+        if (other.getMD5OfMessageBody() != null && other.getMD5OfMessageBody().equals(this.getMD5OfMessageBody()) == false) return false; 
+        if (other.getMessageId() == null ^ this.getMessageId() == null) return false;
+        if (other.getMessageId() != null && other.getMessageId().equals(this.getMessageId()) == false) return false; 
+        return true;
     }
     
 }

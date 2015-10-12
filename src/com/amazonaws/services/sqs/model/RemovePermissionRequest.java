@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,9 +18,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.sqs.AmazonSQS#removePermission(RemovePermissionRequest) RemovePermission operation}.
  * <p>
- * The <code>RemovePermission</code> action revokes any permissions in
- * the queue policy that matches the specified <code>Label</code>
- * parameter. Only the owner of the queue can remove permissions.
+ * The <code>RemovePermission</code> action revokes any permissions in the queue policy that matches the specified <code>Label</code> parameter. Only the
+ * owner of the queue can remove permissions.
  * </p>
  *
  * @see com.amazonaws.services.sqs.AmazonSQS#removePermission(RemovePermissionRequest)
@@ -28,13 +27,13 @@ import com.amazonaws.AmazonWebServiceRequest;
 public class RemovePermissionRequest extends AmazonWebServiceRequest {
 
     /**
-     * 
+     * The URL of the SQS queue to take action on.
      */
     private String queueUrl;
 
     /**
-     * The identfication of the permission to remove. This is the label added
-     * with the <a>AddPermission</a> operation.
+     * The identification of the permission to remove. This is the label
+     * added with the <a>AddPermission</a> operation.
      */
     private String label;
 
@@ -49,39 +48,41 @@ public class RemovePermissionRequest extends AmazonWebServiceRequest {
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
      * 
-     * @param queueUrl
-     * @param label The identfication of the permission to remove. This is
+     * @param queueUrl The URL of the SQS queue to take action on.
+     * @param label The identification of the permission to remove. This is
      * the label added with the <a>AddPermission</a> operation.
      */
     public RemovePermissionRequest(String queueUrl, String label) {
         this.queueUrl = queueUrl;
         this.label = label;
     }
+
+    
     
     /**
-     * 
+     * The URL of the SQS queue to take action on.
      *
-     * @return 
+     * @return The URL of the SQS queue to take action on.
      */
     public String getQueueUrl() {
         return queueUrl;
     }
     
     /**
-     * 
+     * The URL of the SQS queue to take action on.
      *
-     * @param queueUrl 
+     * @param queueUrl The URL of the SQS queue to take action on.
      */
     public void setQueueUrl(String queueUrl) {
         this.queueUrl = queueUrl;
     }
     
     /**
-     * 
+     * The URL of the SQS queue to take action on.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param queueUrl 
+     * @param queueUrl The URL of the SQS queue to take action on.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -93,35 +94,35 @@ public class RemovePermissionRequest extends AmazonWebServiceRequest {
     
     
     /**
-     * The identfication of the permission to remove. This is the label added
-     * with the <a>AddPermission</a> operation.
+     * The identification of the permission to remove. This is the label
+     * added with the <a>AddPermission</a> operation.
      *
-     * @return The identfication of the permission to remove. This is the label added
-     *         with the <a>AddPermission</a> operation.
+     * @return The identification of the permission to remove. This is the label
+     *         added with the <a>AddPermission</a> operation.
      */
     public String getLabel() {
         return label;
     }
     
     /**
-     * The identfication of the permission to remove. This is the label added
-     * with the <a>AddPermission</a> operation.
+     * The identification of the permission to remove. This is the label
+     * added with the <a>AddPermission</a> operation.
      *
-     * @param label The identfication of the permission to remove. This is the label added
-     *         with the <a>AddPermission</a> operation.
+     * @param label The identification of the permission to remove. This is the label
+     *         added with the <a>AddPermission</a> operation.
      */
     public void setLabel(String label) {
         this.label = label;
     }
     
     /**
-     * The identfication of the permission to remove. This is the label added
-     * with the <a>AddPermission</a> operation.
+     * The identification of the permission to remove. This is the label
+     * added with the <a>AddPermission</a> operation.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param label The identfication of the permission to remove. This is the label added
-     *         with the <a>AddPermission</a> operation.
+     * @param label The identification of the permission to remove. This is the label
+     *         added with the <a>AddPermission</a> operation.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -144,10 +145,35 @@ public class RemovePermissionRequest extends AmazonWebServiceRequest {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        sb.append("QueueUrl: " + queueUrl + ", ");
-        sb.append("Label: " + label + ", ");
+        if (queueUrl != null) sb.append("QueueUrl: " + queueUrl + ", ");
+        if (label != null) sb.append("Label: " + label + ", ");
         sb.append("}");
         return sb.toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+        
+        hashCode = prime * hashCode + ((getQueueUrl() == null) ? 0 : getQueueUrl().hashCode()); 
+        hashCode = prime * hashCode + ((getLabel() == null) ? 0 : getLabel().hashCode()); 
+        return hashCode;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+    
+        if (obj instanceof RemovePermissionRequest == false) return false;
+        RemovePermissionRequest other = (RemovePermissionRequest)obj;
+        
+        if (other.getQueueUrl() == null ^ this.getQueueUrl() == null) return false;
+        if (other.getQueueUrl() != null && other.getQueueUrl().equals(this.getQueueUrl()) == false) return false; 
+        if (other.getLabel() == null ^ this.getLabel() == null) return false;
+        if (other.getLabel() != null && other.getLabel().equals(this.getLabel()) == false) return false; 
+        return true;
     }
     
 }

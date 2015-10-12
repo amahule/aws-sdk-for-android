@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -31,8 +31,6 @@ import com.amazonaws.transform.SimpleTypeStaxUnmarshallers.*;
  * Get Topic Attributes Result StAX Unmarshaller
  */
 public class GetTopicAttributesResultStaxUnmarshaller implements Unmarshaller<GetTopicAttributesResult, StaxUnmarshallerContext> {
-
-    
     private static class AttributesMapEntryUnmarshaller implements Unmarshaller<Map.Entry<String, String>, StaxUnmarshallerContext> {
         @Override
         public Entry<String, String> unmarshall(StaxUnmarshallerContext context) throws Exception {
@@ -74,6 +72,7 @@ public class GetTopicAttributesResultStaxUnmarshaller implements Unmarshaller<Ge
         GetTopicAttributesResult getTopicAttributesResult = new GetTopicAttributesResult();
         int originalDepth = context.getCurrentDepth();
         int targetDepth = originalDepth + 1;
+
         
         if (context.isStartOfDocument()) targetDepth += 2;
         

@@ -1,3 +1,17 @@
+/*
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ *  http://aws.amazon.com/apache2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
 package com.amazon.aws.demo.s3;
 
 import java.io.ByteArrayInputStream;
@@ -13,7 +27,7 @@ import org.xml.sax.helpers.XMLReaderFactory;
 
 import android.util.Log;
 
-import com.amazon.aws.demo.AWSDemo;
+import com.amazon.aws.demo.AWSAndroidDemo;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.Bucket;
@@ -24,27 +38,13 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 public class S3 {
 
-	private static AmazonS3 s3 = null;
+	private static AmazonS3Client s3 = null;
 	private static ObjectListing objListing = null;
 	public static final String BUCKET_NAME = "_bucket_name";
 	public static final String OBJECT_NAME = "_object_name";
-	
-	static {
-		System.setProperty("org.xml.sax.driver","org.xmlpull.v1.sax2.Driver");
-		try {
-			XMLReader reader = XMLReaderFactory.createXMLReader();
-		}
-		catch ( SAXException e ) {
-			Log.e( "SAXException", e.getMessage() );
-		}
-	}
-		
+			
 	public static AmazonS3 getInstance() {
-        if ( s3 == null ) {
-		    s3 = new AmazonS3Client( AWSDemo.credentials );
-        }
-
-        return s3;
+        return AWSAndroidDemo.clientManager.s3();
 	}
 
 	public static List<String> getBucketNames() {

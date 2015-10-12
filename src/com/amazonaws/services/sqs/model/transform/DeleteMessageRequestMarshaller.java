@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.DefaultRequest;
 import com.amazonaws.services.sqs.model.*;
@@ -30,18 +31,20 @@ import com.amazonaws.util.StringUtils;
 public class DeleteMessageRequestMarshaller implements Marshaller<Request<DeleteMessageRequest>, DeleteMessageRequest> {
 
     public Request<DeleteMessageRequest> marshall(DeleteMessageRequest deleteMessageRequest) {
+
+        if (deleteMessageRequest == null) {
+		    throw new AmazonClientException("Invalid argument passed to marshall(...)");
+		}
+
         Request<DeleteMessageRequest> request = new DefaultRequest<DeleteMessageRequest>(deleteMessageRequest, "AmazonSQS");
         request.addParameter("Action", "DeleteMessage");
-        request.addParameter("Version", "2009-02-01");
-        if (deleteMessageRequest != null) {
-            if (deleteMessageRequest.getQueueUrl() != null) {
-                request.addParameter("QueueUrl", StringUtils.fromString(deleteMessageRequest.getQueueUrl()));
-            }
+        request.addParameter("Version", "2011-10-01");
+
+        if (deleteMessageRequest.getQueueUrl() != null) {
+            request.addParameter("QueueUrl", StringUtils.fromString(deleteMessageRequest.getQueueUrl()));
         }
-        if (deleteMessageRequest != null) {
-            if (deleteMessageRequest.getReceiptHandle() != null) {
-                request.addParameter("ReceiptHandle", StringUtils.fromString(deleteMessageRequest.getReceiptHandle()));
-            }
+        if (deleteMessageRequest.getReceiptHandle() != null) {
+            request.addParameter("ReceiptHandle", StringUtils.fromString(deleteMessageRequest.getReceiptHandle()));
         }
 
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.DefaultRequest;
 import com.amazonaws.services.sns.model.*;
@@ -30,13 +31,17 @@ import com.amazonaws.util.StringUtils;
 public class CreateTopicRequestMarshaller implements Marshaller<Request<CreateTopicRequest>, CreateTopicRequest> {
 
     public Request<CreateTopicRequest> marshall(CreateTopicRequest createTopicRequest) {
+
+        if (createTopicRequest == null) {
+		    throw new AmazonClientException("Invalid argument passed to marshall(...)");
+		}
+
         Request<CreateTopicRequest> request = new DefaultRequest<CreateTopicRequest>(createTopicRequest, "AmazonSNS");
         request.addParameter("Action", "CreateTopic");
         request.addParameter("Version", "2010-03-31");
-        if (createTopicRequest != null) {
-            if (createTopicRequest.getName() != null) {
-                request.addParameter("Name", StringUtils.fromString(createTopicRequest.getName()));
-            }
+
+        if (createTopicRequest.getName() != null) {
+            request.addParameter("Name", StringUtils.fromString(createTopicRequest.getName()));
         }
 
 

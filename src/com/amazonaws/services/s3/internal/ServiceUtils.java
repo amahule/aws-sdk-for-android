@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Portions copyright 2006-2009 James Murty. Please see LICENSE.txt
  * for applicable license terms and NOTICE.txt for applicable notices.
@@ -17,32 +17,31 @@
  */
 package com.amazonaws.services.s3.internal;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.security.InvalidKeyException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
-
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.util.BinaryUtils;
 import com.amazonaws.util.DateUtils;
+import com.amazonaws.util.Md5Utils;
 
 /**
  * General utility methods used throughout the AWS S3 Java client.
@@ -69,78 +68,17 @@ public class ServiceUtils {
     }
 
     /**
-     * Converts byte data to a Hex-encoded string.
+     * Returns true if the specified ETag was from a multipart upload.
      *
-     * @param data
-     *            data to hex encode.
-     * @return hex-encoded string.
+     * @param eTag
+     *            The ETag to test.
+     *
+     * @return True if the specified ETag was from a multipart upload, otherwise
+     *         false it if belongs to an object that was uploaded in a single
+     *         part.
      */
-    public static String toHex(byte[] data) {
-        StringBuilder sb = new StringBuilder(data.length * 2);
-        for (int i = 0; i < data.length; i++) {
-            String hex = Integer.toHexString(data[i]);
-            if (hex.length() == 1) {
-                // Append leading zero.
-                sb.append("0");
-            } else if (hex.length() == 8) {
-                // Remove ff prefix from negative numbers.
-                hex = hex.substring(6);
-            }
-            sb.append(hex);
-        }
-        return sb.toString().toLowerCase(Locale.getDefault());
-    }
-
-    /**
-     * Converts a Hex-encoded data string to the original byte data.
-     *
-     * @param hexData
-     *            hex-encoded data to decode.
-     * @return decoded data from the hex string.
-     */
-    public static byte[] fromHex(String hexData) {
-        byte[] result = new byte[(hexData.length() + 1) / 2];
-        String hexNumber = null;
-        int stringOffset = 0;
-        int byteOffset = 0;
-        while (stringOffset < hexData.length()) {
-            hexNumber = hexData.substring(stringOffset, stringOffset + 2);
-            stringOffset += 2;
-            result[byteOffset++] = (byte) Integer.parseInt(hexNumber, 16);
-        }
-        return result;
-    }
-
-    /**
-     * Converts byte data to a Base64-encoded string.
-     *
-     * @param data
-     *            data to Base64 encode.
-     * @return encoded Base64 string.
-     */
-    public static String toBase64(byte[] data) {
-        byte[] b64 = Base64.encodeBase64(data);
-        return new String(b64);
-    }
-
-    /**
-     * Converts a Base64-encoded string to the original byte data.
-     *
-     * @param b64Data
-     *            a Base64-encoded string to decode.
-     *
-     * @return bytes decoded from a Base64 string.
-     */
-    public static byte[] fromBase64(String b64Data) {
-        byte[] decoded;
-        try {
-            decoded = Base64.decodeBase64(b64Data.getBytes(Constants.DEFAULT_ENCODING));
-        } catch (UnsupportedEncodingException uee) {
-            // Shouldn't happen if the string is truly Base64 encoded.
-            log.warn("Tried to Base64-decode a String with the wrong encoding: ", uee);
-            decoded = Base64.decodeBase64(b64Data.getBytes());
-        }
-        return decoded;
+    public static boolean isMultipartUploadETag(String eTag) {
+        return eTag.contains("-");
     }
 
     /**
@@ -163,45 +101,7 @@ public class ServiceUtils {
         }
     }
 
-    /**
-     * Computes the MD5 hash of the data in the given input stream and returns
-     * it as a hex string.
-     *
-     * @param is
-     * @return MD5 hash
-     * @throws NoSuchAlgorithmException
-     * @throws IOException
-     */
-    public static byte[] computeMD5Hash(InputStream is) throws NoSuchAlgorithmException, IOException {
-        BufferedInputStream bis = new BufferedInputStream(is);
-        try {
-            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-            byte[] buffer = new byte[16384];
-            int bytesRead = -1;
-            while ((bytesRead = bis.read(buffer, 0, buffer.length)) != -1) {
-                messageDigest.update(buffer, 0, bytesRead);
-            }
-            return messageDigest.digest();
-        } finally {
-            try {
-                bis.close();
-            } catch (Exception e) {
-                System.err.println("Unable to close input stream of hash candidate: " + e);
-            }
-        }
-    }
 
-    /**
-     * Computes the MD5 hash of the given data and returns it as a hex string.
-     *
-     * @param data
-     * @return MD5 hash.
-     * @throws NoSuchAlgorithmException
-     * @throws IOException
-     */
-    public static byte[] computeMD5Hash(byte[] data) throws NoSuchAlgorithmException, IOException {
-        return computeMD5Hash(new ByteArrayInputStream(data));
-    }
 
     /**
      * Removes any surrounding quotes from the specified string and returns a
@@ -257,7 +157,7 @@ public class ServiceUtils {
      * @throws AmazonClientException
      *             If the request cannot be converted to a well formed URL.
      */
-    public static URL convertRequestToUrl(Request<Void> request) {
+    public static URL convertRequestToUrl(Request<?> request) {
         String urlString =  request.getEndpoint()
             + "/" + request.getResourcePath();
 
@@ -306,4 +206,62 @@ public class ServiceUtils {
         return result;
     }
 
+    /**
+     * Downloads an S3Object, as returned from
+     * {@link AmazonS3Client#getObject(com.amazonaws.services.s3.model.GetObjectRequest)},
+     * to the specified file.
+     *
+     * @param s3Object
+     *            The S3Object containing a reference to an InputStream
+     *            containing the object's data.
+     * @param destinationFile
+     *            The file to store the object's data in.
+     */
+    public static void downloadObjectToFile(S3Object s3Object, File destinationFile) {
+
+        // attempt to create the parent if it doesn't exist
+        File parentDirectory = destinationFile.getParentFile();
+        if ( parentDirectory != null && !parentDirectory.exists() ) {
+            parentDirectory.mkdirs();
+        }
+
+        OutputStream outputStream = null;
+        try {
+            outputStream = new BufferedOutputStream(new FileOutputStream(destinationFile));
+            byte[] buffer = new byte[1024*10];
+            int bytesRead;
+            while ((bytesRead = s3Object.getObjectContent().read(buffer)) > -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+        } catch (IOException e) {
+            try {
+                s3Object.getObjectContent().abort();
+            } catch ( IOException abortException ) {
+                log.warn("Couldn't abort stream", e);
+            }
+            throw new AmazonClientException(
+                    "Unable to store object contents to disk: " + e.getMessage(), e);
+        } finally {
+            try {outputStream.close();} catch (Exception e) {}
+            try {s3Object.getObjectContent().close();} catch (Exception e) {}
+        }
+
+        byte[] clientSideHash = null;
+        byte[] serverSideHash = null;
+        try {
+            // Multipart Uploads don't have an MD5 calculated on the service side
+            if (ServiceUtils.isMultipartUploadETag(s3Object.getObjectMetadata().getETag()) == false) {
+                clientSideHash = Md5Utils.computeMD5Hash(new FileInputStream(destinationFile));
+                serverSideHash = BinaryUtils.fromHex(s3Object.getObjectMetadata().getETag());
+            }
+        } catch (Exception e) {
+            log.warn("Unable to calculate MD5 hash to validate download: " + e.getMessage(), e);
+        }
+
+        if (clientSideHash != null && serverSideHash != null && !Arrays.equals(clientSideHash, serverSideHash)) {
+            throw new AmazonClientException("Unable to verify integrity of data download.  " +
+                    "Client calculated content hash didn't match hash calculated by Amazon S3.  " +
+                    "The data stored in '" + destinationFile.getAbsolutePath() + "' may be corrupt.");
+        }
+    }
 }

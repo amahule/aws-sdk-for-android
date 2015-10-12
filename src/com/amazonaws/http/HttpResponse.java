@@ -1,12 +1,12 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
  * A copy of the License is located at
- * 
+ *
  *  http://aws.amazon.com/apache2.0
- * 
+ *
  * or in the "license" file accompanying this file. This file is distributed
  * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
  * express or implied. See the License for the specific language governing
@@ -18,12 +18,19 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.http.client.methods.HttpRequestBase;
+
+import com.amazonaws.Request;
+
 /**
  * Represents an HTTP response returned by an AWS service in response to a
- * service request.  
+ * service request.
  */
 public class HttpResponse {
-    private HttpRequest request;
+    
+    private final Request<?> request;
+    private final HttpRequestBase httpRequest;
+    
     private String statusText;
     private int statusCode;
     private InputStream content;
@@ -34,23 +41,35 @@ public class HttpResponse {
      * 
      * @param request
      *            The associated request that generated this response.
+     * @param httpRequest
+     *            The underlying http request that generated this response.
      */
-    public HttpResponse(HttpRequest request) {
+    public HttpResponse(Request<?> request, HttpRequestBase httpRequest) {
         this.request = request;
+        this.httpRequest = httpRequest;
     }
 
     /**
-     * Returns the HttpRequest associated with this response.
-     * 
-     * @return The HttpRequest associated with this response.
+     * Returns the original request associated with this response.
+     *
+     * @return The original request associated with this response.
      */
-    public HttpRequest getRequest() {
+    public Request<?> getRequest() {
         return request;
     }
 
     /**
+     * Returns the original http request associated with this response.
+     *
+     * @return The original http request associated with this response.
+     */
+    public HttpRequestBase getHttpRequest() {
+        return httpRequest;
+    }
+
+    /**
      * Returns the HTTP headers returned with this response.
-     * 
+     *
      * @return The set of HTTP headers returned with this HTTP response.
      */
     public Map<String, String> getHeaders() {
@@ -59,7 +78,7 @@ public class HttpResponse {
 
     /**
      * Adds an HTTP header to the set associated with this response.
-     * 
+     *
      * @param name
      *            The name of the HTTP header.
      * @param value
@@ -71,7 +90,7 @@ public class HttpResponse {
 
     /**
      * Sets the input stream containing the response content.
-     * 
+     *
      * @param content
      *            The input stream containing the response content.
      */
@@ -81,7 +100,7 @@ public class HttpResponse {
 
     /**
      * Returns the input stream containing the response content.
-     * 
+     *
      * @return The input stream containing the response content.
      */
     public InputStream getContent() {
@@ -90,7 +109,7 @@ public class HttpResponse {
 
     /**
      * Sets the HTTP status text returned with this response.
-     * 
+     *
      * @param statusText
      *            The HTTP status text (ex: "Not found") returned with this
      *            response.
@@ -101,7 +120,7 @@ public class HttpResponse {
 
     /**
      * Returns the HTTP status text associated with this response.
-     * 
+     *
      * @return The HTTP status text associated with this response.
      */
     public String getStatusText() {
@@ -110,7 +129,7 @@ public class HttpResponse {
 
     /**
      * Sets the HTTP status code that was returned with this response.
-     * 
+     *
      * @param statusCode
      *            The HTTP status code (ex: 200, 404, etc) associated with this
      *            response.
@@ -122,7 +141,7 @@ public class HttpResponse {
     /**
      * Returns the HTTP status code (ex: 200, 404, etc) associated with this
      * response.
-     * 
+     *
      * @return The HTTP status code associated with this response.
      */
     public int getStatusCode() {

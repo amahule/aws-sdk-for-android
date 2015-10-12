@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.amazonaws.AmazonClientException;
 import com.amazonaws.Request;
 import com.amazonaws.DefaultRequest;
 import com.amazonaws.services.sns.model.*;
@@ -30,13 +31,17 @@ import com.amazonaws.util.StringUtils;
 public class GetTopicAttributesRequestMarshaller implements Marshaller<Request<GetTopicAttributesRequest>, GetTopicAttributesRequest> {
 
     public Request<GetTopicAttributesRequest> marshall(GetTopicAttributesRequest getTopicAttributesRequest) {
+
+        if (getTopicAttributesRequest == null) {
+		    throw new AmazonClientException("Invalid argument passed to marshall(...)");
+		}
+
         Request<GetTopicAttributesRequest> request = new DefaultRequest<GetTopicAttributesRequest>(getTopicAttributesRequest, "AmazonSNS");
         request.addParameter("Action", "GetTopicAttributes");
         request.addParameter("Version", "2010-03-31");
-        if (getTopicAttributesRequest != null) {
-            if (getTopicAttributesRequest.getTopicArn() != null) {
-                request.addParameter("TopicArn", StringUtils.fromString(getTopicAttributesRequest.getTopicArn()));
-            }
+
+        if (getTopicAttributesRequest.getTopicArn() != null) {
+            request.addParameter("TopicArn", StringUtils.fromString(getTopicAttributesRequest.getTopicArn()));
         }
 
 

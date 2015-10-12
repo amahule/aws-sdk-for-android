@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,9 +18,10 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.sqs.AmazonSQS#deleteQueue(DeleteQueueRequest) DeleteQueue operation}.
  * <p>
- * This action unconditionally deletes the queue specified by the queue
- * URL. Use this operation WITH CARE! The queue is deleted even if it is
- * NOT empty.
+ * This action unconditionally deletes the queue specified by the queue URL. Use this operation WITH CARE! The queue is deleted even if it is NOT empty.
+ * </p>
+ * <p>
+ * Once a queue has been deleted, the queue name is unavailable for use with new queues for 60 seconds.
  * </p>
  *
  * @see com.amazonaws.services.sqs.AmazonSQS#deleteQueue(DeleteQueueRequest)
@@ -28,7 +29,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 public class DeleteQueueRequest extends AmazonWebServiceRequest {
 
     /**
-     * 
+     * The URL of the SQS queue to take action on.
      */
     private String queueUrl;
 
@@ -43,36 +44,38 @@ public class DeleteQueueRequest extends AmazonWebServiceRequest {
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
      * 
-     * @param queueUrl
+     * @param queueUrl The URL of the SQS queue to take action on.
      */
     public DeleteQueueRequest(String queueUrl) {
         this.queueUrl = queueUrl;
     }
+
+    
     
     /**
-     * 
+     * The URL of the SQS queue to take action on.
      *
-     * @return 
+     * @return The URL of the SQS queue to take action on.
      */
     public String getQueueUrl() {
         return queueUrl;
     }
     
     /**
-     * 
+     * The URL of the SQS queue to take action on.
      *
-     * @param queueUrl 
+     * @param queueUrl The URL of the SQS queue to take action on.
      */
     public void setQueueUrl(String queueUrl) {
         this.queueUrl = queueUrl;
     }
     
     /**
-     * 
+     * The URL of the SQS queue to take action on.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param queueUrl 
+     * @param queueUrl The URL of the SQS queue to take action on.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -95,9 +98,31 @@ public class DeleteQueueRequest extends AmazonWebServiceRequest {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        sb.append("QueueUrl: " + queueUrl + ", ");
+        if (queueUrl != null) sb.append("QueueUrl: " + queueUrl + ", ");
         sb.append("}");
         return sb.toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+        
+        hashCode = prime * hashCode + ((getQueueUrl() == null) ? 0 : getQueueUrl().hashCode()); 
+        return hashCode;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+    
+        if (obj instanceof DeleteQueueRequest == false) return false;
+        DeleteQueueRequest other = (DeleteQueueRequest)obj;
+        
+        if (other.getQueueUrl() == null ^ this.getQueueUrl() == null) return false;
+        if (other.getQueueUrl() != null && other.getQueueUrl().equals(this.getQueueUrl()) == false) return false; 
+        return true;
     }
     
 }

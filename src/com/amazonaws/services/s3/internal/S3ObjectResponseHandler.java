@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -14,9 +14,13 @@
  */
 package com.amazonaws.services.s3.internal;
 
+
 import com.amazonaws.AmazonWebServiceResponse;
 import com.amazonaws.http.HttpResponse;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import com.amazonaws.util.BinaryUtils;
 
 /**
  * S3 HTTP response handler that knows how to pull S3 object content and
@@ -34,8 +38,19 @@ public class S3ObjectResponseHandler extends AbstractS3ResponseHandler<S3Object>
          *       currently.
          */
         S3Object object = new S3Object();
-        object.setObjectContent(response.getContent());
-        populateObjectMetadata(response, object.getObjectMetadata());
+        ObjectMetadata metadata = object.getObjectMetadata();
+        populateObjectMetadata(response, metadata);
+
+        boolean hasServerSideCalculatedChecksum = !ServiceUtils.isMultipartUploadETag(metadata.getETag());
+        boolean responseContainsEntireObject = response.getHeaders().get("Content-Range") == null;
+
+        if (hasServerSideCalculatedChecksum && responseContainsEntireObject) {
+            byte[] expectedChecksum = BinaryUtils.fromHex(metadata.getETag());
+            object.setObjectContent(new S3ObjectInputStream(new ChecksumValidatingInputStream(response.getContent(),
+                    expectedChecksum, object.getBucketName() + "/" + object.getKey()), response.getHttpRequest()));
+        } else {
+            object.setObjectContent(new S3ObjectInputStream(response.getContent(), response.getHttpRequest()));
+        }
 
         AmazonWebServiceResponse<S3Object> awsResponse = parseResponseMetadata(response);
         awsResponse.setResult(object);
@@ -52,6 +67,6 @@ public class S3ObjectResponseHandler extends AbstractS3ResponseHandler<S3Object>
     @Override
     public boolean needsConnectionLeftOpen() {
         return true;
-    }
+    }        
 
 }

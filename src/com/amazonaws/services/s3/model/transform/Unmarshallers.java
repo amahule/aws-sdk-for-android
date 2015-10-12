@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -17,11 +17,14 @@ package com.amazonaws.services.s3.model.transform;
 import java.io.InputStream;
 import java.util.List;
 
+import com.amazonaws.services.s3.internal.DeleteObjectsResponse;
 import com.amazonaws.services.s3.model.AccessControlList;
 import com.amazonaws.services.s3.model.Bucket;
+import com.amazonaws.services.s3.model.BucketLifecycleConfiguration;
 import com.amazonaws.services.s3.model.BucketLoggingConfiguration;
 import com.amazonaws.services.s3.model.BucketNotificationConfiguration;
 import com.amazonaws.services.s3.model.BucketVersioningConfiguration;
+import com.amazonaws.services.s3.model.BucketWebsiteConfiguration;
 import com.amazonaws.services.s3.model.InitiateMultipartUploadResult;
 import com.amazonaws.services.s3.model.MultipartUploadListing;
 import com.amazonaws.services.s3.model.ObjectListing;
@@ -135,6 +138,17 @@ public class Unmarshallers {
     }
 
     /**
+     * Unmarshaller for the BucketWebsiteConfiguration XML response.
+     */
+    public static final class BucketWebsiteConfigurationUnmarshaller implements
+            Unmarshaller<BucketWebsiteConfiguration, InputStream> {
+        public BucketWebsiteConfiguration unmarshall(InputStream in) throws Exception {
+            return new XmlResponsesSaxParser()
+                    .parseWebsiteConfigurationResponse(in).getConfiguration();
+        }
+    }
+
+    /**
      * Unmarshaller for the BucketNotificationConfiguration XML response.
      */
     public static final class BucketNotificationConfigurationUnmarshaller implements
@@ -194,6 +208,22 @@ public class Unmarshallers {
         public PartListing unmarshall(InputStream in) throws Exception {
             return new XmlResponsesSaxParser().parseListPartsResponse(in)
                 .getListPartsResult();
+        }
+    }
+    
+    public static final class DeleteObjectsResultUnmarshaller implements
+            Unmarshaller<DeleteObjectsResponse, InputStream> {
+
+        public DeleteObjectsResponse unmarshall(InputStream in) throws Exception {
+            return new XmlResponsesSaxParser().parseDeletedObjectsResult(in).getDeleteObjectResult();
+        }
+    }
+    
+    public static final class BucketLifecycleConfigurationUnmarshaller implements
+            Unmarshaller<BucketLifecycleConfiguration, InputStream> {
+
+        public BucketLifecycleConfiguration unmarshall(InputStream in) throws Exception {
+            return new XmlResponsesSaxParser().parseBucketLifecycleConfigurationResponse(in).getConfiguration();
         }
     }
 

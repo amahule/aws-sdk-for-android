@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -119,10 +119,16 @@ public class PutObjectRequest extends AmazonWebServiceRequest {
 
     /**
      * An optional pre-configured access control policy to use for the new
-     * object.
+     * object.  Ignored in favor of accessControlList, if present.
      */
     private CannedAccessControlList cannedAcl;
-
+    
+    /**
+     * An optional access control list to apply to the new object. If specified,
+     * cannedAcl will be ignored.
+     */
+    private AccessControlList accessControlList;
+   
     /**
      * The optional Amazon S3 storage class to use when storing the new object.
      * If not specified, the default, standard storage class will be used.
@@ -131,15 +137,34 @@ public class PutObjectRequest extends AmazonWebServiceRequest {
      * see the {@link StorageClass} enumeration.
      */
     private String storageClass;
-
+   
     /**
      * The optional progress listener for receiving updates about object upload
      * status.
      */
     private ProgressListener progressListener;
-
     
-	
+    /**
+     * Constructs a new 
+     * {@link PutObjectRequest} object to upload a file to the
+     * specified bucket and key. After constructing the request, 
+     * users may optionally specify object metadata or a canned ACL as well.
+     *
+     * @param bucketName
+     *            The name of an existing bucket to which the new object will be
+     *            uploaded.
+     * @param key
+     *            The key under which to store the new object.
+     * @param file
+     *            The path of the file to upload to Amazon S3.
+     *            
+     * @see PutObjectRequest#PutObjectRequest(String, String, InputStream, ObjectMetadata)          
+     */
+    public PutObjectRequest(String bucketName, String key, File file) {
+        this.bucketName = bucketName;
+        this.key = key;
+        this.file = file;
+    }
 
     /**
      * Constructs a new 
@@ -394,13 +419,68 @@ public class PutObjectRequest extends AmazonWebServiceRequest {
     public PutObjectRequest withStorageClass(StorageClass storageClass) {
         setStorageClass(storageClass);
         return this;
+    }    
+
+    /**
+     * Gets the path and name of the file
+     * containing the data to be uploaded to Amazon S3.
+     * Either specify a file or an input stream containing the data to be
+     * uploaded to Amazon S3; both cannot be specified.
+     *
+     * @return The path and name of the file
+     *         containing the data to be uploaded to Amazon S3.
+     *         
+     * @see PutObjectRequest#setFile(File)
+     * @see PutObjectRequest#withFile(File)
+     * @see PutObjectRequest#setInputStream(InputStream)
+     * @see PutObjectRequest#withInputStream(InputStream)      
+     */
+    public File getFile() {
+        return file;
     }
 
-	
+    /**
+     * Sets the path and name of the file
+     * containing the data to be uploaded to Amazon S3.
+     * Either specify a file or an input stream containing the data to be
+     * uploaded to Amazon S3; both cannot be specified.
+     *
+     * @param file
+     *            The path and name of the 
+     *            file containing the data to be uploaded to Amazon S3.
+     *            
+     * @see PutObjectRequest#getFile()
+     * @see PutObjectRequest#withFile(File)
+     * @see PutObjectRequest#getInputStream()
+     * @see PutObjectRequest#withInputStream(InputStream)              
+     */
+    public void setFile(File file) {
+        this.file = file;
+    }
 
-	
-
-	
+    /**
+     * Sets the file containing the data to be uploaded to Amazon S3.
+     * Returns this {@link PutObjectRequest}, enabling additional method
+     * calls to be chained together.
+     * <p>
+     * Either specify a file or an input stream containing the data to
+     * be uploaded to Amazon S3; both cannot be specified.
+     *
+     * @param file
+     *            The file containing the data to be uploaded to Amazon S3.
+     *
+     * @return This {@link PutObjectRequest}, enabling additional method
+     *         calls to be chained together.
+     *         
+     * @see PutObjectRequest#getFile()
+     * @see PutObjectRequest#setFile(File)
+     * @see PutObjectRequest#getInputStream()
+     * @see PutObjectRequest#setInputStream(InputStream)             
+     */
+    public PutObjectRequest withFile(File file) {
+        setFile(file);
+        return this;
+    }
 
     /**
      * Gets the optional metadata instructing Amazon S3 how to handle the
@@ -524,6 +604,38 @@ public class PutObjectRequest extends AmazonWebServiceRequest {
      */
     public PutObjectRequest withCannedAcl(CannedAccessControlList cannedAcl) {
         setCannedAcl(cannedAcl);
+        return this;
+    }
+    
+    /**
+     * Returns the optional access control list for the new object. If
+     * specified, cannedAcl will be ignored.
+     */
+    public AccessControlList getAccessControlList() {
+        return accessControlList;
+    }
+    
+    /**
+     * Sets the optional access control list for the new object. If specified,
+     * cannedAcl will be ignored.
+     * 
+     * @param accessControlList
+     *            The access control list for the new object.
+     */
+    public void setAccessControlList(AccessControlList accessControlList) {
+        this.accessControlList = accessControlList;
+    }
+    
+    /**
+     * Sets the optional access control list for the new object. If specified,
+     * cannedAcl will be ignored. Returns this {@link PutObjectRequest},
+     * enabling additional method calls to be chained together.
+     * 
+     * @param accessControlList
+     *            The access control list for the new object.
+     */
+    public PutObjectRequest withAccessControlList(AccessControlList accessControlList) {
+        setAccessControlList(accessControlList);
         return this;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -15,41 +15,39 @@
 package com.amazonaws.services.sqs.model;
 
 /**
- * <p>
  * 
- * </p>
  */
 public class CreateQueueResult {
 
     /**
-     * The queue URL for the created queue.
+     * The URL for the created SQS queue.
      */
     private String queueUrl;
 
     /**
-     * The queue URL for the created queue.
+     * The URL for the created SQS queue.
      *
-     * @return The queue URL for the created queue.
+     * @return The URL for the created SQS queue.
      */
     public String getQueueUrl() {
         return queueUrl;
     }
     
     /**
-     * The queue URL for the created queue.
+     * The URL for the created SQS queue.
      *
-     * @param queueUrl The queue URL for the created queue.
+     * @param queueUrl The URL for the created SQS queue.
      */
     public void setQueueUrl(String queueUrl) {
         this.queueUrl = queueUrl;
     }
     
     /**
-     * The queue URL for the created queue.
+     * The URL for the created SQS queue.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param queueUrl The queue URL for the created queue.
+     * @param queueUrl The URL for the created SQS queue.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -72,9 +70,31 @@ public class CreateQueueResult {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        sb.append("QueueUrl: " + queueUrl + ", ");
+        if (queueUrl != null) sb.append("QueueUrl: " + queueUrl + ", ");
         sb.append("}");
         return sb.toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+        
+        hashCode = prime * hashCode + ((getQueueUrl() == null) ? 0 : getQueueUrl().hashCode()); 
+        return hashCode;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+    
+        if (obj instanceof CreateQueueResult == false) return false;
+        CreateQueueResult other = (CreateQueueResult)obj;
+        
+        if (other.getQueueUrl() == null ^ this.getQueueUrl() == null) return false;
+        if (other.getQueueUrl() != null && other.getQueueUrl().equals(this.getQueueUrl()) == false) return false; 
+        return true;
     }
     
 }

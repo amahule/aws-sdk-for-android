@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.services.simpledb;
-            
+
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -23,6 +23,8 @@ import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 
 import com.amazonaws.services.simpledb.model.*;
 
@@ -32,52 +34,88 @@ import com.amazonaws.services.simpledb.model.*;
  * using this client are non-blocking and will immediately return a Java Future.
  * Callers must use the Future object to determine when the service call has actually
  * completed.
- * <p>
- * Amazon SimpleDB is a web service providing the core database
- * functions of data indexing and querying in the cloud. By offloading
- * the time and effort associated with building and operating a web-scale
- * database, SimpleDB provides developers the freedom to focus on
- * application development.
+ * Amazon SimpleDB <p>
+ * Amazon SimpleDB is a web service providing the core database functions of data indexing and querying in the cloud. By offloading the time and effort
+ * associated with building and operating a web-scale database, SimpleDB provides developers the freedom to focus on application development.
  * </p>
  * <p>
- * A traditional, clustered relational database requires a sizable
- * upfront capital outlay, is complex to design, and often requires
- * extensive and repetitive database administration. Amazon SimpleDB is
- * dramatically simpler, requiring no schema, automatically indexing your
- * data and providing a simple API for storage and access. This approach
- * eliminates the administrative burden of data modeling, index
- * maintenance, and performance tuning. Developers gain access to this
- * functionality within Amazon's proven computing environment, are able
- * to scale instantly, and pay only for what they use.
+ * A traditional, clustered relational database requires a sizable upfront capital outlay, is complex to design, and often requires extensive and
+ * repetitive database administration. Amazon SimpleDB is dramatically simpler, requiring no schema, automatically indexing your data and providing a
+ * simple API for storage and access. This approach eliminates the administrative burden of data modeling, index maintenance, and performance tuning.
+ * Developers gain access to this functionality within Amazon's proven computing environment, are able to scale instantly, and pay only for what they
+ * use.
  * </p>
  * <p>
- * Visit <a href="http://aws.amazon.com/simpledb/">
- * http://aws.amazon.com/simpledb/ </a> for more information.
- * </p> 
- */       
+ * Visit <a href="http://aws.amazon.com/simpledb/"> http://aws.amazon.com/simpledb/ </a> for more information.
+ * </p>
+ */
 public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
-        implements AmazonSimpleDBAsync { 
+        implements AmazonSimpleDBAsync {
 
     /**
      * Executor service for executing asynchronous requests.
      */
     private ExecutorService executorService;
 
-    
+
     /**
-     * Constructs a new asynchronous client to invoke service methods on 
+     * Constructs a new asynchronous client to invoke service methods on
+     * AmazonSimpleDB.  A credentials provider chain will be used
+     * that searches for credentials in this order:
+     * <ul>
+     *  <li> Environment Variables - AWS_ACCESS_KEY_ID and AWS_SECRET_KEY </li>
+     *  <li> Java System Properties - aws.accessKeyId and aws.secretKey </li>
+     *  <li> Instance profile credentials delivered through the Amazon EC2 metadata service </li>
+     * </ul>
+     *
+     * <p>
+     * All service calls made using this new client object are blocking, and will not
+     * return until the service call completes.
+     *
+     * @see DefaultAWSCredentialsProvider
+     */
+    public AmazonSimpleDBAsyncClient() {
+        this(new DefaultAWSCredentialsProviderChain());
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on
+     * AmazonSimpleDB.  A credentials provider chain will be used
+     * that searches for credentials in this order:
+     * <ul>
+     *  <li> Environment Variables - AWS_ACCESS_KEY_ID and AWS_SECRET_KEY </li>
+     *  <li> Java System Properties - aws.accessKeyId and aws.secretKey </li>
+     *  <li> Instance profile credentials delivered through the Amazon EC2 metadata service </li>
+     * </ul>
+     *
+     * <p>
+     * All service calls made using this new client object are blocking, and will not
+     * return until the service call completes.
+     *
+     * @param clientConfiguration The client configuration options controlling how this
+     *                       client connects to AmazonSimpleDB
+     *                       (ex: proxy settings, retry counts, etc.).
+     *
+     * @see DefaultAWSCredentialsProvider
+     */
+    public AmazonSimpleDBAsyncClient(ClientConfiguration clientConfiguration) {
+        this(new DefaultAWSCredentialsProviderChain(), clientConfiguration, Executors.newCachedThreadPool());
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on
      * AmazonSimpleDB using the specified AWS account credentials.
-     * Default client settings will be used, and a default cached thread pool will be 
+     * Default client settings will be used, and a default cached thread pool will be
      * created for executing the asynchronous tasks.
      *
      * <p>
      * All calls made using this new client object are non-blocking, and will immediately
      * return a Java Future object that the caller can later check to see if the service
      * call has actually completed.
-     * 
+     *
      * @param awsCredentials The AWS credentials (access key ID and secret key) to use
      *                       when authenticating with AWS services.
-     */                                      
+     */
     public AmazonSimpleDBAsyncClient(AWSCredentials awsCredentials) {
         this(awsCredentials, Executors.newCachedThreadPool());
     }
@@ -86,13 +124,13 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
      * Constructs a new asynchronous client to invoke service methods on
      * AmazonSimpleDB using the specified AWS account credentials
      * and executor service.  Default client settings will be used.
-     * 
-     * <p> 
+     *
+     * <p>
      * All calls made using this new client object are non-blocking, and will immediately
      * return a Java Future object that the caller can later check to see if the service
      * call has actually completed.
-     * 
-     * @param awsCredentials 
+     *
+     * @param awsCredentials
      *            The AWS credentials (access key ID and secret key) to use
      *            when authenticating with AWS services.
      * @param executorService
@@ -103,18 +141,18 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
         super(awsCredentials);
         this.executorService = executorService;
     }
-     
+
     /**
      * Constructs a new asynchronous client to invoke service methods on
      * AmazonSimpleDB using the specified AWS account credentials,
      * executor service, and client configuration options.
-     * 
-     * <p> 
+     *
+     * <p>
      * All calls made using this new client object are non-blocking, and will immediately
      * return a Java Future object that the caller can later check to see if the service
      * call has actually completed.
-     * 
-     * @param awsCredentials 
+     *
+     * @param awsCredentials
      *            The AWS credentials (access key ID and secret key) to use
      *            when authenticating with AWS services.
      * @param clientConfiguration
@@ -129,16 +167,95 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
         super(awsCredentials, clientConfiguration);
         this.executorService = executorService;
     }
-     
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on
+     * AmazonSimpleDB using the specified AWS account credentials provider.
+     * Default client settings will be used, and a default cached thread pool will be
+     * created for executing the asynchronous tasks.
+     *
+     * <p>
+     * All calls made using this new client object are non-blocking, and will immediately
+     * return a Java Future object that the caller can later check to see if the service
+     * call has actually completed.
+     *
+     * @param awsCredentialsProvider
+     *            The AWS credentials provider which will provide credentials
+     *            to authenticate requests with AWS services.
+     */
+    public AmazonSimpleDBAsyncClient(AWSCredentialsProvider awsCredentialsProvider) {
+        this(awsCredentialsProvider, Executors.newCachedThreadPool());
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on
+     * AmazonSimpleDB using the specified AWS account credentials provider
+     * and executor service.  Default client settings will be used.
+     *
+     * <p>
+     * All calls made using this new client object are non-blocking, and will immediately
+     * return a Java Future object that the caller can later check to see if the service
+     * call has actually completed.
+     *
+     * @param awsCredentialsProvider
+     *            The AWS credentials provider which will provide credentials
+     *            to authenticate requests with AWS services.
+     * @param executorService
+     *            The executor service by which all asynchronous requests will
+     *            be executed.
+     */
+    public AmazonSimpleDBAsyncClient(AWSCredentialsProvider awsCredentialsProvider, ExecutorService executorService) {
+        this(awsCredentialsProvider, new ClientConfiguration(), executorService);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on
+     * AmazonSimpleDB using the specified AWS account credentials
+     * provider, executor service, and client configuration options.
+     *
+     * <p>
+     * All calls made using this new client object are non-blocking, and will immediately
+     * return a Java Future object that the caller can later check to see if the service
+     * call has actually completed.
+     *
+     * @param awsCredentialsProvider
+     *            The AWS credentials provider which will provide credentials
+     *            to authenticate requests with AWS services.
+     * @param clientConfiguration
+     *            Client configuration options (ex: max retry limit, proxy
+     *            settings, etc).
+     * @param executorService
+     *            The executor service by which all asynchronous requests will
+     *            be executed.
+     */
+    public AmazonSimpleDBAsyncClient(AWSCredentialsProvider awsCredentialsProvider,
+                ClientConfiguration clientConfiguration, ExecutorService executorService) {
+        super(awsCredentialsProvider, clientConfiguration);
+        this.executorService = executorService;
+    }
+
+
     /**
      * Returns the executor service used by this async client to execute
      * requests.
-     *   
+     *
      * @return The executor service used by this async client to execute
      *         requests.
      */
     public ExecutorService getExecutorService() {
         return executorService;
+    }
+
+    /**
+     * Shuts down the client, releasing all managed resources. This includes
+     * forcibly terminating all pending asynchronous service calls. Clients who
+     * wish to give pending asynchronous service calls time to complete should
+     * call getExecutorService().shutdown() prior to calling this method.
+     */
+    @Override
+    public void shutdown() {
+        super.shutdown();
+        executorService.shutdownNow();
     }
             
     /**
@@ -225,8 +342,8 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
      * <p>
      * Because Amazon SimpleDB makes multiple copies of client data and uses
      * an eventual consistency update model, an immediate GetAttributes or
-     * Select operation (read) immediately after a DeleteAttributes operation
-     * (write) might not return the updated data.
+     * Select operation (read) immediately after a PutAttributes or
+     * DeleteAttributes operation (write) might not return the updated data.
      * </p>
      * <p>
      * The following limitations are enforced for this operation:
@@ -265,8 +382,33 @@ public class AmazonSimpleDBAsyncClient extends AmazonSimpleDBClient
     
     /**
      * <p>
-     * Deletes one or more attributes associated with one or more items. If
-     * all attributes of an item are deleted, the item is deleted.
+     * Performs multiple DeleteAttributes operations in a single call, which
+     * reduces round trips and latencies. This enables Amazon SimpleDB to
+     * optimize requests, which generally yields better throughput.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> If you specify BatchDeleteAttributes without attributes
+     * or values, all the attributes for the item are deleted.
+     * BatchDeleteAttributes is an idempotent operation; running it multiple
+     * times on the same item or attribute doesn't result in an error. The
+     * BatchDeleteAttributes operation succeeds or fails in its entirety.
+     * There are no partial deletes. You can execute multiple
+     * BatchDeleteAttributes operations and other operations in parallel.
+     * However, large numbers of concurrent BatchDeleteAttributes calls can
+     * result in Service Unavailable (503) responses. This operation is
+     * vulnerable to exceeding the maximum URL size when making a REST
+     * request using the HTTP GET method. This operation does not support
+     * conditions using Expected.X.Name, Expected.X.Value, or
+     * Expected.X.Exists.
+     * </p>
+     * <p>
+     * The following limitations are enforced for this operation:
+     * <ul>
+     * <li>1 MB request size</li>
+     * <li>25 item limit per BatchDeleteAttributes operation</li>
+     * 
+     * </ul>
+     * 
      * </p>
      *
      * @param batchDeleteAttributesRequest Container for the necessary

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,10 +18,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.sqs.AmazonSQS#deleteMessage(DeleteMessageRequest) DeleteMessage operation}.
  * <p>
- * The <code>DeleteMessage</code> action unconditionally removes the
- * specified message from the specified queue. Even if the message is
- * locked by another reader due to the visibility timeout setting, it is
- * still deleted from the queue.
+ * The <code>DeleteMessage</code> action unconditionally removes the specified message from the specified queue. Even if the message is locked by another
+ * reader due to the visibility timeout setting, it is still deleted from the queue.
  * </p>
  *
  * @see com.amazonaws.services.sqs.AmazonSQS#deleteMessage(DeleteMessageRequest)
@@ -29,7 +27,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 public class DeleteMessageRequest extends AmazonWebServiceRequest {
 
     /**
-     * 
+     * The URL of the SQS queue to take action on.
      */
     private String queueUrl;
 
@@ -49,7 +47,7 @@ public class DeleteMessageRequest extends AmazonWebServiceRequest {
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
      * 
-     * @param queueUrl
+     * @param queueUrl The URL of the SQS queue to take action on.
      * @param receiptHandle The receipt handle associated with the message to
      * delete.
      */
@@ -57,31 +55,33 @@ public class DeleteMessageRequest extends AmazonWebServiceRequest {
         this.queueUrl = queueUrl;
         this.receiptHandle = receiptHandle;
     }
+
+    
     
     /**
-     * 
+     * The URL of the SQS queue to take action on.
      *
-     * @return 
+     * @return The URL of the SQS queue to take action on.
      */
     public String getQueueUrl() {
         return queueUrl;
     }
     
     /**
-     * 
+     * The URL of the SQS queue to take action on.
      *
-     * @param queueUrl 
+     * @param queueUrl The URL of the SQS queue to take action on.
      */
     public void setQueueUrl(String queueUrl) {
         this.queueUrl = queueUrl;
     }
     
     /**
-     * 
+     * The URL of the SQS queue to take action on.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param queueUrl 
+     * @param queueUrl The URL of the SQS queue to take action on.
      *
      * @return A reference to this updated object so that method calls can be chained 
      *         together. 
@@ -138,10 +138,35 @@ public class DeleteMessageRequest extends AmazonWebServiceRequest {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        sb.append("QueueUrl: " + queueUrl + ", ");
-        sb.append("ReceiptHandle: " + receiptHandle + ", ");
+        if (queueUrl != null) sb.append("QueueUrl: " + queueUrl + ", ");
+        if (receiptHandle != null) sb.append("ReceiptHandle: " + receiptHandle + ", ");
         sb.append("}");
         return sb.toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+        
+        hashCode = prime * hashCode + ((getQueueUrl() == null) ? 0 : getQueueUrl().hashCode()); 
+        hashCode = prime * hashCode + ((getReceiptHandle() == null) ? 0 : getReceiptHandle().hashCode()); 
+        return hashCode;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+    
+        if (obj instanceof DeleteMessageRequest == false) return false;
+        DeleteMessageRequest other = (DeleteMessageRequest)obj;
+        
+        if (other.getQueueUrl() == null ^ this.getQueueUrl() == null) return false;
+        if (other.getQueueUrl() != null && other.getQueueUrl().equals(this.getQueueUrl()) == false) return false; 
+        if (other.getReceiptHandle() == null ^ this.getReceiptHandle() == null) return false;
+        if (other.getReceiptHandle() != null && other.getReceiptHandle().equals(this.getReceiptHandle()) == false) return false; 
+        return true;
     }
     
 }

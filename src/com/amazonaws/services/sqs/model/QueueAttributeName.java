@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -26,7 +26,10 @@ public enum QueueAttributeName {
     ApproximateNumberOfMessages("ApproximateNumberOfMessages"),
     ApproximateNumberOfMessagesNotVisible("ApproximateNumberOfMessagesNotVisible"),
     CreatedTimestamp("CreatedTimestamp"),
-    LastModifiedTimestamp("LastModifiedTimestamp");
+    LastModifiedTimestamp("LastModifiedTimestamp"),
+    QueueArn("QueueArn"),
+    ApproximateNumberOfMessagesDelayed("ApproximateNumberOfMessagesDelayed"),
+    DelaySeconds("DelaySeconds");
 
     private String value;
 
@@ -66,6 +69,12 @@ public enum QueueAttributeName {
             return QueueAttributeName.CreatedTimestamp;
         } else if ("LastModifiedTimestamp".equals(value)) {
             return QueueAttributeName.LastModifiedTimestamp;
+        } else if ("QueueArn".equals(value)) {
+            return QueueAttributeName.QueueArn;
+        } else if ("ApproximateNumberOfMessagesDelayed".equals(value)) {
+            return QueueAttributeName.ApproximateNumberOfMessagesDelayed;
+        } else if ("DelaySeconds".equals(value)) {
+            return QueueAttributeName.DelaySeconds;
         } else {
             throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -17,21 +17,18 @@ package com.amazonaws.services.sns;
 import org.w3c.dom.Node;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
-import java.security.SignatureException;
 
 import com.amazonaws.*;
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.AWS3Signer;
-import com.amazonaws.auth.QueryStringSigner;
+import com.amazonaws.auth.*;
 import com.amazonaws.handlers.HandlerChainFactory;
 import com.amazonaws.handlers.RequestHandler;
 import com.amazonaws.http.StaxResponseHandler;
 import com.amazonaws.http.DefaultErrorResponseHandler;
-import com.amazonaws.http.HttpClient;
-import com.amazonaws.http.HttpMethodName;
-import com.amazonaws.http.HttpRequest;
+import com.amazonaws.http.ExecutionContext;
+import com.amazonaws.internal.StaticCredentialsProvider;
 import com.amazonaws.transform.Unmarshaller;
 import com.amazonaws.transform.StaxUnmarshallerContext;
 import com.amazonaws.transform.StandardErrorUnmarshaller;
@@ -45,30 +42,95 @@ import com.amazonaws.services.sns.model.transform.*;
  * using this client are blocking, and will not return until the service call
  * completes.
  * <p>
- * Amazon Simple Notification Service
+ * Amazon Simple Notification Service <p>
+ * This is the <i>Amazon Simple Notification Service (Amazon SNS) API Reference</i> . This guide provides detailed information about Amazon SNS actions,
+ * data types, parameters, and errors. For detailed information about Amazon SNS features and their associated API calls, go to the <a
+ * href="http://docs.amazonwebservices.com/sns/latest/gsg/"> Amazon SNS Getting Started Guide </a> .
+ * </p>
+ * <p>
+ * Amazon Simple Notification Service is a web service that enables you to build distributed web-enabled applications. Applications can use Amazon SNS to
+ * easily push real-time notification messages to interested subscribers over multiple delivery protocols. For more information about this product go to
+ * <a href="http://aws.amazon.com/sns/"> http://aws.amazon.com/sns </a> .
+ * </p>
+ * <p>
+ * Use the following links to get started using the <i>Amazon Simple Notification Service API Reference</i> :
+ * </p>
+ * 
+ * <ul>
+ * <li> <a href="http://docs.amazonwebservices.com/sns/latest/api/API_Operations.html"> Actions </a> : An alphabetical list of all Amazon SNS
+ * actions.</li>
+ * <li> <a href="http://docs.amazonwebservices.com/sns/latest/api/API_Types.html"> Data Types </a> : An alphabetical list of all Amazon SNS data
+ * types.</li>
+ * <li> <a href="http://docs.amazonwebservices.com/sns/latest/api/CommonParameters.html"> Common Parameters </a> : Parameters that all Query actions can
+ * use.</li>
+ * <li> <a href="http://docs.amazonwebservices.com/sns/latest/api/CommonErrors.html"> Common Errors </a> : Client and server errors that all actions can
+ * return.</li>
+ * <li> <a href="http://docs.amazonwebservices.com/general/latest/gr/index.html?rande.html"> Regions and Endpoints </a> : Itemized regions and endpoints
+ * for all AWS products.</li>
+ * <li> <a href="http://sns.us-east-1.amazonaws.com/doc/2010-03-31/SimpleNotificationService.wsdl"> WSDL Location </a> :
+ * http://sns.us-east-1.amazonaws.com/doc/2010-03-31/SimpleNotificationService.wsdl</li>
+ * 
+ * </ul>
  */
 public class AmazonSNSClient extends AmazonWebServiceClient implements AmazonSNS {
 
-    /**
-     * The AWS credentials (access key ID and secret key) to use when
-     * authenticating with AWS services.
-     */
-    private AWSCredentials awsCredentials;
+    /** Provider for AWS credentials. */
+    private AWSCredentialsProvider awsCredentialsProvider;
 
     /**
      * List of exception unmarshallers for all AmazonSNS exceptions.
      */
-    protected final List<Unmarshaller<AmazonServiceException, Node>> exceptionUnmarshallers;
+    protected final List<Unmarshaller<AmazonServiceException, Node>> exceptionUnmarshallers
+            = new ArrayList<Unmarshaller<AmazonServiceException, Node>>();
 
-    /** Low level client for sending requests to AWS services. */
-    protected final HttpClient client;
-
-    /** Optional request handlers for additional request processing. */
-    private List<RequestHandler> requestHandlers = new ArrayList<RequestHandler>();
     
     /** AWS signer for authenticating requests. */
     private QueryStringSigner signer;
 
+
+    /**
+     * Constructs a new client to invoke service methods on
+     * AmazonSNS.  A credentials provider chain will be used
+     * that searches for credentials in this order:
+     * <ul>
+     *  <li> Environment Variables - AWS_ACCESS_KEY_ID and AWS_SECRET_KEY </li>
+     *  <li> Java System Properties - aws.accessKeyId and aws.secretKey </li>
+     *  <li> Instance profile credentials delivered through the Amazon EC2 metadata service </li>
+     * </ul>
+     *
+     * <p>
+     * All service calls made using this new client object are blocking, and will not
+     * return until the service call completes.
+     *
+     * @see DefaultAWSCredentialsProvider
+     */
+    public AmazonSNSClient() {
+        this(new DefaultAWSCredentialsProviderChain(), new ClientConfiguration());
+    }
+
+    /**
+     * Constructs a new client to invoke service methods on
+     * AmazonSNS.  A credentials provider chain will be used
+     * that searches for credentials in this order:
+     * <ul>
+     *  <li> Environment Variables - AWS_ACCESS_KEY_ID and AWS_SECRET_KEY </li>
+     *  <li> Java System Properties - aws.accessKeyId and aws.secretKey </li>
+     *  <li> Instance profile credentials delivered through the Amazon EC2 metadata service </li>
+     * </ul>
+     *
+     * <p>
+     * All service calls made using this new client object are blocking, and will not
+     * return until the service call completes.
+     *
+     * @param clientConfiguration The client configuration options controlling how this
+     *                       client connects to AmazonSNS
+     *                       (ex: proxy settings, retry counts, etc.).
+     *
+     * @see DefaultAWSCredentialsProvider
+     */
+    public AmazonSNSClient(ClientConfiguration clientConfiguration) {
+        this(new DefaultAWSCredentialsProviderChain(), clientConfiguration);
+    }
 
     /**
      * Constructs a new client to invoke service methods on
@@ -102,9 +164,49 @@ public class AmazonSNSClient extends AmazonWebServiceClient implements AmazonSNS
      */
     public AmazonSNSClient(AWSCredentials awsCredentials, ClientConfiguration clientConfiguration) {
         super(clientConfiguration);
-        this.awsCredentials = awsCredentials;
+        this.awsCredentialsProvider = new StaticCredentialsProvider(awsCredentials);
+        init();
+    }
 
-        exceptionUnmarshallers = new ArrayList<Unmarshaller<AmazonServiceException, Node>>();
+    /**
+     * Constructs a new client to invoke service methods on
+     * AmazonSNS using the specified AWS account credentials provider.
+     *
+     * <p>
+     * All service calls made using this new client object are blocking, and will not
+     * return until the service call completes.
+     *
+     * @param awsCredentialsProvider
+     *            The AWS credentials provider which will provide credentials
+     *            to authenticate requests with AWS services.
+     */
+    public AmazonSNSClient(AWSCredentialsProvider awsCredentialsProvider) {
+        this(awsCredentialsProvider, new ClientConfiguration());
+    }
+
+    /**
+     * Constructs a new client to invoke service methods on
+     * AmazonSNS using the specified AWS account credentials
+     * provider and client configuration options.
+     *
+     * <p>
+     * All service calls made using this new client object are blocking, and will not
+     * return until the service call completes.
+     *
+     * @param awsCredentialsProvider
+     *            The AWS credentials provider which will provide credentials
+     *            to authenticate requests with AWS services.
+     * @param clientConfiguration The client configuration options controlling how this
+     *                       client connects to AmazonSNS
+     *                       (ex: proxy settings, retry counts, etc.).
+     */
+    public AmazonSNSClient(AWSCredentialsProvider awsCredentialsProvider, ClientConfiguration clientConfiguration) {
+        super(clientConfiguration);
+        this.awsCredentialsProvider = awsCredentialsProvider;
+        init();
+    }
+
+    private void init() {
         exceptionUnmarshallers.add(new AuthorizationErrorExceptionUnmarshaller());
         exceptionUnmarshallers.add(new TopicLimitExceededExceptionUnmarshaller());
         exceptionUnmarshallers.add(new NotFoundExceptionUnmarshaller());
@@ -115,11 +217,12 @@ public class AmazonSNSClient extends AmazonWebServiceClient implements AmazonSNS
         exceptionUnmarshallers.add(new StandardErrorUnmarshaller());
         setEndpoint("sns.us-east-1.amazonaws.com");
 
-        signer = new QueryStringSigner(awsCredentials);
+        signer = new QueryStringSigner();
+        
 
-        requestHandlers = new HandlerChainFactory().newRequestHandlerChain(
-                "/com/amazonaws/services/sns/request.handlers");
-        client = new HttpClient(clientConfiguration);
+        HandlerChainFactory chainFactory = new HandlerChainFactory();
+		requestHandlers.addAll(chainFactory.newRequestHandlerChain(
+                "/com/amazonaws/services/sns/request.handlers"));
     }
 
     
@@ -199,7 +302,7 @@ public class AmazonSNSClient extends AmazonWebServiceClient implements AmazonSNS
      * endpoint a confirmation message. To actually create a subscription,
      * the endpoint owner must call the ConfirmSubscription action with the
      * token from the confirmation message. Confirmation tokens are valid for
-     * twenty-four hours.
+     * three days.
      * </p>
      *
      * @param subscribeRequest Container for the necessary parameters to
@@ -318,10 +421,10 @@ public class AmazonSNSClient extends AmazonWebServiceClient implements AmazonSNS
     /**
      * <p>
      * The ListSubscriptions action returns a list of the requester's
-     * subscriptions. Each call returns a limited list of subscriptions. If
-     * there are more subscriptions, a NextToken is also returned. Use the
-     * NextToken parameter in a new ListSubscriptions call to get further
-     * results.
+     * subscriptions. Each call returns a limited list of subscriptions, up
+     * to 100. If there are more subscriptions, a NextToken is also returned.
+     * Use the NextToken parameter in a new ListSubscriptions call to get
+     * further results.
      * </p>
      *
      * @param listSubscriptionsRequest Container for the necessary parameters
@@ -346,6 +449,35 @@ public class AmazonSNSClient extends AmazonWebServiceClient implements AmazonSNS
             throws AmazonServiceException, AmazonClientException {
         Request<ListSubscriptionsRequest> request = new ListSubscriptionsRequestMarshaller().marshall(listSubscriptionsRequest);
         return invoke(request, new ListSubscriptionsResultStaxUnmarshaller());
+    }
+    
+    /**
+     * <p>
+     * The SetSubscriptionAttributes action allows a subscription owner to
+     * set an attribute of the topic to a new value.
+     * </p>
+     *
+     * @param setSubscriptionAttributesRequest Container for the necessary
+     *           parameters to execute the SetSubscriptionAttributes service method on
+     *           AmazonSNS.
+     * 
+     * @throws NotFoundException
+     * @throws AuthorizationErrorException
+     * @throws InternalErrorException
+     * @throws InvalidParameterException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonSNS indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public void setSubscriptionAttributes(SetSubscriptionAttributesRequest setSubscriptionAttributesRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        Request<SetSubscriptionAttributesRequest> request = new SetSubscriptionAttributesRequestMarshaller().marshall(setSubscriptionAttributesRequest);
+        invoke(request, null);
     }
     
     /**
@@ -413,10 +545,42 @@ public class AmazonSNSClient extends AmazonWebServiceClient implements AmazonSNS
     
     /**
      * <p>
+     * The GetSubscriptionAttribtues action returns all of the properties of
+     * a subscription.
+     * </p>
+     *
+     * @param getSubscriptionAttributesRequest Container for the necessary
+     *           parameters to execute the GetSubscriptionAttributes service method on
+     *           AmazonSNS.
+     * 
+     * @return The response from the GetSubscriptionAttributes service
+     *         method, as returned by AmazonSNS.
+     * 
+     * @throws NotFoundException
+     * @throws AuthorizationErrorException
+     * @throws InternalErrorException
+     * @throws InvalidParameterException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonSNS indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public GetSubscriptionAttributesResult getSubscriptionAttributes(GetSubscriptionAttributesRequest getSubscriptionAttributesRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        Request<GetSubscriptionAttributesRequest> request = new GetSubscriptionAttributesRequestMarshaller().marshall(getSubscriptionAttributesRequest);
+        return invoke(request, new GetSubscriptionAttributesResultStaxUnmarshaller());
+    }
+    
+    /**
+     * <p>
      * The ListTopics action returns a list of the requester's topics. Each
-     * call returns a limited list of topics. If there are more topics, a
-     * NextToken is also returned. Use the NextToken parameter in a new
-     * ListTopics call to get further results.
+     * call returns a limited list of topics, up to 100. If there are more
+     * topics, a NextToken is also returned. Use the NextToken parameter in a
+     * new ListTopics call to get further results.
      * </p>
      *
      * @param listTopicsRequest Container for the necessary parameters to
@@ -481,8 +645,8 @@ public class AmazonSNSClient extends AmazonWebServiceClient implements AmazonSNS
      * <p>
      * The ListSubscriptionsByTopic action returns a list of the
      * subscriptions to a specific topic. Each call returns a limited list of
-     * subscriptions. If there are more subscriptions, a NextToken is also
-     * returned. Use the NextToken parameter in a new
+     * subscriptions, up to 100. If there are more subscriptions, a NextToken
+     * is also returned. Use the NextToken parameter in a new
      * ListSubscriptionsByTopic call to get further results.
      * </p>
      *
@@ -549,10 +713,10 @@ public class AmazonSNSClient extends AmazonWebServiceClient implements AmazonSNS
     /**
      * <p>
      * The ListSubscriptions action returns a list of the requester's
-     * subscriptions. Each call returns a limited list of subscriptions. If
-     * there are more subscriptions, a NextToken is also returned. Use the
-     * NextToken parameter in a new ListSubscriptions call to get further
-     * results.
+     * subscriptions. Each call returns a limited list of subscriptions, up
+     * to 100. If there are more subscriptions, a NextToken is also returned.
+     * Use the NextToken parameter in a new ListSubscriptions call to get
+     * further results.
      * </p>
      * 
      * @return The response from the ListSubscriptions service method, as
@@ -577,9 +741,9 @@ public class AmazonSNSClient extends AmazonWebServiceClient implements AmazonSNS
     /**
      * <p>
      * The ListTopics action returns a list of the requester's topics. Each
-     * call returns a limited list of topics. If there are more topics, a
-     * NextToken is also returned. Use the NextToken parameter in a new
-     * ListTopics call to get further results.
+     * call returns a limited list of topics, up to 100. If there are more
+     * topics, a NextToken is also returned. Use the NextToken parameter in a
+     * new ListTopics call to get further results.
      * </p>
      * 
      * @return The response from the ListTopics service method, as returned
@@ -601,7 +765,6 @@ public class AmazonSNSClient extends AmazonWebServiceClient implements AmazonSNS
         return listTopics(new ListTopicsRequest());
     }
     
-
 
     /**
      * Returns additional metadata for a previously executed successful, request, typically used for
@@ -629,25 +792,20 @@ public class AmazonSNSClient extends AmazonWebServiceClient implements AmazonSNS
             request.addParameter(entry.getKey(), entry.getValue());
         }
 
-        // Apply any additional service specific request handlers that need to be run
-        if (requestHandlers != null) {
-            for (RequestHandler requestHandler : requestHandlers) {
-                request = requestHandler.handleRequest(request);
-            }
+        AWSCredentials credentials = awsCredentialsProvider.getCredentials();
+        AmazonWebServiceRequest originalRequest = request.getOriginalRequest();
+        if (originalRequest != null && originalRequest.getRequestCredentials() != null) {
+        	credentials = originalRequest.getRequestCredentials();
         }
 
-        try {
-            signer.sign(request);
-        } catch (SignatureException e) {
-            throw new AmazonServiceException("Unable to sign request", e);
-        }
-
-        HttpRequest httpRequest = convertToHttpRequest(request, HttpMethodName.POST);
+        ExecutionContext executionContext = createExecutionContext();
+        executionContext.setSigner(signer);
+        executionContext.setCredentials(credentials);
         
         StaxResponseHandler<X> responseHandler = new StaxResponseHandler<X>(unmarshaller);
         DefaultErrorResponseHandler errorResponseHandler = new DefaultErrorResponseHandler(exceptionUnmarshallers);
 
-        return (X)client.execute(httpRequest, responseHandler, errorResponseHandler);
+        return (X)client.execute(request, responseHandler, errorResponseHandler, executionContext);
     }
 }
         
